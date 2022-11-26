@@ -1,0 +1,94 @@
+version: '3.7'
+
+services:
+    cms:
+        container_name: ${PROJECT_NAME}_cms
+        build:
+            context: .
+            dockerfile: ./services/cms/Dockerfile.dev
+            args:
+                ROOT: ./services/cms
+        environment:
+            ENV: ${ENV}
+            DB_NAME: ${DB_NAME}
+            DB_USER: ${DB_USER}
+            DB_PASSWORD: ${DB_PASSWORD}
+            SITE_NAME: ${SITE_NAME}
+            SITE_MAIL: ${SITE_MAIL}
+            ACCOUNT_NAME: ${ACCOUNT_NAME}
+            ACCOUNT_MAIL: ${ACCOUNT_MAIL}
+            DRUPAL_HASH_SALT: ${DRUPAL_HASH_SALT}
+        depends_on:
+            - db
+        # networks:
+        #     - internal
+        #     - external
+        volumes:
+            # - cms-data:/var/www/html
+            - ./services/cms/web:/opt/drupal/web
+            # - ./services/cms/web/core:/opt/drupal/web/core
+            - cms-core:/opt/drupal/web/core
+
+    db:
+        container_name: ${PROJECT_NAME}_db
+        build:
+            context: .
+            dockerfile: ./services/db/Dockerfile.dev
+            args:
+                ROOT: ./services/db
+        command: --default-authentication-plugin=mysql_native_password
+        environment:
+            # PGDATA: /var/lib/postgresql/data/pgdata
+            # POSTGRES_DB: ${DB_NAME}
+            # POSTGRES_USER: ${DB_USER}
+            # POSTGRES_PASSWORD: ${DB_PASSWORD}
+            MYSQL_DATABASE: ${DB_NAME}
+            MYSQL_USER: ${DB_USER}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+        # networks:
+        #     - internal
+        ports:
+            # - ${DB_PORT}:5432
+            - ${DB_PORT}:3306
+        volumes:
+            # - db-data:/var/lib/mysql
+            - ./services/db/data/mydata:/var/lib/mysql
+            # - ./services/db/data:/var/lib/postgresql/data
+            # - ./services/db/init:/docker-entrypoint-initdb.d
+
+    email:
+        container_name: ${PROJECT_NAME}_email
+        image: mailhog/mailhog
+        ports:
+            - ${EMAIL_CLIENT_PORT}:8025
+
+    server:
+        container_name: ${PROJECT_NAME}_server
+        build:
+            context: .
+            dockerfile: ./services/server/Dockerfile.dev
+            args:
+                ROOT: ./services/server
+        depends_on:
+            - cms
+        # networks:
+        #     - external
+        ports:
+            - ${PROJECT_PORT}:80
+        volumes:
+            # - cms-data:/var/www/html
+            - ./services/cms/web:/var/www/html
+            - cms-core:/var/www/html/core
+            - ./services/server/config:/etc/nginx/conf.d
+
+# networks:
+#     external:
+#         driver: bridge
+#     internal:
+#         driver: bridge
+
+volumes:
+    cms-core:
+    # cms-data:
+    db-data:
