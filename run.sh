@@ -55,20 +55,20 @@ echo "$PREFIX: $COMPOSE_FILE"
 
 if [ $MODE = "--build" ]; then
     echo "$PREFIX: Building... $ARGS"
-    docker compose -f $COMPOSE_FILE build $ARGS
+    docker-compose -f $COMPOSE_FILE build $ARGS
 fi
 
 if [ $MODE = "--start" ]; then
     echo "$PREFIX: Starting... $ARGS"
-    docker compose -f $COMPOSE_FILE up -d $ARGS
+    docker-compose -f $COMPOSE_FILE up -d $ARGS
 fi
 
 if [ $MODE = "--stop" ]; then
     echo "$PREFIX: Stopping... $ARGS"
-    docker compose -f $COMPOSE_FILE down $ARGS
+    docker-compose -f $COMPOSE_FILE down $ARGS
 fi
 
 if [ $MODE = "--log" ]; then
     echo "$PREFIX: Logging... $ARGS"
-    docker compose -f $COMPOSE_FILE logs -f $ARGS
+    docker-compose -f $COMPOSE_FILE logs -f $ARGS
 fi
