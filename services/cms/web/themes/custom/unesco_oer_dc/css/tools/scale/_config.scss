@@ -1,0 +1,100 @@
+// # Scale Configuration Tools
+// ===========================
+
+
+// ## Variables
+// ------------
+
+/// Defines the default font-size used by most browsers.
+///
+/// @group config
+/// @access private
+/// @type number
+$_font-size-browser-default: 16px;
+
+/// Defines common ratios that can be accessed by name.
+/// Numeric ratios (like the musical scale) are exponential - while a 'linear' scale uses
+/// simple multipliers.
+/// This variable should not be edited. Use the `$ratios` variable to add your own ratios,
+/// or aliases for built-in ratios.
+///
+/// @group config
+/// @access private
+/// @type map
+$_ratios-default: (
+    'octave': 2,
+    'major-seventh': 15 / 8,
+    'minor-seventh': 16 / 9,
+    'major-sixth': 5 / 3,
+    'golden': 1.618,
+    'minor-sixth': 8 / 5,
+    'fifth': 3 / 2,
+    'augmented-fourth': 45 / 32,
+    'fourth': 4 / 3,
+    'major-third': 5 / 4,
+    'minor-third': 6 / 5,
+    'major-second': 9 / 8,
+    'minor-second': 16 / 15,
+    'multiple': 'linear',
+);
+
+/// Define your custom ratios, or aliases for built-in ratios.
+///
+/// @group config
+/// @access public
+/// @type map
+///
+/// @example scss - Sample ratios
+///     $ratios: (
+///         'line-height': 1 / 3,
+///         'headings': 'linear',
+///         'golden': 1.61803399,
+///     );
+$ratios: () !default;
+
+/// Define the default units to use when accessing sizes (defaults to `rem`).
+///
+/// @group config
+/// @access public
+/// @type string
+$default-units: 'rem' !default;
+
+/// Define your custom palette of common sizes to be used across your project,
+/// in the format "name: size" or "name: basis (ratio: multiplier)".
+/// If your map includes a value for `root`, it will be used in relative-size unit conversions.
+///
+/// @group config
+/// @access public
+/// @type string
+/// @property 'root' [16px] - The root font size for your document, used for calculating
+///     relative sizes.
+$sizes: (
+    'root': $_font-size-browser-default,
+    'text': 'root',
+    'rhythm': 'text' ('fifth': 1),
+    'h1': 'text' ('linear': 4),
+    'h2': 'text' ('linear': 3),
+    'h3': 'text' ('linear': 2),
+) !default;
+
+
+// ## Functions
+// ------------
+
+/// Retrieve a ratio by name from either the `$_ratios-default` or user `$ratios` configurations.
+///
+/// @group config
+/// @access private
+/// @param {string | number} $ratio - The key-name or value of a ratio.
+/// @returns {number | string} - The numeric value of a ratio.
+@function _get-ratio($ratio) {
+    $ratio-options: map-merge($_ratios-default, $ratios);
+    $new-ratio: map-get($ratio-options, $ratio) or $ratio;
+
+    // In case `$ratio` is alias, recursively search `$ratio-options` map.
+    @if ($ratio != $new-ratio) and map-has-key($ratio-options, $new-ratio) {
+        $new-ratio: _get-ratio($new-ratio);
+    }
+
+    @return $new-ratio;
+}

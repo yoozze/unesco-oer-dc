@@ -1,0 +1,71 @@
+// # Pseudo Element Tools
+// ======================
+
+
+// ## Mixins
+// ---------
+
+/// Generate `before` pseudo-element from passed block of styles and `content` property value.
+/// `content` with falsy value is ignored.
+///
+/// @group pseudo
+/// @access public
+/// @param {string} $content - A value for the `content` property.
+/// @outputs `before` pseudo-element with passed block of styles and given `content` value.
+@mixin before($content: ' ') {
+    &:before {
+        @if $content {
+            content: $content;
+        }
+        @content;
+    }
+}
+
+/// Generate `after` pseudo-element from passed block of styles and `content` property value.
+/// `content` with falsy value is ignored.
+///
+/// @group pseudo
+/// @access public
+/// @param {string} $content - A value for the `content` property.
+/// @outputs `after` pseudo-element with passed block of styles and given `content` value.
+@mixin after($content: ' ') {
+    &:after {
+        @if $content {
+            content: $content;
+        }
+        @content;
+    }
+}
+
+/// Generate `before` and `after` pseudo-elements from passed block of styles and
+/// `content` property value(s).
+/// `content` with falsy value is ignored.
+///
+/// @group pseudo
+/// @access public
+/// @param {string} $content ['“' '”'] - Value(s) for the `content` property.
+///     If a list of strings is provided, then the first string is used for the `before`
+///     and second for the `after` pseudo-element.
+/// @outputs `before` and `after` pseudo-elements with passed block of styles
+///     and given `content` value(s).
+@mixin wrap-content($content: '“' '”') {
+    $before: if(type-of($content) == 'list', nth($content, 1), $content);
+
+    &:before,
+    &:after {
+        @if $before {
+            content: $before;
+        }
+        @content;
+    }
+
+    @if length($content) > 1 {
+        $after: nth($content, 2);
+
+        &:after {
+            @if $after {
+                content: $after;
+            }
+        }
+    }
+}

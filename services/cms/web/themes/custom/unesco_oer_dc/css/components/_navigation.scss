@@ -1,0 +1,89 @@
+// # Navigation
+// ============
+
+.c-navigation {
+    ul {
+        list-style-type: none;
+        display: flex;
+    }
+}
+
+.c-navigation--secondary {
+    margin-left: auto;
+
+    ul {
+        padding-left: 0;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    li {
+        position: relative;
+        padding-right: 1px;
+
+        @include after('') {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            height: size(14px);
+            width: 1px;
+            margin-top: negative(7px);
+            background-color: rgba(255, 255, 255, 0.24);
+        }
+
+        &:last-child {
+            padding-right: 0;
+            @include after(none);
+        }
+    }
+
+    a {
+        display: block;
+        position: relative;
+        padding: size(1.25) size(2);
+        color: color('font-light');
+        text-decoration: none;
+
+        &:hover,
+        &:focus {
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+
+        &.is-active {
+            background-color: rgba(255, 255, 255, 0.08);
+
+            @include before('') {
+                position: absolute;
+                right: 0;
+                top: 0;
+                left: 0;
+                height: size(3px);
+                background-color: color('orange');
+            }
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}
+
+.c-navigation--main {
+    ul {
+        display: flex;
+        height: 100%;
+        padding-left: 0;
+        margin-top: 0;
+        margin-bottom: 0;
+        margin-left: size(8);
+
+        a {
+            display: block;
+            padding: size(20px) size(2);
+        }
+    }
+}
+
+.c-navigation--account {
+    margin-left: auto;
+}

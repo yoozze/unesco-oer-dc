@@ -1,0 +1,64 @@
+// # Grid Tools
+// ============
+
+
+// ## Mixins
+// ---------
+
+/// Set grid size, i.e. number of columns.
+///
+/// @group grid
+/// @access public
+/// @param {number} $size - Grid size.
+/// @outputs Grid size styles.
+@mixin grid-size($size) {
+    @if $size > 0 {
+        width: 100% / $size;
+    } @else {
+        width: auto;
+    }
+
+    &:nth-child(n) {
+        clear: none;
+    }
+
+    @if $size > 0 {
+        &:nth-child(#{$size}n+1) {
+            clear: left;
+        }
+    }
+}
+
+/// Set grid size, i.e. number of columns, and hide all items with indices greater than row size.
+///
+/// @group grid
+/// @access public
+/// @param {number} $size - Grid size.
+/// @outputs Grid size styles.
+@mixin grid-row-size($size) {
+    @if $size > 0 {
+        width: 100% / $size;
+    } @else {
+        width: auto;
+    }
+
+    &:nth-child(n) {
+        clear: none;
+    }
+
+    @if $size > 0 {
+        &:nth-child(#{$size}n+1) {
+            clear: left;
+        }
+    }
+
+    .js & {
+        &:nth-child(n) {
+            display: block;
+        }
+
+        &:nth-child(n+#{$size + 1}) {
+            display: none;
+        }
+    }
+}

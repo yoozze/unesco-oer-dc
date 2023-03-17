@@ -1,0 +1,129 @@
+// # Size Tools
+// ============
+
+
+// ## Functions
+// ------------
+
+/// Access a named size in your `$sizes` map, using any comparable units.
+///
+/// @group size
+/// @access public
+/// @param {string | number | list} $size - The name of a size in your configuration
+///     (e.g. `line-height`), or a length to be converted into different units (e.g. `24px`),
+///     or a base-size and adjustments to be made (e.g. `24px ('minor-third': 2)`).
+///     For the sake of consistent documentation, keeping adjustments in the configuration
+///     is recommend whenever possible.
+/// @param {string} $unit [$default-units] - The desired units for the output (e.g. `px` or `rem`).
+/// @param {number} $from-context [$_font-size-browser-default] - When converting FROM
+///     relative units, the absolute length (in px) to which $length refers - e.g. for `$lengths`
+///     in em units, would normally be the font-size of the current element.
+/// @param {number} $to-context [$from-context] - For converting TO relative units,
+///     the absolute length in px to which the output value will refer.
+///     Defaults to the same as `$from-context`, since it is rarely needed.
+/// @returns {number} - The calculated length, in the requested units.
+/// @throws If calculated value is not a valid CSS length.
+@function size(
+    $size,
+    $unit: $default-units,
+    $from-context: map-get($sizes, 'root') or $_font-size-browser-default,
+    $to-context: $from-context
+) {
+    // Parse arguments.
+    $size: map-get($sizes, $size) or $size;
+    $base: nth($size, 1);
+    $adjust: if(length($size) > 1, nth($size, 2), ());
+
+    // In case `$size` is alias, recursively search `$sizes` map.
+    $size: if(map-has-key($sizes, $base), size($base, false), $base);
+
+    // Multiply unitless number by base size.
+    @if type-of($size) == 'number' and unitless($size) {
+        $base-size: map-get($sizes, 'base') or $_font-size-browser-default;
+        $size: $size * $base-size;
+    }
+
+    // Use modular scale to adjust the size if necessary.
+    @each $ratio, $value in $adjust {
+        $ratio: _get-ratio($ratio);
+        @if $ratio == 'linear' {
+            $size: $size * $value;
+        } @else {
+            $multiplier: _simple-pow($ratio, $value);
+            //$size: $size * $multiplier;
+            $size: round($size * $multiplier);
+        }
+    }
+
+    // Validate result.
+    @if type-of($size) != 'number' {
+        @error '#{$size} is not a valid length for CSS.';
+    }
+
+    // Convert result to requested units.
+    @if $unit and not index('ch' 'vw' 'vh' 'vmin', unit($size)) {
+        $size: convert-units($size, $unit, $from-context, $to-context);
+    }
+
+    @return $size;
+}
+
+/// Return the negative value of any length, in comparable units.
+///
+/// @group size
+/// @access public
+/// @param {string | number | list} $size - The name of a size in your configuration
+///     (e.g. `line-height`), or a length to be converted into different units (e.g. `24px`),
+///     or a base-size and adjustments to be made (e.g. `24px ('minor-third': 2)`).
+///     For the sake of consistent documentation, keeping adjustments in the configuration
+///     is recommend whenever possible.
+/// @param {string} $unit [$default-units] - The desired units for the output (e.g. `px` or `rem`).
+/// @param {number} $from-context [$_font-size-browser-default] - When converting FROM
+///     relative units, the absolute length (in px) to which $length refers - e.g. for `$lengths`
+///     in em units, would normally be the font-size of the current element.
+/// @param {number} $to-context [$from-context] - For converting TO relative units,
+///     the absolute length in px to which the output value will refer.
+///     Defaults to the same as `$from-context`, since it is rarely needed.
+/// @returns {number} - The calculated negative length, in the requested units.
+@function negative(
+    $size,
+    $unit: $default-units,
+    $from-context: map-get($sizes, 'root') or $_font-size-browser-default,
+    $to-context: $from-context
+) {
+    @return 0 - size($size, $unit, $from-context, $to-context);
+}
+
+
+// ## Mixins
+// ---------
+
+/// Create a square by setting equal CSS `height` and `width` properties
+/// with the given size & unit value.
+///
+/// @group size
+/// @access public
+/// @param {string | number | list} $size - The name of a size in your configuration
+///     (e.g. `line-height`), or a length to be converted into different units (e.g. `24px`),
+///     or a base-size and adjustments to be made (e.g. `24px ('minor-third': 2)`).
+///     For the sake of consistent documentation, keeping adjustments in the configuration
+///     is recommend whenever possible.
+/// @param {string} $unit [$default-units] - The desired units for the output (e.g. `px` or `rem`).
+/// @param {number} $from-context [$_font-size-browser-default] - When converting FROM
+///     relative units, the absolute length (in px) to which $length refers - e.g. for `$lengths`
+///     in em units, would normally be the font-size of the current element.
+/// @param {number} $to-context [$from-context] - For converting TO relative units,
+///     the absolute length in px to which the output value will refer.
+///     Defaults to the same as `$from-context`, since it is rarely needed.
+/// @outputs Equal CSS height and width properties, set to the given size and units.
+@mixin square(
+    $size,
+    $unit: $default-units,
+    $from-context: map-get($sizes, 'root') or $_font-size-browser-default,
+    $to-context: $from-context
+) {
+    $size: size($size, $unit, $from-context, $to-context);
+
+    width: $size;
+    height: $size;
+}

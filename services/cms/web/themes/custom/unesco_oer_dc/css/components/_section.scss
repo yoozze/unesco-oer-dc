@@ -1,0 +1,11 @@
+// # Section
+// =========
+
+.c-section {
+    display: flex;
+    justify-content: center;
+}
+
+.c-section--alt {
+    background-color: color('bg-section-alt');
+}

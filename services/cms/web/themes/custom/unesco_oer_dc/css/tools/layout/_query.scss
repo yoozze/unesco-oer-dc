@@ -1,0 +1,125 @@
+// # Media Query Tools
+// ===================
+
+
+// ## Variables
+// ------------
+
+/// @group query
+/// @access private
+/// @type map
+//$_query-context: ();
+
+/// Defines if media queries should be enabled.
+///
+/// @group query
+/// @access public
+/// @type bool
+$mq-enabled: true !default;;
+
+/// Defines if relative units (`em`) should be used for media queries.
+///
+/// @group query
+/// @access public
+/// @type bool
+$relative-mq-units: false !default;
+
+// ## Functions
+// ------------
+
+/// Get breakpoint value.
+///
+/// @group query
+/// @access private
+/// @param {string | number | list} $break - Breakpoint reference name or value
+///     with possible size transformations.
+/// @returns {$number} - Numeric breakpoint value.
+@function _get-breakpoint($break) {
+    @if $relative-mq-units {
+        @return browser-ems($break);
+    } @else {
+        @return size($break, 'px');
+    }
+
+    @return $break;
+}
+
+
+// ## Mixins
+// ---------
+
+/// Output passed block of styles wrapped with given media query.
+///
+/// @group query
+/// @access private
+/// @param {string} $name - Media query name.
+/// @param {string} $query - Media query.
+/// @outputs Given media query with passed block of styles.
+@mixin _apply-query(/*$name, */$query) {
+    //$context: ($name: $query);
+    //$context: map-merge($_query-context, $context);
+    //$_query-context: $context !global;
+
+    @if $mq-enabled {
+        @media only screen and #{$query} {
+            @content;
+        }
+    }
+
+    //$_query-context: map-remove($_query-context, $name) !global;
+}
+
+/// Output styles for media devices with given size property `$prop` below given `$max` value.
+///
+/// @group query
+/// @access public
+/// @param {string} $max - Upper limit for media device size.
+/// @param {string} $prop - Media device size property (i.e. width or height).
+/// @outputs Styles for media devices with given size property `$prop` below given `$max` value.
+@mixin below($max, $prop: 'width') {
+    //$name: 'below `#{$max}`';
+    $max: _get-breakpoint(size($max, 'px') - 1);
+    $query: '(max-#{$prop}: #{$max})';
+
+    @include _apply-query(/*$name, */$query) {
+        @content;
+    }
+}
+
+/// Output styles for media devices with given size property `$prop` above given `$min` value.
+///
+/// @group query
+/// @access public
+/// @param {string} $min - Lower limit for media device size.
+/// @param {string} $prop - Media device size property (i.e. width or height).
+/// @outputs Styles for media devices with given size property `$prop` above given `$min` value.
+@mixin above($min, $prop: 'width') {
+    //$name: 'above `#{$min}`';
+    $min: _get-breakpoint($min);
+    $query: '(min-#{$prop}: #{$min})';
+
+    @include _apply-query(/*$name, */$query) {
+        @content;
+    }
+}
+
+/// Output styles for media devices with given size property `$prop`
+/// between given values `$min` and `$max`.
+///
+/// @group query
+/// @access public
+/// @param {string} $min - Lower limit for media device size.
+/// @param {string} $max - Upper limit for media device size.
+/// @param {string} $prop - Media device size property (i.e. width or height).
+/// @outputs Styles for media devices with given size property `$prop`
+///     between given values `$min` and `$max`.
+@mixin between($min, $max, $prop: 'width') {
+    //$name: 'between `#{$min}` and `#{$max}`';
+    $min: _get-breakpoint($min);
+    $max: _get-breakpoint(size($max, 'px') - 1);
+    $query: '(min-#{$prop}: #{$min}) and (max-#{$prop}: #{$max})';
+
+    @include _apply-query(/*$name, */$query) {
+        @content;
+    }
+}

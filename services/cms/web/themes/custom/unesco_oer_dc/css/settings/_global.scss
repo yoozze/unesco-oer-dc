@@ -1,0 +1,315 @@
+// # Global settings
+// =================
+
+// ## Colors
+// ---------
+
+
+$colors: (
+    'light': #fff,
+    'dark': #000,
+
+
+    'navy-blue': #001b59,
+    'navy-blue-99': #fefbff,
+    'navy-blue-95': #eff0ff,
+    'navy-blue-90': #dce1ff,
+    'navy-blue-80': #b5c4ff,
+    'navy-blue-70': #8fa8fd,
+    'navy-blue-60': #748de0,
+    'navy-blue-50': #5a73c4,
+    'navy-blue-40': #405aa9,
+    'navy-blue-30': #264190,
+    'navy-blue-20': #042978,
+    'navy-blue-10': #00164d,
+
+    'aqua': #00aaa0,
+    'aqua-99': #f2fffc,
+    'aqua-95': #b2fff6,
+    'aqua-90': #71f7eb,
+    'aqua-80': #50dbcf,
+    'aqua-70': #26bfb4,
+    'aqua-60': #00a298,
+    'aqua-50': #00867e,
+    'aqua-40': #006a64,
+    'aqua-30': #00504b,
+    'aqua-20': #003733,
+    'aqua-10': #00201e,
+
+    'red': #f50019,
+    'red-99': #fffbff,
+    'red-95': #ffedea,
+    'red-90': #ffdad6,
+    'red-80': #ffb4ab,
+    'red-70': #ff897d,
+    'red-60': #ff5449,
+    'red-50': #ef0018,
+    'red-40': #c00011,
+    'red-30': #93000a,
+    'red-20': #690005,
+    'red-10': #410002,
+
+    'orange': #e66e23,
+    'orange-99': #fffbff,
+    'orange-95': #ffede6,
+    'orange-90': #ffdbcb,
+    'orange-80': #ffb691,
+    'orange-70': #ff8d4d,
+    'orange-60': #e66e23,
+    'orange-50': #c55604,
+    'orange-40': #9e4300,
+    'orange-30': #783100,
+    'orange-20': #552100,
+    'orange-10': #341100,
+
+    'blue': #0069b4,
+    'blue-99': #fdfcff,
+    'blue-95': #eaf1ff,
+    'blue-90': #d2e4ff,
+    'blue-80': #a0c9ff,
+    'blue-70': #68afff,
+    'blue-60': #4a94e2,
+    'blue-50': #287ac6,
+    'blue-40': #0061a6,
+    'blue-30': #00497f,
+    'blue-20': #00325a,
+    'blue-10': #001c37,
+
+    'fuchsia': #b7265e,
+    'fuchsia-99': #fffbff,
+    'fuchsia-95': #ffecef,
+    'fuchsia-90': #ffd9e0,
+    'fuchsia-80': #ffb1c4,
+    'fuchsia-70': #ff85a7,
+    'fuchsia-60': #f5578c,
+    'fuchsia-50': #d33d73,
+    'fuchsia-40': #b2215a,
+    'fuchsia-30': #8f0043,
+    'fuchsia-20': #66002d,
+    'fuchsia-10': #3f001a,
+
+    'green': #5aaa46,
+    'green-99': #f7ffee,
+    'green-95': #cbffb7,
+    'green-90': #a2f789,
+    'green-80': #87da70,
+    'green-70': #6dbe57,
+    'green-60': #53a23f,
+    'green-50': #398728,
+    'green-40': #1c6d0d,
+    'green-30': #095300,
+    'green-20': #053900,
+    'green-10': #022100,
+
+    'abbey': #58595b,
+    'abbey-99': #fdfcfe,
+    'abbey-95': #f1f0f2,
+    'abbey-90': #e3e2e4,
+    'abbey-80': #c6c6c8,
+    'abbey-70': #ababad,
+    'abbey-60': #909093,
+    'abbey-50': #767779,
+    'abbey-40': #5d5e60,
+    'abbey-30': #464749,
+    'abbey-20': #2f3032,
+    'abbey-10': #1a1c1d,
+
+    'chathams-blue': #174e86,
+
+    'font-light': 'light',
+    'font-dark': 'dark',
+
+    'bg-section': 'light',
+    'bg-section-alt': 'abbey-95',
+
+    'divider': 'abbey-80',
+);
+
+// ## Typography
+// -------------
+
+$fonts: (
+    'display-large': (
+        'font-family': (
+            'Montserrat', sans-serif,
+        ),
+        'font-style': normal,
+        'font-weight': 700,
+        'font-size': 57px,
+        'line-height': 1.12,
+    ),
+    'display-medium': (
+        'font-family': (
+            'Montserrat', sans-serif,
+        ),
+        'font-style': normal,
+        'font-weight': 700,
+        'font-size': 45px,
+        'line-height': 1.16,
+    ),
+    'display-small': (
+        'font-family': (
+            'Montserrat', sans-serif,
+        ),
+        'font-style': normal,
+        'font-weight': 700,
+        'font-size': 36px,
+        'line-height': 1.22,
+    ),
+    'headline-large': (
+        'font-family': (
+            'Montserrat', sans-serif,
+        ),
+        'font-style': normal,
+        'font-weight': 700,
+        'font-size': 32px,
+        'line-height': 1.25,
+    ),
+    'headline-medium': (
+        'font-family': (
+            'Montserrat', sans-serif,
+        ),
+        'font-style': normal,
+        'font-weight': 700,
+        'font-size': 28px,
+        'line-height': 1.29,
+    ),
+    'headline-small': (
+        'font-family': (
+            'Montserrat', sans-serif,
+        ),
+        'font-style': normal,
+        'font-weight': 700,
+        'font-size': 24px,
+        'line-height': 1.33,
+    ),
+    'title-large': (
+        'font-family': (
+            'Noto Sans', sans-serif,
+        ),
+        'font-style': normal,
+        'font-weight': 500,
+        'font-size': 22px,
+        'line-height': 1.27,
+    ),
+    'title-medium': (
+        'font-family': (
+            'Noto Sans', sans-serif,
+        ),
+        'font-style': normal,
+        'font-weight': 500,
+        'font-size': 16px,
+        'line-height': 1.5,
+        'letter-spacing': 0.15px,
+    ),
+    'title-small': (
+        'font-family': (
+            'Noto Sans', sans-serif,
+        ),
+        'font-style': normal,
+        'font-weight': 500,
+        'font-size': 14px,
+        'line-height': 1.43,
+        'letter-spacing': 0.1px,
+    ),
+    'label-large': (
+        'font-family': (
+            'Noto Sans', sans-serif,
+        ),
+        'font-style': normal,
+        'font-weight': 500,
+        'font-size': 14px,
+        'line-height': 1.43,
+        'letter-spacing': 0.1px,
+    ),
+    'label-medium': (
+        'font-family': (
+            'Noto Sans', sans-serif,
+        ),
+        'font-style': normal,
+        'font-weight': 500,
+        'font-size': 12px,
+        'line-height': 1.33,
+        'letter-spacing': 0.5px,
+    ),
+    'label-small': (
+        'font-family': (
+            'Noto Sans', sans-serif,
+        ),
+        'font-style': normal,
+        'font-weight': 500,
+        'font-size': 11px,
+        'line-height': 1.45,
+        'letter-spacing': 0.5px,
+    ),
+    'body-large': (
+        'font-family': (
+            'Noto Sans', sans-serif,
+        ),
+        'font-style': normal,
+        'font-weight': 400,
+        'font-size': 16px,
+        'line-height': 1.5,
+        'letter-spacing': 0.5px,
+    ),
+    'body-medium': (
+        'font-family': (
+            'Noto Sans', sans-serif,
+        ),
+        'font-style': normal,
+        'font-weight': 400,
+        'font-size': 14px,
+        'line-height': 1.43,
+        'letter-spacing': 0.25px,
+    ),
+    'body-small': (
+        'font-family': (
+            'Noto Sans', sans-serif,
+        ),
+        'font-style': normal,
+        'font-weight': 400,
+        'font-size': 12px,
+        'line-height': 1.33,
+        'letter-spacing': 0.4px,
+    ),
+);
+
+
+// ## Sizes
+// --------
+
+$default-units: 'rem';
+$sizes: (
+    'base': 8px,
+    'gutter': 24px,
+
+    'radius-xs': 4px,
+    'radius-sm': 8px,
+    'radius': 12px,
+
+    'opacity-sm': 0.08,
+    'opacity': 0.12,
+    'opacity-lg': 0.16,
+    
+    'page-width': 1440px,
+);
+
+
+// ## Z-indexes
+// ------------
+
+$z-index: (
+    'local' 'local2' 'local3' 'local4' 'local5',
+    'mobile-menu',
+    'container',
+    'popup',
+    'backdrop',
+    'loader',
+    'header' 'header-link' 'header-search',
+    'overlay',
+    'a11y-nav',
+    'dialog',
+    'cookie-consent',
+    'browser-status',
+);
+

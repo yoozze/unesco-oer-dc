@@ -1,0 +1,147 @@
+// # CSS Size Unit Tools
+// =====================
+// sass-lint:disable zero-unit
+
+
+// ## Functions
+// ------------
+
+/// Convert to pixel value if possible.
+///
+/// @group units
+/// @access private
+/// @param {number} $length - The number to be converted to px if comparable.
+/// @returns {number | false} - Either the `px` value of the converted `$length` or `false`.
+@function _get-px($length) {
+    @return if(comparable($length, 1px), 0px + $length, false);
+}
+
+/// Get a `0`-value for any absolute unit.
+///
+/// @group units
+/// @access private
+/// @param {string} $unit - The unit to return as a number.
+/// @returns {number | false} - Either the `0` value of a unit or `false`.
+@function _get-number($unit) {
+    $absolute: (
+        'in': 0in,
+        'mm': 0mm,
+        'cm': 0cm,
+        'pt': 0pt,
+        'pc': 0pc,
+        'px': 0px,
+    );
+    @return map-get($absolute, $unit) or false;
+}
+
+/// Convert lengths between most units.
+///
+/// @group units
+/// @access public
+/// @param {number} $length - The length to be converted.
+/// @param {string} $to-unit [$default-units] - The desired units to convert to.
+///     Some units (`ch`, `vw`, `vh`, `vmin`, `vmax`) cannot be converted.
+/// @param {number} $from-context [$_font-size-browser-default] - When converting FROM
+///     relative units, the absolute length (in px) to which $length refers - e.g. for `$lengths`
+///     in em units, would normally be the font-size of the current element.
+/// @param {number} $to-context [$from-context] - For converting TO relative units,
+///     the absolute length in px to which the output value will refer.
+///     Defaults to the same as `$from-context`, since it is rarely needed.
+/// @returns {number} - Given length in the requested units.
+@function convert-units(
+    $length,
+    $to-unit: $default-units,
+    $from-context: map-get($sizes, 'root') or $_font-size-browser-default,
+    $to-context: $from-context
+) {
+    $convertible: ('in', 'mm', 'cm', 'pt', 'pc', 'px', 'em', 'rem', '%', 'ex');
+    $from-unit: unit($length);
+
+    // Optimize for cases where `from` and `to` units are accidentally the same.
+    @if $from-unit == $to-unit {
+        @return $length;
+    }
+
+    // Warn and escape when units are not convertible.
+    @each $unit in ($from-unit, $to-unit) {
+        @if not index($convertible, $unit) {
+            @warn '#{$unit} units can\'t be reliably converted; Returning original value.';
+            @return $length;
+        }
+    }
+
+    // Optimize comparable (non-relative) units.
+    $absolute-output: _get-number($to-unit);
+
+    @if $absolute-output and comparable($length, $absolute-output) {
+        @return $absolute-output + $length;
+    }
+
+    // Establish relative context
+    $root-size: map-get($sizes, 'root') or $_font-size-browser-default;
+    $from-context: _get-px($from-context);
+    $to-context: _get-px($to-context);
+
+    // Context values must be in px
+    @if (not $from-context) or (not $to-context) {
+        @error 'Context paremeters must resolve to a value in pixel units.';
+    }
+
+    // Convert relative length to pixels.
+    $px-length: _get-px($length) or $length;
+    $from-unit: unit($px-length);
+
+    // Convert relative units using the from-context parameter.
+    @if $from-unit == 'em' {
+        $px-length: $length * $from-context / 1em;
+    } @else if $from-unit == 'rem' {
+        $px-length: $length * $root-size / 1rem;
+    } @else if $from-unit == '%' {
+        $px-length: $length * $from-context / 100%;
+    } @else if $from-unit == 'ex' {
+        $px-length: $length * $from-context / 2ex;
+    }
+
+    // Convert length in pixels to the output unit.
+    @if $absolute-output {
+        @return $absolute-output + $px-length;
+    } @else if $to-unit == 'em' {
+        @return $px-length * 1em / $to-context;
+    } @else if $to-unit == 'rem' {
+        @return $px-length * 1rem / $root-size;
+    } @else if $to-unit == '%' {
+        @return $px-length * 100% / $to-context;
+    } @else if $to-unit == 'ex' {
+        @return $px-length * 2ex / $to-context;
+    }
+
+    @error 'Failed to convert #{$length} into #{$to-unit}.';
+}
+
+/// Remove unit from the given number.
+///
+/// @group units
+/// @access public
+/// @param {number} $number - Number to remove unit from.
+/// @returns {number} - Unitless number.
+@function strip-unit($number) {
+    @if type-of($number) == 'number' and not unitless($number) {
+        @return $number / ($number * 0 + 1);
+    }
+
+    @return $number;
+}
+
+/// Remove unit from the given number if it equals 0.
+///
+/// @group units
+/// @access public
+/// @param {number} $number - Number to remove unit from.
+/// @returns {number} - Unitless zero if `$number` equals 0, `$number` otherwise.
+@function strip-zero($number) {
+    @if $number == 0 {
+        @return 0;
+    }
+
+    @return $number;
+}

@@ -1,0 +1,161 @@
+// # Color Contrast Tools
+// ======================
+
+
+// ## Variables
+// ------------
+
+/// Defines contrast ratios from the WCAG.
+///
+/// @group contrast
+/// @access private
+/// @type map
+$wcag-contrast: (
+    'aa-large': 3,
+    'aa': 4.5,
+    'aaa': 7,
+);
+
+
+// ## Functions
+// ------------
+
+/// Get the WCAG luminance of a color in your palette.
+/// **Warning**: Calculating luminance requires a `pow()` function like the one available in
+/// [MathSass](https://github.com/terkel/mathsass/blob/master/dist/functions/_pow.scss),
+/// which is not included in this library.
+///
+/// @group contrast
+/// @access public
+/// @link http://www.w3.org/TR/2008/REC-WCAG20-20081211/#relativeluminancedef
+/// @param {string | list} $color - The name of a color in your palette,
+///     with optional adjustments in the form of `(<function-name>: <args>)`.
+/// @returns {number} WCAG luminance of given color.
+@function luminance($color) {
+    $color: color($color);
+    $luminance: 0;
+
+    @if not function-exists('pow') {
+        @error 'Luminance and contrast calculations require a `pow()` function like the one'
+        + ' available from MathSass.';
+    }
+
+    @if (type-of($color) != 'color') {
+        @error '`#{$color}` is not a color.';
+    }
+
+    @each $component in ('red', 'green', 'blue') {
+        $value: call(get-function($component), $color) / 255;
+
+        @if ($value < 0.03928) {
+            $value: $value / 12.92;
+        } @else {
+            $value: pow((($value + 0.055) / 1.055), 2.4);
+        }
+
+        @if ($component == 'red') {
+            $value: $value * 0.2126;
+        } @else if ($component == 'green') {
+            $value: $value * 0.7152;
+        } @else {
+            $value: $value * 0.0722;
+        }
+
+        $luminance: $luminance + $value;
+    }
+
+    @return $luminance;
+}
+
+/// Get the WCAG contrast-ratio between any two colors in your palette.
+///
+/// @group contrast
+/// @access public
+/// @link http://www.w3.org/TR/2008/REC-WCAG20-20081211/#contrast-ratiodef
+/// @param {string | list | number} $base - The name of a color in your palette,
+///     with optional adjustments in the form of `(<function-name>: <args>)`,
+///     or a pre-calculated luminance.
+/// @param {string | list | number} $contrast - The name of a color to contrast against the first,
+///     with optional adjustments in the form of `(<function-name>: <args>)`,
+///     or a pre-calculated luminance.
+/// @param {string | number | boolean} $require [false] - An optional contrast ratio to require.
+///     The function will throw a warning if the required ratio is not met.
+/// @returns {number} WCAG contrast-ratio between given colors.
+@function contrast-ratio($base, $contrast, $require: false) {
+    $is-lumins: (type-of($base) == 'number');
+    $base-lumin: if($is-lumins, $base, luminance($base));
+    $contrast-lumin: if($is-lumins, $contrast, luminance($contrast));
+    $darker: min($base-lumin, $contrast-lumin);
+    $lighter: max($base-lumin, $contrast-lumin);
+    $ratio: ($lighter + 0.05) / ($darker + 0.05);
+    $require: map-get($wcag-contrast, $require) or $require;
+
+    @if $require and ($ratio < $require) {
+        @warn 'The contrast ratio between `#{$base}` and `#{$contrast}` is '
+        + '#{$ratio}, but a ratio of #{$require} or more is required.';
+    }
+
+    @return $ratio;
+}
+
+/// For any color, select the best contrast among a set of options.
+/// For best results, pass a combination of light and dark colors to contrast against.
+///
+/// @group contrast
+/// @access public
+/// @param {string | list} $color - The name of a color in your palette,
+///     with optional adjustments in the form of `(<function-name>: <args>)`.
+/// @param {arglist} $options [#000, #fff] - Colors to contrast against.
+///     Will use `contrast-light` and `contrast-dark` as defaults if they are defined
+///     in your color palette.
+/// @returns {Color} Whichever option has the highest contrast-ratio to `$color`.
+@function contrast($color, $options...) {
+    // Establish default options if they are missing.
+    @if length($options) == 0 {
+        $options: append($options, map-get($colors, 'contrast-light') or #fff);
+        $options: append($options, map-get($colors, 'contrast-dark') or #000);
+    } @else if length($options) == 1 {
+        @error 'Provide at least two contrasting color options for `contrast()`';
+    }
+
+    // Get the colors and their contrasts.
+    $color-val: color($color);
+    $color-lum: luminance($color-val);
+    $color-list: ();
+    $contrast-list: ();
+
+    @each $item in $options {
+        $item: color($item);
+        $luminance: luminance($item);
+        $contrast: contrast-ratio($color-lum, $luminance);
+        $color-list: append($color-list, $item);
+        $contrast-list: append($contrast-list, $contrast);
+    }
+
+    // Find the best results.
+    $best-ratio: max($contrast-list...);
+    $best-color: nth($color-list, index($contrast-list, $best-ratio));
+
+    @return $best-color;
+}
+
+
+// ## Mixins
+// ---------
+
+/// For any background color, select the best contrasting text color among a set of options.
+/// For best results, pass a combination of light and dark colors to contrast against.
+///
+/// @group contrast
+/// @access public
+/// @param {string | list} $background - The name of a color in your palette,
+///     with optional adjustments in the form of `(<function-name>: <args>)`.
+/// @param {arglist} $options - Colors to contrast against.
+/// @outputs `background-color` set to `$background` and the foreground `color` set to
+///     whichever option has better contrast against the given background.
+@mixin contrasted($background, $options...) {
+    $background: color($background);
+
+    color: contrast($background, $options...);
+    background-color: $background;
+}

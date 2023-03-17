@@ -1,0 +1,12 @@
+// # Container component
+// =====================
+
+
+$padding: size('gutter');
+
+.o-container {
+    width: size('page-width') + 2 * $padding;
+    max-width: 100%;
+    padding-right: $padding;
+    padding-left: $padding;
+}

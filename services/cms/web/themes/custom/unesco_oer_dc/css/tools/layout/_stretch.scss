@@ -1,0 +1,115 @@
+// # Stretch Tools
+// ===============
+
+
+// ## Functions
+// ------------
+
+/// Validate stretch position.
+/// `absolute` and `relative` are the only valid stretch positions.
+///
+/// @group stretch
+/// @access private
+/// @param {*} $position - Stretch position to validate.
+/// @param {string | null} $important - Indicates if `!important` should be added to every property
+///     value.
+/// @returns {list} Validated stretch position or null with appended `!important` or null.
+/// @throws If given position is not valid stretch position.
+@function _validate-stretch-position($position, $important: false) {
+    @if (index(('absolute', 'fixed'), $position)) {
+        $important: if($important, unquote('!important'), null);
+        @return unquote($position) $important;
+    } @else {
+        @error '`#{$position}` is not a valid stretch position.';
+    }
+}
+
+/// Validate stretch value.
+/// Valid stretch number is 0 or any other number with units.
+///
+/// @group stretch
+/// @access private
+/// @param {*} $value - Stretch value to validate.
+/// @param {string | null} $important - Indicates if `!important` should be added to every property
+///     value.
+/// @returns {null | list} Validated stretch value or null with appended `!important` or null.
+/// @throws If given value is not valid stretch value.
+@function _validate-stretch-value($value, $important: false) {
+    @if not $value {
+        @return null;
+    } @else if($value == 0 or type-of($value) == number and unit($value) != '') {
+        $important: if($important, unquote('!important'), null);
+        @return $value $important;
+    } @else {
+        @error '`#{$value}` is not a valid stretch value.';
+    }
+}
+
+
+// ## Mixins
+// ---------
+
+/// Stretch a positioned element in relation to its context.
+///
+/// @group stretch
+/// @access public
+/// @param {number} $top [0] - Offset from the top edge.
+/// @param {number} $right [$top] - Offset from the right edge.
+/// @param {number} $bottom [$top] - Offset from the bottom edge.
+/// @param {number} $left [$right] - Offset from the left edge.
+/// @param {string} $position [absolute] - The type of positioning to use (`absolute` or `fixed`).
+/// @param {bool} $important [false] - Indicates if `!important` should be added to every property
+///     value.
+/// @outputs `position`, `top`, `right`, `bottom` and `left` properties with given values.
+@mixin stretch(
+    $top: 0,
+    $right: $top,
+    $bottom: $top,
+    $left: $right,
+    $position: absolute,
+    $important: false
+) {
+    position: _validate-stretch-position($position, $important);
+    top: _validate-stretch-value($top, $important);
+    right: _validate-stretch-value($right, $important);
+    bottom: _validate-stretch-value($bottom, $important);
+    left: _validate-stretch-value($left, $important);
+}
+
+/// Stretch a positioned element horizontally in relation to its context.
+///
+/// @group stretch
+/// @access public
+/// @param {number} $left [0] - Offset from the left edge.
+/// @param {number} $right [$left] - Offset from the right edge.
+/// @param {string} $position [absolute] - The type of positioning to use (`absolute` or `fixed`).
+/// @param {bool} $important [false] - Indicates if `!important` should be added to every property
+///     value.
+/// @outputs `position`, `left` and `right` properties with given values.
+@mixin stretch-x(
+    $left: 0,
+    $right: $left,
+    $position: absolute,
+    $important: false
+) {
+    @include stretch(false, $right, false, $left, $position, $important);
+}
+
+/// Stretch a positioned element vertically in relation to its context.
+///
+/// @group stretch
+/// @access public
+/// @param {number} $top [0] - Offset from the top edge.
+/// @param {number} $bottom [$top] - Offset from the bottom edge.
+/// @param {string} $position [absolute] - The type of positioning to use (`absolute` or `fixed`).
+/// @param {bool} $important [false] - Indicates if `!important` should be added to every property
+///     value.
+/// @outputs `position`, `top` and `bottom` properties with given values.
+@mixin stretch-y(
+    $top: 0,
+    $bottom: $top,
+    $position: absolute,
+    $important: false
+) {
+    @include stretch($top, false, $bottom, false, $position, $important);
+}

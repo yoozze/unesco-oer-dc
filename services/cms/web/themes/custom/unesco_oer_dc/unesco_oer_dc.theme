@@ -1,0 +1,57 @@
+<?php
+
+/**
+ * @file
+ * Functions to support theming in the UNESCO OER DC theme.
+ */
+
+ use Drupal\Core\Template\Attribute;
+
+/**
+ * Implements hook_preprocess_HOOK() for html.html.twig.
+ */
+function unesco_oer_dc_preprocess_html(&$variables) {
+  // Add class
+  // $variables['attributes']['class'][] = 'page';
+  
+  // Read SVG icons
+  $theme_path = \Drupal::service('extension.list.theme')->getPath('unesco_oer_dc');
+  $svg = file_get_contents($theme_path . '/images/icons.svg');
+  $variables['svg_icons'] = $svg;
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for block.html.twig.
+ */
+function unesco_oer_dc_preprocess_block(&$variables) {
+    if ($variables['base_plugin_id'] === 'system_menu_block') {
+        $variables['attributes']['class'][] = 'c-navigation';
+        $variables['attributes']['class'][] = 'c-navigation--' . str_replace('-navigation', '', $variables['derivative_plugin_id']);
+    }
+
+    if (!empty($variables['attributes']['class']) && in_array('language-switcher-language-url', $variables['attributes']['class'])) {
+        $variables['attributes']['class'] = array('c-language-switcher');
+    }
+
+    $variables['attributes']['class'][] = 'o-block';
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for region.html.twig.
+ */
+function unesco_oer_dc_preprocess_region(&$variables) {
+    $variables['attributes']['class'][] = 'o-region';
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for links.html.twig.
+ */
+function unesco_oer_dc_preprocess_links__language_block(&$variables) {
+    $variables['attributes']['class'] = array('c-language-switcher__links');
+    foreach ($variables['links'] as &$link) {
+        $link['link']['#options']['attributes']['class'] = array('c-language-switcher__link');
+    }
+
+    $language =  \Drupal::languageManager()->getCurrentLanguage()->getName();
+    $variables['language'] = $language;
+}

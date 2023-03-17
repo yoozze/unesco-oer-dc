@@ -219,6 +219,9 @@ $databases['default']['default'] = array(
   'namespace' => 'Drupal\\mysql\\Driver\\Database\\mysql',
   'driver' => 'mysql',
   'autoload' => 'core/modules/mysql/src/Driver/Database/mysql/',
+  'init_commands' => [
+    'isolation_level' => 'SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED',
+  ],
 );
 
 /**
@@ -502,7 +505,7 @@ $settings['update_free_access'] = FALSE;
  * must exist and be writable by Drupal. This directory must be relative to
  * the Drupal installation directory and be accessible over the web.
  */
-# $settings['file_public_path'] = 'sites/default/files';
+$settings['file_public_path'] = 'sites/default/files';
 
 /**
  * Additional public file schemes:
@@ -794,6 +797,9 @@ $settings['entity_update_backup'] = TRUE;
  * node migrations.
  */
 $settings['migrate_node_migrate_type_classic'] = FALSE;
+
+$config['image.settings']['suppress_itok_output'] = TRUE;
+$config['image.settings']['allow_insecure_derivatives'] = TRUE;
 
 /**
  * Load local development override configuration, if available.

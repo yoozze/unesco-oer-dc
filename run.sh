@@ -11,6 +11,8 @@ OPTIONS_ARRAY=(
     "--start"
     "--stop"
     "--log"
+    "--sync-core"
+    "--archive-dump"
     "--help"
 )
 VALID_OPTION="false"
@@ -40,6 +42,8 @@ if [ $MODE = "--help" ]; then
     echo "bash run.sh --start [args]            | Start services"
     echo "bash run.sh --stop [args]             | Stop services"
     echo "bash run.sh --log [args]              | Display log"
+    echo "bash run.sh --sync-core               | Synchronize core files on host"
+    echo "bash run.sh --archive-dump            | Dump archive to archives directory"
     exit 0
 fi
 
@@ -71,4 +75,40 @@ fi
 if [ $MODE = "--log" ]; then
     echo "$PREFIX: Logging... $ARGS"
     docker-compose -f $COMPOSE_FILE logs -f $ARGS
+fi
+
+if [ $MODE = "--sync-core" ]; then
+    echo "$PREFIX: Synchronyzing core files... $ARGS"
+    WEB_PATH="./services/cms/web"
+
+    if [ -z "$ARGS" ] || [ $ARGS = "core" ]; then
+        echo " - core"
+        sudo rm -rf $WEB_PATH/core
+        sudo docker cp unesco_oer_dc_cms:/opt/drupal/web/core $WEB_PATH
+    fi
+    
+    if [ -z "$ARGS" ] || [ $ARGS = "modules" ]; then
+        echo " - modules"
+        sudo rm -rf $WEB_PATH/modules/contrib
+        sudo docker cp unesco_oer_dc_cms:/opt/drupal/web/modules/contrib $WEB_PATH/modules
+    fi
+    
+    if [ -z "$ARGS" ] || [ $ARGS = "themes" ]; then
+        echo " - themes"
+        sudo rm -rf $WEB_PATH/themes/contrib
+        sudo docker cp unesco_oer_dc_cms:/opt/drupal/web/themes/contrib $WEB_PATH/themes
+    fi
+fi
+
+if [ $MODE = "--archive-dump" ]; then
+    echo "$PREFIX: Archiving... $ARGS"
+    ARCHIVE_PATH="./archive"
+    SETTINGS_FILE="/opt/drupal/web/sites/default/settings.php"
+    docker exec unesco_oer_dc_cms sh -c "
+        cp $SETTINGS_FILE $SETTINGS_FILE.bak &&
+        drush archive:dump --exclude-code-paths=web/sites/default/settings.php &&
+        rm $SETTINGS_FILE.bak
+    "
+    docker cp unesco_oer_dc_cms:/tmp/archive.tar.gz $ARCHIVE_PATH/"$(date +"%Y%m%dT%H%M%S").tar.gz"
+    echo "$PREFIX: Archive saved to $ARCHIVE_PATH/$(date +"%Y%m%dT%H%M%S").tar.gz"
 fi

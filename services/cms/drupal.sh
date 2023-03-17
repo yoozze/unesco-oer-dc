@@ -57,6 +57,7 @@ if [ $MODE = "--install" ]; then
     chown www-data:www-data web/sites
     chown www-data:www-data web/sites/default
     chown www-data:www-data -R web/sites/default/files
+    # chmod 777 -R  web/sites/default/files
 fi
 
 if [ $MODE = "--install" ] || [ $MODE = "--install-site" ]; then
@@ -77,29 +78,35 @@ if [ $MODE = "--install" ] || [ $MODE = "--install-modules" ]; then
     # Uninstall unused modeules
 
     # Install modules
-    drush pm:enable --yes admin_toolbar
-    drush pm:enable --yes admin_toolbar_tools
-    drush pm:enable --yes backup_migrate
-    drush pm:enable --yes coffee
-    drush pm:enable --yes config_translation
-    drush pm:enable --yes content_translation
-    drush pm:enable --yes devel
-    drush pm:enable --yes devel_generate
-    drush pm:enable --yes language
-    drush pm:enable --yes locale
-    drush pm:enable --yes pathauto
-    drush pm:enable --yes smtp
-    drush pm:enable --yes drush_language
-    # drush pm:enable --yes taxonomy_import
-    # drush pm:enable --yes taxonomy_multidelete_terms
+    drush pm:install --yes admin_toolbar
+    drush pm:install --yes admin_toolbar_tools
+    drush pm:install --yes backup_migrate
+    drush pm:install --yes coffee
+    drush pm:install --yes config_translation
+    drush pm:install --yes content_translation
+    drush pm:install --yes devel
+    drush pm:install --yes devel_generate
+    drush pm:install --yes language
+    drush pm:install --yes locale
+    drush pm:install --yes pathauto
+    drush pm:install --yes smtp
+    drush pm:install --yes drush_language
+    drush pm:install --yes file_delete
+    drush pm:install --yes realistic_dummy_content
+    drush pm:install --yes easy_breadcrumb
+    drush pm:install --yes scss_compiler
+    drush pm:install --yes twig_extension
+    drush pm:install --yes language_switcher_extended
+    # drush pm:install --yes taxonomy_import
+    # drush pm:install --yes taxonomy_multidelete_terms
 
     # Set theme
-    # drush theme:enable --yes unesco
+    # drush theme:install --yes unesco
     # drush config:set --yes system.theme default unesco
 
     # Set admin theme
-    drush theme:enable --yes gin
-    drush pm:enable --yes gin_toolbar
+    drush theme:install --yes gin
+    drush pm:install --yes gin_toolbar
     drush config:set --yes system.theme admin gin
 
     # Set configuration

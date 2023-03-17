@@ -1,0 +1,205 @@
+// # Font Tools
+// ============
+
+
+// ## Variables
+// ------------
+
+/// Define your custom fonts.
+/// Map can have aliases (one map key references another).
+/// Each map value can be either:
+///     - a list of font properties for short `font` declaration (i.e.: italic bold Georgia, serif)
+///     - a sub-map of optional font properties (font-family, font-weight, font-style, font-variant,
+///       font-size, line-height, letter-spacing)
+///
+/// @group fonts
+/// @access public
+/// @type map
+/// @example scss - Sample fonts map
+///     $fonts: (
+///         'text': ('Ubuntu', sans-serif),
+///         'heading': (
+///             'font-family': ('TitilliumWeb', sans-serif),
+///             'font-weight': 600,
+///             'font-style': normal,
+///             'font-variant': normal,
+///             'font-size': 16px
+///             'line-height': 1.5
+///             'letter-spacing': 0.25px
+///         ),
+///         'input': 'text',
+///     );
+$fonts: () !default;
+
+
+// ## Functions
+// ------------
+
+/// Get required font settings from `$fonts` map.
+///
+/// @group fonts
+/// @access public
+/// @param {string} $font - The key-name of a font in the `$fonts` map.
+/// @param {string | bool} $property [false] - Return just selected property value
+///     from required font settings in `$fonts` map.
+/// @returns {list | map} - List or map of font properties for given key-name.
+/// @throws If `$font` is not defined in `$fonts` map.
+@function font($font, $property: false) {
+    $font: map-get($fonts, $font);
+
+    // In case `$font` is alias, recursively search `$fonts` map.
+    @if map-has-key($fonts, $font) {
+        $font: font($font);
+    }
+
+    @if type-of($font) == null {
+        @error '`#{$font}` is not defined in `$fonts` map.';
+    }
+
+    @if $property {
+        @if type-of($font) != map {
+            @error 'Cannot access `#{$property}` for `#{$font}` in `$fonts` map.';
+        }
+
+        @if map-has-key($font, $property) {
+            @return map-get($font, $property);
+        } @else {
+            @error 'Font #{$property} is not defined in `$fonts` map for `#{$font}`.';
+        }
+    }
+
+    @return $font;
+}
+
+
+// ## Mixins
+// ---------
+
+/// Output font styles based on your font configuration for `$font` in `$fonts` map.
+///
+/// @group fonts
+/// @access public
+/// @param {string} $font - The key-name of a font in the `$fonts` map.
+/// @param {bool} $font-family - Indicates if `font-family` property should be output if it's defined
+///     in `$fonts` map.
+/// @param {bool} $font-weight - Indicates if `font-weight` property should be output if it's defined
+///     in `$fonts` map.
+/// @param {bool} $font-style - Indicates if `font-style` property should be output if it's defined
+///     in `$fonts` map.
+/// @param {bool} $font-variant - Indicates if `font-variant` property should be output if it's defined
+///     in `$fonts` map.
+/// @param {bool} $font-size - Indicates if `font-size` property should be output if it's defined
+///     in `$fonts` map.
+/// @param {bool} $line-height - Indicates if `line-height` property should be output if it's defined
+///     in `$fonts` map.
+/// @param {bool} $letter-spacing - Indicates if `letter-spacing` property should be output if it's defined
+///     in `$fonts` map.
+/// @outputs Font styles based on your font configuration for `$font` in `$fonts` map.
+@mixin font(
+    $font,
+    $font-family: true,
+    $font-weight: true,
+    $font-style: true,
+    $font-variant: true,
+    $font-size: true,
+    $line-height: true,
+    $letter-spacing: true
+) {
+    $font: font($font);
+
+    @if type-of($font) != map {
+        // If value for given key-name is not map, output shorthand `font` property.
+        font: $font;
+    } @else {
+        // Else output each defined and enabled property separately.
+        $props: (
+            'font-family': $font-family,
+            'font-style': $font-style,
+            'font-weight': $font-weight,
+            'font-variant': $font-variant,
+            'font-size': $font-size,
+            'line-height': $line-height,
+            'letter-spacing': $letter-spacing,
+        );
+
+        @each $prop, $enabled in $props {
+            @if $enabled and map-has-key($font, $prop) {
+                @if $prop == 'font-size' or $prop == 'letter-spacing' {
+                    #{$prop}: size(map-get($font, $prop));
+                } @else {
+                    #{$prop}: map-get($font, $prop);
+                }
+            }
+        }
+    }
+}
+
+/// Output a font stack based on your font configuration for `$font` in `$fonts` map.
+///
+/// @group fonts
+/// @access public
+/// @param {string} $font - The key-name of a font in the `$fonts` map.
+/// @outputs `font-family` property based on your font configuration for `$font` in `$fonts` map.
+@mixin font-family($font) {
+    font-family: font($font, 'font-family');
+}
+
+/// Output font weight based on your font configuration for `$font` in `$fonts` map.
+///
+/// @group fonts
+/// @access public
+/// @param {string} $font - The key-name of a font in the `$fonts` map.
+/// @outputs `font-weight` property based on your font configuration for `$font` in `$fonts` map.
+@mixin font-weight($font) {
+    font-weight: font($font, 'font-weight');
+}
+
+/// Output font style based on your font configuration for `$font` in `$fonts` map.
+///
+/// @group fonts
+/// @access public
+/// @param {string} $font - The key-name of a font in the `$fonts` map.
+/// @outputs `font-style` property based on your font configuration for `$font` in `$fonts` map.
+@mixin font-style($font) {
+    font-style: font($font, 'font-style');
+}
+
+/// Output font variant based on your font configuration for `$font` in `$fonts` map.
+///
+/// @group fonts
+/// @access public
+/// @param {string} $font - The key-name of a font in the `$fonts` map.
+/// @outputs `font-variant` property based on your font configuration for `$font` in `$fonts` map.
+@mixin font-variant($font) {
+    font-variant: font($font, 'font-variant');
+}
+
+/// Output font size based on your font configuration for `$font` in `$fonts` map.
+///
+/// @group fonts
+/// @access public
+/// @param {string} $font - The key-name of a font in the `$fonts` map.
+/// @outputs `font-size` property based on your font configuration for `$font` in `$fonts` map.
+@mixin font-size($font) {
+    font-size: size(font($font, 'font-size'));
+}
+
+/// Output line height based on your font configuration for `$font` in `$fonts` map.
+///
+/// @group fonts
+/// @access public
+/// @param {string} $font - The key-name of a font in the `$fonts` map.
+/// @outputs `line-height` property based on your font configuration for `$font` in `$fonts` map.
+@mixin line-height($font) {
+    line-height: font($font, 'line-height');
+}
+
+/// Output letter spacing based on your font configuration for `$font` in `$fonts` map.
+///
+/// @group fonts
+/// @access public
+/// @param {string} $font - The key-name of a font in the `$fonts` map.
+/// @outputs `letter-spacing` property based on your font configuration for `$font` in `$fonts` map.
+@mixin letter-spacing($font) {
+    letter-spacing: size(font($font, 'letter-spacing'));
+}

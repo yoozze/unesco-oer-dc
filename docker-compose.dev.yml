@@ -28,6 +28,11 @@ services:
             - ./services/cms/web:/opt/drupal/web
             # - ./services/cms/web/core:/opt/drupal/web/core
             - cms-core:/opt/drupal/web/core
+            - cms-modules:/opt/drupal/web/modules/contrib
+            - cms-themes:/opt/drupal/web/themes/contrib
+            # - /opt/drupal/web/core
+            # - /opt/drupal/web/modules/contrib
+            # - /opt/drupal/web/themes/contrib
 
     db:
         container_name: ${PROJECT_NAME}_db
@@ -63,6 +68,18 @@ services:
         ports:
             - ${EMAIL_CLIENT_PORT}:8025
 
+    phpmyadmin:
+        container_name: ${PROJECT_NAME}_phpmyadmin
+        image: phpmyadmin/phpmyadmin
+        # restart: always
+        ports:
+            - ${PHPMYADMIN_PORT}:80
+        environment:
+            PMA_HOST: db
+            # MYSQL_ROOT_PASSWORD: password
+        depends_on:
+            - db
+
     server:
         container_name: ${PROJECT_NAME}_server
         build:
@@ -79,8 +96,10 @@ services:
         volumes:
             # - cms-data:/var/www/html
             - ./services/cms/web:/var/www/html
-            - cms-core:/var/www/html/core
             - ./services/server/config:/etc/nginx/conf.d
+            - cms-core:/var/www/html/core
+            - cms-modules:/var/www/html/modules/contrib
+            - cms-themes:/var/www/html/themes/contrib
 
 # networks:
 #     external:
@@ -90,5 +109,7 @@ services:
 
 volumes:
     cms-core:
+    cms-modules:
+    cms-themes:
     # cms-data:
     db-data:

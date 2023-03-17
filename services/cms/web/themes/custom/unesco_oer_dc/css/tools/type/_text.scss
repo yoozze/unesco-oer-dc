@@ -1,0 +1,72 @@
+// # Text Tools
+// ============
+
+
+// ## Mixins
+// ---------
+
+
+/// Hide element's text.
+///
+/// @group text
+/// @access public
+/// @param {bool} $important [false] - Indicates if `!important` should be added to every property
+///     value.
+/// @outputs Styles for hiding element's text.
+@mixin hide-text($indent: 101%, $important: false) {
+    $important: if($important, unquote('!important'), null);
+
+    overflow: hidden $important;
+    text-indent: $indent $important;
+    white-space: nowrap $important;
+}
+
+/// Truncate element's text with ellipsis.
+///
+/// @group text
+/// @access public
+/// @param {number | string} $max-width [100%] - `max-width` property value.
+/// @param {bool} $important [false] - Indicates if `!important` should be added to every property
+///     value.
+/// @outputs Styles for truncating element's text with ellipsis.
+@mixin truncate-text($max-width: 100%, $important: false) {
+    $important: if($important, unquote('!important'), null);
+
+    max-width: $max-width $important;
+    overflow: hidden $important;
+    text-overflow: ellipsis $important;
+    word-wrap: normal $important;
+    white-space: nowrap $important;
+}
+
+/// Change the `word-wrap` property.
+///
+/// @group text
+/// @access public
+/// @param {string} $wrap [break-word] - Value for the `word-break` property.
+/// @param {bool} $important [false] - Indicates if `!important` should be added to every property
+///     value.
+/// @example scss - Usage
+///     .wrapper {
+///         @include word-wrap(break-word);
+///     }
+///
+/// @example css - CSS Output
+///     .wrapper {
+///         overflow-wrap: break-word;
+///         word-break: break-all;
+///         word-wrap: break-word;
+///     }
+/// @outputs Styles for forcing long text to wrap.
+@mixin word-wrap($wrap: break-word, $important: false) {
+    $important: if($important, unquote('!important'), null);
+
+    @if $wrap == break-word {
+        word-break: break-all $important;
+    } @else {
+        word-break: $wrap $important;
+    }
+
+    word-wrap: $wrap $important;
+    overflow-wrap: $wrap $important;
+}

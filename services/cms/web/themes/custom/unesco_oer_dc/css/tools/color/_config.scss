@@ -1,0 +1,70 @@
+// # Color Configuration Tools
+// ===========================
+// Configure and access your color palette.
+
+
+// ## Variables
+// ------------
+
+/// Define your custom color palette with a `name`, `value`, and optional `adjustments`.
+/// Colors can reference other colors in the map, and adjust them using sass color functions
+/// using a `(<function-name>: <args>)` syntax.
+/// Adjustment functions are called in this format: `function-name($color-value, $args...)`.
+///
+/// @group config
+/// @access public
+/// @type map
+///
+/// @example scss - Sample color palette
+///     $colors: (
+///         'name': <value> (<function-name>: <args>),
+///
+///         'brand-pink': hsl(330, 85%, 62%),
+///         'brand-light': #fff,
+///         'brand-dark': #222,
+///
+///         'background': 'brand-light',
+///         'text': 'brand-dark',
+///         'link': 'brand-pink',
+///         'focus': 'link' ('darken': 15%),
+///     );
+$colors: () !default;
+
+
+// ## Functions
+// ------------
+
+/// Access any color in your palette, using the same syntax as the `$colors` map.
+///
+/// @group config
+/// @access public
+/// @requires {variable} $colors
+/// @param {string | list} $color - The name of a color in your palette,
+///     with optional adjustments in the form of `(<function-name>: <args>)`.
+/// @returns {color} A calculated css-ready color-value based on your global color palette.
+/// @throws If `$color` is not valid color or doesn't have valid color match in `$colors` map.
+@function color($color) {
+    // Parse arguments
+    $color: map-get($colors, $color) or $color;
+    $base: nth($color, 1);
+    $adjust: if(length($color) > 1, nth($color, 2), ());
+
+    // In case `$color` is alias, recursively search `$colors` map.
+    $color: if(map-has-key($colors, $base), color($base), $base);
+
+    // Apply adjustments functions.
+    @each $function, $value in $adjust {
+        @if function-exists($function) {
+            $color: call(get-function($function), $color, $value...);
+        } @else {
+            @error '#{$function} is not a valid color function.';
+        }
+    }
+
+    // Check if result is indeed a color.
+    @if (type-of($color) != color) {
+        @error '`#{$color}` is not a valid color.';
+    }
+
+    @return $color;
+}

@@ -1,0 +1,19 @@
+// # Page header
+// =============
+
+// .c-page-header {}
+
+.c-page-header__top {
+    @include font('body-medium');
+
+    display: flex;
+    justify-content: center;
+    color: color('light');
+    background-color: color('navy-blue');
+}
+
+.c-page-header__bottom {
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid color('divider');
+}

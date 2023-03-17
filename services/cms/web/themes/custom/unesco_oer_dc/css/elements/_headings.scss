@@ -1,0 +1,21 @@
+// # Headings
+// ==========
+// Default styles for headings 1 through 6.
+
+
+$headings: (
+    'h1': 'display-large',
+    'h2': 'display-medium',
+    'h3': 'display-small',
+    'h4': 'headline-large',
+    'h5': 'headline-medium',
+    'h6': 'headline-small',
+);
+
+@each $heading, $font in $headings {
+    #{$heading} {
+        @include font($font);
+        margin-top: 1.5em;
+        margin-bottom: 0.75em;
+    }
+}

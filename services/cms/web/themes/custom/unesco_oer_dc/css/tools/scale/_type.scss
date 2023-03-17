@@ -1,0 +1,81 @@
+// # Type Tools
+// ============
+
+
+// ## Functions
+// ------------
+
+/// Determine the number of typographic "lines" required for a given font size and rhythm.
+///
+/// @group type
+/// @access private
+/// @param {string | number | list} $size - The name, length, or calculations required for
+///     defining the font-size.
+/// @param {string | number | list} $rhythm - The name, length, or calculations required for
+///     defining the typographic rhythm.
+/// @returns {number} Number of typographic lines required for given font size and rhythm.
+@function _get-lines($size: 'root', $rhythm: 'rhythm') {
+    $font-size: size($size, 'px');
+    $line-height: size($rhythm, 'px');
+
+    @return ceil(2 * $font-size / $line-height) / 2;
+}
+
+/// Convert any comparable size into browser-default ems usable in media-queries.
+///
+/// @group type
+/// @access public
+/// @param {string | number | list} $size - The name, length, or calculations required for
+///     defining the font-size.
+/// @returns {number} - The given size, converted to `16px`-based `em` units.
+@function browser-ems($size) {
+    $size: size($size, 'px');
+
+    @return $size / $_font-size-browser-default * 1em;
+}
+
+
+// ## Mixins
+// ---------
+
+/// Set the font-size and line-height of an element based on size configurations and
+/// typographic rhythm.
+///
+/// @group type
+/// @access public
+/// @param {string | number | list} $size - The name, length, or calculations required for
+///     defining the font-size.
+/// @param {number} $lines [false] - Optionally override the number of typographic lines needed.
+/// @outputs Requested `font-size` with appropriate `line-height`.
+@mixin font-size($size, $lines: false) {
+    $rhythm: size('rhythm');
+    $height: ($lines or _get-lines($size)) * $rhythm;
+    $size: size($size);
+
+    @if not $lines and ($size == $height) {
+        $height: $height + ($rhythm / 2);
+    }
+
+    font-size: $size;
+    line-height: $height;
+    //line-height: size($height, 'px') / size($size, 'px');
+}
+
+/// Set the root font-size, along with an appropriate line-height in requested units.
+///
+/// @group type
+/// @access public
+/// @param {string | number | list} $size ['root'] - The name, length, or calculations required
+///     for defining the font-size.
+/// @param {string | nu,ber | list} $rhythm ['rhythm'] - The name, length, or calculations required
+///     for defining the typographic rhythm.
+/// @param {string | false | null} $fs-units ['%'] - Font size units.
+/// @param {string | false | null} $lh-units [''] - Line height units.
+/// @outputs - Requested `font-size` with appropriate `line-height` set in requested units.
+@mixin baseline($size: 'root', $rhythm: 'rhythm', $fs-units: '%', $lh-units: '') {
+    $size: size($size, 'px');
+    $lh-has-units: $lh-units and $lh-units != '';
+
+    font-size: if($fs-units, convert-units($size, $fs-units, $_font-size-browser-default), $size);
+    line-height: if($lh-has-units, size($rhythm, $lh-units), size($rhythm, 'px') / $size);
+}

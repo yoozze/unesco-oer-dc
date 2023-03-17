@@ -1,0 +1,67 @@
+global-styling:
+  version: 1.0
+  css:
+    base:
+      css/style.scss: {}
+      # css/base/normalize.scss: {}
+    #   css/base/fonts.css: {}
+    #   css/base/variables.scss: {}
+    #   css/base/base.css: {}
+    #   css/base/utility.css: {}
+    # layout:
+    #   css/layout/layout.css: {}
+    #   css/layout/grid.css: {}
+    #   css/layout/layout-content-narrow.css: {}
+    #   css/layout/layout-content-medium.css: {}
+    #   css/layout/layout-footer.css: {}
+    #   css/layout/region.css: {}
+    #   css/layout/region-content.css: {}
+    #   css/layout/region-hero.css: {}
+    #   css/layout/region-secondary-menu.css: {}
+    #   css/layout/social-bar.css: {}
+    #   css/layout/views.css: {}
+    # component:
+    #   css/components/block.css: {}
+      # css/components/breadcrumb.scss: {}
+    #   css/components/embedded-media.css: {}
+    #   css/components/footer.css: {}
+    #   css/components/button.css: {}
+    #   css/components/container-inline.module.css: {}
+    #   css/components/fieldset.css: {}
+    #   css/components/field.css: {}
+    #   css/components/form.css: {}
+    #   css/components/form-boolean.css: {}
+    #   css/components/form-text.css: {}
+    #   css/components/form-textarea.css: {}
+    #   css/components/form-select.css: {}
+    #   css/components/header-buttons-mobile.css: {}
+    #   css/components/header-navigation.css: {}
+    #   css/components/header-site-branding.css: {}
+    #   css/components/header-sticky-toggle.css: {}
+    #   css/components/hero.css: {}
+    #   css/components/links.css: {}
+    #   css/components/messages.css: {}
+    #   css/components/navigation/nav-button-mobile.css: {}
+    #   css/components/node.css: {}
+    #   css/components/node-teaser.css: {}
+    #   css/components/page-title.css: {}
+    #   css/components/site-header.css: {}
+    #   css/components/skip-link.css: {}
+    #   css/components/pager.css: {}
+    #   css/components/table.css: {}
+    #   css/components/text-content.css: {}
+    #   css/components/tabledrag.css: {}
+    #   css/components/wide-image.css: {}
+
+#   js:
+#     js/checkbox.js: {}
+#     js/navigation-utils.js: {}
+
+#   dependencies:
+#     - core/drupal.element.closest
+#     - core/drupal.element.matches
+#     - core/drupal.nodelist.foreach
+#     - core/drupal
+#     - core/once
+#     - core/tabbable
+#     - core/jquery
