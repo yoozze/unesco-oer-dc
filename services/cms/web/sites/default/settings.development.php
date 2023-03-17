@@ -160,6 +160,7 @@ $settings['skip_permissions_hardening'] = TRUE;
 $settings['trusted_host_patterns'] = [
   '^localhost$',
   '^atena.ijs.si$',
+  '^motorka.ijs.si$',
   '127\.0\.0\.1',
 ];
 
