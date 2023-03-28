@@ -9,25 +9,25 @@
 
 # Ignore core when managing all of a project's dependencies with Composer
 # including Drupal core.
-web/core
+src/core
 
 # Ignore dependencies that are managed with Composer.
 # Generally you should only ignore the root vendor directory. It's important
 # that core/assets/vendor and any other vendor directories within contrib or
 # custom module, theme, etc., are not ignored unless you purposely do so.
-web/vendor/
+src/vendor/
 
 # Ignore configuration files that may contain sensitive information.
-# web/sites/*/settings*.php
-# web/sites/*/services*.yml
+# src/sites/*/settings*.php
+# src/sites/*/services*.yml
 
 # Ignore paths that contain user-generated content.
-web/sites/*/files
-web/sites/*/private
+src/sites/*/files
+src/sites/*/private
 
 # Ignore SimpleTest multi-site environment.
-web/sites/simpletest
+src/sites/simpletest
 
 # Ignore contributed modules and themes
-web/modules/contrib/*/
-web/themes/contrib/*/
+src/modules/contrib/*/
+src/themes/contrib/*/

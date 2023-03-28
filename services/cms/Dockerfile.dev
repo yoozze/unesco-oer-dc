@@ -1,13 +1,15 @@
 # FROM drupal:php8.1-fpm-alpine3.16
 # FROM drupal:9.5.3-php8.1-fpm-alpine3.16
-FROM drupal:9.5.4-php8.1-fpm-alpine3.17
+# FROM drupal:9.5.7-php8.1-fpm-alpine3.17
+FROM drupal:9.5.7-php8.1-apache-bullseye
 
 ARG ROOT
+ARG ENV
 
 # Install build dependencies
-RUN apk add --no-cache bash
-RUN apk add --no-cache git
-RUN apk add --no-cache mysql-client
+# RUN apk add --no-cache bash
+# RUN apk add --no-cache git
+# RUN apk add --no-cache mysql-client
 
 # Install modules
 RUN touch /.dockerenv
@@ -36,7 +38,9 @@ RUN composer require drupal/language_switcher_extended:^1.1
 COPY $ROOT/drupal.sh ./
 # COPY $ROOT/docker-php-entrypoint /usr/local/bin/
 # RUN chmod +x /usr/local/bin/docker-php-entrypoint
-COPY $ROOT/config/php.ini-development /usr/local/etc/php/php.ini
+COPY $ROOT/src/.htaccess ./web/
+COPY $ROOT/src/robots.txt ./web/
+COPY $ROOT/config/php.ini-$ENV /usr/local/etc/php/php.ini
 
 # TODO: run drupal.sh --install
 # CMD ["sh", "-c", "drupal.sh --install"]
