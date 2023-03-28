@@ -11,8 +11,10 @@ OPTIONS_ARRAY=(
     "--start"
     "--stop"
     "--log"
+    "--enter"
     "--sync-core"
     "--archive-dump"
+    "--archive-restore"
     "--help"
 )
 VALID_OPTION="false"
@@ -42,9 +44,10 @@ if [ $MODE = "--help" ]; then
     echo "bash run.sh --start [args]            | Start services"
     echo "bash run.sh --stop [args]             | Stop services"
     echo "bash run.sh --log [args]              | Display log"
+    echo "bash run.sh --enter [args]            | Enter into container"
     echo "bash run.sh --sync-core [args]        | Synchronize core files on host"
     echo "bash run.sh --archive-dump            | Dump archive to archives directory"
-    echo "bash run.sh --archive-restore         | Restore archive from given file"
+    echo "bash run.sh --archive-restore [args]  | Restore archive from given file"
     exit 0
 fi
 
@@ -78,6 +81,16 @@ if [ $MODE = "--log" ]; then
     docker-compose -f $COMPOSE_FILE logs -f $ARGS
 fi
 
+if [ $MODE = "--enter" ]; then
+    echo "$PREFIX: Entering into container... $ARGS"
+
+    if [ -z "$ARGS" ]; then
+        docker exec -it ${PROJECT_NAME}_cms /bin/bash
+    else
+        docker exec -it ${PROJECT_NAME}_${ARGS} /bin/bash
+    fi
+fi
+
 if [ $MODE = "--sync-core" ]; then
     echo "$PREFIX: Synchronyzing core files... $ARGS"
     SRC_PATH="./services/cms/src"
@@ -85,19 +98,19 @@ if [ $MODE = "--sync-core" ]; then
     if [ -z "$ARGS" ] || [ $ARGS = "core" ]; then
         echo " - core"
         sudo rm -rf $SRC_PATH/core
-        sudo docker cp unesco_oer_dc_cms:/opt/drupal/web/core $SRC_PATH
+        sudo docker cp ${PROJECT_NAME}_cms:/opt/drupal/web/core $SRC_PATH
     fi
     
     if [ -z "$ARGS" ] || [ $ARGS = "modules" ]; then
         echo " - modules"
         sudo rm -rf $SRC_PATH/modules/contrib
-        sudo docker cp unesco_oer_dc_cms:/opt/drupal/web/modules/contrib $SRC_PATH/modules
+        sudo docker cp ${PROJECT_NAME}_cms:/opt/drupal/web/modules/contrib $SRC_PATH/modules
     fi
     
     if [ -z "$ARGS" ] || [ $ARGS = "themes" ]; then
         echo " - themes"
         sudo rm -rf $SRC_PATH/themes/contrib
-        sudo docker cp unesco_oer_dc_cms:/opt/drupal/web/themes/contrib $SRC_PATH/themes
+        sudo docker cp ${PROJECT_NAME}_cms:/opt/drupal/web/themes/contrib $SRC_PATH/themes
     fi
 fi
 
@@ -106,20 +119,20 @@ SETTINGS_FILE="/opt/drupal/web/sites/default/settings.php"
 
 if [ $MODE = "--archive-dump" ]; then
     echo "$PREFIX: Archiving... $ARGS"
-    docker exec unesco_oer_dc_cms sh -c "
+    docker exec ${PROJECT_NAME}_cms sh -c "
         cp $SETTINGS_FILE $SETTINGS_FILE.bak &&
         drush archive:dump --exclude-code-paths=web/sites/default/settings.php &&
         rm $SETTINGS_FILE.bak
     "
     mkdir -p $ARCHIVE_PATH
-    docker cp unesco_oer_dc_cms:/tmp/archive.tar.gz $ARCHIVE_PATH/"$(date +"%Y%m%dT%H%M%S").tar.gz"
+    docker cp ${PROJECT_NAME}_cms:/tmp/archive.tar.gz $ARCHIVE_PATH/"$(date +"%Y%m%dT%H%M%S").tar.gz"
     echo "$PREFIX: Archive saved to $ARCHIVE_PATH/$(date +"%Y%m%dT%H%M%S").tar.gz"
 fi
 
 if [ $MODE = "--archive-restore" ]; then
     echo "$PREFIX: Restoring archive... $ARGS"     
-    docker cp $ARGS unesco_oer_dc_cms:/tmp/archive.tar.gz
-    docker exec unesco_oer_dc_cms sh -c "
+    docker cp $ARGS ${PROJECT_NAME}_cms:/tmp/archive.tar.gz
+    docker exec ${PROJECT_NAME}_cms sh -c "
         drush archive:restore /tmp/archive.tar.gz &&
         cp $SETTINGS_FILE.bak $SETTINGS_FILE &&
         rm $SETTINGS_FILE.bak

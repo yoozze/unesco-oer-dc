@@ -5,7 +5,13 @@ set -o pipefail
 MODE="$1"
 
 # Check if option passed is valid
-OPTIONS_ARRAY=( "--help" "--install" "--install-modules" "--install-site" "--install-user" )
+OPTIONS_ARRAY=(
+    "--help"
+    "--install"
+    "--install-modules"
+    "--install-site"
+    "--fix-permissions"
+)
 VALID_OPTION="false"
 
 if [ -z "$1" ]; then
@@ -30,6 +36,7 @@ if [ $MODE = "--help" ]; then
     echo "bash drupal.sh --install              | Install everything"
     echo "bash drupal.sh --install-modules      | Install modules"
     echo "bash drupal.sh --install-site         | Install site"
+    echo "bash drupal.sh --fix-permissions      | Fix filesystem permissions"
     exit 0
 fi
 
@@ -52,7 +59,7 @@ if [[ $MODE =~ "--install" ]] && [ $INSTALLED = "true" ]; then
     exit 0
 fi
 
-if [ $MODE = "--install" ]; then
+if [ $MODE = "--install" ] || [ $MODE = "--fix-permissions" ]; then
     echo "Fixing files ownership..."
     chown www-data:www-data web/sites
     chown www-data:www-data web/sites/default
@@ -101,8 +108,8 @@ if [ $MODE = "--install" ] || [ $MODE = "--install-modules" ]; then
     # drush pm:install --yes taxonomy_multidelete_terms
 
     # Set theme
-    # drush theme:install --yes unesco
-    # drush config:set --yes system.theme default unesco
+    drush theme:install --yes unesco_oer_dc
+    drush config:set --yes system.theme default unesco_oer_dc
 
     # Set admin theme
     drush theme:install --yes gin

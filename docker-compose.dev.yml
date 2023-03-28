@@ -41,7 +41,6 @@ services:
             - ./services/cms/src/modules/custom:/opt/drupal/web/modules/custom
             - ./services/cms/src/themes/custom:/opt/drupal/web/themes/custom
 
-
     db:
         container_name: ${PROJECT_NAME}_db
         build:
@@ -70,14 +69,8 @@ services:
             # - ./services/db/data:/var/lib/postgresql/data
             # - ./services/db/init:/docker-entrypoint-initdb.d
 
-    email:
-        container_name: ${PROJECT_NAME}_email
-        image: mailhog/mailhog
-        ports:
-            - ${EMAIL_CLIENT_PORT}:8025
-
-    phpmyadmin:
-        container_name: ${PROJECT_NAME}_phpmyadmin
+    dbadmin:
+        container_name: ${PROJECT_NAME}_dbadmin
         image: phpmyadmin/phpmyadmin
         # restart: always
         ports:
@@ -87,6 +80,12 @@ services:
             # MYSQL_ROOT_PASSWORD: password
         depends_on:
             - db
+
+    email:
+        container_name: ${PROJECT_NAME}_email
+        image: mailhog/mailhog
+        ports:
+            - ${EMAIL_CLIENT_PORT}:8025
 
     # server:
     #     container_name: ${PROJECT_NAME}_server

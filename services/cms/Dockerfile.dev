@@ -10,6 +10,9 @@ ARG ENV
 # RUN apk add --no-cache bash
 # RUN apk add --no-cache git
 # RUN apk add --no-cache mysql-client
+RUN apt-get update && apt-get install -y \
+    default-mysql-client \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install modules
 RUN touch /.dockerenv
