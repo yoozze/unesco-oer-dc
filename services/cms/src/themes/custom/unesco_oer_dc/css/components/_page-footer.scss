@@ -1,4 +1,82 @@
 // # Page footer
 // =============
 
-// .c-page-footer {}
+.c-page-footer {
+    @include font('body-medium');
+
+    color: color('light');
+    background-color: color('background-dark');
+}
+
+// ## Page Footer Top
+// ------------------
+
+$top-padding: size('section-padding');
+
+.c-page-footer__top {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    padding-top: $top-padding;
+    padding-bottom: $top-padding;
+}
+
+// ## Page Footer Bottom
+// ---------------------
+
+$bottom-padding: size(2);
+
+.c-page-footer__bottom {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    padding-top: $bottom-padding;
+    padding-bottom: $bottom-padding;
+
+    @include before('') {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        height: 1px;
+        background-color: rgba(color('light'), size('opacity' 4));
+        opacity: 0.5;
+    }
+}
+
+// ## Page Footer Container
+// ------------------------
+
+.c-page-footer__container {
+    display: flex;
+}
+
+// ## Page Footer Row
+// ------------------
+
+$footer-gutter: negative(3);
+
+.c-page-footer__row {
+    justify-content: center;
+    flex-grow: 1;
+    margin-right: $footer-gutter;
+    margin-left: $footer-gutter;
+}
+
+// ## Page Footer Copyright
+// ------------------------
+
+.c-page-footer__copyright {
+    align-self: center;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-right: size(2);
+}
+
+// ## Page Footer Logo
+// -------------------
+
+.c-page-footer__logo {
+    align-self: center;
+    margin-left: auto;
+}

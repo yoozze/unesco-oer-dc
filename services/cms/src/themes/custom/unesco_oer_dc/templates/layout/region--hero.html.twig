@@ -1,7 +1,7 @@
 {#
 /**
  * @file
- * Theme override to display a region.
+ * Theme override to display a hero region.
  *
  * Available variables:
  * - content: The content for this region, typically blocks.
@@ -13,10 +13,18 @@
  */
 #}
 {% if content %}
-    <div{{ attributes.addClass('c-section') }}>
-        <div class="o-container">
+    <div{{attributes.addClass('c-hero')}}>
+        <div class="o-container c-hero__container">
             <div class="o-row">
                 {{ content }}
+                <div class="c-hero__media">
+                    <div class="c-hero__graphic">
+                        <svg viewbox="0 0 728 580" fill="none" xmlns="http://www.w3.org/2000/svg" preserveaspectratio="none">
+                            <path d="M107.543 0H729V580H107.984L0 286.825L107.543 0Z" fill="#001B59"/>
+                        </svg>
+                    </div>
+                    <img src="/themes/custom/unesco_oer_dc/images/oer-logo-vertical-light.svg" />
+                </div>
             </div>
         </div>
     </div>

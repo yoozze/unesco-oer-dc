@@ -32,25 +32,24 @@
  */
 #}
 {% if links -%}
-    {%- if heading -%}
-        {%- if heading.level -%}
-            <{{ heading.level }}{{ heading.attributes }}>{{ heading.text }}</{{ heading.level }}>
-        {%- else -%}
-            <h2{{ heading.attributes }}>{{ heading.text }}</h2>
-        {%- endif -%}
-    {%- endif -%}
-    <a class="c-language-switcher__active" href="#">{{ svg_icon('language') }} {{ language }}</a>
-    <ul{{ attributes }}>
-        {%- for item in links -%}
-            <li{{ item.attributes }}>
-                {%- if item.link -%}
-                    {{ item.link }}
-                {%- elseif item.text_attributes -%}
-                    <span{{ item.text_attributes }}>{{ item.text }}</span>
-                {%- else -%}
-                    {{ item.text }}
-                {%- endif -%}
-            </li>
-        {%- endfor -%}
-    </ul>
+	{%- if heading -%}
+		{%- if heading.level -%}
+			<{{ heading.level }}{{ heading.attributes }}>{{ heading.text }}</{{ heading.level }}>
+		{%- else -%}
+			<h2{{ heading.attributes }}>{{ heading.text }}</h2>
+		{%- endif -%}
+	{%- endif -%}
+	<ul{{ attributes }}>
+		{%- for item in links -%}
+			<li{{ item.attributes}}>
+				{%- if item.link -%}
+					{{ item.link }}
+				{%- elseif item.text_attributes -%}
+					<span{{ item.text_attributes }}>{{ item.text }}</span>
+				{%- else -%}
+					{{ item.text }}
+				{%- endif -%}
+			</li>
+		{%- endfor -%}
+	</ul>
 {%- endif %}

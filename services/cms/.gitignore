@@ -31,3 +31,13 @@ src/sites/simpletest
 # Ignore contributed modules and themes
 src/modules/contrib/*/
 src/themes/contrib/*/
+
+# Ignore node_modules directories.
+src/modules/*/node_modules
+src/themes/*/node_modules
+
+# Ignore dist directories.
+src/modules/**/dist
+src/themes/**/dist
+
+src/**/mix-manifest.json

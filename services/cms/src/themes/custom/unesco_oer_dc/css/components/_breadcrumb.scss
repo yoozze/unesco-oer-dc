@@ -2,3 +2,66 @@
 // ============
 
 // .c-breadcrumb {}
+
+// ## Breadcrumb Items
+// -------------------
+
+.c-breadcrumb__items {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 0;
+    padding: size(2) 0;
+    list-style: none;
+}
+
+// ## Breadcrumb Item
+// ------------------
+
+$item-bullet-size: size(0.75);
+
+.c-breadcrumb__item {
+    & + li {
+        position: relative;
+        margin-left: size(2.75);
+
+        @include before('') {
+            position: absolute;
+            top: size(1.25);
+            left: negative(1.875);
+            display: block;
+            width: $item-bullet-size;
+            height: $item-bullet-size;
+            background-color: color('bullet');
+            border-radius: 50%;
+        }
+    }
+}
+
+// ## Breadcrumb Link
+// ------------------
+
+.c-breadcrumb__link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+// ## Breadcrumb Icon
+// ------------------
+
+.c-breadcrumb__icon {
+    margin-right: size(0.5);
+    font-size: size(3);
+}
+
+// ## Breadcrumb Label
+// -------------------
+
+.c-breadcrumb__label {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}

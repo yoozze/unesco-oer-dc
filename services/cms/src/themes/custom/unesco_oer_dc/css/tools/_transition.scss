@@ -1,0 +1,93 @@
+// # Transition Tools
+// ==================
+
+
+// ## Variables
+// ------------
+
+/// Define your custom transitions.
+///
+/// @group transition
+/// @access public
+/// @type map
+$transitions: () !default;
+
+/// Default transition duration.
+///
+/// @group transition
+/// @access public
+/// @type number
+$transition-duration: 0.15s !default;
+
+
+// ## Functions
+// ------------
+
+/// Generate list of transitions from given arguments using `$transitions` map for resolving
+/// transition names.
+///
+/// @group transition
+/// @access public
+/// @param {string | list} $properties - Transition name/property or list of transition
+///     names/properties.
+/// @param {number | null} $duration [null] - Transition duration.
+/// @param {string | null} $timing [null] - Transition timing function.
+/// @param {number | null} $delay [null] - Transition delay.
+/// @returns {list} - List of comma separated transitions based on given arguments and
+///     `$transitions` map.
+@function transition($properties, $duration: null, $timing: null, $delay: null) {
+    $resolved: ();
+    @each $transition in $properties {
+        $transition: map-get($transitions, $transition) or $transition;
+
+        // In case `$transition` is alias, recursively search `$transitions` map.
+        @if map-has-key($transitions, $transition) {
+            $transition: transition($transition);
+        }
+
+        $length: length($transition);
+        $trs: (
+            // Property
+            unquote(nth($transition, 1))
+
+            // Duration
+            if(type-of($duration) == 'number',
+                $duration,
+                if($length > 1, nth($transition, 2), $transition-duration)
+            )
+        );
+
+        // Timing
+        @if $timing != null {
+            $trs: append($trs, unquote($timing));
+        } @else if $length > 2 {
+            $trs: append($trs, unquote(nth($transition, 3)));
+        }
+
+        // Delay
+        @if $delay != null {
+            $trs: append($trs, $delay);
+        } @else if $length > 3 {
+            $trs: append($trs, nth($transition, 4));
+        }
+
+        $resolved: append($resolved, $trs, comma);
+    }
+
+    @return if(length($resolved) != 1, $resolved, nth($resolved, 1));
+}
+
+
+// ## Mixins
+// ---------
+
+/// Output `transition` property with a value generated from given arguments using `$transitions`
+/// map for resolving transition names.
+///
+/// @group transition
+/// @access public
+/// @param {arglist} $args - Arguments passed to `transition` function.
+/// @outputs `transition` property with a value based on given arguments and `$transitions` map.
+@mixin transition($args...) {
+    transition: transition($args...);
+}

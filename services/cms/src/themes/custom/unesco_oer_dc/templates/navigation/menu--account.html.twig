@@ -1,0 +1,70 @@
+{#
+/**
+ * @file
+ * Theme override to display a menu.
+ *
+ * Available variables:
+ * - menu_name: The machine name of the menu.
+ * - items: A nested list of menu items. Each menu item contains:
+ *   - attributes: HTML attributes for the menu item.
+ *   - below: The menu item child items.
+ *   - title: The menu link title.
+ *   - url: The menu link url, instance of \Drupal\Core\Url
+ *   - localized_options: Menu link localized options.
+ *   - is_expanded: TRUE if the link has visible children within the current
+ *     menu tree.
+ *   - is_collapsed: TRUE if the link has children within the current menu tree
+ *     that are not currently visible.
+ *   - in_active_trail: TRUE if the link is in the active trail.
+ */
+#}
+{% import _self as menus %}
+
+{#
+  We call a macro which calls itself to render the full tree.
+  @see https://twig.symfony.com/doc/1.x/tags/macro.html
+#}
+
+{% if logged_in %}
+    {% set item = items|first %}
+    {% set options = {
+        'popper': {
+            'placement': 'bottom-end'
+        }
+    } %}
+    <div class="c-navigation__dropdown c-dropdown" data-options="{{ options|json_encode }}">
+        <button class="c-dropdown__toggle c-icon-button c-icon-button--standard" title="{{ item.title }}">
+            {{ svg_icon('account-circle', 'c-icon-button__icon') }}
+        </button>
+        <div class="c-dropdown__menu c-menu">
+            {{ menus.menu_links(items, attributes, 0) }}
+        </div>
+    </div>
+{% else %}
+    {% set item = items|first %}
+    <a class="c-navigation__button c-button c-button--tonal" href="{{ path(item.url.routeName) }}">
+        {# {{ svg_icon('login', 'c-button__leading-icon') }} #} <span class="c-button__label">{{ item.title }}</span>
+    </a>
+{% endif %}
+
+{% macro menu_links(items, attributes, menu_level) %}
+    {% import _self as menus %}
+    {% if items %}
+        {% if menu_level == 0 %}
+            <ul{{ attributes.addClass('c-menu__items') }}>
+        {% else %}
+            <ul>
+        {% endif %}
+            {% for item in items %}
+                {# {% set divider = loop.last ? 'c-menu__item--divider-top' : '' %} #}
+                {% set divider = '' %}
+                <li{{ item.attributes.addClass('c-menu__item').addClass(divider) }}>
+                    {{ link(item.title, item.url, { 'class': ['c-menu__link'] }) }}
+                    {% if item.below %}
+                        {{ menus.menu_links(item.below, attributes, menu_level + 1) }}
+                    {% endif %}
+                </li>
+            {% endfor %}
+            </ul>
+    {% endif %}
+{% endmacro %}

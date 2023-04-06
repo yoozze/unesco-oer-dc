@@ -1,7 +1,10 @@
-// # Page header
+// # Page Header
 // =============
 
 // .c-page-header {}
+
+// ## Page Header Top
+// ------------------
 
 .c-page-header__top {
     @include font('body-medium');
@@ -9,11 +12,52 @@
     display: flex;
     justify-content: center;
     color: color('light');
-    background-color: color('navy-blue');
+    background-color: color('background-dark');
+
+    & > .o-container {
+        display: flex;
+        // align-items: center;
+
+        & > .o-block {
+            &:first-child {
+                margin-right: size('gutter');
+            }
+
+            &:nth-child(2) {
+                margin-left: auto;
+            }
+        }
+    }
 }
+
+// ## Page Header Bottom
+// ----------------------
 
 .c-page-header__bottom {
     display: flex;
     justify-content: center;
     border-bottom: 1px solid color('divider');
+
+    & > .o-container {
+        display: flex;
+        // align-items: center;
+
+        & > .o-block {
+            &:first-child {
+                margin-right: size('gutter') * 2;
+            }
+
+            &:nth-child(2) {
+                margin-right: size('gutter');
+            }
+
+            &:nth-child(3) {
+                margin-left: auto;
+            }
+
+            &:nth-child(n + 4) {
+                margin-left: size(1);
+            }
+        }
+    }
 }

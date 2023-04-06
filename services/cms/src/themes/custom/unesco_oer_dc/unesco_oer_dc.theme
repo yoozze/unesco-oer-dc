@@ -5,53 +5,160 @@
  * Functions to support theming in the UNESCO OER DC theme.
  */
 
- use Drupal\Core\Template\Attribute;
+use Drupal\Core\Template\Attribute;
+
+function &get_classes(&$variables) {
+    if (empty($variables['attributes']['class'])) {
+        $variables['attributes']['class'] = array();
+    }
+
+    return $variables['attributes']['class'];
+}
 
 /**
  * Implements hook_preprocess_HOOK() for html.html.twig.
  */
 function unesco_oer_dc_preprocess_html(&$variables) {
-  // Add class
-  // $variables['attributes']['class'][] = 'page';
-  
-  // Read SVG icons
-  $theme_path = \Drupal::service('extension.list.theme')->getPath('unesco_oer_dc');
-  $svg = file_get_contents($theme_path . '/images/icons.svg');
-  $variables['svg_icons'] = $svg;
+    // Add class
+    // $variables['attributes']['class'][] = 'page';
+
+    // Read SVG icons
+    $theme_path = \Drupal::service('extension.list.theme')->getPath('unesco_oer_dc');
+    $svg = file_get_contents($theme_path . '/images/icons.svg');
+    $variables['svg_icons'] = $svg;
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for page.html.twig.
+ */
+function unesco_oer_dc_preprocess_page(&$variables) {
+    // $classes = &get_classes($variables);
+
+    // // Add class
+    // $classes[] = 'page';
+
+    // // Add SVG icons
+    // $theme_path = \Drupal::service('extension.list.theme')->getPath('unesco_oer_dc');
+    // $svg = file_get_contents($theme_path . '/images/icons.svg');
+    // $variables['svg_icons'] = $svg;
+
+    // // Add search form
+    // $search_form = \Drupal::formBuilder()->getForm('Drupal\search\Form\SearchForm');
+    // $variables['search_form'] = $search_form;
+
+    // // Add language switcher
+    // $language_switcher = \Drupal::formBuilder()->getForm('Drupal\language\Form\LanguageBlockForm');
+    // $variables['language_switcher'] = $language_switcher;
+
+    // // Add navigation
+    // $navigation = \Drupal::service('renderer')->renderBlock(\Drupal::entityTypeManager()->getStorage('block')->load('mainnavigation'), 'main');
+    // $variables['navigation'] = $navigation;
+
+    // // Add footer
+    // $footer = \Drupal::service('renderer')->renderBlock(\Drupal::entityTypeManager()->getStorage('block')->load('footer'), 'main');
+    // $variables['footer'] = $footer;
+    if (empty($variables['page']['footer_bottom'])) {
+        $variables['page']['footer_bottom'] = array(
+            '#region' => 'footer_bottom',
+            '#sorted' => true,
+            '#theme_wrappers' => ['region'],
+            '#site_name' => \Drupal::config('system.site')->get('name')
+        );
+    }
 }
 
 /**
  * Implements hook_preprocess_HOOK() for block.html.twig.
  */
 function unesco_oer_dc_preprocess_block(&$variables) {
+    $classes = &get_classes($variables);
+
+    // Navigation block
     if ($variables['base_plugin_id'] === 'system_menu_block') {
-        $variables['attributes']['class'][] = 'c-navigation';
-        $variables['attributes']['class'][] = 'c-navigation--' . str_replace('-navigation', '', $variables['derivative_plugin_id']);
+        $plugin_id = $variables['derivative_plugin_id'];
+        $classes[] = 'c-navigation';
+        $classes[] = 'c-navigation--' . str_replace('-navigation', '', $plugin_id);
+
+        if (in_array($plugin_id, array('follow-us', 'information', 'categories'))) {
+            $classes[] = 'c-navigation--footer';
+        }
     }
 
-    if (!empty($variables['attributes']['class']) && in_array('language-switcher-language-url', $variables['attributes']['class'])) {
-        $variables['attributes']['class'] = array('c-language-switcher');
+    // Branding block
+    if ($variables['base_plugin_id'] === 'system_branding_block') {
+        $classes[] = 'c-site-branding';
     }
 
-    $variables['attributes']['class'][] = 'o-block';
+    // Language block
+    if ($variables['base_plugin_id'] === 'language_block') {
+        $classes = array('contextual-region', 'c-dropdown', 'c-dropdown--language');
+        $variables['attributes']['data-options'] = json_encode(array('popper' => array('placement' => 'bottom')));
+    }
+
+    // Search block
+    if ($variables['base_plugin_id'] === 'search_form_block') {
+        $variables['content']['actions']['submit']['#icon'] = 'search';
+        // $variables['content']['actions']['submit']['#leading_icon'] = 'search';
+        // $variables['content']['actions']['submit']['#trailing_icon'] = 'search';
+        $variables['content']['keys']['#control_size'] = 'small';
+    }
+
+    $classes[] = 'o-block o-block--' . str_replace('_', '-', $variables['base_plugin_id']);
 }
 
 /**
  * Implements hook_preprocess_HOOK() for region.html.twig.
  */
 function unesco_oer_dc_preprocess_region(&$variables) {
-    $variables['attributes']['class'][] = 'o-region';
+    $classes = &get_classes($variables);
+    $classes[] = 'o-region';
 }
 
 /**
  * Implements hook_preprocess_HOOK() for links.html.twig.
  */
 function unesco_oer_dc_preprocess_links__language_block(&$variables) {
-    $variables['attributes']['class'] = array('c-language-switcher__links');
     foreach ($variables['links'] as &$link) {
-        $link['link']['#options']['attributes']['class'] = array('c-language-switcher__link');
+        $link['link']['#options']['attributes']['class'] = array('c-menu__link');
     }
 
     $language =  \Drupal::languageManager()->getCurrentLanguage()->getName();
     $variables['language'] = $language;
 }
+
+/**
+ * Implements hook_preprocess_HOOK() for breadcrumb.html.twig.
+ */
+function unesco_oer_dc_preprocess_breadcrumb(&$variables) {
+    $breadcrumb = &$variables['breadcrumb'];
+
+    if (empty($breadcrumb)) {
+        return;
+    }
+
+    if (count($breadcrumb) === 1) {
+        $breadcrumb = array();
+        return;
+    }
+
+    if (count($breadcrumb) >= 2 && $breadcrumb[1]['url'] === '/search') {
+        $breadcrumb = array(
+            $breadcrumb[0],
+            array(
+                'text' => $breadcrumb[1]['text'],
+                'url' => '',
+            ),
+        );
+        return;
+    }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for menu.html.twig.
+ */
+// function unesco_oer_dc_preprocess_menu(&$variables) {
+//     $classes = &$variables['attributes']['class'];
+
+//     $classes[] = 'c-navigation__menu';
+//     $classes[] = 'c-navigation__menu--' . $variables['menu_name'];
+// }

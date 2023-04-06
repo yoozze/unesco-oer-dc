@@ -2,7 +2,8 @@ global-styling:
   version: 1.0
   css:
     base:
-      css/style.scss: {}
+      dist/style.css: {}
+      # css/style.scss: {}
       # css/base/normalize.scss: {}
     #   css/base/fonts.css: {}
     #   css/base/variables.scss: {}
@@ -53,15 +54,19 @@ global-styling:
     #   css/components/tabledrag.css: {}
     #   css/components/wide-image.css: {}
 
-#   js:
+  js:
+    dist/main.js: {}
+    # js/popper.js: {}
+    # js/tippy.js: {}
+    # js/debug.js: {}
 #     js/checkbox.js: {}
 #     js/navigation-utils.js: {}
 
-#   dependencies:
+  dependencies:
 #     - core/drupal.element.closest
 #     - core/drupal.element.matches
 #     - core/drupal.nodelist.foreach
-#     - core/drupal
+    - core/drupal
 #     - core/once
 #     - core/tabbable
-#     - core/jquery
+    - core/jquery

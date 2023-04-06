@@ -1,0 +1,90 @@
+// # Menu
+// ======
+
+$menu-radius: size('radius' 1);
+
+.c-menu {
+    @include elevation(2);
+    @include font('body-large');
+
+    // position: absolute;
+    // display: none;
+    padding: size(1) 0;
+    background-color: color('light');
+    border-radius: $menu-radius;
+
+    // @include before('') {
+    //     position: absolute;
+    //     top: 0;
+    //     right: 0;
+    //     bottom: 0;
+    //     left: 0;
+    //     z-index: 0;
+    //     content: '';
+    //     background-color: rgba(color('blue'), size('opacity' 1));
+    //     border-radius: $menu-radius;
+    // }
+}
+
+// ## Menu Items
+// -------------
+
+.c-menu__items {
+    position: relative;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+// ## Menu Item
+// ------------
+
+// .c-menu__item {}
+
+// ## Menu Item - Divider
+// ----------------------
+
+$spacing: size(1);
+$divider: 1px solid color('divider');
+
+.c-menu__item--divider-top {
+    padding-top: $spacing;
+    margin-top: $spacing;
+    border-top: $divider;
+}
+
+.c-menu__item--divider-bottom {
+    padding-bottom: $spacing;
+    margin-bottom: $spacing;
+    border-bottom: $divider;
+}
+
+// ## Menu Link
+// -------------
+
+$link-bg-color: color('abbey');
+
+.c-menu__link {
+    @include transition('color' 'background-color');
+
+    display: block;
+    padding: size(1.5) size(2);
+    text-decoration: none;
+    color: color('font');
+
+    &:hover {
+        background-color: rgba($link-bg-color, size('opacity' 1));
+    }
+
+    &:focus {
+        background-color: rgba($link-bg-color, size('opacity' 2));
+    }
+
+    &:active {
+        background-color: rgba($link-bg-color, size('opacity' 3));
+    }
+
+    &.is-active {
+        background-color: rgba($link-bg-color, size('opacity' 3));
+    }
+}

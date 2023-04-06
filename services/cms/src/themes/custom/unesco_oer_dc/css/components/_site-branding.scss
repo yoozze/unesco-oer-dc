@@ -1,20 +1,36 @@
-// # Site branding
+// # Site Branding
 // ===============
 
 .c-site-branding {
     display: flex;
     align-items: center;
-    padding-right: size('gutter') / 2;
-    padding-left: size('gutter') / 2;
 }
 
+// ## Site Branding Logo
+// ---------------------
+
 .c-site-branding__logo {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    min-width: 72px;
+
     img {
-        display: block;
+        display: inline-block;
     }
 }
 
+// ## Site Branding Name
+// ---------------------
+
+$name-padding-y: size(1.25);
+
 .c-site-branding__name {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding-top: $name-padding-y;
+    padding-bottom: $name-padding-y;
     color: color('font-light');
     text-decoration: none;
 }

@@ -101,7 +101,6 @@ if [ $MODE = "--install" ] || [ $MODE = "--install-modules" ]; then
     drush pm:install --yes file_delete
     drush pm:install --yes realistic_dummy_content
     drush pm:install --yes easy_breadcrumb
-    drush pm:install --yes scss_compiler
     drush pm:install --yes twig_extension
     drush pm:install --yes language_switcher_extended
     # drush pm:install --yes taxonomy_import

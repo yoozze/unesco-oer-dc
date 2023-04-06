@@ -1,0 +1,32 @@
+// # Links
+// =======
+// Default styles for links.
+
+
+$color: color('link');
+
+a {
+    // @include transition('color' 'background-color' 'border-color');
+
+    color: $color;
+    // text-decoration: none;
+    // border-bottom: 1px solid color('gallery');
+
+
+    // &:hover,
+    // &:focus,
+    // &:active {
+    //     border-color: $color;
+    // }
+
+    // TODO: Set link focus/active style!
+    //&:focus,
+    //&:active {
+    //    outline: none;
+    //    box-shadow: none;
+    //}
+
+    // &:visited {
+    //    color: color('fuchsia');
+    // }
+}

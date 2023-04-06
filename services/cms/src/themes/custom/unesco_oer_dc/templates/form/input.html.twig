@@ -1,0 +1,21 @@
+{#
+/**
+ * @file
+ * Theme override for an 'input' #type form element.
+ *
+ * Available variables:
+ * - attributes: A list of HTML attributes for the input element.
+ * - children: Optional additional rendered elements.
+ *
+ * @see template_preprocess_input()
+ */
+#}
+{% set type = attributes.type|clean_class %}
+{% set classes = type in ['checkbox', 'radio'] ? [
+    'c-form__' ~ attributes.type|clean_class,
+] : [
+    'c-form__input',
+    'c-form__input--' ~ attributes.type|clean_class,
+    element['#control_size'] ? 'c-form__input--' ~ element['#control_size'],
+] %}
+<input{{attributes.setAttribute('class',classes).setAttribute('placeholder', ' ')}} />{{ children }}

@@ -4,11 +4,10 @@
 // ## Colors
 // ---------
 
-
 $colors: (
+    // Palette
     'light': #fff,
     'dark': #000,
-
 
     'navy-blue': #001b59,
     'navy-blue-99': #fefbff,
@@ -116,13 +115,31 @@ $colors: (
 
     'chathams-blue': #174e86,
 
+    // Semantic
+    'disabled': 'abbey-10',
+
+    'background': 'light',
+    'background-alt': 'abbey-95',
+    'background-dark': 'navy-blue',
+    'background-dark-alt': 'chathams-blue',
+
+    'font': 'abbey-10',
     'font-light': 'light',
-    'font-dark': 'dark',
 
-    'bg-section': 'light',
-    'bg-section-alt': 'abbey-95',
+    'link': 'blue',
 
-    'divider': 'abbey-80',
+    'active': 'blue',
+    'focus': 'blue',
+
+    'error': 'red-40',
+
+    'icon': 'abbey-30',
+    'icon-light': 'light',
+    'icon-active': 'blue',
+
+    'border': 'abbey-80',
+    'divider': 'border',
+    'bullet': 'abbey-50'
 );
 
 // ## Typography
@@ -131,7 +148,8 @@ $colors: (
 $fonts: (
     'display-large': (
         'font-family': (
-            'Montserrat', sans-serif,
+            'Montserrat',
+            sans-serif,
         ),
         'font-style': normal,
         'font-weight': 700,
@@ -140,7 +158,8 @@ $fonts: (
     ),
     'display-medium': (
         'font-family': (
-            'Montserrat', sans-serif,
+            'Montserrat',
+            sans-serif,
         ),
         'font-style': normal,
         'font-weight': 700,
@@ -149,7 +168,8 @@ $fonts: (
     ),
     'display-small': (
         'font-family': (
-            'Montserrat', sans-serif,
+            'Montserrat',
+            sans-serif,
         ),
         'font-style': normal,
         'font-weight': 700,
@@ -158,7 +178,8 @@ $fonts: (
     ),
     'headline-large': (
         'font-family': (
-            'Montserrat', sans-serif,
+            'Montserrat',
+            sans-serif,
         ),
         'font-style': normal,
         'font-weight': 700,
@@ -167,7 +188,8 @@ $fonts: (
     ),
     'headline-medium': (
         'font-family': (
-            'Montserrat', sans-serif,
+            'Montserrat',
+            sans-serif,
         ),
         'font-style': normal,
         'font-weight': 700,
@@ -176,7 +198,8 @@ $fonts: (
     ),
     'headline-small': (
         'font-family': (
-            'Montserrat', sans-serif,
+            'Montserrat',
+            sans-serif,
         ),
         'font-style': normal,
         'font-weight': 700,
@@ -185,7 +208,8 @@ $fonts: (
     ),
     'title-large': (
         'font-family': (
-            'Noto Sans', sans-serif,
+            'Noto Sans',
+            sans-serif,
         ),
         'font-style': normal,
         'font-weight': 500,
@@ -194,7 +218,8 @@ $fonts: (
     ),
     'title-medium': (
         'font-family': (
-            'Noto Sans', sans-serif,
+            'Noto Sans',
+            sans-serif,
         ),
         'font-style': normal,
         'font-weight': 500,
@@ -204,7 +229,8 @@ $fonts: (
     ),
     'title-small': (
         'font-family': (
-            'Noto Sans', sans-serif,
+            'Noto Sans',
+            sans-serif,
         ),
         'font-style': normal,
         'font-weight': 500,
@@ -214,7 +240,8 @@ $fonts: (
     ),
     'label-large': (
         'font-family': (
-            'Noto Sans', sans-serif,
+            'Noto Sans',
+            sans-serif,
         ),
         'font-style': normal,
         'font-weight': 500,
@@ -224,7 +251,8 @@ $fonts: (
     ),
     'label-medium': (
         'font-family': (
-            'Noto Sans', sans-serif,
+            'Noto Sans',
+            sans-serif,
         ),
         'font-style': normal,
         'font-weight': 500,
@@ -234,7 +262,8 @@ $fonts: (
     ),
     'label-small': (
         'font-family': (
-            'Noto Sans', sans-serif,
+            'Noto Sans',
+            sans-serif,
         ),
         'font-style': normal,
         'font-weight': 500,
@@ -244,7 +273,8 @@ $fonts: (
     ),
     'body-large': (
         'font-family': (
-            'Noto Sans', sans-serif,
+            'Noto Sans',
+            sans-serif,
         ),
         'font-style': normal,
         'font-weight': 400,
@@ -254,7 +284,8 @@ $fonts: (
     ),
     'body-medium': (
         'font-family': (
-            'Noto Sans', sans-serif,
+            'Noto Sans',
+            sans-serif,
         ),
         'font-style': normal,
         'font-weight': 400,
@@ -264,7 +295,8 @@ $fonts: (
     ),
     'body-small': (
         'font-family': (
-            'Noto Sans', sans-serif,
+            'Noto Sans',
+            sans-serif,
         ),
         'font-style': normal,
         'font-weight': 400,
@@ -274,7 +306,6 @@ $fonts: (
     ),
 );
 
-
 // ## Sizes
 // --------
 
@@ -283,19 +314,37 @@ $sizes: (
     'base': 8px,
     'gutter': 24px,
 
-    'radius-xs': 4px,
-    'radius-sm': 8px,
-    'radius': 12px,
+    'radius': (
+        4px,
+        8px,
+        12px,
+        16px,
+        20px,
+        24px,
+        28px,
+    ),
+    'opacity': (
+        0.08,
+        0.12,
+        0.16,
+        0.24,
+        0.48,
+    ),
+    'duration': (
+        0.15s,
+        0.3s,
+        0.45s,
+        0.6s,
+        0.75s,
+        1s,
+    ),
 
-    'opacity-sm': 0.08,
-    'opacity': 0.12,
-    'opacity-lg': 0.16,
-    
     'page-width': 1440px,
+
+    'section-padding': 80px,
 );
 
-
-// ## Z-indexes
+// ## Z-indices
 // ------------
 
 $z-index: (
@@ -310,6 +359,26 @@ $z-index: (
     'a11y-nav',
     'dialog',
     'cookie-consent',
-    'browser-status',
+    'browser-status'
 );
 
+// ## Transitions
+// --------------
+
+$transition-duration: 0.15s;
+
+// ## Elevations
+// -------------
+
+$elevation: (
+    // Elevation 1
+    (0px 1px 2px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15)),
+    // Elevation 2
+    (0px 1px 2px rgba(0, 0, 0, 0.3), 0px 2px 6px 2px rgba(0, 0, 0, 0.15)),
+    // Elevation 3
+    (0px 4px 8px 3px rgba(0, 0, 0, 0.15), 0px 1px 3px rgba(0, 0, 0, 0.3)),
+    // Elevation 4
+    (0px 6px 10px 4px rgba(0, 0, 0, 0.15), 0px 2px 3px rgba(0, 0, 0, 0.3)),
+    // Elevation 5
+    (0px 8px 12px 6px rgba(0, 0, 0, 0.15), 0px 4px 4px rgba(0, 0, 0, 0.3))
+);

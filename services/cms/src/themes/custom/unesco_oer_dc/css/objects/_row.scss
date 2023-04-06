@@ -1,8 +1,10 @@
 // # Row
 // =====
 
+$margin-x: negative('gutter') / 2;
+
 .o-row {
     display: flex;
-    margin-right: negative('gutter') / 2;
-    margin-left: negative('gutter') / 2;
+    margin-right: $margin-x;
+    margin-left: $margin-x;
 }

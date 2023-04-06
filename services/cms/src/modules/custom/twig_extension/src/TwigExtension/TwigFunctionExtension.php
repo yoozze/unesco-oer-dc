@@ -35,13 +35,14 @@ class TwigFunctionExtension extends \Twig_Extension
      *
      * @return array
      */
-    public function svgIcon($name)
+    public function svgIcon($name, $class = '')
     {
         return [
             '#type' => 'inline_template',
-            '#template' => '<svg class="c-icon c-icon--{{ name }}" xmlns:xlink="http://www.w3.org/1999/xlink"><use xlink:href="#{{ name }}"></use></svg>',
+            '#template' => '<svg class="c-icon c-icon--{{ name }} {{ class }}" xmlns:xlink="http://www.w3.org/1999/xlink"><use xlink:href="#{{ name }}"></use></svg>',
             '#context' => [
                 'name' => $name,
+                'class' => $class,
             ],
         ];
     }

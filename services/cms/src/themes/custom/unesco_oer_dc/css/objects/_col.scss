@@ -1,7 +1,21 @@
 // # Col
 // =====
 
+$padding-x: size('gutter') / 2;
+
 .o-col {
-    padding-right: size('gutter') / 2;
-    padding-left: size('gutter') / 2;
+    padding-right: $padding-x;
+    padding-left: $padding-x;
+}
+
+// ## Col - n
+// ----------
+
+$col-count: 12;
+
+@for $i from 1 through $col-count {
+    .o-col--#{$i} {
+        flex: 0 0 percentage($i / $col-count);
+        max-width: percentage($i / $col-count);
+    }
 }

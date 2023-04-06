@@ -1,11 +1,9 @@
 // # Main style
 // ============
 
-
 // ## Settings
 // ------------
 @import 'settings/global';
-
 
 // ## Tools
 // --------
@@ -13,7 +11,9 @@
 @import 'tools/layout';
 @import 'tools/scale';
 @import 'tools/type';
-
+@import 'tools/transition';
+@import 'tools/elevation';
+@import 'tools/string';
 
 // ## Generic
 // ----------
@@ -21,39 +21,47 @@
 @import 'generic/box-sizing';
 @import 'generic/normalize';
 
-
 // ## Elements
 // -----------
 @import 'elements/root';
 @import 'elements/headings';
-
+@import 'elements/paragraph';
+@import 'elements/links';
+@import 'elements/media';
 
 // ## Objects
 // -----------
+@import 'objects/off-canvas-page-wrapper';
+@import 'objects/layout-container';
+@import 'objects/layout-content';
+@import 'objects/main';
 @import 'objects/container';
 @import 'objects/region';
 @import 'objects/row';
 @import 'objects/col';
 
-
 // ## Components
 // -------------
 @import 'components/icon';
+@import 'components/button';
+@import 'components/icon-button';
+@import 'components/navigation';
+@import 'components/dropdown';
+@import 'components/menu';
+@import 'components/form';
+@import 'components/section';
+@import 'components/site-branding';
 @import 'components/breadcrumb';
 @import 'components/page-header';
 @import 'components/page-footer';
+@import 'components/page';
 @import 'components/hero';
-@import 'components/section';
-@import 'components/site-branding';
-@import 'components/navigation';
-@import 'components/language-switcher';
-
+@import 'components/banner';
 
 // ## Trumps
 // ----------
 @import 'trumps/overrides';
-
+@import 'trumps/utilities';
 
 // ## Vendors
 // ----------
-

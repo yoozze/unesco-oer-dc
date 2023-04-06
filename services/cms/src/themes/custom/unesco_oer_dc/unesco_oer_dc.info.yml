@@ -24,6 +24,7 @@ regions:
   content: 'Content'
   # sidebar: 'Sidebar'
   # content_below: 'Content Below'
+  banner: 'Banner'
   footer_top: 'Footer Top'
   footer_bottom: 'Footer Bottom'
 # libraries-override:

@@ -1,0 +1,266 @@
+// # Button
+// ========
+
+$icon-size: size(2.25);
+$border-radius: size('radius' 5);
+
+.c-button {
+    @include font('label-large');
+
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    padding: size(1.25) size(3);
+    text-decoration: none;
+    border: 0;
+    border-radius: $border-radius;
+    cursor: pointer;
+
+    @include before('') {
+        @include transition('background-color');
+
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 0;
+        border-radius: $border-radius;
+    }
+
+    &.is-disabled,
+    &:disabled {
+        pointer-events: none;
+        cursor: default;
+    }
+}
+
+// ## Button Label
+// ---------------
+
+.c-button__label {
+    position: relative;
+}
+
+// ## Button Leading Icon
+// ----------------------
+
+.c-button__leading-icon {
+    flex-shrink: 0;
+    width: $icon-size;
+    height: $icon-size;
+    margin-right: size(1);
+    margin-left: negative(1);
+}
+
+// ## Button Trailing Icon
+// -----------------------
+
+.c-button__trailing-icon {
+    flex-shrink: 0;
+    width: $icon-size;
+    height: $icon-size;
+    margin-right: negative(1);
+    margin-left: size(1);
+}
+
+// ## Button - Filled
+// ------------------
+
+$filled-color: color('light');
+$filled-color-disabled: color('disabled');
+$filled-bg-color: color('blue');
+$filled-bg-color-layer: color('blue-10');
+
+.c-button--filled {
+    @include transition('box-shadow', size('duration' 2));
+
+    color: $filled-color;
+    background-color: $filled-bg-color;
+
+    &:not(:disabled):not(.is-disabled):hover {
+        @include elevation(1);
+        @include before(null) {
+            background-color: rgba($filled-bg-color-layer, size('opacity' 1));
+        }
+    }
+
+    &:not(:disabled):not(.is-disabled):focus {
+        @include before(null) {
+            background-color: rgba($filled-bg-color-layer, size('opacity' 2));
+        }
+    }
+
+    &:not(:disabled):not(.is-disabled).is-active,
+    &:not(:disabled):not(.is-disabled):active {
+        @include before(null) {
+            background-color: rgba($filled-bg-color-layer, size('opacity' 3));
+        }
+    }
+
+    &.is-disabled,
+    &:disabled {
+        color: $filled-color-disabled;
+        background-color: color('light');
+
+        @include before(null) {
+            background-color: rgba($filled-color-disabled, size('opacity' 1));
+        }
+
+        & > * {
+            opacity: size('opacity' 4);
+        }
+    }
+}
+
+// ## Button - Outlined
+// --------------------
+
+$outlined-padding-y: size(1.125);
+$outlined-color: color('blue');
+$outlined-color-disabled: color('disabled');
+$outlined-border-color: color('border');
+$outlined-border-color-active: color('blue');
+$outlined-bg-color-layer: color('blue');
+
+.c-button--outlined {
+    @include transition('border-color');
+
+    padding-top: $outlined-padding-y;
+    padding-bottom: $outlined-padding-y;
+    color: $outlined-color;
+    border: 1px solid $outlined-border-color;
+
+    &:not(:disabled):not(.is-disabled):hover {
+        @include before(null) {
+            background-color: rgba($outlined-bg-color-layer, size('opacity' 1));
+        }
+    }
+
+    &:not(:disabled):not(.is-disabled):focus {
+        border-color: $outlined-border-color-active;
+
+        @include before(null) {
+            background-color: rgba($outlined-bg-color-layer, size('opacity' 2));
+        }
+    }
+
+    &:not(:disabled):not(.is-disabled).is-active,
+    &:not(:disabled):not(.is-disabled):active {
+        @include before(null) {
+            background-color: rgba($outlined-bg-color-layer, size('opacity' 3));
+        }
+    }
+
+    &.is-disabled,
+    &:disabled {
+        color: $outlined-color-disabled;
+        border-color: rgba($outlined-color-disabled, size('opacity' 1));
+
+        & > * {
+            opacity: size('opacity' 4);
+        }
+    }
+}
+
+// ## Button - Text
+// ----------------
+
+$text-padding-x: size(1.5);
+$text-color: color('blue');
+$text-color-disabled: color('disabled');
+$text-bg-color-layer: color('blue');
+
+.c-button--text {
+    @include transition('border-color');
+
+    padding-left: $text-padding-x;
+    padding-right: $text-padding-x;
+    color: $text-color;
+
+    &:not(:disabled):not(.is-disabled):hover {
+        @include before(null) {
+            background-color: rgba($text-bg-color-layer, size('opacity' 1));
+        }
+    }
+
+    &:not(:disabled):not(.is-disabled):focus {
+        @include before(null) {
+            background-color: rgba($text-bg-color-layer, size('opacity' 2));
+        }
+    }
+
+    &:not(:disabled):not(.is-disabled).is-active,
+    &:not(:disabled):not(.is-disabled):active {
+        @include before(null) {
+            background-color: rgba($text-bg-color-layer, size('opacity' 3));
+        }
+    }
+
+    &.is-disabled,
+    &:disabled {
+        color: $text-color-disabled;
+
+        & > * {
+            opacity: size('opacity' 4);
+        }
+    }
+
+    & > .c-button__leading-icon {
+        margin-left: 0;
+    }
+
+    & > .c-button__trailing-icon {
+        margin-right: 0;
+    }
+}
+
+// ## Button - Tonal
+// -----------------
+
+$tonal-color: color('blue-10');
+$tonal-color-disabled: color('disabled');
+$tonal-bg-color: color('blue-90');
+$tonal-bg-color-layer: color('blue-10');
+
+.c-button--tonal {
+    @include transition('box-shadow', size('duration' 2));
+
+    color: $tonal-color;
+    background-color: $tonal-bg-color;
+
+    &:not(:disabled):not(.is-disabled):hover {
+        @include elevation(1);
+        @include before(null) {
+            background-color: rgba($tonal-bg-color-layer, size('opacity' 1));
+        }
+    }
+
+    &:not(:disabled):not(.is-disabled):focus {
+        @include before(null) {
+            background-color: rgba($tonal-bg-color-layer, size('opacity' 2));
+        }
+    }
+
+    &:not(:disabled):not(.is-disabled).is-active,
+    &:not(:disabled):not(.is-disabled):active {
+        @include before(null) {
+            background-color: rgba($tonal-bg-color-layer, size('opacity' 3));
+        }
+    }
+
+    &.is-disabled,
+    &:disabled {
+        color: $tonal-color-disabled;
+        background-color: color('light');
+
+        @include before(null) {
+            background-color: rgba($tonal-color-disabled, size('opacity' 1));
+        }
+
+        & > * {
+            opacity: size('opacity' 4);
+        }
+    }
+}

@@ -1,0 +1,252 @@
+// # Form
+// ------
+
+.c-form {
+}
+
+// ## Form Fieldset
+
+.c-form__fieldset {
+    box-sizing: border-box;
+}
+
+// ## Form Legend
+
+.c-form__legend {
+}
+
+// ## Form Fieldset Wrapper
+
+.c-form__fieldset-wrapper {
+}
+
+// ## Form Checkboxes
+
+.c-form__checkboxes {
+}
+
+// ## Form Radios
+
+.c-form__radios {
+}
+
+// ## Form Container
+
+.c-form__container {
+}
+
+// ## Form Field
+// ------------
+
+.c-form__field {
+    position: relative;
+    margin-bottom: size(2);
+}
+
+// ## Form Field Prefix
+// --------------------
+
+.c-form__field-prefix {
+}
+
+// ## Form Field Suffix
+// --------------------
+
+.c-form__field-suffix {
+}
+
+// ## Form Label
+// -------------
+
+$label-offset-y-active: negative(1.125);
+$label-fs-active: size(1.5);
+$label-color-active: color('active');
+$label-bg-offset: size(0.5);
+
+.c-form__label {
+    @include transition('all');
+    @include font('body-large');
+
+    // position: absolute;
+    // pointer-events: none;
+    // top: 1.5rem;
+    // left: 0;
+}
+
+// ## Form Control
+// ---------------
+
+.c-form__control {
+    position: relative;
+}
+
+// ## Form Input
+// -------------
+
+$input-padding-x: size(2);
+$input-padding-y: size(1.875);
+$input-border-width: 1px;
+$input-outline-width: 2 * $input-border-width;
+$input-border-radius: size('radius' 1);
+
+.c-form__input {
+    @include font('body-large');
+    @include transition('outline-color');
+
+    width: 100%;
+    padding: $input-padding-y $input-padding-x;
+    color: color('font');
+    border: $input-border-width solid color('border');
+    border-radius: $input-border-radius;
+    outline: none;
+
+    &:focus {
+        outline: $input-outline-width solid color('focus');
+        outline-offset: -$input-outline-width;
+    }
+
+    & ~ label {
+        position: absolute;
+        display: block;
+        pointer-events: none;
+        padding-left: $label-bg-offset;
+        padding-right: $label-bg-offset;
+        top: 0;
+        left: 0;
+        max-width: calc(100% - #{2 * $input-padding-x});
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        border-radius: $input-border-radius;
+        transform-origin: top left;
+        transform: translate(
+                $input-padding-x + size($input-border-width) - $label-bg-offset,
+                $input-padding-y + size($input-border-width)
+            )
+            scale(1);
+
+        @include before('') {
+            @include transition('all');
+
+            position: absolute;
+            left: 0;
+            bottom: $input-border-width;
+            right: 0;
+            z-index: 0;
+            height: 0;
+            background-color: color('background');
+            opacity: 0;
+        }
+
+        & > span {
+            position: relative;
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+
+    &:focus ~ label,
+    &:not(:placeholder-shown) ~ label {
+        color: $label-color-active;
+        transform: translate(
+                $input-padding-x + size($input-border-width) - $label-bg-offset,
+                negative(1) - size($input-border-width)
+            )
+            scale(0.75);
+
+        @include before(null) {
+            height: 50%;
+            opacity: 1;
+        }
+    }
+}
+
+$input-padding-x-small: size(2);
+$input-padding-y-small: size(0.875);
+
+.c-form__input--small {
+    padding: $input-padding-y-small $input-padding-x-small;
+
+    & ~ label {
+        max-width: calc(100% - #{2 * $input-padding-x-small});
+        transform: translate(
+                $input-padding-x-small + size($input-border-width) - $label-bg-offset,
+                $input-padding-y-small + size($input-border-width)
+            )
+            scale(1);
+
+        &:focus ~ label,
+        &:not(:placeholder-shown) ~ label {
+            transform: translate(
+                    $input-padding-x-small + size($input-border-width) - $label-bg-offset,
+                    negative(1) - size($input-border-width)
+                )
+                scale(0.75);
+        }
+    }
+}
+
+// ## Form Checkbox
+// ----------------
+
+.c-form__checkbox {
+}
+
+// ## Form Radio
+// -------------
+
+.c-form__radio {
+}
+
+// ## Form Textarea
+// ----------------
+
+.c-form__textarea {
+}
+
+// ## Form Select
+// --------------
+
+.c-form__select {
+}
+
+// ## Form Field Description
+// -------------------------
+
+.c-form__field-description {
+}
+
+// ## Form Field Error
+// -------------------
+
+.c-form__fiel-error {
+}
+
+// ## Form Actions
+
+.c-form__actions {
+}
+
+// ## Form Button
+
+.c-form__button {
+}
+
+// ## Search Block Form
+.c-form--search-block-form {
+    display: flex;
+    align-items: center;
+    height: 100%;
+
+    .c-form__field {
+        display: none;
+        margin-bottom: 0;
+        margin-left: size(1);
+    }
+
+    .c-form__container {
+        margin-left: size(1);
+    }
+}

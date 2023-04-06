@@ -1,0 +1,64 @@
+// # String Tools
+// ==============
+
+
+// ## Functions
+// ------------
+
+/// Replace `$search` with `$replace` in `$string`.
+///
+/// @group string
+/// @access public
+/// @param {string} $string - Subject.
+/// @param {string} $search - Substring to replace.
+/// @param {string} $replace ('') - Replace value.
+/// @returns {string} - Updated string.
+@function str-replace($string, $search, $replace: '') {
+    $index: str-index($string, $search);
+
+    @if $index {
+        @return str-slice($string, 1, $index - 1)
+        + $replace
+        + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+    }
+
+    @return $string;
+}
+
+/// Replace numbered placeholders (i.e. %1 .. %n) in `$format` with given `$values`.
+///
+/// @group string
+/// @access public
+/// @param {string} $format - String to be formatted.
+/// @param {arglist} $values - List of values to replace placeholders in `$format`.
+/// @returns {string} - Formatted string.
+@function str-format($format, $values...) {
+    @if length($values) == 1 {
+        $values: nth($values, 1);
+    }
+
+    @for $i from 1 through length($values) {
+        $format: str-replace($format, '%#{$i}', nth($values, $i));
+    }
+
+    @return $format;
+}
+
+/// Format every given format string in `$formats` with every value in `$values`.
+///
+/// @group string
+/// @access public
+/// @param {list} $formats - List of format string to be formatted.
+/// @param {list} $values - List of values to replace placeholders in each format.
+/// @returns {list} - List of formatted strings.
+@function str-multiply($formats, $values) {
+    $result: ();
+
+    @each $value in $values {
+        @each $format in $formats {
+            $result: append($result, str-format($format, $value), comma);
+        }
+    }
+
+    @return $result;
+}

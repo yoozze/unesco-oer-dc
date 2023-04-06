@@ -1,0 +1,80 @@
+// # Banner
+// --------
+
+$banner-padding: size('section-padding');
+
+.c-banner {
+    display: flex;
+    justify-content: center;
+    padding-top: $banner-padding;
+    padding-bottom: $banner-padding;
+    color: color('light');
+    background-color: color('chathams-blue');
+}
+
+// ## Banner Container
+// -------------------
+
+.c-banner__container {
+    // display: flex;
+    // justify-content: center;
+}
+
+// ## Banner Row
+// -------------
+
+.c-banner__row {
+    display: flex;
+    justify-content: center;
+}
+
+// ## Banner Col
+// -------------
+
+.c-banner__col {
+    max-width: 8 / 12 * 100%;
+}
+
+// ## Banner Content
+// -----------------
+
+.c-banner__content {
+    text-align: center;
+}
+
+// ## Banner Name
+// --------------
+
+.c-banner__name {
+    text-transform: uppercase;
+}
+
+// ## Banner Title
+// ---------------
+
+.c-banner__title {
+    margin-top: 0;
+}
+
+// ## Banner Body
+// --------------
+
+.c-banner__body {
+    margin-bottom: size(3);
+}
+
+// ## Banner Links
+// ---------------
+
+.c-banner__links {
+    display: flex;
+    justify-content: center;
+}
+
+// ## Banner Link
+// --------------
+
+.c-banner__link {
+    color: color('navy-blue-10');
+    background-color: color('light');
+}

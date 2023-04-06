@@ -35,4 +35,5 @@
     {% block content %}
         {{ content }}
     {% endblock %}
+    <script>console.log({{ _context | json_encode | raw}});</script>
 </div>

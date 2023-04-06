@@ -12,12 +12,13 @@
  * @see template_preprocess_region()
  */
 #}
-{% if content %}
-    <div{{ attributes.addClass('c-page-footer__bottom') }}>
-        <div class="o-container">
-            <div class="o-row">
-                {{ content }}
-            </div>
-        </div>
+<div{{attributes.addClass('c-page-footer__bottom')}}>
+    <div class="o-container c-page-footer__container">
+        {% if content %}
+            {{ content }}
+        {% else %}
+            <p class="c-page-footer__copyright">&copy; {{ "now"|date("Y") }} {{ elements['#site_name'] }}</p>
+            <img class="c-page-footer__logo" src="/{{ base_path ~ directory }}/images/oer-icons.svg" alt="{{ 'OER logo'|t }}" />
+        {% endif %}
     </div>
-{% endif %}
+</div>

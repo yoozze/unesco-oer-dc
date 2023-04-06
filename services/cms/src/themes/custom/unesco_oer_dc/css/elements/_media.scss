@@ -1,0 +1,41 @@
+// # Media
+// =======
+// Default styles for media elements.
+
+// 1. Fluid media elements for responsive purposes.
+// 2. Offset `alt` text from surrounding copy.
+// 3. Setting `vertical-align` removes the whitespace that appears under media elements when they
+//    are dropped into a page as-is. Safer alternative to using `display: block;`.
+audio,
+canvas,
+iframe,
+img,
+svg,
+video {
+    max-width: 100%; // [1]
+    //height: auto;
+    font-style: italic; // [2]
+    // color: color('font');
+    text-align: center;
+    vertical-align: middle; // [3]
+}
+
+// Prevent fluid behaviour, if a `width` and/or `height` attribute have been explicitly defined.
+audio[width],
+audio[height],
+canvas[width],
+canvas[height],
+iframe[width],
+iframe[height],
+img[width],
+img[height],
+svg[width],
+svg[height],
+video[width],
+video[height] {
+    max-width: none;
+}
+
+iframe {
+    border: 0;
+}

@@ -2,88 +2,238 @@
 // ============
 
 .c-navigation {
-    ul {
+    & > h2 {
+        @include font('title-medium');
+
+        margin-top: 0;
+        margin-bottom: size(1);
+        text-transform: uppercase;
+    }
+
+    & > ul {
         list-style-type: none;
         display: flex;
     }
 }
 
-.c-navigation--secondary {
-    margin-left: auto;
+// ## Navigation - Main
+// --------------------
 
-    ul {
-        padding-left: 0;
-        margin-top: 0;
-        margin-bottom: 0;
-    }
-
-    li {
-        position: relative;
-        padding-right: 1px;
-
-        @include after('') {
-            position: absolute;
-            top: 50%;
-            right: 0;
-            height: size(14px);
-            width: 1px;
-            margin-top: negative(7px);
-            background-color: rgba(255, 255, 255, 0.24);
-        }
-
-        &:last-child {
-            padding-right: 0;
-            @include after(none);
-        }
-    }
-
-    a {
-        display: block;
-        position: relative;
-        padding: size(1.25) size(2);
-        color: color('font-light');
-        text-decoration: none;
-
-        &:hover,
-        &:focus {
-            background-color: rgba(255, 255, 255, 0.08);
-        }
-
-        &.is-active {
-            background-color: rgba(255, 255, 255, 0.08);
-
-            @include before('') {
-                position: absolute;
-                right: 0;
-                top: 0;
-                left: 0;
-                height: size(3px);
-                background-color: color('orange');
-            }
-        }
-
-        &:last-child {
-            margin-right: 0;
-        }
-    }
-}
+$main-bg-color: color('abbey');
 
 .c-navigation--main {
-    ul {
+    & > ul {
         display: flex;
         height: 100%;
         padding-left: 0;
         margin-top: 0;
         margin-bottom: 0;
-        margin-left: size(8);
 
         a {
-            display: block;
+            @include transition('color' 'background-color');
+
+            position: relative;
+            display: flex;
+            align-items: center;
+            height: 100%;
             padding: size(20px) size(2);
+            text-decoration: none;
+            color: color('font');
+
+            &:hover {
+                background-color: rgba($main-bg-color, size('opacity' 1));
+            }
+
+            &:focus {
+                background-color: rgba($main-bg-color, size('opacity' 2));
+            }
+
+            &:active {
+                background-color: rgba($main-bg-color, size('opacity' 3));
+            }
+
+            &.is-active {
+                background-color: rgba($main-bg-color, size('opacity' 3));
+
+                @include after('') {
+                    content: '';
+                    position: absolute;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    z-index: 0;
+                    height: size(0.5);
+                    background-color: color('orange');
+                }
+            }
         }
     }
 }
 
+// ## Navigation - Secondary
+// -------------------------
+
+$secondary-bg-color: color('light');
+
+.c-navigation--secondary {
+    & > ul {
+        height: 100%;
+        padding-left: 0;
+        margin-top: 0;
+        margin-bottom: 0;
+
+        li {
+            height: 100%;
+            position: relative;
+            // padding-right: 1px;
+
+            // @include after('') {
+            //     position: absolute;
+            //     top: 50%;
+            //     right: 0;
+            //     height: size(14px);
+            //     width: 1px;
+            //     background-color: rgba($secondary-bg-color, size('opacity' 4));
+            //     transform: translateY(-50%);
+            // }
+
+            &:last-child {
+                padding-right: 0;
+
+                @include after(none);
+            }
+
+            a {
+                @include transition('color' 'background-color');
+
+                display: flex;
+                align-items: center;
+                position: relative;
+                height: 100%;
+                padding: size(1.25) size(2);
+                color: color('font-light');
+                text-decoration: none;
+
+                &:hover {
+                    background-color: rgba($secondary-bg-color, size('opacity' 1));
+                }
+
+                &:focus {
+                    background-color: rgba($secondary-bg-color, size('opacity' 2));
+                }
+
+                &:active {
+                    background-color: rgba($secondary-bg-color, size('opacity' 3));
+                }
+
+                &.is-active {
+                    background-color: rgba($secondary-bg-color, size('opacity' 3));
+
+                    @include before('') {
+                        position: absolute;
+                        right: 0;
+                        top: 0;
+                        left: 0;
+                        height: size(3px);
+                        background-color: color('orange');
+                    }
+                }
+
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+}
+
+// ## Navigation - Account
+// -----------------------
+
+$account-padding-y: size(1);
+
 .c-navigation--account {
-    margin-left: auto;
+    display: flex;
+    align-items: center;
+    padding-top: $account-padding-y;
+    padding-bottom: $account-padding-y;
+}
+
+// ## Navigation - Footer
+// ----------------------
+
+$footer-gutter: size(3);
+$footer-icon-size: size(2.5);
+
+.c-navigation--footer {
+    padding-right: $footer-gutter;
+    padding-left: $footer-gutter;
+
+    & > ul {
+        position: relative;
+        display: block;
+        padding-left: 0;
+        margin-top: 0;
+        margin-bottom: 0;
+
+        @include before('') {
+            display: block;
+            width: size(6);
+            height: size(0.25);
+            margin-bottom: size(2);
+        }
+
+        li {
+            margin-bottom: size(1);
+        }
+
+        a {
+            @include transition('color' 'background-color');
+
+            display: flex;
+            align-items: center;
+            color: color('light');
+            text-decoration: none;
+        }
+
+        svg {
+            flex-shrink: 0;
+            width: $footer-icon-size;
+            height: $footer-icon-size;
+            margin-right: size(1);
+        }
+    }
+}
+
+// ## Navigation - Categories
+// --------------------------
+
+.c-navigation--categories {
+    & > ul {
+        @include before(null) {
+            background-color: color('aqua');
+        }
+    }
+}
+
+// ## Navigation - Information
+// ---------------------------
+
+.c-navigation--information {
+    & > ul {
+        @include before(null) {
+            background-color: color('red');
+        }
+    }
+}
+
+// ## Navigation - Follow Us
+// -------------------------
+
+.c-navigation--follow-us {
+    & > ul {
+        @include before(null) {
+            background-color: color('orange');
+        }
+    }
 }

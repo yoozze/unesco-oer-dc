@@ -1,0 +1,36 @@
+{#
+/**
+ * @file
+ * Theme override for a submit 'input' #type form element.
+ *
+ * Available variables:
+ * - attributes: A list of HTML attributes for the input element.
+ * - children: Optional additional rendered elements.
+ *
+ * @see template_preprocess_input__submit()
+ */
+#}
+{% set icon = element['#icon'] %}
+{% set leading_icon = element['#leading_icon'] %}
+{% set trailing_icon = element['#trailing_icon'] %}
+{% set classes = [
+    'c-form__button',
+    'c-form__button--submit',
+    icon ? 'c-icon-button' : 'c-button',
+    icon ? 'c-icon-button--standard' : 'c-button--filled',
+] %}
+<button{{attributes|without('value').setAttribute('class', classes)}}>
+    {% if leading_icon %}
+        {{ svg_icon(leading_icon, 'c-button__leading-icon') }}
+    {% endif %}
+    {% if icon %}
+        {{ svg_icon(icon, 'c-icon-button__icon') }}
+    {% else %}
+        <span class="c-button__label">{{ attributes.value }}</span>
+    {% endif %}
+    {% if trailing_icon %}
+        {{ svg_icon(trailing_icon, 'c-button__trailing-icon') }}
+    {% endif %}
+</button>
+{{ children }}
+

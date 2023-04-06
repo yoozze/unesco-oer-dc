@@ -58,7 +58,7 @@
 
     {# {{ page.help }} #}
 
-    <main role="main">
+    <main class="o-main" role="main">
         <a id="main-content" tabindex="-1"></a>{# link is in html.html.twig #}
 
         <div class="o-layout-content">
@@ -67,9 +67,12 @@
 
     </main>
 
+    {{ page.banner }}
+
     <footer class="c-page-footer" role="contentinfo">
         {{ page.footer_top }}
         {{ page.footer_bottom }}
     </footer>
-
+    <script>console.log({{ _context | json_encode | raw}});</script>
+    
 </div>

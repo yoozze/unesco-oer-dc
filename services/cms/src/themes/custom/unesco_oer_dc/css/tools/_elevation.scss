@@ -1,0 +1,45 @@
+// # Elevation Tools
+// =================
+
+// ## Variables
+// ------------
+
+/// Define a list of shadows for elavation.
+///
+/// @group elevation
+/// @access public
+/// @type list
+$elevation: () !default;
+
+// ## Functions
+// ------------
+
+/// Return the numeric index of a named layer in your `$z-index` list.
+///
+/// @group elevation
+/// @access public
+/// @requires {variable} $elevation
+/// @param {string} $size - Elevation size.
+/// @returns {list} - List of shadow definitions for given elevation size.
+@function elevation($size) {
+    @if type-of($size) != 'number' or $size < 1 or $size > length($elevation) {
+        @error '#{$size} is not a valid elevation size. Must be a number between 1 and #{length($elevation)}.';
+    }
+
+    @return nth($elevation, $size);
+}
+
+// ## Mixins
+// ---------
+
+/// Output the `box-shadow` property for given `$size` elevation size.
+///
+/// @group elevation
+/// @access public
+/// @requires {function} elevation
+/// @requires {variable} $elevation
+/// @param {number} $size - Elevation size.
+/// @outputs The box-shadow property with a value based on given elevation size.
+@mixin elevation($size) {
+    box-shadow: elevation($size);
+}

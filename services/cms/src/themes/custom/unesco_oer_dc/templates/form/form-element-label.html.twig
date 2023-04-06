@@ -1,0 +1,25 @@
+{#
+/**
+ * @file
+ * Theme override for a form element label.
+ *
+ * Available variables:
+ * - title: The label's text.
+ * - title_display: Elements title_display setting.
+ * - required: An indicator for whether the associated form element is required.
+ * - attributes: A list of HTML attributes for the label.
+ *
+ * @see template_preprocess_form_element_label()
+ */
+#}
+{%
+    set classes = [
+        'c-form__label',
+        title_display == 'after' ? 'c-form__label--option',
+        title_display == 'invisible' ? 'visually-hidden',
+        required ? 'c-form__label--required',
+    ]
+%}
+{% if title is not empty or required -%}
+    <label{{attributes.addClass(classes)}}><span>{{ title }}</span></label>
+{%- endif %}

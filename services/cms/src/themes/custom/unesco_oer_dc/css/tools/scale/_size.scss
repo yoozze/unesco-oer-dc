@@ -1,7 +1,6 @@
 // # Size Tools
 // ============
 
-
 // ## Functions
 // ------------
 
@@ -34,14 +33,28 @@
     $base: nth($size, 1);
     $adjust: if(length($size) > 1, nth($size, 2), ());
 
-    // In case `$size` is alias, recursively search `$sizes` map.
-    $size: if(map-has-key($sizes, $base), size($base, false), $base);
+    @if type-of($adjust) == 'number' and type-of($base) == 'string' {
+        $size: map-get($sizes, $base);
+        @if type-of($size) == 'list' {
+            @if length($size) >= $adjust and $adjust > 0 {
+                $base: nth($size, $adjust);
+                $adjust: ();
+            } @else {
+                @error '#{$adjust} is is out of bounds for \'#{$base}\' sizes. Must be between 1 and #{length($size)}.';
+            }
+        } @else {
+            @error '#{$base} is not a list.';
+        }
+    }
 
     // Multiply unitless number by base size.
     @if type-of($size) == 'number' and unitless($size) {
         $base-size: map-get($sizes, 'base') or $_font-size-browser-default;
-        $size: $size * $base-size;
+        $base: $size * $base-size;
     }
+
+    // In case `$size` is alias, recursively search `$sizes` map.
+    $size: if(map-has-key($sizes, $base), size($base, false), $base);
 
     // Use modular scale to adjust the size if necessary.
     @each $ratio, $value in $adjust {
@@ -93,7 +106,6 @@
 ) {
     @return 0 - size($size, $unit, $from-context, $to-context);
 }
-
 
 // ## Mixins
 // ---------

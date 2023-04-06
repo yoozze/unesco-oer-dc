@@ -1,0 +1,25 @@
+{#
+/**
+ * @file
+ * Theme override to display a banner region.
+ *
+ * Available variables:
+ * - content: The content for this region, typically blocks.
+ * - attributes: HTML attributes for the region <div>.
+ * - region: The name of the region variable as defined in the theme's
+ *   .info.yml file.
+ *
+ * @see template_preprocess_region()
+ */
+#}
+{% if content %}
+    <div{{attributes.addClass('c-banner')}}>
+        <div class="o-container c-banner__container">
+            <div class="o-row c-banner__row">
+                <div class="o-col c-banner__col">
+                    {{ content }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}

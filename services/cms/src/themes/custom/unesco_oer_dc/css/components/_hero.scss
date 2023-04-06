@@ -1,8 +1,121 @@
 // # Hero
 // ======
 
+$hero-padding: size('section-padding');
+
 .c-hero {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    padding-top: $hero-padding;
+    padding-bottom: $hero-padding;
     color: color('font-light');
-    background-color: color('navy-blue');
-    border-bottom: size(0.5) solid color('orange')
+    background-color: color('background-dark');
+    border-bottom: size(1) solid color('orange');
+    overflow: hidden;
+
+    @include before('') {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 0;
+        background-image: url('/themes/custom/unesco_oer_dc/images/background.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        opacity: size('opacity' 4);
+    }
+}
+
+// ## Hero Container
+// -----------------
+
+.c-hero__container {
+    position: relative;
+}
+
+// ## Hero Content
+// ---------------
+
+$content-padding: size('gutter') / 2;
+
+.c-hero__content {
+    width: 8 / 12 * 100%;
+    padding-right: $content-padding;
+    padding-left: $content-padding;
+}
+
+// ## Hero Title
+// -------------
+
+.c-hero__title {
+    margin-top: 0;
+    // margin-bottom: 0;
+}
+
+// ## Hero Body
+// ------------
+
+.c-hero__body {
+    @include font('title-large');
+    margin-bottom: size(3);
+}
+
+// ## Hero Links
+// -------------
+
+// .c-hero__links {}
+
+// ## Hero Link
+// ------------
+
+.c-hero__link {
+    background-color: color('orange');
+}
+
+// ## Hero Media
+// -------------
+
+.c-hero__media {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    width: 4 / 12 * 100%;
+
+    @include before('') {
+        position: absolute;
+        top: negative('section-padding');
+        bottom: negative('section-padding');
+        left: 100%;
+        width: 50vw;
+        background-color: color('background-dark');
+    }
+
+    img {
+        position: relative;
+        width: 70%;
+    }
+}
+
+// ## Hero Graphic
+// ---------------
+
+.c-hero__graphic {
+    position: absolute;
+    top: negative('section-padding');
+    bottom: negative('section-padding');
+    left: 0;
+    width: calc(100% + 5 * size('section-padding'));
+    overflow: hidden;
+
+    > svg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
 }

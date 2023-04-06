@@ -1,0 +1,70 @@
+// # Dropdown
+// ==========
+
+// .c-dropdown {}
+
+// ## Dropdown Toggle
+// ------------------
+
+// .c-dropdown__toggle {}
+
+// ## Dropdown Menu
+// ----------------
+
+.c-dropdown__menu {
+    position: absolute;
+    z-index: z-index('popup');
+    display: none;
+    width: max-content;
+
+    &.is-visible {
+        display: block;
+    }
+}
+
+// ## Dropdown - Language
+// ----------------------
+
+$button-bg-color: color('light');
+$button-border: 1px solid rgba(color('light'), size('opacity' 4));
+
+.c-dropdown--language {
+    position: relative;
+
+    .c-dropdown__toggle {
+        height: 100%;
+        color: color('font-light');
+        text-decoration: none;
+        border-right: $button-border;
+        border-left: $button-border;
+        background-color: transparent;
+        border-radius: 0;
+
+        &:hover {
+            background-color: rgba($button-bg-color, size('opacity' 1));
+        }
+
+        &:focus {
+            background-color: rgba($button-bg-color, size('opacity' 2));
+        }
+
+        &.is-active,
+        &:active {
+            background-color: rgba($button-bg-color, size('opacity' 3));
+        }
+
+        svg:last-child {
+            @include transition('transform');
+        }
+
+        &[aria-expanded='true'] {
+            svg:last-child {
+                transform: rotate(180deg);
+            }
+        }
+    }
+
+    .c-dropdown__menu {
+        min-width: 100%;
+    }
+}

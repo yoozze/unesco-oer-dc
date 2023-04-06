@@ -1,3 +1,4 @@
+{% extends "block.html.twig" %}
 {#
 /**
  * @file
@@ -12,8 +13,7 @@
  * - site_slogan: Slogan for site as defined in Site information settings.
  */
 #}
-
-<div{{ attributes.addClass('c-site-branding') }}>
+{% block content %}
     {% if site_logo %}
         <a class="c-site-branding__logo" href="{{ path('<front>') }}" rel="home">
             <img src="{{ site_logo }}" alt="{{ 'Home'|t }}"/>
@@ -23,4 +23,4 @@
         <a class="c-site-branding__name" href="{{ path('<front>') }}" rel="home">{{ site_name }}</a>
     {% endif %}
     {{ site_slogan }}
-</div>
+{% endblock %}

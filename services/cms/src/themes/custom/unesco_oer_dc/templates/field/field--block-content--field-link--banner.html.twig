@@ -1,0 +1,15 @@
+{#
+/**
+ * @file
+ * Theme override for a banner link field.
+  */
+#}
+<div class="c-banner__links">
+    {% for item in items %}
+        {% set url = item.content['#url'] %}
+        <a class="c-banner__link c-button c-button--filled" href="{{ url.external ? url.uri : url }}" target="{{ url.external ? '_blank' : '_self' }}">
+            <span class="c-button__label">{{ item.content['#title'] }}</span>
+            {{ svg_icon('arrow-right-alt', 'c-button__trailing-icon') }}
+        </a>
+    {% endfor %}
+</div>
