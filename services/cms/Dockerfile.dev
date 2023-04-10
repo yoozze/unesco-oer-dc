@@ -12,6 +12,7 @@ ARG ENV
 # RUN apk add --no-cache mysql-client
 RUN apt-get update && apt-get install -y \
     default-mysql-client \
+    rsync \
     && rm -rf /var/lib/apt/lists/*
 
 # Install modules

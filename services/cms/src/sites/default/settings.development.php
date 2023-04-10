@@ -162,6 +162,8 @@ $settings['trusted_host_patterns'] = [
   '^atena.ijs.si$',
   '^motorka.ijs.si$',
   '127\.0\.0\.1',
+  'unesco-oer.loca.lt',
+  'unesco-oer-dc.loca.lt',
 ];
 
 /**
