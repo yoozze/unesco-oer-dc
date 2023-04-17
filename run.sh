@@ -133,9 +133,8 @@ if [ $MODE = "--archive-restore" ]; then
     echo "$PREFIX: Restoring archive... $ARGS"     
     docker cp $ARGS ${PROJECT_NAME}_cms:/tmp/archive.tar.gz
     docker exec ${PROJECT_NAME}_cms sh -c "
-        drush archive:restore /tmp/archive.tar.gz &&
-        cp $SETTINGS_FILE.bak $SETTINGS_FILE &&
-        rm $SETTINGS_FILE.bak
+        drush archive:restore /tmp/archive.tar.gz --db &&
+        drush archive:restore /tmp/archive.tar.gz --files --files-destination-relative-path web/sites/default/files
     "
     echo "$PREFIX: Archive restored"
 fi
