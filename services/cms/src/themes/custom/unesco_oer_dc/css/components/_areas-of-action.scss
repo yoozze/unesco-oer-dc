@@ -1,0 +1,16 @@
+// # Areas of Action
+// -----------------
+
+.c-areas-of-action {
+    display: flex;
+    margin-bottom: size(3);
+    margin-left: negative(1.5);
+    margin-right: negative(1.5);
+
+    & > div {
+        flex: 0 0 (100% / 5);
+        padding-left: size(1.5);
+        padding-right: size(1.5);
+        text-align: center;
+    }
+}

@@ -1,0 +1,30 @@
+{#
+/**
+ * @file
+ * Theme override to display a one-column layout.
+ *
+ * Available variables:
+ * - in_preview: Whether the plugin is being rendered in preview mode.
+ * - content: The content for this layout.
+ * - attributes: HTML attributes for the layout <div>.
+ */
+#}
+{%
+  set classes = [
+    'c-section',
+    'c-section--onecol',
+  ]
+%}
+{% if content %}
+    <section{{attributes.addClass(classes)}}>
+        <div {{ region_attributes.content.addClass('c-section__container o-container') }}>
+            <div class="c-section__row c-section__row--{{ section_name }} o-row">
+                {{ content.content }}
+            </div>
+        </div>
+    </section>
+    <script>
+        console.log( 'LAYOUT', {{ _context | json_encode | raw }} );
+    </script>
+
+{% endif %}

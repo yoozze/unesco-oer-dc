@@ -1,14 +1,80 @@
 // # Section
 // =========
 
+$section-padding: size('section-padding');
+
 .c-section {
     display: flex;
     justify-content: center;
+    padding-top: $section-padding;
+    padding-bottom: $section-padding;
 }
-
-// ## Section - Alt
-// ----------------
 
 .c-section--alt {
     background-color: color('background-alt');
+}
+
+.c-section--breadcrumb {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.c-section--who-we-are {
+    background-color: color('background-alt');
+}
+
+// ## Section Container
+// --------------------
+
+// .c-section__container {}
+
+// ## Section Row
+// --------------
+
+// .c-section__row {}
+
+.c-section__row--who-we-are {
+    flex-direction: column;
+}
+
+// ## Section Content
+// ------------------
+
+.c-section__content {
+    max-width: 9 / 12 * 100%;
+}
+
+.c-section__content--areas-of-action {
+    max-width: 100%;
+}
+
+// ## Section Name
+// ---------------
+
+.c-section__name {
+    margin-bottom: size(1);
+    font-weight: 500;
+    color: color('section-name');
+    text-transform: uppercase;
+}
+
+// ## Section Title
+// ----------------
+
+.c-section__title {
+    @include font('display-small');
+
+    margin-top: 0;
+}
+
+// ## Section Body
+// ---------------
+
+// .c-section__body {}
+
+// ## Section Links
+// ----------------
+
+.c-section__links {
+    margin-top: size(4);
 }

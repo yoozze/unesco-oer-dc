@@ -12,8 +12,9 @@
 // ----------------
 
 .c-dropdown__menu {
+    @include z-index('popup');
+
     position: absolute;
-    z-index: z-index('popup');
     display: none;
     width: max-content;
 

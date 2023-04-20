@@ -1,0 +1,11 @@
+{#
+/**
+ * @file
+ * Theme override for areas of action field.
+  */
+#}
+<div class="c-areas-of-action">
+    {% for item in items %}
+        <div{{item.attributes}}>{{ item.content }}</div>
+    {% endfor %}
+</div>

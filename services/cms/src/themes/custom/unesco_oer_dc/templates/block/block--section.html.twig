@@ -1,10 +1,10 @@
 {#
 /**
  * @file
- * Theme override for hero block.
+ * Theme override for section block.
  */
 #}
-<div{{attributes.addClass('c-hero__content')}}>
+<div{{attributes.addClass('c-section__content o-col')}}>
     {{ title_prefix }}
     {% if label %}
         <h2{{title_attributes}}>{{ label }}</h2>
@@ -13,4 +13,5 @@
     {% block content %}
         {{ content }}
     {% endblock %}
+    <script>console.log('SECTION BLOCK', {{ _context | json_encode | raw}});</script>
 </div>

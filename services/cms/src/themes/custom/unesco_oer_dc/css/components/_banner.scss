@@ -28,17 +28,11 @@ $banner-padding: size('section-padding');
     justify-content: center;
 }
 
-// ## Banner Col
-// -------------
-
-.c-banner__col {
-    max-width: 8 / 12 * 100%;
-}
-
 // ## Banner Content
 // -----------------
 
 .c-banner__content {
+    max-width: 10 / 12 * 100%;
     text-align: center;
 }
 
@@ -53,6 +47,8 @@ $banner-padding: size('section-padding');
 // ---------------
 
 .c-banner__title {
+    @include font('display-small');
+
     margin-top: 0;
 }
 

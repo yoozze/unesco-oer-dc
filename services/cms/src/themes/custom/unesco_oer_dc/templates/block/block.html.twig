@@ -35,5 +35,5 @@
     {% block content %}
         {{ content }}
     {% endblock %}
-    <script>console.log({{ _context | json_encode | raw}});</script>
+    <script>console.log('BLOCK', {{ plugin_id | json_encode | raw }} , {{ _context | json_encode | raw}});</script>
 </div>

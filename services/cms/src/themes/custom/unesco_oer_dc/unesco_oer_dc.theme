@@ -7,6 +7,29 @@
 
 use Drupal\Core\Template\Attribute;
 
+function get_node_name($key) {
+    $node_map = array(
+        '223' => 'home'
+    );
+    if (array_key_exists($key, $node_map)) {
+        return $node_map[$key];
+    }
+
+    return null;
+}
+
+function get_block_name($key) {
+    $block_map = array(
+        'cef61108-2e3e-4661-bc31-8b08861eaaca' => 'about',
+        '96334729-bbe9-4da2-ad63-adc94c0fd743' => "who-we-are",
+    );
+    if (array_key_exists($key, $block_map)) {
+        return $block_map[$key];
+    }
+
+    return null;
+}
+
 function &get_classes(&$variables) {
     if (empty($variables['attributes']['class'])) {
         $variables['attributes']['class'] = array();
@@ -68,6 +91,29 @@ function unesco_oer_dc_preprocess_page(&$variables) {
 }
 
 /**
+ * Implements hook_preprocess_HOOK() for node.html.twig.
+ */
+// function unesco_oer_dc_preprocess_node(&$variables) {
+//     $classes = &get_classes($variables);
+
+//     $node_name = get_node_name($variables['elements']['#attributes']['data-history-node-id']);
+//     if (!empty($node_name)) {
+//         $classes[] = 'c-node--' . $node_name;
+//         $variables['theme_hook_suggestions'][] = 'node__' . $node_name;
+//     }
+// }
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for node.
+ */
+function unesco_oer_dc_theme_suggestions_node_alter(&$suggestions, &$variables) {
+    $node_name = get_node_name($variables['elements']['#attributes']['data-history-node-id']);
+    if (!empty($node_name)) {
+        $suggestions[] = 'node__' . $node_name;
+    }
+}
+
+/**
  * Implements hook_preprocess_HOOK() for block.html.twig.
  */
 function unesco_oer_dc_preprocess_block(&$variables) {
@@ -97,13 +143,40 @@ function unesco_oer_dc_preprocess_block(&$variables) {
 
     // Search block
     if ($variables['base_plugin_id'] === 'search_form_block') {
+        $classes = array('c-search-form-block');
         $variables['content']['actions']['submit']['#icon'] = 'search';
         // $variables['content']['actions']['submit']['#leading_icon'] = 'search';
         // $variables['content']['actions']['submit']['#trailing_icon'] = 'search';
         $variables['content']['keys']['#control_size'] = 'small';
     }
 
-    $classes[] = 'o-block o-block--' . str_replace('_', '-', $variables['base_plugin_id']);
+    // $classes[] = 'o-block';
+    // $classes[] = 'o-block--' . str_replace('_', '-', $variables['base_plugin_id']);
+
+    // Custom sections
+    // $block_name = get_block_name($variables['derivative_plugin_id']);
+    // if (!empty($block_name)) {
+    //     $classes[] = 'c-section__content';
+    //     $classes[] = 'c-section__content--' . $block_name;
+    // }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for block.
+ */
+function unesco_oer_dc_theme_suggestions_block_alter(&$suggestions, &$variables) {
+    $uuid = $variables['elements']['#derivative_plugin_id'];
+    if (!empty($uuid)) {
+        $block = Drupal::service('entity.repository')->loadEntityByUuid('block_content', $variables['elements']['#derivative_plugin_id']);
+        if ($block) {
+            $block_type = $block->bundle();
+            $suggestions[] = 'block__' . $block_type;
+        }
+    }
+    $node_name = get_block_name($variables['elements']['#derivative_plugin_id']);
+    if (!empty($node_name)) {
+        $suggestions[] = 'block__' . $node_name;
+    }
 }
 
 /**
@@ -112,6 +185,24 @@ function unesco_oer_dc_preprocess_block(&$variables) {
 function unesco_oer_dc_preprocess_region(&$variables) {
     $classes = &get_classes($variables);
     $classes[] = 'o-region';
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for layout--onecol.html.twig.
+ */
+function unesco_oer_dc_preprocess_layout__onecol(&$variables) {
+    $classes = &get_classes($variables);
+
+    // Custom sections
+    foreach ($variables['content']['content'] as $key => $content) {
+        if (is_array($content) && array_key_exists('#derivative_plugin_id', $content)) {
+            $block_name = get_block_name($content['#derivative_plugin_id']);
+            if (!empty($block_name)) {
+                $classes[] = 'c-section--' . $block_name;
+                $variables['section_name'] = $block_name;
+            }
+        }
+    }
 }
 
 /**

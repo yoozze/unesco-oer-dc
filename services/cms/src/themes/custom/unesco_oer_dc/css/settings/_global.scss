@@ -139,7 +139,9 @@ $colors: (
 
     'border': 'abbey-80',
     'divider': 'border',
-    'bullet': 'abbey-50'
+    'bullet': 'abbey-50',
+
+    'section-name': 'abbey-50',
 );
 
 // ## Typography
@@ -349,6 +351,7 @@ $sizes: (
 
 $z-index: (
     'local' 'local2' 'local3' 'local4' 'local5',
+    'header',
     'mobile-menu',
     'container',
     'popup',

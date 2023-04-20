@@ -39,12 +39,8 @@ $hero-padding: size('section-padding');
 // ## Hero Content
 // ---------------
 
-$content-padding: size('gutter') / 2;
-
 .c-hero__content {
     width: 8 / 12 * 100%;
-    padding-right: $content-padding;
-    padding-left: $content-padding;
 }
 
 // ## Hero Title
