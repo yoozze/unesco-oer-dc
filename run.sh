@@ -10,6 +10,7 @@ OPTIONS_ARRAY=(
     "--build"
     "--start"
     "--stop"
+    "--watch"
     "--log"
     "--enter"
     "--sync-core"
@@ -43,6 +44,7 @@ if [ $MODE = "--help" ]; then
     echo "bash run.sh --buld [args]             | Build services"
     echo "bash run.sh --start [args]            | Start services"
     echo "bash run.sh --stop [args]             | Stop services"
+    echo "bash run.sh --watch [args]            | Watch files"
     echo "bash run.sh --log [args]              | Display log"
     echo "bash run.sh --enter [args]            | Enter into container"
     echo "bash run.sh --sync-core [args]        | Synchronize core files on host"
@@ -64,6 +66,11 @@ echo "$PREFIX: $COMPOSE_FILE"
 if [ $MODE = "--build" ]; then
     echo "$PREFIX: Building... $ARGS"
     docker-compose -f $COMPOSE_FILE build $ARGS
+    npm install
+
+    if [ $ENV = "production" ]; then
+        npm run build
+    fi
 fi
 
 if [ $MODE = "--start" ]; then
@@ -74,6 +81,11 @@ fi
 if [ $MODE = "--stop" ]; then
     echo "$PREFIX: Stopping... $ARGS"
     docker-compose -f $COMPOSE_FILE down $ARGS
+fi
+
+if [ $MODE = "--watch" ]; then
+    echo "$PREFIX: Watching... $ARGS"
+    npm run watch $ARGS
 fi
 
 if [ $MODE = "--log" ]; then
