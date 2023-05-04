@@ -1,10 +1,10 @@
 {#
 /**
  * @file
- * Theme override for areas of action block.
+ * Theme override for DC areas of action block.
  */
 #}
-<div{{attributes.addClass('c-section__content c-section__content--areas-of-action o-col')}}>
+<div{{attributes.addClass('c-dc-areas-of-action')}}>
     {{ title_prefix }}
     {% if label %}
         <h2{{title_attributes}}>{{ label }}</h2>
@@ -14,4 +14,5 @@
         {{ content }}
     {% endblock %}
     <script>console.log('SECTION BLOCK', {{ _context | json_encode | raw}});</script>
+    {# {{ dump() }} #}
 </div>

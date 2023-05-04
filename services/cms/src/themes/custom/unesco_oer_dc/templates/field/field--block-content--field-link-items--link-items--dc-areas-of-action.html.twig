@@ -43,30 +43,22 @@
 %}
 
 {% if label_hidden %}
-    {% if multiple %}
-        <div{{attributes}}>
-            {% for item in items %}
-                <div{{item.attributes}}>{{ item.content }}</div>
-            {% endfor %}
-        </div>
-    {% else %}
+    <ul{{attributes.addClass('c-dc-areas-of-action__list')}}>
         {% for item in items %}
-            <div{{attributes}}>{{ item.content }}</div>
+            <li{{item.attributes.addClass('c-dc-areas-of-action__item')}}>{{ item.content }}</li>
         {% endfor %}
-    {% endif %}
+    </ul>
 {% else %}
-    <div{{attributes}}>
+    <div{{attributes.addClass('c-dc-areas-of-action__list')}}>
         <div{{title_attributes.addClass(title_classes)}}>{{ label }}</div>
-        {% if multiple %}
-            <div>
-        {% endif %}
-        {% for item in items %}
-            <div{{item.attributes}}>{{ item.content }}</div>
-        {% endfor %}
-        {% if multiple %}
-            </div>
-        {% endif %}
+        <ul>
+            {% for item in items %}
+                <li{{item.attributes.addClass('c-dc-areas-of-action__item')}}>{{ item.content }}</li>
+            {% endfor %}
+        </ul>
     </div>
 {% endif %}
-<script>console.log('FIELD', {{ _context | json_encode | raw}});</script>
+<script>
+    console.log( 'FIELD', {{ _context | json_encode | raw }} );
+</script>
 {# {{ dump() }} #}

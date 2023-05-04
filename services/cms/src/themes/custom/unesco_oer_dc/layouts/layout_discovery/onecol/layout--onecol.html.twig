@@ -9,17 +9,23 @@
  * - attributes: HTML attributes for the layout <div>.
  */
 #}
-{%
-  set classes = [
+{% set classes = [
     'c-section',
     'c-section--onecol',
-  ]
-%}
+] %}
+{% set block_names = _context['block_names'] ? _context['block_names'] : [] %}
+{% set content_classes = [
+    'c-section__content',
+] | merge(block_names | map(c => "c-section__content--#{c}")) %}
 {% if content %}
     <section{{attributes.addClass(classes)}}>
         <div {{ region_attributes.content.addClass('c-section__container o-container') }}>
-            <div class="c-section__row c-section__row--{{ section_name }} o-row">
-                {{ content.content }}
+            <div class="c-section__row o-row">
+                <div class="c-section__col o-col o-col--12">
+                    <div class="{{ content_classes | join(' ') }}">
+                        {{ content.content }}
+                    </div>
+                </div>
             </div>
         </div>
     </section>

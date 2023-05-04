@@ -9,7 +9,7 @@
         {% set url = item.content['#url'] %}
         <a class="c-hero__link c-button c-button--filled" href="{{ url.external ? url.uri : url }}" target="{{ url.external ? '_blank' : '_self' }}">
             <span class="c-button__label">{{ item.content['#title'] }}</span>
-            {{ svg_icon('arrow-right-alt', 'c-button__trailing-icon') }}
+            {{ svg_icon(url.external ? 'open-in-new' : 'arrow-right-alt', 'c-button__trailing-icon') }}
         </a>
     {% endfor %}
 </div>

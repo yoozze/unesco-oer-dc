@@ -21,7 +21,10 @@ function get_node_name($key) {
 function get_block_name($key) {
     $block_map = array(
         'cef61108-2e3e-4661-bc31-8b08861eaaca' => 'about',
-        '96334729-bbe9-4da2-ad63-adc94c0fd743' => "who-we-are",
+        '96334729-bbe9-4da2-ad63-adc94c0fd743' => 'who-we-are',
+        'b6ee0fe2-3b9a-42d8-8ab2-661aa778aa0b' => 'dc-areas-of-action',
+        '351dd98b-3fde-4ef7-9d3a-a5d5b6b7f875' => 'latest-news',
+        '0fa60256-5732-40bc-b932-64541cc70be2' => 'upcoming-events',
     );
     if (array_key_exists($key, $block_map)) {
         return $block_map[$key];
@@ -36,6 +39,10 @@ function &get_classes(&$variables) {
     }
 
     return $variables['attributes']['class'];
+}
+
+function clean_suggetion($suggestion) {
+    return str_replace('-', '_', $suggestion);
 }
 
 /**
@@ -109,7 +116,7 @@ function unesco_oer_dc_preprocess_page(&$variables) {
 function unesco_oer_dc_theme_suggestions_node_alter(&$suggestions, &$variables) {
     $node_name = get_node_name($variables['elements']['#attributes']['data-history-node-id']);
     if (!empty($node_name)) {
-        $suggestions[] = 'node__' . $node_name;
+        $suggestions[] = 'node__' . clean_suggetion($node_name);
     }
 }
 
@@ -150,15 +157,11 @@ function unesco_oer_dc_preprocess_block(&$variables) {
         $variables['content']['keys']['#control_size'] = 'small';
     }
 
-    // $classes[] = 'o-block';
-    // $classes[] = 'o-block--' . str_replace('_', '-', $variables['base_plugin_id']);
-
-    // Custom sections
-    // $block_name = get_block_name($variables['derivative_plugin_id']);
-    // if (!empty($block_name)) {
-    //     $classes[] = 'c-section__content';
-    //     $classes[] = 'c-section__content--' . $block_name;
-    // }
+    // Custom block
+    $block_name = get_block_name($variables['derivative_plugin_id']);
+    if (!empty($block_name)) {
+        $variables['block_name'] = $block_name;
+    }
 }
 
 /**
@@ -170,12 +173,131 @@ function unesco_oer_dc_theme_suggestions_block_alter(&$suggestions, &$variables)
         $block = Drupal::service('entity.repository')->loadEntityByUuid('block_content', $variables['elements']['#derivative_plugin_id']);
         if ($block) {
             $block_type = $block->bundle();
-            $suggestions[] = 'block__' . $block_type;
+            $suggestions[] = 'block__' . clean_suggetion($block_type);
         }
     }
-    $node_name = get_block_name($variables['elements']['#derivative_plugin_id']);
-    if (!empty($node_name)) {
-        $suggestions[] = 'block__' . $node_name;
+
+    $block_name = get_block_name($variables['elements']['#derivative_plugin_id']);
+    if (!empty($block_name)) {
+        $suggestions[] = 'block__' . clean_suggetion($block_name);
+        $content = &$variables['elements']['content'];
+        foreach ($content as $key => &$item) {
+            if (str_starts_with($key, '#')) {
+                continue;
+            }
+
+            if (is_array($item)) {
+                $item['#block_name'] = $block_name;
+            }
+        }
+    }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for paragraph.
+ */
+function unesco_oer_dc_theme_suggestions_paragraph_alter(&$suggestions, &$variables) {
+    $elements = &$variables['elements'];
+    $paragraph = &$elements['#paragraph'];
+    $block_name = $elements['#block_name'] ?? null;
+    if (!empty($block_name)) {
+        $type = reset($paragraph->toArray()['type'])['target_id'];
+        $suggestions[] = implode('__', [
+            'paragraph',
+            $type,
+            clean_suggetion($block_name)
+        ]);
+
+        foreach ($elements as $key => &$element) {
+            if (str_starts_with($key, '#') || !is_array($element)) {
+                continue;
+            }
+
+            $element['#block_name'] = $block_name;
+            $field_type = $element['#field_type'] ?? null;
+            if ($field_type === 'image') {
+                $i = 0;
+                while (!empty($element[$i])) {
+                    $element[$i]['#item_attributes']['data-block'] = $block_name;
+                    $i++;
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for paragraph.html.twig.
+ */
+function unesco_oer_dc_preprocess_paragraph(&$variables) {
+    $elements = &$variables['elements'];
+    foreach ($elements as $key => &$element) {
+        if (str_starts_with($key, '#') || !is_array($element)) {
+            continue;
+        }
+
+        $field_type = $element['#field_type'] ?? null;
+        if ($field_type === 'image') {
+            $image_item = $element[0]['#item'];
+            $variables['image_url'] = $image_item->entity->getFileUri();
+        } else if ($field_type === 'link') {
+            $url = $element[0]['#url'];
+            $variables['link_url'] = $url->toString();
+            $variables['link_external'] = $url->isExternal();
+        }
+    }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for field.
+ */
+function unesco_oer_dc_theme_suggestions_field_alter(&$suggestions, &$variables) {
+    $element = &$variables['element'];
+    $block_name = $element['#block_name'] ?? null;
+    if (!empty($block_name)) {
+        $suggestions[] = implode('__', [
+            'field',
+            $element['#entity_type'],
+            $element['#field_name'],
+            $element['#bundle'],
+            clean_suggetion($block_name)
+        ]);
+
+        $i = 0;
+        while (!empty($element[$i])) {
+            $element[$i]['#block_name'] = $block_name;
+            $i++;
+        }
+    }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for field.html.twig.
+ */
+// function unesco_oer_dc_theme_preprocess_field(&$variables) {}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for image formatter.
+ */
+function unesco_oer_dc_theme_suggestions_image_formatter_alter(&$suggestions, &$variables) {
+    $block_name = &$variables['item_attributes']['data-block'] ?? null;
+    if (!empty($block_name)) {
+        $suggestions[] = implode('__', [
+            'image_formatter',
+            clean_suggetion($block_name)
+        ]);
+    }
+}
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for image.
+ */
+function unesco_oer_dc_theme_suggestions_image_alter(&$suggestions, &$variables) {
+    $block_name = &$variables['attributes']['data-block'] ?? null;
+    if (!empty($block_name)) {
+        $suggestions[] = implode('__', [
+            'image',
+            clean_suggetion($block_name)
+        ]);
     }
 }
 
@@ -199,7 +321,7 @@ function unesco_oer_dc_preprocess_layout__onecol(&$variables) {
             $block_name = get_block_name($content['#derivative_plugin_id']);
             if (!empty($block_name)) {
                 $classes[] = 'c-section--' . $block_name;
-                $variables['section_name'] = $block_name;
+                $variables['block_names'][] = $block_name;
             }
         }
     }

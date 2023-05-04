@@ -4,7 +4,7 @@
  * Theme override for a section link field.
   */
 #}
-<div class="c-section__links">
+<div class="c-section-head__links">
     {% for item in items %}
         {% set url = item.content['#url'] %}
         <a class="c-section__link c-button c-button--outlined" href="{{ url.external ? url.uri : url }}" target="{{ url.external ? '_blank' : '_self' }}">

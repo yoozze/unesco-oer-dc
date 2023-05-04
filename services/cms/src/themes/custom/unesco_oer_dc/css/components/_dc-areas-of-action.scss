@@ -1,0 +1,113 @@
+// # DC Areas of Action
+// -------------------
+
+.c-areas-of-action {
+    // display: flex;
+    margin-bottom: size(3);
+
+    &>div {
+        flex: 0 0 (100% / 5);
+        padding-left: size(1.5);
+        padding-right: size(1.5);
+        text-align: center;
+    }
+}
+
+// ## DC Area of Action List
+// -------------------------
+
+$list-gutter: size(1.5);
+
+.c-dc-areas-of-action__list {
+    display: flex;
+    list-style: none;
+    margin: 0 negative($list-gutter);
+    padding: 0;
+    counter-reset: item-counter;
+}
+
+// ## DC Area of Action Item
+// -------------------------
+
+.c-dc-areas-of-action__item {
+    flex-basis: 20%;
+    margin-left: $list-gutter;
+    margin-right: $list-gutter;
+    counter-increment: item-counter;
+}
+
+// ## DC Area of Action Link
+// -------------------------
+
+$link-default-base-color: color('blue');
+$link-default-color: color('navy-blue');
+
+.c-dc-areas-of-action__link {
+    @include font('title-medium');
+    @include transition('box-shadow');
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    padding: size(4) size(2);
+    text-decoration: none;
+    text-align: center;
+    color: $link-default-color;
+    background-color: rgba($link-default-base-color, size('opacity' 2));
+    border: 1px solid rgba($link-default-base-color, size('opacity' 4));
+    border-radius: size('radius' 3);
+
+    &:hover {
+        @include elevation(2);
+    }
+
+    >i {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: size(5);
+        height: size(5);
+        margin-top: auto;
+        font-size: size(3);
+        color: $link-default-base-color;
+        border: 1px solid currentColor;
+        border-radius: 50%;
+    }
+}
+
+$link-variants: (
+    'building': color('aqua'),
+    'policy': color('fuchsia'),
+    'resource': color('orange'),
+    'sustainability': color('green'),
+);
+
+@each $link-variant,
+$link-variant-color in $link-variants {
+    .c-dc-areas-of-action__link--#{$link-variant} {
+        background-color: rgba($link-variant-color, size('opacity' 2));
+        border-color: rgba($link-variant-color, size('opacity' 4));
+
+        >i {
+            color: $link-variant-color;
+        }
+    }
+}
+
+// ## DC Area of Action Image
+// --------------------------
+
+.c-dc-areas-of-action__image {
+    margin-bottom: size(2);
+}
+
+// ## DC Area of Action Text
+// -------------------------
+
+.c-dc-areas-of-action__text {
+    &::before {
+        color: rgba($link-default-color, size('opacity' 5));
+        content: "(" counter(item-counter, lower-roman)")";
+    }
+}

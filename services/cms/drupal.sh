@@ -107,6 +107,8 @@ if [ $MODE = "--install" ] || [ $MODE = "--install-modules" ]; then
     drush pm:install --yes layout_builder
     drush pm:install --yes paragraphs
     drush pm:install --yes svg_image
+    drush pm:install --yes fancy_file_delete
+    drush pm:install --yes file_replace
     # drush pm:install --yes taxonomy_import
     # drush pm:install --yes taxonomy_multidelete_terms
 

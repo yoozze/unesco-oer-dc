@@ -19,7 +19,7 @@
  * @see template_preprocess_container()
  */
 #}
-{%
-    set classes = ['c-form__container']|merge(attributes.class|map(c => 'c-form__container--' ~ c|replace({'container-' : ''})))
-%}
+{% set classes = [
+    'c-form__container'
+]|merge((attributes.class ?? [])|map(c => 'c-form__container--' ~ c|replace({'container-' : ''}))) %}
 <div{{attributes.setAttribute('class',classes)}}>{{ children }}</div>

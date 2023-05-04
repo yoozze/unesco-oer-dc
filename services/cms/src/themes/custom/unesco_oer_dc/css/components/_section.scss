@@ -23,6 +23,10 @@ $section-padding: size('section-padding');
     background-color: color('background-alt');
 }
 
+.c-section--upcoming-events {
+    background-color: color('background-alt');
+}
+
 // ## Section Container
 // --------------------
 
@@ -33,48 +37,7 @@ $section-padding: size('section-padding');
 
 // .c-section__row {}
 
-.c-section__row--who-we-are {
-    flex-direction: column;
-}
-
 // ## Section Content
 // ------------------
 
-.c-section__content {
-    max-width: 9 / 12 * 100%;
-}
-
-.c-section__content--areas-of-action {
-    max-width: 100%;
-}
-
-// ## Section Name
-// ---------------
-
-.c-section__name {
-    margin-bottom: size(1);
-    font-weight: 500;
-    color: color('section-name');
-    text-transform: uppercase;
-}
-
-// ## Section Title
-// ----------------
-
-.c-section__title {
-    @include font('display-small');
-
-    margin-top: 0;
-}
-
-// ## Section Body
-// ---------------
-
-// .c-section__body {}
-
-// ## Section Links
-// ----------------
-
-.c-section__links {
-    margin-top: size(4);
-}
+// .c-section__content {}

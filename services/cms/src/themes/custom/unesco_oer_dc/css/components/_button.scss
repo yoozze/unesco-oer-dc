@@ -74,7 +74,7 @@ $filled-bg-color: color('blue');
 $filled-bg-color-layer: color('blue-10');
 
 .c-button--filled {
-    @include transition('box-shadow', size('duration' 2));
+    @include transition('box-shadow');
 
     color: $filled-color;
     background-color: $filled-bg-color;
@@ -120,7 +120,7 @@ $filled-bg-color-layer: color('blue-10');
 $outlined-padding-y: size(1.125);
 $outlined-color: color('blue');
 $outlined-color-disabled: color('disabled');
-$outlined-border-color: color('border');
+$outlined-border-color: color('blue');
 $outlined-border-color-active: color('blue');
 $outlined-bg-color-layer: color('blue');
 
@@ -225,7 +225,7 @@ $tonal-bg-color: color('blue-90');
 $tonal-bg-color-layer: color('blue-10');
 
 .c-button--tonal {
-    @include transition('box-shadow', size('duration' 2));
+    @include transition('box-shadow');
 
     color: $tonal-color;
     background-color: $tonal-bg-color;

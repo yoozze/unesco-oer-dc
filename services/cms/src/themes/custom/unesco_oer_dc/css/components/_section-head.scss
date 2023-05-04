@@ -1,0 +1,47 @@
+// # Section Head
+// ==============
+
+// .c-section-head {}
+
+// ## Section Head Row
+// -------------------
+
+// .c-section-head__row {}
+
+// ## Section Head Col
+// -------------------
+
+.c-section-head__col {
+    width: 9 / 12 * 100%;
+}
+
+// ## Section Head Name
+// --------------------
+
+.c-section-head__name {
+    margin-bottom: size(1);
+    font-weight: 500;
+    color: color('section-name');
+    text-transform: uppercase;
+}
+
+// ## Section Head Title
+// ---------------------
+
+.c-section-head__title {
+    @include font('display-small');
+
+    margin-top: 0;
+}
+
+// ## Section Head Body
+// --------------------
+
+// .c-section-head__body {}
+
+// ## Section Head Links
+// ---------------------
+
+.c-section-head__links {
+    margin-top: size(4);
+}

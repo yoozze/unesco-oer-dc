@@ -4,14 +4,24 @@
  * Theme override for section block.
  */
 #}
-<div{{attributes.addClass('c-section__content o-col')}}>
-    {{ title_prefix }}
-    {% if label %}
-        <h2{{title_attributes}}>{{ label }}</h2>
-    {% endif %}
-    {{ title_suffix }}
-    {% block content %}
-        {{ content }}
-    {% endblock %}
+{%
+  set classes = [
+    'c-section-head',
+    block_name ? 'c-section-head--' ~ block_name|clean_class,
+  ]
+%}
+<div{{attributes.addClass(classes)}}>
+    <div class="c-section-head__row o-row">
+        <div class="c-section-head__col o-col">
+            {{ title_prefix }}
+            {% if label %}
+                <h2{{title_attributes}}>{{ label }}</h2>
+            {% endif %}
+            {{ title_suffix }}
+            {% block content %}
+                {{ content }}
+            {% endblock %}
+        </div>
+    </div>
     <script>console.log('SECTION BLOCK', {{ _context | json_encode | raw}});</script>
 </div>
