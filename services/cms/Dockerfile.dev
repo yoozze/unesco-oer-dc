@@ -1,5 +1,5 @@
 # FROM drupal:9.5.7-php8.1-fpm-alpine3.17
-FROM drupal:9.5.8-php8.1-apache-bullseye
+FROM drupal:9.5.9-php8.1-apache-bullseye
 
 ARG ROOT
 ARG ENV
