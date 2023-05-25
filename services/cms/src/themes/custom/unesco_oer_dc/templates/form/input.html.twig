@@ -18,4 +18,4 @@
     'c-form__input--' ~ attributes.type|clean_class,
     element['#control_size'] ? 'c-form__input--' ~ element['#control_size'],
 ] %}
-<input{{attributes.setAttribute('class',classes).setAttribute('placeholder', ' ')}} />{{ children }}
+<input{{attributes.addClass(classes).setAttribute('placeholder', ' ')}} />{{ children }}

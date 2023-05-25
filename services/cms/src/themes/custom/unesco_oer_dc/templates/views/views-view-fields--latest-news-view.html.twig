@@ -1,0 +1,59 @@
+{#
+/**
+ * @file
+ * Theme override to display all the fields in a row.
+ *
+ * Available variables:
+ * - view: The view in use.
+ * - fields: A list of fields, each one contains:
+ *   - content: The output of the field.
+ *   - raw: The raw data for the field, if it exists. This is NOT output safe.
+ *   - class: The safe class ID to use.
+ *   - handler: The Views field handler controlling this field.
+ *   - inline: Whether or not the field should be inline.
+ *   - wrapper_element: An HTML element for a wrapper.
+ *   - wrapper_attributes: List of attributes for wrapper element.
+ *   - separator: An optional separator that may appear before a field.
+ *   - label: The field's label text.
+ *   - label_element: An HTML element for a label wrapper.
+ *   - label_attributes: List of attributes for label wrapper.
+ *   - label_suffix: Colon after the label.
+ *   - element_type: An HTML element for the field content.
+ *   - element_attributes: List of attributes for HTML element for field content.
+ *   - has_label_colon: A boolean indicating whether to display a colon after
+ *     the label.
+ *   - element_type: An HTML element for the field content.
+ *   - element_attributes: List of attributes for HTML element for field content.
+ * - row: The raw result from the query, with all data it fetched.
+ *
+ * @see template_preprocess_views_view_fields()
+ */
+#}
+{% from "themes/custom/unesco_oer_dc/templates/common/content-item.html.twig" import field, meta_item %}
+
+{% macro meta_item(field) %}
+    <li class="c-content-item__meta-item">
+        {{ field(field) }}
+    </li>
+{% endmacro %}
+
+<div class="c-content-item__head">
+    {% if fields.field_image %}
+        {{ field(fields.field_image) }}
+    {% endif %}
+    <div class="c-content-item__toolbar">
+        <span class="c-content-item__category">
+            {{ 'News'|t }}
+        </span>
+        {{ field(fields.addtoany_share) }}
+    </div>
+</div>
+
+<div class="c-content-item__body">
+    {{ field(fields.title) }}
+    <ul class="c-content-item__meta">
+        {{ meta_item(fields.created) }}
+        {{ meta_item(fields.node_read_time) }}
+    </ul>
+    {{ field(fields.field_description) }}
+</div>

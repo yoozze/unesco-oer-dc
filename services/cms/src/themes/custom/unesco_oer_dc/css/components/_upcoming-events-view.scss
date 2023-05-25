@@ -1,0 +1,37 @@
+// # Upcoming Events View
+// ======================
+
+.c-upcoming-events-view {}
+
+// ## Upcoming Events View Container
+// ---------------------------------
+
+.c-upcoming-events-view__container {}
+
+// ## Upcoming Events View Content
+// -------------------------------
+
+.c-upcoming-events-view__content {}
+
+// ## Upcoming Events View List
+// ----------------------------
+
+.c-upcoming-events-view__list {
+    padding-left: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    list-style-type: none;
+}
+
+// ## Upcoming Events View Item
+// ----------------------------
+
+$item-gutter: size('gutter') / 2;
+
+.c-upcoming-events-view__item {
+    display: flex;
+    flex: 1 1 25%;
+    padding-right: $item-gutter;
+    padding-left: $item-gutter;
+}
+  

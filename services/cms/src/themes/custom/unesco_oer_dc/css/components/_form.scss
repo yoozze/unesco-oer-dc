@@ -4,6 +4,23 @@
 .c-form {
 }
 
+.c-form--views-exposed-form-resources-resources-view,
+.c-form--views-exposed-form-activities-activities-view,
+.c-form--views-exposed-form-events-events-view,
+.c-form--views-exposed-form-news-news-view {
+    display: flex;
+    width: 100%;
+    
+    .c-form__field {
+        flex-grow: 1;
+        margin-bottom: 0;
+    }
+
+    .c-button {
+        margin-left: size(1);
+    }
+}
+
 // ## Form Fieldset
 
 .c-form__fieldset {

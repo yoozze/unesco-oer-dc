@@ -60,11 +60,17 @@
 @import 'components/banner';
 @import 'components/section-head';
 @import 'components/dc-areas-of-action';
+@import 'components/latest-news-view';
+@import 'components/upcoming-events-view';
+@import 'components/content-listing';
+@import 'components/content-item';
+@import 'components/pager';
 
 // ## Trumps
 // ----------
 @import 'trumps/overrides';
 @import 'trumps/utilities';
+@import 'trumps/a2a';
 
 // ## Vendors
 // ----------

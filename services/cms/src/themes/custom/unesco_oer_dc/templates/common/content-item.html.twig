@@ -1,0 +1,40 @@
+{% macro field(field) %}
+    {%- if field.wrapper_element -%}
+        {% set classes = [
+            'c-content-item__field'
+        ]|merge((field.wrapper_attributes.removeClass('views-field').class ?? [])|map(c => 'c-content-item__field--' ~ c|replace({'views-field-' : ''}))) %}
+        <{{field.wrapper_element}}{{field.wrapper_attributes.setAttribute('class',classes)}}>
+    {%- endif %}
+    {%- if field.label -%}
+        {%- if field.label_element -%}
+            <{{field.label_element}}{{field.label_attributes}}>{{ field.label }}{{ field.label_suffix }}</{{field.label_element}}>
+        {%- else -%}
+            {{ field.label }}{{ field.label_suffix }}
+        {%- endif %}
+    {%- endif %}
+    {%- if field.element_type -%}
+        <{{field.element_type}}{{field.element_attributes.removeClass('field-content').addClass('c-content-item__field-content')}}>
+            {{ field.content }}
+        </{{field.element_type}}>
+    {%- else -%}
+        {{ field.content }}
+    {%- endif %}
+    {%- if field.wrapper_element -%}
+        </{{field.wrapper_element}}>
+    {%- endif %}
+{% endmacro %}
+
+{% macro meta_item(field) %}
+    <li class="c-content-item__meta-item">
+        {{ _self.field(field) }}
+    </li>
+{% endmacro %}
+
+{% macro meta_items_inline(fields, separator) %}
+    <li class="c-content-item__meta-item c-content-item__meta-item--inline">
+        {% for field in fields %}
+            {{ _self.field(field) }}
+            {% if not loop.last %} <span>{{ separator }}</span> {% endif %}
+        {% endfor %}
+    </li>
+{% endmacro %}

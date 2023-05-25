@@ -1,0 +1,44 @@
+// # Add To Any
+// ============
+
+.addtoany_list {
+    $spacing: size(0.5);
+
+    display: flex;
+    justify-content: end;
+    margin-right: negative($spacing);
+    margin-left: negative($spacing);
+
+    &>a {
+        $button-size: size(4);
+
+        display: none;
+        width: size($button-size);
+        height: size($button-size);
+        flex-shrink: 0;
+        padding: 0;
+        margin-right: size($spacing);
+        margin-left: size($spacing);
+
+        &:last-child {
+            display: flex;
+        }
+
+        svg {
+            $icon-size: size(2.5);
+
+            width: size($icon-size);
+            height: size($icon-size);
+        }
+    }
+}
+
+.a2a_full_footer {
+    &>a {
+        display: none !important;
+    }
+}
+
+.a2a_svg {
+    background-color: transparent !important;
+}

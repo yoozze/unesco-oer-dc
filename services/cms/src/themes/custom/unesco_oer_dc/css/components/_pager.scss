@@ -1,0 +1,67 @@
+// # Pager
+// =======
+
+.c-pager {
+    display: flex;
+    justify-content: end;
+    margin-top: size(1);
+}
+
+// ## Pager Items
+// --------------
+
+$item-spacing: size(0.5);
+
+.c-pager__items {
+    display: flex;
+    padding-left: 0;
+    margin: 0 -$item-spacing;
+    // margin-right: -$item-spacing;
+    // margin-left: -$item-spacing;
+    list-style-type: none;
+}
+
+// ## Pager Item
+// -------------
+
+.c-pager__item {
+    padding-right: $item-spacing;
+    padding-left: $item-spacing;
+}
+
+$ellipsis-size: size(2.5);
+
+.c-pager__item--ellipsis {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: color('font-muted');
+
+    & > svg {
+        width: $ellipsis-size;
+        height: $ellipsis-size;
+    }
+}
+
+// ## Pager Item Link
+// ------------------
+
+$button-size: size(5);
+
+.c-pager__link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: $button-size;
+    min-height: $button-size;
+    border-color: color('border');
+
+    .is-active > & {
+        border-color: color('blue');
+    }
+}
+
+
+.c-pager__link--number {
+    padding: size(1.25);
+}

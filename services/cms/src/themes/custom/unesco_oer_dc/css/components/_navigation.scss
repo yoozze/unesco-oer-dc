@@ -56,7 +56,6 @@ $main-bg-color: color('abbey');
                 background-color: rgba($main-bg-color, size('opacity' 3));
 
                 @include after('') {
-                    content: '';
                     position: absolute;
                     right: 0;
                     bottom: 0;

@@ -125,6 +125,7 @@ $colors: (
 
     'font': 'abbey-10',
     'font-light': 'light',
+    'font-muted': 'abbey-50',
 
     'link': 'blue',
 
@@ -140,8 +141,6 @@ $colors: (
     'border': 'abbey-80',
     'divider': 'border',
     'bullet': 'abbey-50',
-
-    'section-name': 'abbey-50',
 );
 
 // ## Typography
@@ -360,7 +359,11 @@ $sizes: (
         0.12,
         0.16,
         0.24,
+        0.32,
         0.48,
+        0.64,
+        0.80,
+        0.96,
     ),
     'duration': (
         0.15s,
@@ -374,13 +377,18 @@ $sizes: (
     'page-width': 1440px,
 
     'section-padding': 80px,
+
+    'grid-image-width': 340px,
+    'grid-image-height': 208px,
+    'grid-item-min-width': 280px,
+
 );
 
 // ## Z-indices
 // ------------
 
 $z-index: (
-    'local' 'local2' 'local3' 'local4' 'local5',
+    'local1' 'local2' 'local3' 'local4' 'local5',
     'header',
     'mobile-menu',
     'container',

@@ -1,0 +1,37 @@
+// # Latest News View
+// ==================
+
+// .c-latest-news-view {}
+
+// ## Latest News View Container
+// -----------------------------
+
+// .c-latest-news-view__container {}
+
+// ## Latest News View Content
+// ---------------------------
+
+// .c-latest-news-view__content {}
+
+// ## Latest News View List
+// ------------------------
+
+.c-latest-news-view__list {
+    padding-left: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    list-style-type: none;
+}
+
+// ## Latest News View Item
+// ------------------------
+
+$item-gutter: size('gutter') / 2;
+
+.c-latest-news-view__item {
+    display: flex;
+    flex: 1 1 25%;
+    padding-right: $item-gutter;
+    padding-left: $item-gutter;
+}
+  

@@ -49,6 +49,7 @@ $link-default-color: color('navy-blue');
     display: flex;
     flex-direction: column;
     align-items: center;
+    min-width: size(220px);
     height: 100%;
     padding: size(4) size(2);
     text-decoration: none;
@@ -107,7 +108,7 @@ $link-variant-color in $link-variants {
 
 .c-dc-areas-of-action__text {
     &::before {
-        color: rgba($link-default-color, size('opacity' 5));
+        color: rgba($link-default-color, size('opacity' 6));
         content: "(" counter(item-counter, lower-roman)")";
     }
 }

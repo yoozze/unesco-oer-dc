@@ -1,0 +1,91 @@
+// # Content Listing
+// =================
+
+.c-content-listing {}
+
+
+// ## Content Listing Header
+// -------------------------
+
+.c-content-listing__header {
+    display: flex;
+    justify-content: center;
+    background-color: color('background-alt');
+
+    .o-container {
+        &>.o-row {
+            &>.o-col {
+                width: 75%;
+            }
+        }
+    }
+}
+
+
+// ## Content Listing Title
+// ------------------------
+
+.c-content-listing__title {
+    @include font('display-medium');
+
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+
+// ## Content Listing Filters
+// --------------------------
+
+$filters-padding: size(4);
+
+.c-content-listing__filters {
+    display: flex;
+    justify-content: center;
+    padding-top: $filters-padding;
+    padding-bottom: $filters-padding;
+    background-color: color('background-alt');
+
+    .o-container {
+        &>.o-row {
+            &>.o-col {
+                width: 75%;
+            }
+        }
+    }
+}
+
+
+// ## Content Listing Main
+// -----------------------
+
+.c-content-listing__main {
+    display: flex;
+    justify-content: center;
+    margin-top: $filters-padding;
+    margin-bottom: size('section-padding');
+}
+
+// ## Content Listing List
+// -----------------------
+
+.c-content-listing__list {
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    list-style-type: none;
+}
+
+// ## Content Listing Item
+// -----------------------
+
+$item-gutter: size('gutter') / 2;
+
+.c-content-listing__item {
+    display: flex;
+    flex: 0 0 25%;
+    max-width: 25%;
+    padding-right: $item-gutter;
+    padding-left: $item-gutter;
+    margin-bottom: $item-gutter * 2;
+}
