@@ -14,18 +14,18 @@ class TwigFunctionExtension extends \Twig_Extension
      */
     public function getFunctions()
     {
-        return array(
+        return [
             new \Twig_SimpleFunction(
                 'svg_icon',
-                array($this, 'svgIcon'),
-                array('is_safe' => array('html'))
+                [$this, 'svgIcon'],
+                ['is_safe' => array('html')]
             ),
             new \Twig_SimpleFunction(
                 'replace',
-                array($this, 'replace'),
-                array('is_safe' => array('html'))
+                [$this, 'replace'],
+                ['is_safe' => array('html')]
             )
-        );
+        ];
     }
 
     /**

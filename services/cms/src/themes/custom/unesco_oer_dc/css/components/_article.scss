@@ -1,0 +1,146 @@
+// # Article
+// =========
+
+.c-article {}
+
+// ## Article Content
+// ------------------
+
+.c-article__content {
+    padding-right: size(366px);
+
+    .c-article__body & {
+        display: flex;
+    }
+}
+
+// ## Article Header
+// -----------------
+
+.c-article__header {
+    display: flex;
+    justify-content: center;
+    padding-top: size(2);
+    padding-bottom: size(4);
+    background-color: color('background-alt');
+
+    .c-article--with-image & {
+        padding-bottom: size(16);
+    }
+}
+
+// ## Article Toolbar
+// ------------------
+
+$toolbar-spacing: size(0.5);
+
+.c-article__toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: negative($toolbar-spacing);
+    margin-bottom: size(1);
+    margin-left: negative($toolbar-spacing);
+}
+
+// ## Article Category
+// -------------------
+
+.c-article__category {
+    @include font('label-large');
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: size(0.75) size(1.5);
+    margin-right: $toolbar-spacing;
+    margin-left: $toolbar-spacing;
+    color: color('light');
+    background-color: color('orange');
+    border-radius: size(2);
+}
+
+// ## Article Title
+// ----------------
+
+.c-article__title {
+    @include font('display-medium');
+
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+// ## Article Meta
+// ---------------
+
+.c-article__meta {
+    display: flex;
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: size(2);
+    margin-bottom: 0;
+    color: color('font-muted');
+}
+
+// ## Article Meta Item
+// --------------------
+
+$meta-icon-size: size(2.75);
+
+.c-article__meta-item {
+    display: flex;
+    align-items: start;
+
+    svg {
+        flex-shrink: 0;
+        width: $meta-icon-size;
+        height: $meta-icon-size;
+        margin-top: size(0.125);
+        margin-right: size(1);
+    }
+}
+
+$meta-item-separator-spacer: size(2);
+$meta-item-separator-size: size(0.75);
+
+.c-article__meta-item--separator {
+    width: $meta-item-separator-size;
+    height: $meta-item-separator-size;
+    margin-top: size(1.125);
+    margin-right: $meta-item-separator-spacer;
+    margin-left: $meta-item-separator-spacer;
+    background-color: color('bullet');
+    border-radius: 100%;
+}
+
+// ## Article Body
+// ---------------
+
+.c-article__body {
+    display: flex;
+    justify-content: center;
+    padding-bottom: size('section-padding');
+}
+
+// ## Article Image
+// ----------------
+
+.c-article__image {
+    margin: negative(12) 0 0;
+    // margin: -10% 0 0;
+    // margin: size(4) 0 size(4);
+
+    &>img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: size('radius' 3);
+    }
+}
+
+// ## Article Description
+// ----------------------
+
+.c-article__description {
+    margin-top: size(4);
+}

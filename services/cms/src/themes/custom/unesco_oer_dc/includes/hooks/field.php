@@ -18,6 +18,10 @@ function unesco_oer_dc_theme_suggestions_field_alter(&$suggestions, &$variables)
             $i++;
         }
     }
+
+    if ($element['#entity_type'] === 'node') {
+        $suggestions[] = 'field__node__article';
+    }
 }
 
 // function unesco_oer_dc_theme_preprocess_field(&$variables) {}

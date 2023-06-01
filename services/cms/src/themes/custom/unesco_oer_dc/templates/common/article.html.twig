@@ -1,0 +1,24 @@
+{# {% macro field(field) %}
+    <div class="c-article__field c-article__field--{{ field.field_name|clean_class }}">
+        <span class="c-article__field-content">{{ field }}</div>
+    </div>
+{% endmacro %} #}
+
+{% macro meta_item(field) %}
+    <li class="c-article__meta-item">
+        {{ field }}
+    </li>
+{% endmacro %}
+
+{% macro meta_item_separator() %}
+    <li class="c-article__meta-item c-article__meta-item--separator"></li>
+{% endmacro %}
+
+{% macro meta_items_inline(fields, separator) %}
+    <li class="c-article__meta-item c-article__meta-item--inline">
+        {% for field in fields %}
+            {{ field }}
+            {% if not loop.last %} <span>{{ separator }}</span> {% endif %}
+        {% endfor %}
+    </li>
+{% endmacro %}

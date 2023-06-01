@@ -8,9 +8,9 @@
 use Drupal\Core\Template\Attribute;
 
 function get_node_name($key) {
-    $node_map = array(
+    $node_map = [
         '223' => 'home'
-    );
+    ];
     if (array_key_exists($key, $node_map)) {
         return $node_map[$key];
     }
@@ -19,7 +19,7 @@ function get_node_name($key) {
 }
 
 function get_block_name($key) {
-    $block_map = array(
+    $block_map = [
         'latest_news-latest_news_view' => 'latest-news-view',
         'upcoming_events-upcoming_events_view' => 'upcoming-events-view',
         'cef61108-2e3e-4661-bc31-8b08861eaaca' => 'about',
@@ -27,7 +27,7 @@ function get_block_name($key) {
         'b6ee0fe2-3b9a-42d8-8ab2-661aa778aa0b' => 'dc-areas-of-action',
         '351dd98b-3fde-4ef7-9d3a-a5d5b6b7f875' => 'latest-news',
         '0fa60256-5732-40bc-b932-64541cc70be2' => 'upcoming-events',
-    );
+    ];
     if (array_key_exists($key, $block_map)) {
         return $block_map[$key];
     }
@@ -37,7 +37,7 @@ function get_block_name($key) {
 
 function &get_classes(&$variables) {
     if (empty($variables['attributes']['class'])) {
-        $variables['attributes']['class'] = array();
+        $variables['attributes']['class'] = [];
     }
 
     return $variables['attributes']['class'];

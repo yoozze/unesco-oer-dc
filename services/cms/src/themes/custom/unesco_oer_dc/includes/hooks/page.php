@@ -31,11 +31,11 @@ function unesco_oer_dc_preprocess_page(&$variables) {
     // $footer = \Drupal::service('renderer')->renderBlock(\Drupal::entityTypeManager()->getStorage('block')->load('footer'), 'main');
     // $variables['footer'] = $footer;
     if (empty($variables['page']['footer_bottom'])) {
-        $variables['page']['footer_bottom'] = array(
+        $variables['page']['footer_bottom'] = [
             '#region' => 'footer_bottom',
             '#sorted' => true,
             '#theme_wrappers' => ['region'],
             '#site_name' => \Drupal::config('system.site')->get('name')
-        );
+        ];
     }
 }

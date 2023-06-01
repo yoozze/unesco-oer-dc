@@ -12,18 +12,18 @@ function unesco_oer_dc_preprocess_breadcrumb(&$variables) {
     }
 
     if (count($breadcrumb) === 1) {
-        $breadcrumb = array();
+        $breadcrumb = [];
         return;
     }
 
     if (count($breadcrumb) >= 2 && $breadcrumb[1]['url'] === '/search') {
-        $breadcrumb = array(
+        $breadcrumb = [
             $breadcrumb[0],
-            array(
+            [
                 'text' => $breadcrumb[1]['text'],
                 'url' => '',
-            ),
-        );
+            ],
+        ];
         return;
     }
 }

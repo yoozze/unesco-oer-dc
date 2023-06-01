@@ -209,7 +209,7 @@ $databases = [];
  * @endcode
  */
 
-$databases['default']['default'] = array(
+$databases['default']['default'] = [
   'database' => getenv('DB_NAME'),
   'username' => getenv('DB_USER'),
   'password' => getenv('DB_PASSWORD'),
@@ -222,7 +222,7 @@ $databases['default']['default'] = array(
   'init_commands' => [
     'isolation_level' => 'SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED',
   ],
-);
+];
 
 /**
  * Location of the site configuration files.

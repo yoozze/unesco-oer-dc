@@ -67,31 +67,44 @@
  *
  */
 #}
-<article{{attributes.addClass('c-article')}}>
+{% from "themes/custom/unesco_oer_dc/templates/common/article.html.twig" import meta_item, meta_item_separator, meta_items_inline %}
 
-    {{ title_prefix }}
-    {% if label and not page %}
-        <h2{{title_attributes}}>
-            <a href="{{ url }}" rel="bookmark">{{ label }}</a>
-        </h2>
-    {% endif %}
-    {{ title_suffix }}
-
-    {% if display_submitted %}
-        <footer>
-            {{ author_picture }}
-            <div{{author_attributes}}>
-                {% trans %}Submitted by
-                {{ author_name }}
-                on
-                {{ date }}{% endtrans %}
-                {{ metadata }}
+<article{{attributes.addClass([
+    'c-article',
+    content.field_image[0] ? 'c-article--with-image' : 'c-article--without-image',
+])}}>
+    <div class="c-article__header">
+        <div class="o-container">
+            <div class="c-article__content">
+                <div class="c-article__toolbar">
+                    <span class="c-article__category">{{ content.field_event_type }}</span>
+                    {{ content.addtoany }}
+                </div>
+                {{ title_prefix }}
+                <h1{{title_attributes.addClass('c-article__title')}}>
+                    {{ label }}
+                </h1>
+                {{ title_suffix }}
+                <ul class="c-article__meta">
+                    {{ meta_items_inline([content.field_start_date, content.field_end_date], ' - ') }}
+                    {{ meta_item_separator() }}
+                    {{ meta_item(content.field_location) }}
+                </ul>
             </div>
-        </footer>
-    {% endif %}
-
-    <div{{content_attributes}}>
-        {{ content }}
+        </div>
+    </div>
+    <div class="c-article__body">
+        <div class="o-container">
+            <div{{content_attributes.addClass('c-article__content')}}>
+                <div class="c-article__main">
+                    {{ content.field_image }}
+                    {{ content.field_description }}
+                    {{ content.addtoany }}
+                    {# {{ content }} #}
+                </div>
+            </div>
+        </div>
     </div>
     <script>console.log('NODE', {{ _context | json_encode | raw}});</script>
 </article>
+{# {{ dump() }} #}

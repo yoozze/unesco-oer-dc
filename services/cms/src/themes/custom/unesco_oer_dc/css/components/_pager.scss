@@ -37,7 +37,7 @@ $ellipsis-size: size(2.5);
     align-items: center;
     color: color('font-muted');
 
-    & > svg {
+    &>svg {
         width: $ellipsis-size;
         height: $ellipsis-size;
     }
@@ -53,15 +53,15 @@ $button-size: size(5);
     justify-content: center;
     align-items: center;
     min-width: $button-size;
-    min-height: $button-size;
+    // min-height: $button-size;
     border-color: color('border');
 
-    .is-active > & {
+    .is-active>& {
         border-color: color('blue');
     }
 }
 
-
 .c-pager__link--number {
-    padding: size(1.25);
+    padding-right: size(1.25);
+    padding-left: size(1.25);
 }

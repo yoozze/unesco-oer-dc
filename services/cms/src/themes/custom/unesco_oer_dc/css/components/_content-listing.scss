@@ -7,9 +7,12 @@
 // ## Content Listing Header
 // -------------------------
 
+$header-padding: size(2);
+
 .c-content-listing__header {
     display: flex;
     justify-content: center;
+    padding-top: $header-padding;
     background-color: color('background-alt');
 
     .o-container {

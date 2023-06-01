@@ -29,33 +29,25 @@
  * @see template_preprocess_views_view_fields()
  */
 #}
-{% from "themes/custom/unesco_oer_dc/templates/common/content-item.html.twig" import field, meta_item, meta_items_inline %}
+{% from "themes/custom/unesco_oer_dc/templates/common/content-item.html.twig" import field, meta_item %}
 
-<div{{create_attribute({
-    'class': [
-        'c-content-item__head',
-    ],
-})}}>
+<div class="c-content-item__head">
     {% if fields.field_image %}
         {{ field(fields.field_image) }}
     {% endif %}
     <div class="c-content-item__toolbar">
         <span class="c-content-item__category">
-            {{ field(fields.field_event_type) }}
+            {{ 'News'|t }}
         </span>
         {{ field(fields.addtoany_share) }}
     </div>
 </div>
 
 <div class="c-content-item__body">
-    {{ field(fields.title) }}
     <ul class="c-content-item__meta">
-        {% if fields.field_end_date %}
-            {{ meta_items_inline([fields.field_start_date, fields.field_end_date], '-') }}
-        {% else %}
-            {{ meta_item(fields.field_start_date) }}
-        {% endif %}
-        {{ meta_item(fields.field_location) }}
+        {{ meta_item(fields.created) }}
+        {{ meta_item(fields.node_read_time) }}
     </ul>
+    {{ field(fields.title) }}
     {{ field(fields.field_description) }}
 </div>

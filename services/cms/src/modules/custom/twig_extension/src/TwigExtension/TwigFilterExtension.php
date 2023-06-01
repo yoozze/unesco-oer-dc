@@ -17,7 +17,7 @@ class TwigFilterExtension extends \Twig_Extension
         return [
             new \Twig_SimpleFilter(
                 'remove_links',
-                array($this, 'removeLinks')
+                [$this, 'removeLinks']
             )
         ];
     }

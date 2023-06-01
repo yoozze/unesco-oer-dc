@@ -22,7 +22,7 @@
     <li class="c-content-listing__item">
         <div{{row.attributes.addClass([
             'c-content-item',
-            'c-content-item--grid',
+            'c-content-item--card',
             'c-content-item--activity',
             row.content['#row']._entity.get('field_logo')[0] ? 'c-content-item--with-image' : 'c-content-item--without-image',
         ])}}>
@@ -30,3 +30,4 @@
         </div>
     </li>
 {% endfor %}
+{# {{ dump() }} #}

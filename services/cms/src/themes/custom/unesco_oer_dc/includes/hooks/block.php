@@ -51,7 +51,7 @@ function unesco_oer_dc_preprocess_block(&$variables) {
         $classes[] = 'c-navigation';
         $classes[] = 'c-navigation--' . str_replace('-navigation', '', $plugin_id);
 
-        if (in_array($plugin_id, array('follow-us', 'information', 'categories'))) {
+        if (in_array($plugin_id, ['follow-us', 'information', 'categories'])) {
             $classes[] = 'c-navigation--footer';
         }
     }
@@ -63,13 +63,13 @@ function unesco_oer_dc_preprocess_block(&$variables) {
 
     // Language block
     if ($variables['base_plugin_id'] === 'language_block') {
-        $classes = array('contextual-region', 'c-dropdown', 'c-dropdown--language');
-        $variables['attributes']['data-options'] = json_encode(array('popper' => array('placement' => 'bottom')));
+        $classes = ['contextual-region', 'c-dropdown', 'c-dropdown--language'];
+        $variables['attributes']['data-options'] = json_encode(['popper' => ['placement' => 'bottom']]);
     }
 
     // Search block
     if ($variables['base_plugin_id'] === 'search_form_block') {
-        $classes = array('c-search-form-block');
+        $classes = ['c-search-form-block'];
         $variables['content']['actions']['submit']['#icon'] = 'search';
         // $variables['content']['actions']['submit']['#leading_icon'] = 'search';
         // $variables['content']['actions']['submit']['#trailing_icon'] = 'search';

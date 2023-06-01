@@ -111,6 +111,7 @@ if [ $MODE = "--install" ] || [ $MODE = "--install-modules" ]; then
     drush pm:install --yes file_replace
     drush pm:install --yes addtoany
     drush pm:install --yes views_ajax_history
+    drush pm:install --yes media_library
     # drush pm:install --yes estimated_read_timec_.,mn 
     # drush pm:install --yes taxonomy_import
     # drush pm:install --yes taxonomy_multidelete_terms
