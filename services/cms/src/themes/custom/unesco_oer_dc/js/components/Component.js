@@ -10,6 +10,16 @@ import uniqueId from '../utils/uniqueId';
  */
 class Component {
     /**
+     * @type {HTMLElement | null} DOM element to be initialized.
+     */
+    element = null;
+
+    /**
+     * @type {Object | null} Component options.
+     */
+    options = null;
+
+    /**
      * Get component block name.
      * This getter should be overridden by every "block" component that extends this class!
      *

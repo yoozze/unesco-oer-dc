@@ -1,0 +1,9 @@
+name: Realistic dummy content recipe
+description : Recipe for realistic dummy content.
+
+type: module
+core_version_requirement: ^9.5 || ^10
+
+dependencies:
+  - realistic_dummy_content:realistic_dummy_content
+  - realistic_dummy_content:realistic_dummy_content_api

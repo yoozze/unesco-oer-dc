@@ -6,9 +6,19 @@
     flex-wrap: wrap;
     justify-content: flex-start;
     align-items: center;
-    margin: size(3) negative(0.5) negative(0.5);
+    // margin: size(3) negative(0.5) negative(0.5);
 
-    > a {
+    >a {
         margin: size(0.5);
     }
+}
+
+$buttons-margin: size(3) negative(0.5) negative(0.5);
+
+.c-buttons--more-link {
+    margin: $buttons-margin;
+}
+
+.c-buttons--block-links {
+    margin: $buttons-margin;
 }

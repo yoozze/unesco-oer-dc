@@ -8,7 +8,6 @@
 
 .c-breadcrumb__items {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
     margin: 0;
     padding: size(2) 0;
@@ -21,7 +20,12 @@
 $item-bullet-size: size(0.75);
 
 .c-breadcrumb__item {
-    & + li {
+    display: flex;
+    flex-grow: 1;
+    width: 0;
+    max-width: fit-content;
+
+    &+li {
         position: relative;
         margin-left: size(2.75);
 
@@ -59,9 +63,7 @@ $item-bullet-size: size(0.75);
 // -------------------
 
 .c-breadcrumb__label {
-    display: flex;
-    align-items: center;
-    margin: 0;
-    padding: 0;
-    list-style: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

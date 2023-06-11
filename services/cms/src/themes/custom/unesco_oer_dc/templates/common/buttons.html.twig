@@ -1,0 +1,20 @@
+{#
+/**
+ * @file
+ * Template for displaying a list of buttons.
+  */
+#}
+
+{# {% set classes = [
+    'c-buttons',
+    element['#block_name'] ? 'c-buttons--' ~ element['#block_name']|clean_class,
+] %} #}
+<div{{attributes.addClass('c-buttons')}}>
+    {% for item in items %}
+        {% set url = item.content['#url'] %}
+        <a class="c-button c-button--{{ loop.first ? 'filled' : 'outlined' }}" href="{{ url.external ? url.uri : url }}" target="{{ url.external ? '_blank' : '_self' }}">
+            <span class="c-button__label">{{ item.content['#title'] }}</span>
+            {{ svg_icon(url.external ? 'open-in-new' : 'arrow-right-alt', 'c-button__trailing-icon') }}
+        </a>
+    {% endfor %}
+</div>

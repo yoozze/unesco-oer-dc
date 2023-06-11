@@ -72,7 +72,9 @@
 <article{{attributes.addClass([
     'c-article',
     content.field_image[0] ? 'c-article--with-image' : 'c-article--without-image',
-])}}>
+]).setAttribute('data-options', {
+    'articleNavTitle': 'On this page'|t,
+}|json_encode)}}>
     <div class="c-article__header">
         <div class="o-container">
             <div class="c-article__content">
@@ -99,9 +101,15 @@
                 <div class="c-article__main">
                     {{ content.field_image }}
                     {{ content.field_description }}
-                    {{ content.addtoany }}
+                    <div class="c-article__buttons">                    
+                        {{ content.field_url }}
+                        {{ content.addtoany }}
+                    </div>
+                    <hr class="c-article__divider" />
+                    {{ content.field_links }}
                     {# {{ content }} #}
                 </div>
+                <aside class="c-article__sidebar"></aside>
             </div>
         </div>
     </div>

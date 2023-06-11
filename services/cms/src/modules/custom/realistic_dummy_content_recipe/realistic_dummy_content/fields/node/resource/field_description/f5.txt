@@ -1,0 +1,137 @@
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nos quidem Virtutes sic natae sumus, ut tibi serviremus, aliud negotii nihil habemus. <i>Tu vero, inquam, ducas licet, si sequetur;</i> Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet, ut et voluptates repudiandae sint et molestiae non recusandae. Bonum appello quicquid secundurn naturam est, quod contra malum, nec ego solus, sed tu etiam, Chrysippe, in foro, domi; Duo Reges: constructio interrete. Huic mori optimum esse propter desperationem sapientiae, illi propter spem vivere. Nam cum Academicis incerta luctatio est, qui nihil affirmant et quasi desperata cognitione certi id sequi volunt, quodcumque veri simile videatur. <a href="http://loripsum.net/" target="_blank">Non autem hoc: igitur ne illud quidem.</a> Res enim se praeclare habebat, et quidem in utraque parte. Nec vero ut voluptatem expetat, natura movet infantem, sed tantum ut se ipse diligat, ut integrum se salvumque velit. </p>
+
+<ol>
+	<li>Quibus autem in rebus tanta obscuratio non fit, fieri tamen potest, ut id ipsum, quod interest, non sit magnum.</li>
+	<li>An vero, inquit, quisquam potest probare, quod perceptfum, quod.</li>
+	<li>Res enim se praeclare habebat, et quidem in utraque parte.</li>
+	<li>Qui si omnes veri erunt, ut Epicuri ratio docet, tum denique poterit aliquid cognosci et percipi.</li>
+</ol>
+
+
+<dl>
+	<dt><dfn>Bork</dfn></dt>
+	<dd>Quaesita enim virtus est, non quae relinqueret naturam, sed quae tueretur.</dd>
+	<dt><dfn>Ita prorsus, inquam;</dfn></dt>
+	<dd>Quasi ego id curem, quid ille aiat aut neget.</dd>
+</dl>
+
+
+<p>Ut optime, secundum naturam affectum esse possit. Alterum autem genus est magnarum verarumque virtutum, quas appellamus voluntarias, ut prudentiam, temperantiam, fortitudinem, iustitiam et reliquas eiusdem generis. Quarum ambarum rerum cum medicinam pollicetur, luxuriae licentiam pollicetur. <a href="http://loripsum.net/" target="_blank">Quippe: habes enim a rhetoribus;</a> <b>Id est enim, de quo quaerimus.</b> Ut non sine causa ex iis memoriae ducta sit disciplina. </p>
+
+<h2>Ut proverbia non nulla veriora sint quam vestra dogmata.</h2>
+
+<p>Fortitudinis quaedam praecepta sunt ac paene leges, quae effeminari virum vetant in dolore. Non igitur de improbo, sed de callido improbo quaerimus, qualis Q. <b>De illis, cum volemus.</b> Ita relinquet duas, de quibus etiam atque etiam consideret. An me, inquis, tam amentem putas, ut apud imperitos isto modo loquar? Ex quo intellegitur officium medium quiddam esse, quod neque in bonis ponatur neque in contrariis. <b>Sed quae tandem ista ratio est?</b> Itaque dicunt nec dubitant: mihi sic usus est, tibi ut opus est facto, fac. Traditur, inquit, ab Epicuro ratio neglegendi doloris. Quid turpius quam sapientis vitam ex insipientium sermone pendere? <i>At certe gravius.</i> </p>
+
+<blockquote cite="http://loripsum.net">
+	Deinde, ubi erubuit-vis enim est permagna naturae-, confugit illuc, ut neget accedere quicquam posse ad voluptatem nihil dolentis.
+</blockquote>
+
+
+<p><a href="http://loripsum.net/" target="_blank">Id mihi magnum videtur.</a> Et tamen ego a philosopho, si afferat eloquentiam, non asperner, si non habeat, non admodum flagitem. Videamus igitur sententias eorum, tum ad verba redeamus. Quid enim est a Chrysippo praetermissum in Stoicis? <a href="http://loripsum.net/" target="_blank">Quo modo autem philosophus loquitur?</a> <i>Cur deinde Metrodori liberos commendas?</i> Quod enim dissolutum sit, id esse sine sensu, quod autem sine sensu sit, id nihil ad nos pertinere omnino. Cur deinde Metrodori liberos commendas? Sed audiamus ipsum: Compensabatur, inquit, tamen cum his omnibus animi laetitia, quam capiebam memoria rationum inventorumque nostrorum. Haec dicuntur fortasse ieiunius; <i>An tu me de L.</i> <i>Sed residamus, inquit, si placet.</i> </p>
+
+<p>At iste non dolendi status non vocatur voluptas. Qui enim voluptatem ipsam contemnunt, iis licet dicere se acupenserem maenae non anteponere. Omnis enim est natura diligens sui. Beatus sibi videtur esse moriens. Me quidem ad altiorem memoriam Oedipodis huc venientis et illo mollissimo carmine quaenam essent ipsa haec loca requirentis species quaedam commovit, inaniter scilicet, sed commovit tamen. Hoc ille tuus non vult omnibusque ex rebus voluptatem quasi mercedem exigit. Cum ageremus, inquit, vitae beatum et eundem supremum diem, scribebamus haec. His singulis copiose responderi solet, sed quae perspicua sunt longa esse non debent. Ea, quae dialectici nunc tradunt et docent, nonne ab illis instituta sunt aut inventa sunt? Infinitio ipsa, quam apeirian vocant, tota ab illo est, tum innumerabiles mundi, qui et oriantur et intereant cotidie. Nec vero sum nescius esse utilitatem in historia, non modo voluptatem. <i>Sed fac ista esse non inportuna;</i> Quam multa vitiosa! summum enim bonum et malum vagiens puer utra voluptate diiudicabit, stante an movente? <i>An hoc usque quaque, aliter in vita?</i> Nec enim figura corporis nec ratio excellens ingenii humani significat ad unam hanc rem natum hominem, ut frueretur voluptatibus. Cum id quoque, ut cupiebat, audivisset, evelli iussit eam, qua erat transfixus, hastam. </p>
+
+<p>Prioris generis est docilitas, memoria; Ergo hoc quidem apparet, nos ad agendum esse natos. <b>Recte, inquit, intellegis.</b> Eadem nunc mea adversum te oratio est. Si alia sentit, inquam, alia loquitur, numquam intellegam quid sentiat; An vero displicuit ea, quae tributa est animi virtutibus tanta praestantia? Sed plane dicit quod intellegit. Sed in rebus apertissimis nimium longi sumus. De malis autem et bonis ab iis animalibus, quae nondum depravata sint, ait optime iudicari. Nunc dicam de voluptate, nihil scilicet novi, ea tamen, quae te ipsum probaturum esse confidam. </p>
+
+<ol>
+	<li>Quae qui non vident, nihil umquam magnum ac cognitione dignum amaverunt.</li>
+	<li>Ut optime, secundum naturam affectum esse possit.</li>
+	<li>Quod ea non occurrentia fingunt, vincunt Aristonem;</li>
+	<li>Hinc ceteri particulas arripere conati suam quisque videro voluit afferre sententiam.</li>
+	<li>Ait enim se, si uratur, Quam hoc suave! dicturum.</li>
+	<li>Quis, quaeso, illum negat et bonum virum et comem et humanum fuisse?</li>
+</ol>
+
+
+<h2>Ita multa dicunt, quae vix intellegam.</h2>
+
+<p>Huius ego nunc auctoritatem sequens idem faciam. Qua exposita scire cupio quae causa sit, cur Zeno ab hac antiqua constitutione desciverit, quidnam horum ab eo non sit probatum; Tertium autem omnibus aut maximis rebus iis, quae secundum naturam sint, fruentem vivere. Nulla profecto est, quin suam vim retineat a primo ad extremum. Teneo, inquit, finem illi videri nihil dolere. An obliviscimur, quantopere in audiendo in legendoque moveamur, cum pie, cum amice, cum magno animo aliquid factum cognoscimus? Si enim, ut mihi quidem videtur, non explet bona naturae voluptas, iure praetermissa est; Honesta oratio, Socratica, Platonis etiam. Non dolere, inquam, istud quam vim habeat postea videro; Sed tamen omne, quod de re bona dilucide dicitur, mihi praeclare dici videtur. At negat Epicurus-hoc enim vestrum lumen estquemquam, qui honeste non vivat, iucunde posse vivere. </p>
+
+<p>Diodorus, eius auditor, adiungit ad honestatem vacuitatem doloris. Octavio fuit, cum illam severitatem in eo filio adhibuit, quem in adoptionem D. Stoici autem, quod finem bonorum in una virtute ponunt, similes sunt illorum; Nam aliquando posse recte fieri dicunt nulla expectata nec quaesita voluptate. Si longus, levis dictata sunt. Num igitur dubium est, quin, si in re ipsa nihil peccatur a superioribus, verbis illi commodius utantur? Tum ego: Non mehercule, inquam, soleo temere contra Stoicos, non quo illis admodum assentiar, sed pudore impedior; In enumerandis autem corporis commodis si quis praetermissam a nobis voluptatem putabit, in aliud tempus ea quaestio differatur. Scripsit enim et multis saepe verbis et breviter arteque in eo libro, quem modo nominavi, mortem nihil ad nos pertinere. Certe, nisi voluptatem tanti aestimaretis. Haec non erant eius, qui innumerabilis mundos infinitasque regiones, quarum nulla esset ora, nulla extremitas, mente peragravisset. Hosne igitur laudas et hanc eorum, inquam, sententiam sequi nos censes oportere? Is enim percontando atque interrogando elicere solebat eorum opiniones, quibuscum disserebat, ut ad ea, quae ii respondissent, si quid videretur, diceret. Sed potestne rerum maior esse dissensio? Similiter sensus, cum accessit ad naturam, tuetur illam quidem, sed etiam se tuetur; </p>
+
+<p>Ipse enim Metrodorus, paene alter Epicurus, beatum esse describit his fere verbis: cum corpus bene constitutum sit et sit exploratum ita futurum. Qua ex cognitione facilior facta est investigatio rerum occultissimarum. In primo enim ortu inest teneritas ac mollitia quaedam, ut nec res videre optimas nec agere possint. <b>Cave putes quicquam esse verius.</b> In his igitur partibus duabus nihil erat, quod Zeno commutare gestiret. Inde sermone vario sex illa a Dipylo stadia confecimus. Quid enim ab antiquis ex eo genere, quod ad disserendum valet, praetermissum est? Restatis igitur vos; Atque hoc loco similitudines eas, quibus illi uti solent, dissimillimas proferebas. Neque enim disputari sine reprehensione nec cum iracundia aut pertinacia recte disputari potest. Quasi vero, inquit, perpetua oratio rhetorum solum, non etiam philosophorum sit. Sed erat aequius Triarium aliquid de dissensione nostra iudicare. </p>
+
+<p><a href="http://loripsum.net/" target="_blank">Rationis enim perfectio est virtus;</a> Ipse negat, ut ante dixi, luxuriosorum vitam reprehendendam, nisi plane fatui sint, id est nisi aut cupiant aut metuant. A quibus propter discendi cupiditatem videmus ultimas terras esse peragratas. <b>Negat enim summo bono afferre incrementum diem.</b> Potius ergo illa dicantur: turpe esse, viri non esse debilitari dolore, frangi, succumbere. Atque ut ceteri dicere existimantur melius quam facere, sic hi mihi videntur facere melius quam dicere. </p>
+
+<dl>
+	<dt><dfn>Bork</dfn></dt>
+	<dd>Multoque hoc melius nos veriusque quam Stoici.</dd>
+	<dt><dfn>Bork</dfn></dt>
+	<dd>Quid, si etiam iucunda memoria est praeteritorum malorum?</dd>
+	<dt><dfn>Nunc vides, quid faciat.</dfn></dt>
+	<dd>Sed tamen enitar et, si minus multa mihi occurrent, non fugiam ista popularia.</dd>
+	<dt><dfn>Bork</dfn></dt>
+	<dd>Ne amores quidem sanctos a sapiente alienos esse arbitrantur.</dd>
+	<dt><dfn>Bork</dfn></dt>
+	<dd>Addo etiam illud, multa iam mihi dare signa puerum et pudoris et ingenii, sed aetatem vides.</dd>
+</dl>
+
+
+<p>Primum divisit ineleganter; Quid me istud rogas? Dolor ergo, id est summum malum, metuetur semper, etiamsi non aderit; Nam illud quidem adduci vix possum, ut ea, quae senserit ille, tibi non vera videantur. Cuius similitudine perspecta in formarum specie ac dignitate transitum est ad honestatem dictorum atque factorum. Illud quaero, quid ei, qui in voluptate summum bonum ponat, consentaneum sit dicere. <a href="http://loripsum.net/" target="_blank">Occultum facinus esse potuerit, gaudebit;</a> Quae contraria sunt his, malane? Quae ista amicitia est? <mark>Hoc sic expositum dissimile est superiori.</mark> Quaesita enim virtus est, non quae relinqueret naturam, sed quae tueretur. <i>Quis est tam dissimile homini.</i> </p>
+
+<ul>
+	<li>Istam voluptatem, inquit, Epicurus ignorat?</li>
+	<li>Quod autem meum munus dicis non equidem recuso, sed te adiungo socium.</li>
+	<li>Sic exclusis sententiis reliquorum cum praeterea nulla esse possit, haec antiquorum valeat necesse est.</li>
+	<li>Tum Piso: Atqui, Cicero, inquit, ista studia, si ad imitandos summos viros spectant, ingeniosorum sunt;</li>
+	<li>Fortasse id optimum, sed ubi illud: Plus semper voluptatis?</li>
+</ul>
+
+
+<ol>
+	<li>Paupertas si malum est, mendicus beatus esse nemo potest, quamvis sit sapiens.</li>
+	<li>Suam denique cuique naturam esse ad vivendum ducem.</li>
+	<li>Quamvis enim depravatae non sint, pravae tamen esse possunt.</li>
+	<li>An potest, inquit ille, quicquam esse suavius quam nihil dolere?</li>
+	<li>Pudebit te, inquam, illius tabulae, quam Cleanthes sane commode verbis depingere solebat.</li>
+	<li>Nec lapathi suavitatem acupenseri Galloni Laelius anteponebat, sed suavitatem ipsam neglegebat;</li>
+</ol>
+
+
+<p><a href="http://loripsum.net/" target="_blank">Vide, quaeso, rectumne sit.</a> Quae quo sunt excelsiores, eo dant clariora indicia naturae. Quae tamen a te agetur non melior, quam illae sunt, quas interdum optines. Introduci enim virtus nullo modo potest, nisi omnia, quae leget quaeque reiciet, unam referentur ad summam. Sed non alienum est, quo facilius vis verbi intellegatur, rationem huius verbi faciendi Zenonis exponere. Sed ne, dum huic obsequor, vobis molestus sim. Aliter enim nosmet ipsos nosse non possumus. At Zeno eum non beatum modo, sed etiam divitem dicere ausus est. </p>
+
+<blockquote cite="http://loripsum.net">
+	Sed si duo honesta proposita sint, alterum cum valitudine, alterum cum morbo, non esse dubium, ad utrum eorum natura nos ipsa deductura sit.
+</blockquote>
+
+
+<h5>Ita prorsus, inquam;</h5>
+
+<p><mark>Quae quo sunt excelsiores, eo dant clariora indicia naturae.</mark> Quid interest, nisi quod ego res notas notis verbis appello, illi nomina nova quaerunt, quibus idem dicant? Quam nemo umquam voluptatem appellavit, appellat; Non laboro, inquit, de nomine. <a href="http://loripsum.net/" target="_blank">Quid sequatur, quid repugnet, vident.</a> Hi autem ponunt illi quidem prima naturae, sed ea seiungunt a finibus et a summa bonorum; <i>Bork</i> <i>Zenonis est, inquam, hoc Stoici.</i> <i>Ita fit cum gravior, tum etiam splendidior oratio.</i> Atqui iste locus est, Piso, tibi etiam atque etiam confirmandus, inquam; Hoc loco tenere se Triarius non potuit. Aut haec tibi, Torquate, sunt vituperanda aut patrocinium voluptatis repudiandum. Ita fit ut, quanta differentia est in principiis naturalibus, tanta sit in finibus bonorum malorumque dissimilitudo. </p>
+
+<blockquote cite="http://loripsum.net">
+	Deinde non quaerimus, quid obscuretur aut intereat, quia sit admodum parvum, sed quid tale sit, ut expleat summam.
+</blockquote>
+
+
+<h3>Quid, de quo nulla dissensio est?</h3>
+
+<p>Nam illud quidem adduci vix possum, ut ea, quae senserit ille, tibi non vera videantur. <a href="http://loripsum.net/" target="_blank">Indicant pueri, in quibus ut in speculis natura cernitur.</a> Et ille ridens: Video, inquit, quid agas; Quicquid enim a sapientia proficiscitur, id continuo debet expletum esse omnibus suis partibus; Qui igitur convenit ab alia voluptate dicere naturam proficisci, in alia summum bonum ponere? Hoc est vim afferre, Torquate, sensibus, extorquere ex animis cognitiones verborum, quibus inbuti sumus. <a href="http://loripsum.net/" target="_blank">Praeclare hoc quidem.</a> <i>Quonam modo?</i> <a href="http://loripsum.net/" target="_blank">Quid ergo?</a> Aberat omnis dolor, qui si adesset, nec molliter ferret et tamen medicis plus quam philosophis uteretur. Hunc igitur finem illi tenuerunt, quodque ego pluribus verbis, illi brevius secundum naturam vivere, hoc iis bonorum videbatur extremum. Earum etiam rerum, quas terra gignit, educatio quaedam et perfectio est non dissimilis animantium. Unum nescio, quo modo possit, si luxuriosus sit, finitas cupiditates habere. </p>
+
+<ul>
+	<li>Et quod est munus, quod opus sapientiae?</li>
+	<li>Quod autem satis est, eo quicquid accessit, nimium est;</li>
+	<li>Tollitur beneficium, tollitur gratia, quae sunt vincla concordiae.</li>
+	<li>Non autem hoc: igitur ne illud quidem.</li>
+	<li>Habes, inquam, Cato, formam eorum, de quibus loquor, philosophorum.</li>
+</ul>
+
+
+<ul>
+	<li>Transfer idem ad modestiam vel temperantiam, quae est moderatio cupiditatum rationi oboediens.</li>
+	<li>Quid est, quod ab ea absolvi et perfici debeat?</li>
+	<li>Hic ego: Pomponius quidem, inquam, noster iocari videtur, et fortasse suo iure.</li>
+	<li>Praetereo multos, in bis doctum hominem et suavem, Hieronymum, quem iam cur Peripateticum appellem nescio.</li>
+</ul>
+
+
+<dl>
+	<dt><dfn>Nihil sane.</dfn></dt>
+	<dd>Hoc loco tenere se Triarius non potuit.</dd>
+	<dt><dfn>Frater et T.</dfn></dt>
+	<dd>Qui-vere falsone, quaerere mittimus-dicitur oculis se privasse;</dd>
+</dl>
+
+
+<p>Cumque ipsa virtus efficiat ita beatam vitam, ut beatior esse non possit, tamen quaedam deesse sapientibus tum, cum sint beatissimi; Stuprata per vim Lucretia a regis filio testata civis se ipsa interemit. Ne id quidem, nisi multa annorum intercesserint milia, ut omnium siderum eodem, unde profecta sint, fiat ad unum tempus reversio. Ampulla enim sit necne sit, quis non iure optimo irrideatur, si laboret? Sit hoc ultimum bonorum, quod nunc a me defenditur; Primum cur ista res digna odio est, nisi quod est turpis? Se dicere inter honestum et turpe nimium quantum, nescio quid inmensum, inter ceteras res nihil omnino interesse. Vos autem cum perspicuis dubia debeatis illustrare, dubiis perspicua conamini tollere. Cur ipse Pythagoras et Aegyptum lustravit et Persarum magos adiit? An hoc usque quaque, aliter in vita? Hoc dictum in una re latissime patet, ut in omnibus factis re, non teste moveamur. Et hanc quidem primam exigam a te operam, ut audias me quae a te dicta sunt refellentem. <i>Frater et T.</i> <a href="http://loripsum.net/" target="_blank">Qualem igitur hominem natura inchoavit?</a> </p>
+

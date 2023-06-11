@@ -1,7 +1,7 @@
 {#
 /**
  * @file
- * Theme override of a more link contaainer.
+ * Theme override of a more link container.
  *
  * Used for grouped view items. Can also be used as a theme wrapper for any
  * renderable element, to surround it with a <div> and HTML attributes.
@@ -21,6 +21,7 @@
 #}
 {% set classes = [
     'c-buttons',
+    'c-buttons--more-link',
     'c-buttons--' ~ element['#view'].current_display|clean_class
 ] %}
 <div{{attributes.setAttribute('class',classes)}}>

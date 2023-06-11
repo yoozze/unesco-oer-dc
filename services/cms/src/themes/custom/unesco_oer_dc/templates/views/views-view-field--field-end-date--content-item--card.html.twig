@@ -18,6 +18,5 @@
  * @see template_preprocess_views_view_field()
  */
 #}
-{# {{ svg_icon('calendar-today') }} {{ output -}} #}
-{# {{ svg_icon('calendar-today') }} #} {{ row._entity.field_end_date.value|date('j M Y') }}
-{# {{ dump(row._entity) }} #}
+{{ output|date('j M Y') }}
+

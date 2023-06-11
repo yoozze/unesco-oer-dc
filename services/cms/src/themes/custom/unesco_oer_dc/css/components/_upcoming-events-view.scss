@@ -31,7 +31,7 @@ $item-gutter: size('gutter') / 2;
 .c-upcoming-events-view__item {
     display: flex;
     flex: 1 1 25%;
+    max-width: 25%;
     padding-right: $item-gutter;
     padding-left: $item-gutter;
 }
-  

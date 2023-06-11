@@ -1,11 +1,14 @@
 <?php
 
 namespace Drupal\twig_extension\TwigExtension;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
 /**
  * Class TwigFunctionExtension.
  */
-class TwigFunctionExtension extends \Twig_Extension
+// class TwigFunctionExtension extends \Twig_Extension
+class TwigFunctionExtension extends AbstractExtension
 {
     /**
      * Declare your custom twig extension here
@@ -15,12 +18,14 @@ class TwigFunctionExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction(
+            // new \Twig_SimpleFunction(
+            new TwigFunction(
                 'svg_icon',
                 [$this, 'svgIcon'],
                 ['is_safe' => array('html')]
             ),
-            new \Twig_SimpleFunction(
+            // new \Twig_SimpleFunction(
+            new TwigFunction(
                 'replace',
                 [$this, 'replace'],
                 ['is_safe' => array('html')]

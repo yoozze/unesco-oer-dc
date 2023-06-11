@@ -1,0 +1,102 @@
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <b>Ac tamen hic mallet non dolere.</b> Ne tum quidem te respicies et cogitabis sibi quemque natum esse et suis voluptatibus? Duo Reges: constructio interrete. Nunc ita separantur, ut disiuncta sint, quo nihil potest esse perversius. Eodem modo is enim tibi nemo dabit, quod, expetendum sit, id esse laudabile. Itaque his sapiens semper vacabit. An vero displicuit ea, quae tributa est animi virtutibus tanta praestantia? Non minor, inquit, voluptas percipitur ex vilissimis rebus quam ex pretiosissimis. At quanta conantur! Mundum hunc omnem oppidum esse nostrum! Incendi igitur eos, qui audiunt, vides. Cum autem in quo sapienter dicimus, id a primo rectissime dicitur. Hoc dictum in una re latissime patet, ut in omnibus factis re, non teste moveamur. Ego quoque, inquit, didicerim libentius si quid attuleris, quam te reprehenderim. Superiores tres erant, quae esse possent, quarum est una sola defensa, eaque vehementer. Ut scias me intellegere, primum idem esse dico voluptatem, quod ille don. </p>
+
+<h2>Quod cum accidisset ut alter alterum necopinato videremus, surrexit statim.</h2>
+
+<p><mark>Satis est ad hoc responsum.</mark> Atqui perspicuum est hominem e corpore animoque constare, cum primae sint animi partes, secundae corporis. Numquam hoc ita defendit Epicurus neque Metrodorus aut quisquam eorum, qui aut saperet aliquid aut ista didicisset. Quoniam, si dis placet, ab Epicuro loqui discimus. Cur fortior sit, si illud, quod tute concedis, asperum et vix ferendum putabit? Nihil opus est exemplis hoc facere longius. <mark>Sint ista Graecorum;</mark> Aliis esse maiora, illud dubium, ad id, quod summum bonum dicitis, ecquaenam possit fieri accessio. Magni enim aestimabat pecuniam non modo non contra leges, sed etiam legibus partam. </p>
+
+<ul>
+	<li>Tollitur beneficium, tollitur gratia, quae sunt vincla concordiae.</li>
+	<li>Quid ergo aliud intellegetur nisi uti ne quae pars naturae neglegatur?</li>
+	<li>Piso, familiaris noster, et alia multa et hoc loco Stoicos irridebat: Quid enim?</li>
+	<li>Experiamur igitur, inquit, etsi habet haec Stoicorum ratio difficilius quiddam et obscurius.</li>
+</ul>
+
+
+<blockquote cite="http://loripsum.net">
+	Nam qui valitudinem aestimatione aliqua dignam iudicamus neque eam tamen in bonis ponimus, idem censemus nullam esse tantam aestimationem, ut ea virtuti anteponatur.
+</blockquote>
+
+
+<p>Ne vitationem quidem doloris ipsam per se quisquam in rebus expetendis putavit, nisi etiam evitare posset. <i>Tamen a proposito, inquam, aberramus.</i> Quae fere omnia appellantur uno ingenii nomine, easque virtutes qui habent, ingeniosi vocantur. Cum praesertim illa perdiscere ludus esset. <i>Invidiosum nomen est, infame, suspectum.</i> Omnibus enim artibus volumus attributam esse eam, quae communis appellatur prudentia, quam omnes, qui cuique artificio praesunt, debent habere. Dicam, inquam, et quidem discendi causa magis, quam quo te aut Epicurum reprehensum velim. Vos autem cum perspicuis dubia debeatis illustrare, dubiis perspicua conamini tollere. <a href="http://loripsum.net/" target="_blank">Quod non faceret, si in voluptate summum bonum poneret.</a> </p>
+
+<p>Ut proverbia non nulla veriora sint quam vestra dogmata. <b>Respondent extrema primis, media utrisque, omnia omnibus.</b> <mark>Quae duo sunt, unum facit.</mark> Positum est a nostris in iis esse rebus, quae secundum naturam essent, non dolere; Saepe ab Aristotele, a Theophrasto mirabiliter est laudata per se ipsa rerum scientia; Nam, ut saepe iam dixi, in infirma aetate inbecillaque mente vis naturae quasi per caliginem cernitur; </p>
+
+<ol>
+	<li>Nam Pyrrho, Aristo, Erillus iam diu abiecti.</li>
+	<li>Ex quo illud efficitur, qui bene cenent omnis libenter cenare, qui libenter, non continuo bene.</li>
+	<li>Aliter homines, aliter philosophos loqui putas oportere?</li>
+	<li>Fortasse id optimum, sed ubi illud: Plus semper voluptatis?</li>
+</ol>
+
+
+<dl>
+	<dt><dfn>Bork</dfn></dt>
+	<dd>Teneo, inquit, finem illi videri nihil dolere.</dd>
+	<dt><dfn>Bork</dfn></dt>
+	<dd>Atque haec coniunctio confusioque virtutum tamen a philosophis ratione quadam distinguitur.</dd>
+	<dt><dfn>Nos commodius agimus.</dfn></dt>
+	<dd>Quantum Aristoxeni ingenium consumptum videmus in musicis?</dd>
+	<dt><dfn>Quod totum contra est.</dfn></dt>
+	<dd>Cur igitur, cum de re conveniat, non malumus usitate loqui?</dd>
+</dl>
+
+
+<p>Ergo instituto veterum, quo etiam Stoici utuntur, hinc capiamus exordium. <mark>Non laboro, inquit, de nomine.</mark> <a href="http://loripsum.net/" target="_blank">Verum esto;</a> Hic ego: Etsi facit hic quidem, inquam, Piso, ut vides, ea, quae praecipis, tamen mihi grata hortatio tua est. <a href="http://loripsum.net/" target="_blank">Hoc mihi cum tuo fratre convenit.</a> Non quaero, quid dicat, sed quid convenienter possit rationi et sententiae suae dicere. Nec enim, cum tua causa cui commodes, beneficium illud habendum est, sed faeneratio, nec gratia deberi videtur ei, qui sua causa commodaverit. Vides igitur te aut ea sumere, quae non concedantur, aut ea, quae etiam concessa te nihil iuvent. <a href="http://loripsum.net/" target="_blank">Sed haec quidem liberius ab eo dicuntur et saepius.</a> </p>
+
+<h3>Etenim si delectamur, cum scribimus, quis est tam invidus, qui ab eo nos abducat?</h3>
+
+<p>Piso, familiaris noster, et alia multa et hoc loco Stoicos irridebat: Quid enim? Nec vero intermittunt aut admirationem earum rerum, quae sunt ab antiquis repertae, aut investigationem novarum. <mark>Bork</mark> Quod dicit Epicurus etiam de voluptate, quae minime sint voluptates, eas obscurari saepe et obrui. Somnum denique nobis, nisi requietem corporibus et is medicinam quandam laboris afferret, contra naturam putaremus datum; Habes, inquam, Cato, formam eorum, de quibus loquor, philosophorum. Nam nisi hoc optineatur, id solum bonum esse, quod honestum sit, nullo modo probari possit beatam vitam virtute effici. Suo genere perveniant ad extremum; <i>Prioris generis est docilitas, memoria;</i> <b>Facete M.</b> Nam si propter voluptatem, quae est ista laus, quae possit e macello peti? Hoc sic expositum dissimile est superiori. Ratio quidem vestra sic cogit. At, illa, ut vobis placet, partem quandam tuetur, reliquam deserit. </p>
+
+<blockquote cite="http://loripsum.net">
+	Etsi dedit talem mentem, quae omnem virtutem accipere posset, ingenuitque sine doctrina notitias parvas rerum maximarum et quasi instituit docere et induxit in ea, quae inerant, tamquam elementa virtutis.
+</blockquote>
+
+
+<p>Fortitudinis quaedam praecepta sunt ac paene leges, quae effeminari virum vetant in dolore. <mark>Claudii libidini, qui tum erat summo ne imperio, dederetur.</mark> An hoc usque quaque, aliter in vita? <a href="http://loripsum.net/" target="_blank">Sed ad bona praeterita redeamus.</a> Sic, et quidem diligentius saepiusque ista loquemur inter nos agemusque communiter. Amicitiam autem adhibendam esse censent, quia sit ex eo genere, quae prosunt. </p>
+
+<p>At quicum ioca seria, ut dicitur, quicum arcana, quicum occulta omnia? Tanti autem aderant vesicae et torminum morbi, ut nihil ad eorum magnitudinem posset accedere. Audi, ne longe abeam, moriens quid dicat Epicurus, ut intellegas facta eius cum dictis discrepare: Epicurus Hermarcho salutem. <a href="http://loripsum.net/" target="_blank">Falli igitur possumus.</a> Scaevola tribunus plebis ferret ad plebem vellentne de ea re quaeri. Sin kakan malitiam dixisses, ad aliud nos unum certum vitium consuetudo Latina traduceret. Atque hoc loco similitudines eas, quibus illi uti solent, dissimillimas proferebas. <i>Haeret in salebra.</i> Nobis Heracleotes ille Dionysius flagitiose descivisse videtur a Stoicis propter oculorum dolorem. <i>Aperiendum est igitur, quid sit voluptas;</i> Qua ex cognitione facilior facta est investigatio rerum occultissimarum. </p>
+
+<h3>At ego quem huic anteponam non audeo dicere;</h3>
+
+<p><a href="http://loripsum.net/" target="_blank">Falli igitur possumus.</a> In qua si nihil est praeter rationem, sit in una virtute finis bonorum; Itaque hoc frequenter dici solet a vobis, non intellegere nos, quam dicat Epicurus voluptatem. <a href="http://loripsum.net/" target="_blank">Res enim concurrent contrariae.</a> E quo efficitur, non ut nos non intellegamus quae vis sit istius verbi, sed ut ille suo more loquatur, nostrum neglegat. Ergo et avarus erit, sed finite, et adulter, verum habebit modum, et luxuriosus eodem modo. Non quaero, quid dicat, sed quid convenienter possit rationi et sententiae suae dicere. Haec mihi videtur delicatior, ut ita dicam, molliorque ratio, quam virtutis vis gravitasque postulat. Si est nihil nisi corpus, summa erunt illa: valitudo, vacuitas doloris, pulchritudo, cetera. Quid ergo dubitamus, quin, si non dolere voluptas sit summa, non esse in voluptate dolor sit maximus? </p>
+
+<ol>
+	<li>Expressa vero in iis aetatibus, quae iam confirmatae sunt.</li>
+	<li>Effluit igitur voluptas corporis et prima quaeque avolat saepiusque relinquit causam paenitendi quam recordandi.</li>
+	<li>At iam decimum annum in spelunca iacet.</li>
+	<li>Qui-vere falsone, quaerere mittimus-dicitur oculis se privasse;</li>
+</ol>
+
+
+<p>Vadem te ad mortem tyranno dabis pro amico, ut Pythagoreus ille Siculo fecit tyranno? Non dolere, inquam, istud quam vim habeat postea videro; Bork Quae adhuc, Cato, a te dicta sunt, eadem, inquam, dicere posses, si sequerere Pyrrhonem aut Aristonem. <i>Si quicquam extra virtutem habeatur in bonis.</i> Non quaeritur autem quid naturae tuae consentaneum sit, sed quid disciplinae. Sic, et quidem diligentius saepiusque ista loquemur inter nos agemusque communiter. His singulis copiose responderi solet, sed quae perspicua sunt longa esse non debent. Ita ne hoc quidem modo paria peccata sunt. Mihi quidem Antiochum, quem audis, satis belle videris attendere. </p>
+
+<h2>Praeteritis, inquit, gaudeo.</h2>
+
+<p>Ex quo intellegitur officium medium quiddam esse, quod neque in bonis ponatur neque in contrariis. Quid in isto egregio tuo officio et tanta fide-sic enim existimo-ad corpus refers? Atque haec ita iustitiae propria sunt, ut sint virtutum reliquarum communia. </p>
+
+<ul>
+	<li>Hic quoque suus est de summoque bono dissentiens dici vere Peripateticus non potest.</li>
+	<li>Hic Speusippus, hic Xenocrates, hic eius auditor Polemo, cuius illa ipsa sessio fuit, quam videmus.</li>
+	<li>Nihil acciderat ei, quod nollet, nisi quod anulum, quo delectabatur, in mari abiecerat.</li>
+	<li>Ita multo sanguine profuso in laetitia et in victoria est mortuus.</li>
+</ul>
+
+
+<p>Qui autem esse poteris, nisi te amor ipse ceperit? Incommoda autem et commoda-ita enim estmata et dustmata appello-communia esse voluerunt, paria noluerunt. <mark>Inquit, dasne adolescenti veniam?</mark> At ille pellit, qui permulcet sensum voluptate. Atque etiam ad iustitiam colendam, ad tuendas amicitias et reliquas caritates quid natura valeat haec una cognitio potest tradere. Ita fit, ut duo genera propter se expetendorum reperiantur, unum, quod est in iis, in quibus completar illud extremum, quae sunt aut animi aut corporis; Audax negotium, dicerem impudens, nisi hoc institutum postea translatum ad philosophos nostros esset. Idem etiam dolorem saepe perpetiuntur, ne, si id non faciant, incidant in maiorem. <i>Illa tamen simplicia, vestra versuta.</i> Virtutis, magnitudinis animi, patientiae, fortitudinis fomentis dolor mitigari solet. </p>
+
+<dl>
+	<dt><dfn>Hic ambiguo ludimur.</dfn></dt>
+	<dd>Aliter enim nosmet ipsos nosse non possumus.</dd>
+	<dt><dfn>Scrupulum, inquam, abeunti;</dfn></dt>
+	<dd>Cuius quidem, quoniam Stoicus fuit, sententia condemnata mihi videtur esse inanitas ista verborum.</dd>
+	<dt><dfn>Quid adiuvas?</dfn></dt>
+	<dd>Quos quidem tibi studiose et diligenter tractandos magnopere censeo.</dd>
+	<dt><dfn>Stoicos roga.</dfn></dt>
+	<dd>Quae enim adhuc protulisti, popularia sunt, ego autem a te elegantiora desidero.</dd>
+	<dt><dfn>Efficiens dici potest.</dfn></dt>
+	<dd>Totum autem id externum est, et quod externum, id in casu est.</dd>
+	<dt><dfn>Bork</dfn></dt>
+	<dd>Ita relinquitur sola haec disciplina digna studiosis ingenuarum artium, digna eruditis, digna claris viris, digna principibus, digna regibus.</dd>
+</dl>
+
+

@@ -1,11 +1,15 @@
 <?php
 
+// namespace Drupal\twig_extension\TwigExtension;
 namespace Drupal\twig_extension\TwigExtension;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
 
 /**
  * Class TwigFilterExtension.
  */
-class TwigFilterExtension extends \Twig_Extension
+// class TwigFilterExtension extends \Twig_Extension
+class TwigFilterExtension extends AbstractExtension
 {
     /**
      * Declare your custom twig filter here
@@ -15,7 +19,8 @@ class TwigFilterExtension extends \Twig_Extension
     public function getFilters()
     {
         return [
-            new \Twig_SimpleFilter(
+            // new \Twig_SimpleFilter(
+            new TwigFilter(
                 'remove_links',
                 [$this, 'removeLinks']
             )

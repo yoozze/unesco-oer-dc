@@ -18,6 +18,4 @@
  * @see template_preprocess_views_view_field()
  */
 #}
-{# {{ svg_icon('calendar-today') }} {{ output -}} #}
-{{ svg_icon('calendar-today') }} {{ row._entity.getCreatedTime()|date("D, j F Y") -}}
-{# {{ dump(row._entity }} #}
+{{ svg_icon('calendar-today') }} {{ output|date("D, j F Y") -}}

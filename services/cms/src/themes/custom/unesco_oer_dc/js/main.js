@@ -1,3 +1,4 @@
+import Article from './components/Article';
 import Dropdown from './components/Dropdown';
 
 import './misc/debug';
@@ -8,6 +9,7 @@ function initComponents() {
     console.log('Initializing components...');
 
     Dropdown.init();
+    Article.init();
 
     console.log('Components:', window._components);
 }
