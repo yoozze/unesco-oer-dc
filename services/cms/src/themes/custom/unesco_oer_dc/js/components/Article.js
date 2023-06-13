@@ -1,5 +1,6 @@
 /** @module components/Article */
 
+import convertToSlug from '../utils/convertToSlug';
 import Component from './Component';
 
 const HEADINGS_SELECTOR = 'h2, h3';
@@ -8,6 +9,11 @@ const HEADINGS_SELECTOR = 'h2, h3';
 const headerHeight = 105;
 
 class Article extends Component {
+    /**
+     * @type {HTMLElement | null} Article body element.
+     */
+    title = null;
+
     /**
      * @type {HTMLElement | null} Article body element.
      */
@@ -57,6 +63,7 @@ class Article extends Component {
     constructor(element, options = {}) {
         super(element, options);
 
+        this.title = this.element.querySelector(`.${Article.bem('title')}`);
         this.body = this.element.querySelector(`.${Article.bem('body')}`);
         this.bodyContent = this.body.querySelector(`.${Article.bem('content')}`);
         this.main = this.bodyContent.querySelector(`.${Article.bem('main')}`);
@@ -89,8 +96,19 @@ class Article extends Component {
         articleNavList.classList.add('c-article__nav-list');
         articleNav.appendChild(articleNavList);
 
-        this.headings.forEach((heading, i) => {
-            const id = `article-heading-${i + 1}`;
+        /** @type {Set<string>} */
+        const headingSlugs = new Set();
+
+        const headings = [this.title, ...this.headings];
+        headings.forEach((heading) => {
+            let id = convertToSlug(heading.textContent);
+            let i = 1;
+            while (headingSlugs.has(id)) {
+                id = `${id}-${i}`;
+                i++;
+            }
+
+            headingSlugs.add(id);
             heading.setAttribute('id', id);
 
             const articleNavListItem = document.createElement('li');
@@ -113,6 +131,11 @@ class Article extends Component {
         this.nav = articleNav;
     }
 
+    /**
+     * Observe content headings.
+     * 
+     * TODO: Improve this method.
+     */
     observeContentHeadings() {
         if (!window.IntersectionObserver) {
             return;
@@ -124,20 +147,20 @@ class Article extends Component {
         }
 
         const navItems = {};
-        links.forEach((link) => {
+        links.forEach(link => {
             navItems[link.getAttribute('href').slice(1)] = link;
         });
 
         const contentOffset = headerHeight + 32;
+        const headings = [this.title, ...this.headings];
         const observer = new IntersectionObserver(
             (entries, observer) => {
                 let index = 0;
                 let prevHeading = null;
-                for (let i = 0; i < this.headings.length; i++) {
-                    const heading = this.headings[i];
+                for (let i = 0; i < headings.length; i++) {
+                    const heading = headings[i];
                     navItems[heading.id].classList.remove('is-active');
                     const navItem = navItems[prevHeading ? prevHeading.id : heading.id];
-
                     const offsetY = contentOffset + window.pageYOffset;
                     if (prevHeading === null) {
                         if (offsetY < heading.offsetTop) {
@@ -146,7 +169,7 @@ class Article extends Component {
                     } else {
                         if (offsetY >= prevHeading.offsetTop && offsetY < heading.offsetTop) {
                             navItems[prevHeading.id].classList.add('is-active');
-                        } else if (i === this.headings.length - 1 && offsetY > heading.offsetTop) {
+                        } else if (i === headings.length - 1 && offsetY > heading.offsetTop) {
                             navItems[heading.id].classList.add('is-active');
                         }
                     }
@@ -161,7 +184,7 @@ class Article extends Component {
             },
         );
 
-        this.headings.forEach((heading) => {
+        headings.forEach(heading => {
             observer.observe(heading);
         });
     }

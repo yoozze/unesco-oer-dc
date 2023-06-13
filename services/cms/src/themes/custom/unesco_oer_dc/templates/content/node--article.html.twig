@@ -77,24 +77,15 @@
     <div class="c-article__header">
         <div class="o-container">
             <div class="c-article__content">
-                <div class="c-article__toolbar">
-                    <span class="c-article__category">{{ 'News'|t }}</span>
+                {# <div class="c-article__toolbar">
+                    <span></span>
                     {{ content.addtoany }}
-                </div>
+                </div> #}
                 {{ title_prefix }}
                 <h1{{title_attributes.addClass('c-article__title')}}>
                     {{ label }}
                 </h1>
                 {{ title_suffix }}
-                <ul class="c-article__meta">
-                    <li class="c-article__meta-item">
-                        <span class="c-article__meta-content">{{ date }}</span>
-                    </li>
-                    <li class="c-article__meta-item c-article__meta-item--separator"></li>
-                    <li class="c-article__meta-item">
-                        <span class="c-article__meta-content">{{ content.node_read_time }}</span>
-                    </li>
-                </ul>
             </div>
         </div>
     </div>
@@ -103,7 +94,7 @@
             <div{{content_attributes.addClass('c-article__content')}}>
                 <div class="c-article__main">
                     {{ content.field_image }}
-                    {{ content.field_description }}
+                    {{ content.body }}
                     <div class="c-article__buttons">
                         {% if content.field_url %}
                             {{ content.field_url }}
@@ -112,8 +103,8 @@
                         {% endif %}
                         {{ content.addtoany }}
                     </div>
-                    <hr class="c-article__divider" />
-                    {{ content.field_links }}
+                    {# <hr class="c-article__divider" /> #}
+                    {# {{ content.field_links }} #}
                     {# {{ content }} #}
                 </div>
                 <aside class="c-article__sidebar"></aside>

@@ -34,7 +34,7 @@
     <li class="c-content-item__meta-item c-content-item__meta-item--inline">
         {% for field in fields %}
             {{ _self.field(field) }}
-            {% if not loop.last %} <span>{{ separator }}</span> {% endif %}
+            {% if not loop.last %} <span>{{ separator|raw }}</span> {% endif %}
         {% endfor %}
     </li>
 {% endmacro %}

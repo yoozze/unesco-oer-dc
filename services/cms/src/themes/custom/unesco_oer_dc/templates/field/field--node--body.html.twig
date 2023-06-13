@@ -37,12 +37,6 @@
  */
 #}
 {% set item = items|first %}
-{% set date = item.content['#markup'] %}
-{{ svg_icon('calendar-today') }}
-<span>
-    {% if (date ends with '00:00:00') %}
-        {{ date|date("l, j F Y") }}
-    {% else %}
-        {{ date|date("l, j F Y H:i") }}
-    {% endif %}
-</span>
+<div class="c-article__description c-text-box">
+    {{ item.content }}
+</div>

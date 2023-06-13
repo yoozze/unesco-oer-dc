@@ -204,6 +204,19 @@ $footer-icon-size: size(2.5);
     }
 }
 
+// ## Navigation - Contact
+// -----------------------
+
+.c-navigation--contact {
+    // margin-left: auto;
+
+    & > ul {
+        @include before(null) {
+            background-color: color('blue');
+        }
+    }
+}
+
 // ## Navigation - Categories
 // --------------------------
 

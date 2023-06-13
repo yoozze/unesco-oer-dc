@@ -67,12 +67,13 @@
  *
  */
 #}
-{% from "themes/custom/unesco_oer_dc/templates/common/article.html.twig" import meta_item, meta_item_separator %}
 
 <article{{attributes.addClass([
     'c-article',
-    content.field_image[0] ? 'c-article--with-image' : 'c-article--without-image',
-])}}>
+    content.field_logo[0] ? 'c-article--with-logo' : 'c-article--without-logo',
+]).setAttribute('data-options', {
+    'articleNavTitle': 'On this page'|t,
+}|json_encode)}}>
     <div class="c-article__header">
         <div class="o-container">
             <div class="c-article__content">
@@ -86,9 +87,6 @@
                 </h1>
                 {{ title_suffix }}
                 {# <ul class="c-article__meta">
-                    {{ meta_item(date) }}
-                    {{ meta_item_separator() }}
-                    {{ meta_item(content.node_read_time) }}
                 </ul> #}
             </div>
         </div>
@@ -97,11 +95,22 @@
         <div class="o-container">
             <div{{content_attributes.addClass('c-article__content')}}>
                 <div class="c-article__main">
-                    {{ content.field_image }}
                     {{ content.field_description }}
-                    {{ content.addtoany }}
+                    <div class="c-article__buttons">
+                        {% if content.field_url %}
+                            {{ content.field_url }}
+                        {% else %}
+                            <span></span>
+                        {% endif %}
+                        {{ content.addtoany }}
+                    </div>
+                    <hr class="c-article__divider" />
+                    {{ content.field_links }}
                     {# {{ content }} #}
                 </div>
+                <aside class="c-article__sidebar">
+                {{ content.field_logo }}</aside>
+            </div>
             </div>
         </div>
     </div>

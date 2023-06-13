@@ -67,12 +67,34 @@
  *
  */
 #}
-{% from "themes/custom/unesco_oer_dc/templates/common/article.html.twig" import meta_item, meta_item_separator, meta_items_inline %}
 
 <article{{attributes.addClass([
     'c-article',
     content.field_image[0] ? 'c-article--with-image' : 'c-article--without-image',
-])}}>
+]).setAttribute('data-options', {
+    'articleNavTitle': 'On this page'|t,
+}|json_encode)}}>
+    {% if content.field_registration_link %}
+        <div class="o-region c-banner c-banner--small">
+            <div class="o-container c-banner__container">
+                <div class="o-row c-banner__row">
+                    {% set title = content.field_registration_link[0]['#title'] %}
+                    {% if not (title starts with 'http') %}
+                        <div class="c-banner__body o-col">
+                            <p>{{ title }}</p>
+                        </div>
+                    {% endif %}
+                    <div class="c-banner__links o-col">
+                        {% set url = content.field_registration_link[0]['#url'] %}
+                        <a class="c-banner__link c-button c-button--filled" href="{{ url.external ? url.uri : url }}" target="{{ url.external ? '_blank' : '_self' }}">
+                            <span class="c-button__label">{{ 'Register'|t }}</span>
+                            {{ url.external ? svg_icon('open-in-new', 'c-button__trailing-icon') : '' }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
     <div class="c-article__header">
         <div class="o-container">
             <div class="c-article__content">
@@ -86,9 +108,26 @@
                 </h1>
                 {{ title_suffix }}
                 <ul class="c-article__meta">
-                    {{ meta_items_inline([content.field_start_date, content.field_end_date], ' - ') }}
-                    {{ meta_item_separator() }}
-                    {{ meta_item(content.field_location) }}
+                    <li class="c-article__meta-item c-article__meta-item--inline">
+                        <span class="c-article__meta-content">{{ content.field_start_date }}</span>
+                        &ndash;
+                        <span class="c-article__meta-content">{{ content.field_end_date }}</span>
+                    </li>
+                    <li class="c-article__meta-item c-article__meta-item--separator"></li>
+                    <li class="c-article__meta-item">
+                        {% if content.field_venue_link %}
+                            {% set url = content.field_venue_link[0]['#url'] %}
+                            <a class="c-article__meta-content" href="{{ url.external ? url.uri : url }}" target="{{ url.external ? '_blank' : '_self' }}">
+                                {{ content.field_location }}
+                                {# {{ url.external ? svg_icon('open-in-new') : '' }} #}
+                            </a>
+                        {% else %}
+                            <span class="c-article__meta-content">
+                                {{ content.field_location }}
+                            </span>
+                        {% endif %}
+                    </li>
+                    
                 </ul>
             </div>
         </div>
@@ -99,9 +138,19 @@
                 <div class="c-article__main">
                     {{ content.field_image }}
                     {{ content.field_description }}
-                    {{ content.addtoany }}
+                    <div class="c-article__buttons">
+                        {% if content.field_url %}
+                            {{ content.field_url }}
+                        {% else %}
+                            <span></span>
+                        {% endif %}
+                        {{ content.addtoany }}
+                    </div>
+                    <hr class="c-article__divider" />
+                    {{ content.field_links }}
                     {# {{ content }} #}
                 </div>
+                <aside class="c-article__sidebar"></aside>
             </div>
         </div>
     </div>

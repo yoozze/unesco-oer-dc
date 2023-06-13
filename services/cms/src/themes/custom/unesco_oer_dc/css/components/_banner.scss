@@ -12,20 +12,26 @@ $banner-padding: size('section-padding');
     background-color: color('chathams-blue');
 }
 
+.c-banner--small {
+    padding-top: size(3);
+    padding-bottom: size(3);
+}
+
 // ## Banner Container
 // -------------------
 
-.c-banner__container {
-    // display: flex;
-    // justify-content: center;
-}
+// .c-banner__container {}
 
 // ## Banner Row
 // -------------
 
 .c-banner__row {
-    display: flex;
     justify-content: center;
+
+    .c-banner--small & {
+        justify-content: flex-start;
+        align-items: center;
+    }
 }
 
 // ## Banner Content
@@ -57,6 +63,14 @@ $banner-padding: size('section-padding');
 
 .c-banner__body {
     margin-bottom: size(3);
+    
+    &>:last-child {
+        margin-bottom: 0;
+    }
+
+    .c-banner--small & {
+        margin-bottom: 0;
+    }
 }
 
 // ## Banner Links
@@ -65,6 +79,8 @@ $banner-padding: size('section-padding');
 .c-banner__links {
     display: flex;
     justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
 }
 
 // ## Banner Link

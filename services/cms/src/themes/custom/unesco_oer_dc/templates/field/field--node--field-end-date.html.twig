@@ -37,4 +37,11 @@
  */
 #}
 {% set item = items|first %}
-<span>{{ item.content }}</span>
+{% set date = item.content['#markup'] %}
+<span>
+    {% if (date ends with '00:00:00') %}
+        {{ date|date("l, j F Y") }}
+    {% else %}
+        {{ date|date("l, j F Y H:i") }}
+    {% endif %}
+</span>

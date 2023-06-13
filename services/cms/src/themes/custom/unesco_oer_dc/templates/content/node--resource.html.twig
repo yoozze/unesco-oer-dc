@@ -67,12 +67,13 @@
  *
  */
 #}
-{% from "themes/custom/unesco_oer_dc/templates/common/article.html.twig" import meta_item, meta_item_separator %}
 
 <article{{attributes.addClass([
     'c-article',
     content.field_image[0] ? 'c-article--with-image' : 'c-article--without-image',
-])}}>
+]).setAttribute('data-options', {
+    'articleNavTitle': 'On this page'|t,
+}|json_encode)}}>
     <div class="c-article__header">
         <div class="o-container">
             <div class="c-article__content">
@@ -81,15 +82,12 @@
                     {{ content.addtoany }}
                 </div>
                 {{ title_prefix }}
-                <h1{{title_attributes.addClass('c-article__title')}}>
+                <h1{{title_attributes.addClass(['c-article__title', 'c-article__title--short'])}}>
                     {{ label }}
                 </h1>
                 {{ title_suffix }}
-                <ul class="c-article__meta">
-                    {{ meta_item(content.field_publication_date) }}
-                    {{ meta_item_separator() }}
-                    {{ meta_item(content.field_author) }}
-                </ul>
+                {# <ul class="c-article__meta">
+                </ul> #}
             </div>
         </div>
     </div>
@@ -99,9 +97,40 @@
                 <div class="c-article__main">
                     {{ content.field_image }}
                     {{ content.field_description }}
-                    {{ content.addtoany }}
+                    <div class="c-article__buttons">
+                        {% if content.field_url %}
+                            {{ content.field_url }}
+                        {% else %}
+                            <span></span>
+                        {% endif %}
+                        {{ content.addtoany }}
+                    </div>
+                    <hr class="c-article__divider" />
+                    {{ content.field_links }}
                     {# {{ content }} #}
                 </div>
+                <aside class="c-article__sidebar">
+                    <dl class="c-article__meta c-article__meta--sidebar">
+                        <div class="c-article__meta-item">
+                            {{ content.field_document_source }}
+                        </div>
+                        <div class="c-article__meta-item">
+                            {{ content.field_author }}
+                        </div>
+                        <div class="c-article__meta-item">
+                            {{ content.field_publication_date }}
+                        </div>
+                        <div class="c-article__meta-item">
+                            {{ content.field_language }}
+                        </div>
+                        <div class="c-article__meta-item">
+                            {{ content.field_licence_conditions }}
+                        </div>
+                        <div class="c-article__meta-item">
+                            {{ content.field_document_file }}
+                        </div>
+                    </dl>
+                </aside>
             </div>
         </div>
     </div>

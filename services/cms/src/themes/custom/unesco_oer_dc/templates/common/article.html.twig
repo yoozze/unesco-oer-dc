@@ -6,7 +6,7 @@
 
 {% macro meta_item(field) %}
     <li class="c-article__meta-item">
-        {{ field }}
+        <span class="c-article__meta-content">{{ field }}<span>
     </li>
 {% endmacro %}
 
@@ -17,8 +17,8 @@
 {% macro meta_items_inline(fields, separator) %}
     <li class="c-article__meta-item c-article__meta-item--inline">
         {% for field in fields %}
-            {{ field }}
-            {% if not loop.last %} <span>{{ separator }}</span> {% endif %}
+            <span class="c-article__meta-content">{{ field }}</span>
+            {% if not loop.last %} <span class="c-article__meta-content">{{ separator|raw }}</span> {% endif %}
         {% endfor %}
     </li>
 {% endmacro %}

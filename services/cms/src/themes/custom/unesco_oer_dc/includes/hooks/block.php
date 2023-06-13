@@ -51,7 +51,7 @@ function unesco_oer_dc_preprocess_block(&$variables) {
         $classes[] = 'c-navigation';
         $classes[] = 'c-navigation--' . str_replace('-navigation', '', $plugin_id);
 
-        if (in_array($plugin_id, ['follow-us', 'information', 'categories'])) {
+        if (in_array($plugin_id, ['contact', 'follow-us', 'information', 'categories'])) {
             $classes[] = 'c-navigation--footer';
         }
     }
