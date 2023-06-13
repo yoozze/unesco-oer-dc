@@ -131,10 +131,13 @@ SETTINGS_FILE="/opt/drupal/web/sites/default/settings.php"
 
 if [ $MODE = "--archive-dump" ]; then
     echo "$PREFIX: Archiving... $ARGS"
+    # docker exec ${PROJECT_NAME}_cms sh -c "
+    #     cp $SETTINGS_FILE $SETTINGS_FILE.bak &&
+    #     drush archive:dump --exclude-code-paths=web/sites/default/settings.php &&
+    #     rm $SETTINGS_FILE.bak
+    # "
     docker exec ${PROJECT_NAME}_cms sh -c "
-        cp $SETTINGS_FILE $SETTINGS_FILE.bak &&
-        drush archive:dump --exclude-code-paths=web/sites/default/settings.php &&
-        rm $SETTINGS_FILE.bak
+        drush archive:dump --db --exclude-code-paths=web/sites/default/settings.php
     "
     mkdir -p $ARCHIVE_PATH
     docker cp ${PROJECT_NAME}_cms:/tmp/archive.tar.gz $ARCHIVE_PATH/"$(date +"%Y%m%dT%H%M%S").tar.gz"
@@ -144,9 +147,12 @@ fi
 if [ $MODE = "--archive-restore" ]; then
     echo "$PREFIX: Restoring archive... $ARGS"     
     docker cp $ARGS ${PROJECT_NAME}_cms:/tmp/archive.tar.gz
+    # docker exec ${PROJECT_NAME}_cms sh -c "
+    #     drush archive:restore /tmp/archive.tar.gz --db &&
+    #     drush archive:restore /tmp/archive.tar.gz --files --files-destination-relative-path web/sites/default/files
+    # "
     docker exec ${PROJECT_NAME}_cms sh -c "
-        drush archive:restore /tmp/archive.tar.gz --db &&
-        drush archive:restore /tmp/archive.tar.gz --files --files-destination-relative-path web/sites/default/files
+        drush archive:restore /tmp/archive.tar.gz --db
     "
     echo "$PREFIX: Archive restored"
 fi
