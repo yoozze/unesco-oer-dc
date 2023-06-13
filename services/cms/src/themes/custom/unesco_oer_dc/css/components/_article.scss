@@ -9,8 +9,6 @@ $sidebar-width: size(366px);
 // ------------------
 
 .c-article__content {
-    // padding-right: size(366px);
-
     .c-article__body & {
         display: flex;
     }
@@ -44,6 +42,7 @@ $toolbar-spacing: size(0.5);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding-right: $sidebar-width;
     margin-right: negative($toolbar-spacing);
     margin-bottom: size(1);
     margin-left: negative($toolbar-spacing);
@@ -72,24 +71,17 @@ $toolbar-spacing: size(0.5);
 .c-article__title {
     // @include font('display-medium');
 
+    padding-right: $sidebar-width;
     margin-top: 0;
     margin-bottom: 0;
-
-    .c-article--with-logo & {
-        padding-right: $sidebar-width;
-    }
 }
 
-.c-article__title--short {
-    // padding-right: $sidebar-width;
-}
+// .c-article__title--short {}
 
 // ## Article Meta
 // ---------------
 
 .c-article__meta {
-    @include font('label-large');
-
     display: flex;
     list-style-type: none;
     padding-left: 0;
@@ -99,11 +91,12 @@ $toolbar-spacing: size(0.5);
 }
 
 .c-article__meta--sidebar {
+    @include font('label-large');
     @include elevation(1);
 
     flex-direction: column;
-    padding-top: size(1);
-    padding-bottom: size(1);
+    padding-top: size(1.5);
+    padding-bottom: size(1.5);
     margin-top: size(3);
     background-color: color('light');
     border-radius: size('radius' 3);
@@ -127,7 +120,7 @@ $meta-icon-size: size(2.75);
     .c-article__meta--sidebar & {
         flex-direction: column;
         align-items: normal;
-        padding: size(1) size(3);
+        padding: size(1.5) size(3);
         border-bottom: 1px solid rgba(color('border'), size('opacity' 5));
 
         &:last-child {
