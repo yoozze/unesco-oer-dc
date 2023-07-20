@@ -1,0 +1,5 @@
+<?php
+
+function admin_preprocess_page(&$variables) {
+    $variables['#attached']['library'][] = 'admin/admin';
+}

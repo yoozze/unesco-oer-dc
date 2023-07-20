@@ -36,7 +36,20 @@
  * @see template_preprocess_field()
  */
 #}
-{% set item = items|first %}
-<figure class="c-article__image">
-    {{ item.content }}
-</figure>
+<div class="c-slider c-article__media" id="article-gallery" data-options="{{ {
+    'gallery': '#article-gallery',
+    'infinite': false,
+    'nextArrow': '<button class="c-icon-button c-icon-button--standard c-slider__arrow c-slider__arrow--next"><svg class="c-icon c-icon-button__icon" xmlns:xlink="http://www.w3.org/1999/xlink"><use xlink:href="#arrow-forward"></use></svg></button>',
+    'prevArrow': '<button class="c-icon-button c-icon-button--standard c-slider__arrow c-slider__arrow--prev"><svg class="c-icon c-icon-button__icon" xmlns:xlink="http://www.w3.org/1999/xlink"><use xlink:href="#arrow-forward"></use></svg></button>',
+}|json_encode }}">
+    {% for item in items %}
+        <figure class="c-slider__item c-article__figure">
+            <a href="{{ item.image.url }}" target="_blank">
+                <img src="{{ item.image.thumb.url }}" alt="{{ item.image.alt }}" width="{{ item.image.thumb.width }}" height="{{ item.image.thumb.height }}" loading="lazy"/>
+            </a>
+            {% if item.image.caption %}
+                <figcaption>{{ item.image.caption }}</figcaption>
+            {% endif %}
+        </figure>
+    {% endfor %}
+</div>

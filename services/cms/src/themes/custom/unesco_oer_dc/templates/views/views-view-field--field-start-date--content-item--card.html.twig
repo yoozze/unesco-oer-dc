@@ -18,4 +18,9 @@
  * @see template_preprocess_views_view_field()
  */
 #}
-{{ svg_icon('calendar-today') }} {{ output|date('j M Y') }}
+{# {{ svg_icon('calendar-today') }} {{ output|date('j M Y') }} #}
+<span class="c-content-item__field c-content-item__field--field-start-date">
+    <span class="c-content-item__field-content">
+        {{ svg_icon('calendar-today') }} {{ output|date('j M Y') }}
+    </span>
+</span>

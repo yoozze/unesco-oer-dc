@@ -6,6 +6,8 @@
  */
 
 use Drupal\Core\Template\Attribute;
+use Drupal\file\Entity\File;
+use Drupal\media\Entity\Media;
 
 function get_node_name($key) {
     $node_map = [
@@ -46,6 +48,37 @@ function &get_classes(&$variables) {
 
 function clean_suggetion($suggestion) {
     return str_replace('-', '_', $suggestion);
+}
+
+function get_media_image($id, $image_style = '') {
+    $media = Media::load($id);
+    $file = File::load($media->get('field_media_image')->target_id);
+    $media_info = [
+        'caption' => $media->field_media_caption->value,
+        'alt' => $media->field_media_image->alt,
+        'title' => $media->field_media_image->title,
+        'width' => intval($media->field_media_image->width),
+        'height' => intval($media->field_media_image->height),
+        'url' => $file->createFileUrl(),
+    ];
+
+    if ($image_style !== '') {
+        $style = \Drupal::entityTypeManager()->getStorage('image_style')->load($image_style);
+        $original_image = $file->getFileUri();
+        $styled_image = $style->buildUri($original_image);
+        if (!file_exists($styled_image)) {
+            $style->createDerivative($original_image, $styled_image);
+        }
+
+        $image_factory = \Drupal::service('image.factory')->get($styled_image);
+        $media_info['thumb'] = [
+            'url' => \Drupal::service('file_url_generator')->generateString($styled_image),
+            'width' => $image_factory->getToolkit()->getWidth(),
+            'height' => $image_factory->getToolkit()->getHeight(),
+        ];
+    }
+
+    return $media_info;
 }
 
 include_once __DIR__ . '/includes/hooks/html.php';

@@ -45,11 +45,15 @@
 
 <div class="c-content-item__body">
     <ul class="c-content-item__meta">
-        {% if fields.field_end_date %}
+        {# {% if fields.field_end_date %}
             {{ meta_items_inline([fields.field_start_date, fields.field_end_date], ' &ndash; ') }}
         {% else %}
             {{ meta_item(fields.field_start_date) }}
-        {% endif %}
+        {% endif %} #}
+        <li class="c-content-item__meta-item c-content-item__meta-item--inline">
+            {{ fields.field_start_date.content }}
+            {{ fields.field_end_date.content }}
+        </li>
         {{ meta_item(fields.field_location) }}
     </ul>
     {{ field(fields.title) }}

@@ -9,7 +9,9 @@
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "dependencies": {
-        "@floating-ui/dom": "^1.2.5"
+        "@floating-ui/dom": "^1.2.5",
+        "photoswipe": "^5.3.7",
+        "slick-carousel": "^1.8.1"
     },
     "devDependencies": {
         "browser-sync": "^2.29.1",

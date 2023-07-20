@@ -1,5 +1,6 @@
 import Article from './components/Article';
 import Dropdown from './components/Dropdown';
+import Slider from './components/Slider';
 
 import './misc/debug';
 
@@ -10,6 +11,7 @@ function initComponents() {
 
     Dropdown.init();
     Article.init();
+    Slider.init();
 
     console.log('Components:', window._components);
 }

@@ -70,3 +70,12 @@ function unesco_oer_dc_theme_suggestions_views_view_field_alter(&$suggestions, &
 
     $suggestions[] = $suggestion;
 }
+
+function unesco_oer_dc_preprocess_views_view_field(&$variables) {
+    if (in_array($variables['field']->field, ['field_image', 'field_logo']) && !empty($variables['output'])) {
+        $variables['image'] = get_media_image(
+            $variables['output']->__toString(),
+            'grid_item'
+        );
+    }
+}

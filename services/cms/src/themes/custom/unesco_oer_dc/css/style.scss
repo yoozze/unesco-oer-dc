@@ -67,6 +67,7 @@
 @import 'components/pager';
 @import 'components/article';
 @import 'components/text-box';
+@import 'components/slider';
 
 // ## Trumps
 // ----------
@@ -76,3 +77,5 @@
 
 // ## Vendors
 // ----------
+@import 'slick-carousel/slick/slick.scss';
+@import 'photoswipe/style.css';

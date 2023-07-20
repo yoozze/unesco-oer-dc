@@ -1,0 +1,62 @@
+// # Slider
+// --------
+
+$slick-slide-gutter: size(0.5);
+$slick-button-size: size(5);
+
+.c-slider {
+    .slick-list {
+        margin: negative($slick-slide-gutter);
+
+        .slick-slide {
+            padding: $slick-slide-gutter;
+        }
+    }
+
+    .slick-arrow {
+        @include elevation(2);
+        @include z-index('local1');
+
+        position: absolute;
+        top: 0;
+        margin-top: 25%;
+        background: color('light') !important;
+        transform: translate(0, -50%);
+
+        &.slick-disabled {
+            display: none !important;
+        }
+    }
+}
+
+// ## Slider Item
+// --------------
+
+.c-slider__item {
+    .js &:nth-child(n + 2) {
+        display: none;
+    }
+
+    .slick-initialized &:nth-child(n + 2) {
+        display: block;
+    }
+}
+
+// ## Slider Arrow
+// ---------------
+
+$slider-arrow-offset: size(1);
+
+// .c-slider__arrow {}
+
+.c-slider__arrow--prev {
+    left: $slider-arrow-offset;
+
+    svg {
+        transform: rotate(180deg);
+    }
+}
+
+.c-slider__arrow--next {
+    right: $slider-arrow-offset;
+}

@@ -98,21 +98,21 @@
                     {{ content.field_image }}
                     {{ content.field_description }}
                     <div class="c-article__buttons">
-                        {% if content.field_url %}
+                        {# {% if content.field_url %}
                             {{ content.field_url }}
                         {% else %}
                             <span></span>
-                        {% endif %}
+                        {% endif %} #}
+                        <span></span>
                         {{ content.addtoany }}
                     </div>
                     <hr class="c-article__divider" />
                     {{ content.field_links }}
-                    {# {{ content }} #}
                 </div>
                 <aside class="c-article__sidebar">
                     <dl class="c-article__meta c-article__meta--sidebar">
                         <div class="c-article__meta-item">
-                            {{ content.field_document_source }}
+                            {{ content.field_source }}
                         </div>
                         <div class="c-article__meta-item">
                             {{ content.field_author }}
@@ -126,14 +126,18 @@
                         <div class="c-article__meta-item">
                             {{ content.field_licence_conditions }}
                         </div>
-                        <div class="c-article__meta-item">
-                            {{ content.field_document_file }}
-                        </div>
+                        {% if content.field_file[0] %}
+                            <div class="c-article__meta-item">
+                                {{ content.field_file }}
+                            </div>
+                        {% elseif content.field_url[0] %}
+                            <div class="c-article__meta-item">
+                                {{ content.field_url }}
+                            </div>
+                        {% endif %}
                     </dl>
                 </aside>
             </div>
         </div>
     </div>
-    <script>console.log('NODE', {{ _context | json_encode | raw}});</script>
 </article>
-{# {{ dump() }} #}

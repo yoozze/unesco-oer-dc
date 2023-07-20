@@ -24,5 +24,21 @@ function unesco_oer_dc_theme_suggestions_field_alter(&$suggestions, &$variables)
     }
 }
 
-// function unesco_oer_dc_theme_preprocess_field(&$variables) {}
-
+function unesco_oer_dc_preprocess_field(&$variables) {
+    if ($variables['element']['#entity_type'] === 'node' && $variables['element']['#field_name'] === 'field_image') {
+        $variables['#test'] = 'test';
+        foreach ($variables['element']['#items'] as $i => &$item) {
+            $variables['items'][$i]['image'] = get_media_image(
+                $item->getValue()['target_id'],
+                'jumbo'
+            );
+        }
+    } elseif ($variables['element']['#entity_type'] === 'node' && $variables['element']['#field_name'] === 'field_links') {
+        foreach ($variables['items'] as $i => &$item) {
+            if (!$item['content']['#url']->isExternal()) {
+                $node = \Drupal\node\Entity\Node::load($item['content']['#url']->getRouteParameters()['node']);
+                $variables['items'][$i]['title'] = $node->getTitle();
+            }
+        }
+    }
+}

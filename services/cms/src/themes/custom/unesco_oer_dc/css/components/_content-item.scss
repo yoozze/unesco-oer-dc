@@ -186,6 +186,7 @@ $meta-icon-size: size(2.25);
         &>img {
             @include transition('transform');
 
+            display: block;
             max-width: 100%;
             height: auto;
             // opacity: size('opacity' 8);

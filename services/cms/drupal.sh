@@ -86,6 +86,7 @@ if [ $MODE = "--install" ] || [ $MODE = "--install-modules" ]; then
     # Uninstall unused modeules
 
     # Install modules
+    drush pm:install --yes admin
     drush pm:install --yes admin_toolbar
     drush pm:install --yes admin_toolbar_tools
     drush pm:install --yes backup_migrate
@@ -112,6 +113,9 @@ if [ $MODE = "--install" ] || [ $MODE = "--install-modules" ]; then
     drush pm:install --yes addtoany
     drush pm:install --yes views_ajax_history
     drush pm:install --yes media_library
+    drush pm:install --yes select2
+    drush pm:install --yes select2_multicheck
+    drush pm:install --yes conditional_fields
     # drush pm:install --yes estimated_read_timec_.,mn 
     # drush pm:install --yes taxonomy_import
     # drush pm:install --yes taxonomy_multidelete_terms

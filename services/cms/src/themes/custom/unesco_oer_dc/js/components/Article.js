@@ -10,7 +10,7 @@ const headerHeight = 105;
 
 class Article extends Component {
     /**
-     * @type {HTMLElement | null} Article body element.
+     * @type {HTMLElement | null} Article title element.
      */
     title = null;
 
@@ -25,7 +25,7 @@ class Article extends Component {
     bodyContent = null;
 
     /**
-     * @type {HTMLElement | null} Article body element.
+     * @type {HTMLElement | null} Article main element.
      */
     main = null;
 

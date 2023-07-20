@@ -74,7 +74,7 @@
 ]).setAttribute('data-options', {
     'articleNavTitle': 'On this page'|t,
 }|json_encode)}}>
-    {% if content.field_registration_link %}
+    {% if content.field_registration_link[0] %}
         <div class="o-region c-banner c-banner--small">
             <div class="o-container c-banner__container">
                 <div class="o-row c-banner__row">
@@ -84,8 +84,8 @@
                             <p>{{ title }}</p>
                         </div>
                     {% endif %}
+                    {% set url = content.field_registration_link[0]['#url'] %}
                     <div class="c-banner__links o-col">
-                        {% set url = content.field_registration_link[0]['#url'] %}
                         <a class="c-banner__link c-button c-button--filled" href="{{ url.external ? url.uri : url }}" target="{{ url.external ? '_blank' : '_self' }}">
                             <span class="c-button__label">{{ 'Register'|t }}</span>
                             {{ url.external ? svg_icon('open-in-new', 'c-button__trailing-icon') : '' }}
@@ -110,12 +110,14 @@
                 <ul class="c-article__meta">
                     <li class="c-article__meta-item c-article__meta-item--inline">
                         <span class="c-article__meta-content">{{ content.field_start_date }}</span>
-                        &ndash;
-                        <span class="c-article__meta-content">{{ content.field_end_date }}</span>
+                        {% if content.field_end_date[0] %}
+                            &ndash;
+                            <span class="c-article__meta-content">{{ content.field_end_date }}</span>
+                        {% endif %}
                     </li>
                     <li class="c-article__meta-item c-article__meta-item--separator"></li>
                     <li class="c-article__meta-item">
-                        {% if content.field_venue_link %}
+                        {% if content.field_venue_link[0] %}
                             {% set url = content.field_venue_link[0]['#url'] %}
                             <a class="c-article__meta-content" href="{{ url.external ? url.uri : url }}" target="{{ url.external ? '_blank' : '_self' }}">
                                 {{ content.field_location }}

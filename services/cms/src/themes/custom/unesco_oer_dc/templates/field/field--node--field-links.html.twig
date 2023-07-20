@@ -42,12 +42,10 @@
         {% for item in items %}
             {% set url = item.content['#url'] %}
             <li{{item.attributes}}>
-                {# {{ item.content }} #}
                 <a href="{{ url.external ? url.uri : url }}" target="{{ url.external ? '_blank' : '_self' }}">
-                    <span>{{ item.content['#title'] }}</span>{{ svg_icon(url.external ? 'open-in-new' : 'arrow-right-alt') }}
+                    <span>{{ url.external ? item.content['#title'] : item['title'] }}</span>{{ svg_icon(url.external ? 'open-in-new' : 'arrow-right-alt') }}
                 </a>
             </li>
         {% endfor %}
     </ul>
 </div>
-{{ dump }}

@@ -18,13 +18,6 @@
  * @see template_preprocess_views_view_field()
  */
 #}
-{% if output %}
-    {# &ndash; {{ output|date('j M Y') }} #}
-    <span> &ndash; </span>
-    <span class="c-content-item__field c-content-item__field--field-end-date">
-        <span class="c-content-item__field-content">
-            {{ output|date('j M Y') }}
-        </span>
-    </span>
-{% endif %}
-{# {{ dump(output) }} #}
+
+{# {{ output -}} #}
+<img src="{{ image.thumb.url }}" width="{{ image.thumb.width }}" height="{{ image.thumb.height }}" loading="lazy" />
