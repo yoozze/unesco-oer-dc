@@ -25,5 +25,8 @@
  * @todo Delete as part of https://www.drupal.org/node/3015623
  */
 #}
-<dt>{{ svg_icon('calendar-today') }} {{ label }}</dt>
-<dd><span>{{ element['#object'].getCreatedTime()|date("F Y") }}</span></dd>
+{% set item = items|first %}
+<div>
+    <dt>{{ svg_icon('calendar-today') }} <span>{{ label }}</span></dt>
+    <dd><span>{{ item.content['#markup']|date("F Y") }}</span></dd>
+</div>

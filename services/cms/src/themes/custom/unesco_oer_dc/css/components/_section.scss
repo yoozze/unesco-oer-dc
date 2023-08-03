@@ -17,6 +17,9 @@ $section-padding: size('section-padding');
 .c-section--breadcrumb {
     padding-top: 0;
     padding-bottom: 0;
+    // background-color: color('background-alt');
+    // background-color: color('abbey-90');
+    border-bottom: 1px solid color('light');
 }
 
 .c-section--who-we-are {

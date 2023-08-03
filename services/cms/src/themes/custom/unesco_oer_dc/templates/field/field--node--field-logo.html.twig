@@ -37,6 +37,6 @@
  */
 #}
 {% set item = items|first %}
-<figure class="c-article__logo">
-    {{ item.content }}
+<figure>
+    <img src="{{ item.image.thumb.url }}" alt="{{ item.image.alt }}" width="{{ item.image.thumb.width }}" height="{{ item.image.thumb.height }}" loading="lazy"/>
 </figure>

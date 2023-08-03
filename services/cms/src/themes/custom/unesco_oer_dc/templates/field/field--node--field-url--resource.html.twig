@@ -25,13 +25,15 @@
  * @todo Delete as part of https://www.drupal.org/node/3015623
  */
 #}
-<dt>{{ svg_icon('link') }} {{ label }}</dt>
-<dd>
-    <span>
-        {% set url = element[0]['#url'] %}        
-        {% set title = element[0]['#title'] %}
-        <a href="{{ url.external ? url.uri : url }}" target="{{ url.external ? '_blank' : '_self' }}">
-            <span>{{ title }}</span>
-        </a>
-    </span>
-</dd>
+<div>
+    <dt>{{ svg_icon('link') }} <span>{{ label }}</span></dt>
+    <dd>
+        <span>
+            {% set url = element[0]['#url'] %}        
+            {% set title = element[0]['#title'] %}
+            <a href="{{ url.external ? url.uri : url }}" target="{{ url.external ? '_blank' : '_self' }}">
+                <span>{{ title }}</span>
+            </a>
+        </span>
+    </dd>
+</div>

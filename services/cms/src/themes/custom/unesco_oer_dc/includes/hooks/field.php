@@ -21,23 +21,33 @@ function unesco_oer_dc_theme_suggestions_field_alter(&$suggestions, &$variables)
 
     if ($element['#entity_type'] === 'node') {
         $suggestions[] = 'field__node__article';
+        $suggestions[] = 'field__node__' . $element['#field_name'] . '__' . $element['#view_mode'];
     }
 }
 
 function unesco_oer_dc_preprocess_field(&$variables) {
-    if ($variables['element']['#entity_type'] === 'node' && $variables['element']['#field_name'] === 'field_image') {
-        $variables['#test'] = 'test';
-        foreach ($variables['element']['#items'] as $i => &$item) {
-            $variables['items'][$i]['image'] = get_media_image(
+    if ($variables['element']['#entity_type'] === 'node' && in_array($variables['element']['#field_name'], ['field_image', 'field_logo'])) {
+        if ($variables['element']['#view_mode'] === 'full') {
+            foreach ($variables['element']['#items'] as $i => &$item) {
+                $variables['items'][$i]['image'] = get_media_image(
+                    $item->getValue()['target_id'],
+                    $variables['element']['#field_name'] === 'field_logo' ? 'grid_item' : 'jumbo'
+                );
+            }
+        } else if (!empty($variables['element']['#items'])) {
+            $item = $variables['element']['#items'][0];
+            $variables['items'][0]['image'] = get_media_image(
                 $item->getValue()['target_id'],
-                'jumbo'
+                'grid_item'
             );
         }
     } elseif ($variables['element']['#entity_type'] === 'node' && $variables['element']['#field_name'] === 'field_links') {
         foreach ($variables['items'] as $i => &$item) {
             if (!$item['content']['#url']->isExternal()) {
                 $node = \Drupal\node\Entity\Node::load($item['content']['#url']->getRouteParameters()['node']);
-                $variables['items'][$i]['title'] = $node->getTitle();
+                if (!empty($node)) {
+                    $item['title'] = $node->getTitle();
+                }
             }
         }
     }

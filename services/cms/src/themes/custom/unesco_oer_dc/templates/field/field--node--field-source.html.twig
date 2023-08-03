@@ -25,9 +25,8 @@
  * @todo Delete as part of https://www.drupal.org/node/3015623
  */
 #}
-<dt>{{ svg_icon('language') }} {{ label }}</dt>
-<dd>
-    {% for item in items %}
-        <span>{{ item.content }}</span>{% if not loop.last %},{% endif %}
-    {% endfor %}
-</dd>
+{% set item = items|first %}
+<div>
+    <dt>{{ svg_icon('groups') }} <span>{{ label }}</span></dt>
+    <dd><span>{{ item.content }}</span></dd>
+</div>

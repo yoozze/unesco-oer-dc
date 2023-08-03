@@ -25,4 +25,8 @@
  * @todo Delete as part of https://www.drupal.org/node/3015623
  */
 #}
-{{ svg_icon('calendar-today') }} <span>{{ element['#object'].getCreatedTime()|date("l, j F Y") }}</span>
+{% set time = element['#object'].getCreatedTime() %}
+<div>
+    <dt>{{ svg_icon('calendar-today') }} <span>{{ label }}</span></dt>
+    <dd><time datetime="{{ time|date("Y-m-d\\TH:i:s") }}">{{ time|date("l, j F Y") }}</time></dd>
+</div>

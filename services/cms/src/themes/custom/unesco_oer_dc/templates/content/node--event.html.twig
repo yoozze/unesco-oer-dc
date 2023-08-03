@@ -100,37 +100,34 @@
             <div class="c-article__content">
                 <div class="c-article__toolbar">
                     <span class="c-article__category">{{ content.field_event_type }}</span>
-                    {{ content.addtoany }}
+                    <span class="c-article__share">
+                        {{ content.addtoany }}
+                    </span>
                 </div>
                 {{ title_prefix }}
                 <h1{{title_attributes.addClass('c-article__title')}}>
                     {{ label }}
                 </h1>
                 {{ title_suffix }}
-                <ul class="c-article__meta">
-                    <li class="c-article__meta-item c-article__meta-item--inline">
-                        <span class="c-article__meta-content">{{ content.field_start_date }}</span>
+                <dl class="c-article__meta">
+                    <div class="c-article__meta-item">
+                        {{ content.field_start_date }}
                         {% if content.field_end_date[0] %}
-                            &ndash;
-                            <span class="c-article__meta-content">{{ content.field_end_date }}</span>
+                            {{ content.field_end_date }}
                         {% endif %}
-                    </li>
-                    <li class="c-article__meta-item c-article__meta-item--separator"></li>
-                    <li class="c-article__meta-item">
+                    </div>
+                    <div class="c-article__meta-item">
                         {% if content.field_venue_link[0] %}
                             {% set url = content.field_venue_link[0]['#url'] %}
-                            <a class="c-article__meta-content" href="{{ url.external ? url.uri : url }}" target="{{ url.external ? '_blank' : '_self' }}">
+                            <a href="{{ url.external ? url.uri : url }}" target="{{ url.external ? '_blank' : '_self' }}">
                                 {{ content.field_location }}
-                                {# {{ url.external ? svg_icon('open-in-new') : '' }} #}
+                                {{ url.external ? svg_icon('open-in-new') : '' }}
                             </a>
                         {% else %}
-                            <span class="c-article__meta-content">
-                                {{ content.field_location }}
-                            </span>
+                            {{ content.field_location }}
                         {% endif %}
-                    </li>
-                    
-                </ul>
+                    </div>
+                </dl>
             </div>
         </div>
     </div>
@@ -138,19 +135,28 @@
         <div class="o-container">
             <div{{content_attributes.addClass('c-article__content')}}>
                 <div class="c-article__main">
-                    {{ content.field_image }}
-                    {{ content.field_description }}
+                    {% if content.field_image[0] %}
+                        <div class="c-article__media">
+                            {{ content.field_image }}
+                        </div>
+                    {% endif %}
+                    <div class="c-article__description">
+                        {{ content.field_description }}
+                    </div>
                     <div class="c-article__buttons">
                         {% if content.field_url %}
                             {{ content.field_url }}
                         {% else %}
                             <span></span>
                         {% endif %}
-                        {{ content.addtoany }}
+                        <span class="c-article__share">
+                            {{ content.addtoany }}
+                        </span>
                     </div>
                     <hr class="c-article__divider" />
-                    {{ content.field_links }}
-                    {# {{ content }} #}
+                    <div class="c-article__related">
+                        {{ content.field_links }}
+                    </div>
                 </div>
                 <aside class="c-article__sidebar"></aside>
             </div>

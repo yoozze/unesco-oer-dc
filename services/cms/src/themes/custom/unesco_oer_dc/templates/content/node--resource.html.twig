@@ -79,15 +79,17 @@
             <div class="c-article__content">
                 <div class="c-article__toolbar">
                     <span class="c-article__category">{{ content.field_media_type }}</span>
-                    {{ content.addtoany }}
+                    <span class="c-article__share">
+                        {{ content.addtoany }}
+                    </span>
                 </div>
                 {{ title_prefix }}
                 <h1{{title_attributes.addClass(['c-article__title', 'c-article__title--short'])}}>
                     {{ label }}
                 </h1>
                 {{ title_suffix }}
-                {# <ul class="c-article__meta">
-                </ul> #}
+                {# <dl class="c-article__meta">
+                </dl> #}
             </div>
         </div>
     </div>
@@ -95,8 +97,14 @@
         <div class="o-container">
             <div{{content_attributes.addClass('c-article__content')}}>
                 <div class="c-article__main">
-                    {{ content.field_image }}
-                    {{ content.field_description }}
+                    {% if content.field_image[0] %}
+                        <div class="c-article__media">
+                            {{ content.field_image }}
+                        </div>
+                    {% endif %}
+                    <div class="c-article__description">
+                        {{ content.field_description }}
+                    </div>
                     <div class="c-article__buttons">
                         {# {% if content.field_url %}
                             {{ content.field_url }}
@@ -104,10 +112,14 @@
                             <span></span>
                         {% endif %} #}
                         <span></span>
-                        {{ content.addtoany }}
+                        <span class="c-article__share">
+                            {{ content.addtoany }}
+                        </span>
                     </div>
                     <hr class="c-article__divider" />
-                    {{ content.field_links }}
+                    <div class="c-article__related">
+                        {{ content.field_links }}
+                    </div>
                 </div>
                 <aside class="c-article__sidebar">
                     <dl class="c-article__meta c-article__meta--sidebar">

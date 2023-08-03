@@ -26,5 +26,7 @@
  */
 #}
 {% set item = items|first %}
-<dt>{{ svg_icon('draft') }} {{ label }}</dt>
-<dd><span>{{ item.content }}</span></dd>
+<div>
+    <dt>{{ svg_icon('attribution') }} <span>{{ label }}</span></dt>
+    <dd><span>{{ item.content }}</span></dd>
+</div>

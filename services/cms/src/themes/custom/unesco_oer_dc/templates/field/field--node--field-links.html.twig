@@ -36,7 +36,7 @@
  * @see template_preprocess_field()
  */
 #}
-<div{{attributes.addClass('c-article__related')}}>
+<div{{attributes}}>
     <h2{{title_attributes.addClass(title_classes)}}>{{ label }}</h2>
     <ul>
         {% for item in items %}

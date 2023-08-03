@@ -37,4 +37,7 @@
  */
 #}
 {% set item = items|first %}
-{{ svg_icon('location-on') }} <span>{{ item.content }}</span>
+<div>
+    <dt>{{ svg_icon('location-on') }} <span>{{ label }}</span></dt>
+    <dd><span>{{ item.content }}</span></dd>
+</div>

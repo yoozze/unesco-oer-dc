@@ -1,7 +1,7 @@
 {#
 /**
  * @file
- * Theme override for a field.
+ * Theme override for a node image field.
  *
  * To override output, copy the "field.html.twig" from the templates directory
  * to your theme's directory and customize it, just like customizing other
@@ -36,20 +36,34 @@
  * @see template_preprocess_field()
  */
 #}
-<div class="c-slider c-article__media" id="article-gallery" data-options="{{ {
-    'gallery': '#article-gallery',
-    'infinite': false,
-    'nextArrow': '<button class="c-icon-button c-icon-button--standard c-slider__arrow c-slider__arrow--next"><svg class="c-icon c-icon-button__icon" xmlns:xlink="http://www.w3.org/1999/xlink"><use xlink:href="#arrow-forward"></use></svg></button>',
-    'prevArrow': '<button class="c-icon-button c-icon-button--standard c-slider__arrow c-slider__arrow--prev"><svg class="c-icon c-icon-button__icon" xmlns:xlink="http://www.w3.org/1999/xlink"><use xlink:href="#arrow-forward"></use></svg></button>',
-}|json_encode }}">
-    {% for item in items %}
-        <figure class="c-slider__item c-article__figure">
-            <a href="{{ item.image.url }}" target="_blank">
-                <img src="{{ item.image.thumb.url }}" alt="{{ item.image.alt }}" width="{{ item.image.thumb.width }}" height="{{ item.image.thumb.height }}" loading="lazy"/>
-            </a>
-            {% if item.image.caption %}
-                <figcaption>{{ item.image.caption }}</figcaption>
+{% if items|length > 1 and element['#view_mode'] != 'teaser' %}
+    <div class="c-slider" data-options="{{ {
+        'fade': true,
+        'infinite': false,
+        'nextArrow': '<button class="c-icon-button c-icon-button--standard c-slider__arrow c-slider__arrow--next"><svg class="c-icon c-icon-button__icon" xmlns:xlink="http://www.w3.org/1999/xlink"><use xlink:href="#arrow-forward"></use></svg></button>',
+        'prevArrow': '<button class="c-icon-button c-icon-button--standard c-slider__arrow c-slider__arrow--prev"><svg class="c-icon c-icon-button__icon" xmlns:xlink="http://www.w3.org/1999/xlink"><use xlink:href="#arrow-forward"></use></svg></button>',
+    }|json_encode }}">
+        {% for item in items %}
+            {% if item.image %}
+                <figure class="c-slider__item">
+                    <a href="{{ item.image.url }}" target="_blank">
+                        <img src="{{ item.image.thumb.url }}" alt="{{ item.image.alt }}" width="{{ item.image.thumb.width }}" height="{{ item.image.thumb.height }}" loading="lazy"/>
+                    </a>
+                    {% if item.image.caption %}
+                        <figcaption>{{ item.image.caption }}</figcaption>
+                    {% endif %}
+                </figure>
             {% endif %}
-        </figure>
-    {% endfor %}
-</div>
+        {% endfor %}
+    </div>
+{% else %}
+    {% set item = items|first %}
+    <figure>
+        <a href="{{ item.image.url }}" target="_blank">
+            <img src="{{ item.image.thumb.url }}" alt="{{ item.image.alt }}" width="{{ item.image.thumb.width }}" height="{{ item.image.thumb.height }}" loading="lazy"/>
+        </a>
+        {% if item.image.caption %}
+            <figcaption>{{ item.image.caption }}</figcaption>
+        {% endif %}
+    </figure>
+{% endif %}

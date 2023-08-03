@@ -38,10 +38,19 @@
 #}
 {% set item = items|first %}
 {% set date = item.content['#markup'] %}
-<span>
-    {% if (date ends with '00:00:00') %}
-        {{ date|date("l, j F Y") }}
-    {% else %}
-        {{ date|date("l, j F Y H:i") }}
-    {% endif %}
-</span>
+<div data-separator="&ndash;">
+    <dt><span>{{ label }}</span></dt>
+    <dd>
+        {% if element['#view_mode'] != 'teaser' %}
+            <time datetime="{{ date }}">
+                {% if (date ends with '00:00:00') %}
+                    {{ date|date("l, j F Y") }}
+                {% else %}
+                    {{ date|date("l, j F Y H:i") }}
+                {% endif %}
+            </time>
+        {% else %}
+            <time datetime="{{ date }}">{{ date|date('j M Y') }}</time>
+        {% endif %}
+    </dd>
+</div>
