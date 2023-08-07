@@ -37,20 +37,28 @@
  */
 #}
 {% set item = items|first %}
-{% set date = item.content['#markup'] %}
-<div data-separator="&ndash;">
-    <dt><span>{{ label }}</span></dt>
-    <dd>
-        {% if element['#view_mode'] != 'teaser' %}
-            <time datetime="{{ date }}">
-                {% if (date ends with '00:00:00') %}
-                    {{ date|date("l, j F Y") }}
-                {% else %}
-                    {{ date|date("l, j F Y H:i") }}
-                {% endif %}
-            </time>
-        {% else %}
-            <time datetime="{{ date }}">{{ date|date('j M Y') }}</time>
-        {% endif %}
-    </dd>
-</div>
+{% set end_date_time = item.content['#markup'] %}
+{% set end_date = end_date_time|split('T')[0] %}
+{% set start_date_time = element['#object'].field_start_date.value %}
+{% set start_date = start_date_time|split('T')[0] %}
+{% set view_mode = element['#view_mode'] %}
+{% if not (end_date_time == start_date_time or (view_mode == 'teaser' and end_date == start_date))  %}
+    <div data-separator="&ndash;">
+        <dt><span>{{ label }}</span></dt>
+        <dd>
+            {% if view_mode == 'teaser' %}
+                <time datetime="{{ end_date_time }}">{{ end_date_time|date('j M Y') }}</time>
+            {% else %}
+                <time datetime="{{ end_date_time }}">
+                    {% if (end_date == start_date) %}
+                        {{ end_date_time|date("H:i") }}
+                    {% elseif (end_date_time ends with '00:00:00') %}
+                        {{ end_date_time|date("l, j F Y") }}
+                    {% else %}
+                        {{ end_date_time|date("l, j F Y H:i") }}
+                    {% endif %}
+                </time>
+            {% endif %}
+        </dd>
+    </div>
+{% endif %}

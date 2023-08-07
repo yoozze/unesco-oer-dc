@@ -95,17 +95,17 @@
                 <div class="c-article__main">
                     {{ content.field_image }}
                     {{ content.body }}
-                    <div class="c-article__buttons">
-                        {% if content.field_url %}
+                    {% if content.field_url[0] %}
+                        <div class="c-article__buttons">
                             {{ content.field_url }}
-                        {% else %}
-                            <span></span>
-                        {% endif %}
-                        {{ content.addtoany }}
-                    </div>
-                    {# <hr class="c-article__divider" /> #}
-                    {# {{ content.field_links }} #}
-                    {# {{ content }} #}
+                        </div>
+                    {% endif %}
+                    {% if content.field_links[0] %}
+                        <hr class="c-article__divider" />
+                        <div class="c-article__related">
+                            {{ content.field_links }}
+                        </div>
+                    {% endif %}
                 </div>
                 <aside class="c-article__sidebar"></aside>
             </div>

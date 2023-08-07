@@ -9,6 +9,7 @@
 export default function convertToSlug(text) {
     return text
         .toLowerCase()
-        .replace(/ /g, '-')
+        .trim()
+        .replace(/\s+/g, '-')
         .replace(/[^\w-]+/g, '');
 }
