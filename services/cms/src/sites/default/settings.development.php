@@ -161,6 +161,7 @@ $settings['trusted_host_patterns'] = [
   '^localhost$',
   '^atena.ijs.si$',
   '^motorka.ijs.si$',
+  '^oerdynamiccoalition.org$',
   '127\.0\.0\.1',
   'unesco-oer.loca.lt',
   'unesco-oer-dc.loca.lt',
