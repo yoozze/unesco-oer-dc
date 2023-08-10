@@ -1,0 +1,18 @@
+.c-dialog {
+    @include elevation(4);
+
+    border-radius: size('radius' 2);
+}
+
+.c-dialog__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.c-dialog__title {
+    @include font('title-large');
+
+    margin-top: 0;
+    margin-bottom: 0;
+}

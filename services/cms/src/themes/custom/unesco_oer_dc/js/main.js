@@ -1,6 +1,8 @@
 import Article from './components/Article';
 import Dropdown from './components/Dropdown';
 import Slider from './components/Slider';
+import SearchForm from './components/SearchForm';
+import SearchFormBlock from './components/SearchFormBlock';
 
 import './misc/debug';
 
@@ -12,6 +14,8 @@ function initComponents() {
     Dropdown.init();
     Article.init();
     Slider.init();
+    SearchForm.init();
+    SearchFormBlock.init();
 
     console.log('Components:', window._components);
 }

@@ -1,0 +1,44 @@
+// # Status Messages
+// =================
+
+.c-status-messages {
+}
+
+// ## Status Messages Item
+// -----------------------
+
+.c-status-messages__item {
+    display: flex;
+    justify-content: center;
+    border: 1px solid;
+    border-right-width: 0;
+    border-left-width: 0;
+}
+
+.c-status-messages__item--status {
+    color: color('blue-10');
+    background-color: rgba(color('blue'), size('opacity' 2));
+    border-color: rgba(color('blue'), size('opacity' 3));
+}
+
+.c-status-messages__item--error {
+    color: color('red-10');
+    background-color: rgba(color('red'), size('opacity' 2));
+    border-color: rgba(color('red'), size('opacity' 3));
+}
+
+.c-status-messages__item--warning {
+    color: color('orange-10');
+    background-color: rgba(color('orange'), size('opacity' 2));
+    border-color: rgba(color('orange'), size('opacity' 3));
+}
+
+// ## Status Messages Item Content
+// -------------------------------
+
+$item-content-padding: size(2);
+
+.c-status-messages__item-content {
+    padding-top: $item-content-padding;
+    padding-bottom: $item-content-padding;
+}

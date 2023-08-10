@@ -1,7 +1,101 @@
 // # Form
 // ------
 
+$padding: size('gutter');
+$page-width: size('page-width');
+
 .c-form {
+    // background-color: red;
+}
+
+.c-form--search-form {
+    display: flex;
+    justify-content: center;
+    padding-top: size(2);
+    padding-bottom: size(4);
+    background-color: color('background-alt');
+
+    .c-form__x-button {
+        margin-left: size(1);
+    }
+
+    & > div#edit-basic {
+        // display: flex;
+        width: $page-width + 2 * $padding;
+        max-width: 100%;
+        padding-right: $padding;
+        padding-left: $padding;
+    }
+
+    & > a {
+        display: none;
+    }
+
+    & > details {
+        display: none;
+    }
+
+    & + h2 {
+        display: none;
+    }
+
+    & + h3 {
+        @include font('title-large');
+
+        padding-top: size(2);
+        margin-top: 0;
+        margin-bottom: size('section-padding');
+
+        @include before('') {
+            width: calc((100% - size('page-width')) / 2);
+            padding-right: size('gutter');
+        }
+
+        @include after('') {
+            width: calc((100% - size('page-width')) / 2);
+            padding-left: size('gutter');
+            margin-left: auto;
+        }
+
+        display: flex;
+    }
+
+    & ~ ol {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: size(4) 0;
+        margin: 0;
+        list-style-type: none;
+
+        & > li {
+            width: $page-width + 2 * $padding;
+            max-width: 100%;
+            padding-right: $padding;
+            padding-left: $padding;
+            margin-bottom: size(3);
+
+            h3 {
+                @include font('title-large');
+
+                margin-top: 0;
+            }
+        }
+    }
+
+    & ~ nav {
+        display: flex;
+        justify-content: center;
+        margin-bottom: size('section-padding');
+
+        ul {
+            justify-content: end;
+            width: $page-width + 2 * $padding;
+            max-width: 100%;
+            padding-right: $padding;
+            padding-left: $padding;
+        }
+    }
 }
 
 .c-form--views-exposed-form-resources-resources-view,
@@ -10,7 +104,7 @@
 .c-form--views-exposed-form-news-news-view {
     display: flex;
     width: 100%;
-    
+
     .c-form__field {
         flex-grow: 1;
         margin-bottom: 0;
@@ -257,10 +351,23 @@ $input-padding-y-small: size(0.875);
     align-items: center;
     height: 100%;
 
+    &.is-active {
+        .c-form__field {
+            .js & {
+                display: block;
+            }
+        }
+    }
+
     .c-form__field {
-        display: none;
+        // display: none;
         margin-bottom: 0;
         margin-left: size(1);
+        margin-right: size(1);
+
+        .js & {
+            display: none;
+        }
     }
 
     .c-form__container {

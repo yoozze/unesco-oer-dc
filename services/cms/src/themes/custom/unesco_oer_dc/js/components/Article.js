@@ -40,7 +40,7 @@ class Article extends Component {
     nav = null;
 
     /**
-     * @type {NodeListOf<Element>} List of article headings.d
+     * @type {NodeListOf<Element>} List of article headings.
      */
     headings = [];
 
@@ -65,12 +65,16 @@ class Article extends Component {
 
         this.title = this.element.querySelector(`.${Article.bem('title')}`);
         this.body = this.element.querySelector(`.${Article.bem('body')}`);
+        if (this.body === null) {
+            return;
+        }
+
         this.bodyContent = this.body.querySelector(`.${Article.bem('content')}`);
         this.main = this.bodyContent.querySelector(`.${Article.bem('main')}`);
         this.sidebar = this.body.querySelector(`.${Article.bem('sidebar')}`);
         this.headings = this.main.querySelectorAll('h2, h3');
         if (this.sidebar !== null && this.headings.length > 0) {
-            this.addArticleNav();
+            this.nav = this.createArticleNav();
             this.observeContentHeadings();
         }
 
@@ -80,9 +84,9 @@ class Article extends Component {
     }
 
     /**
-     * Add article navigation.
+     * Create article navigation.
      */
-    addArticleNav() {
+    createArticleNav() {
         const articleNav = document.createElement('nav');
         articleNav.classList.add('c-article__nav');
         // articleNav.setAttribute('aria-label', 'Article navigation');
@@ -100,7 +104,7 @@ class Article extends Component {
         const headingSlugs = new Set();
 
         const headings = [this.title, ...this.headings];
-        headings.forEach((heading) => {
+        headings.forEach(heading => {
             let id = convertToSlug(heading.textContent);
             let i = 1;
             while (headingSlugs.has(id)) {
@@ -128,12 +132,12 @@ class Article extends Component {
         });
 
         this.sidebar.appendChild(articleNav);
-        this.nav = articleNav;
+        return articleNav;
     }
 
     /**
      * Observe content headings.
-     * 
+     *
      * TODO: Improve this method.
      */
     observeContentHeadings() {
@@ -191,7 +195,7 @@ class Article extends Component {
 
     /**
      * Handle nav link click event.
-     * @param {*} event
+     * @param {PointerEvent} event
      * @returns
      */
     hadleNavLinkClick(event) {
