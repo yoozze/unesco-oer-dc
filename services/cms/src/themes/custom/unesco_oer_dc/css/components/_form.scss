@@ -116,32 +116,38 @@ $page-width: size('page-width');
 }
 
 // ## Form Fieldset
+// ----------------
 
 .c-form__fieldset {
     box-sizing: border-box;
 }
 
 // ## Form Legend
+// --------------
 
 .c-form__legend {
 }
 
 // ## Form Fieldset Wrapper
+// ------------------------
 
 .c-form__fieldset-wrapper {
 }
 
 // ## Form Checkboxes
+// ------------------
 
 .c-form__checkboxes {
 }
 
 // ## Form Radios
+// --------------
 
 .c-form__radios {
 }
 
 // ## Form Container
+// -----------------
 
 .c-form__container {
 }
@@ -336,14 +342,17 @@ $input-padding-y-small: size(0.875);
 }
 
 // ## Form Actions
+// ---------------
 
 .c-form__actions {
 }
 
 // ## Form Button
+// --------------
 
 .c-form__button {
 }
+
 
 // ## Search Block Form
 .c-form--search-block-form {
@@ -372,5 +381,56 @@ $input-padding-y-small: size(0.875);
 
     .c-form__container {
         margin-left: size(1);
+    }
+}
+
+// ## User Login Form
+
+$icon-size: size(6);
+
+.c-form--user-login-form {
+    max-width: size(464px);
+    background-color: color('background-alt');
+    border: 1px solid color('border');
+    border-radius: size('radius' 3);
+
+    .c-form__header {
+        padding: size(4) size(3) size(1);
+    }
+
+    .c-form__title {
+        @include font('title-large');
+
+        margin-top: 0;
+        margin-bottom: 0;
+        text-align: center;
+    }
+
+    .c-form__icon {
+        display: flex;
+        justify-content: center;
+        margin-bottom: size(2);
+
+        &>svg {
+            width: size($icon-size);
+            height: size($icon-size);
+            color: color('fuchsia');
+        }
+    }
+
+    .c-form__body {
+        padding: size(3) size(3) size(4);
+    }
+
+    .c-form__field {
+        margin-bottom: size(3);
+    }
+
+    .c-form__field-description {
+        @include hide-visually;
+    }
+
+    .c-form__button {
+        width: 100%;
     }
 }

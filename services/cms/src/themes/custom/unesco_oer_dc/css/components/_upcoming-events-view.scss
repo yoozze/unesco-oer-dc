@@ -11,7 +11,13 @@
 // ## Upcoming Events View Content
 // -------------------------------
 
-.c-upcoming-events-view__content {}
+.c-upcoming-events-view__content {
+    position: relative;
+
+    &>.contextual {
+        top: negative(3);
+    }
+}
 
 // ## Upcoming Events View List
 // ----------------------------

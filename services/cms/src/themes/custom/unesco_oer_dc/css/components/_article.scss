@@ -5,6 +5,22 @@ $sidebar-width: size(366px);
 
 // .c-article {}
 
+.c-article--user {
+    h4 {
+        @include font('title-large');
+
+        margin-top: 0;
+    }
+}
+
+.c-article--user-login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+}
+
 // ## Article Content
 // ------------------
 
@@ -231,6 +247,10 @@ $meta-icon-size: size(2.75);
     display: flex;
     justify-content: center;
     padding-bottom: size('section-padding');
+
+    .c-article--user-login & {
+        padding-top: size('section-padding');
+    }
 }
 
 // # Article main

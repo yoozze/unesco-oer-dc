@@ -41,8 +41,13 @@ class SearchFormBlock extends Component {
         this.submit = this.element.querySelector('button[type="submit"]');
         this.input = this.element.querySelector('input[type="search"]');
 
-        this.submit.addEventListener('click', this.handleSubmitClick.bind(this));
-        this.input.addEventListener('keydown', this.handleInputKeydown.bind(this));
+        if (this.submit !== null) {
+            this.submit.addEventListener('click', this.handleSubmitClick.bind(this));
+        }
+
+        if (this.input !== null) {
+            this.input.addEventListener('keydown', this.handleInputKeydown.bind(this));
+        }
     }
 
     /**

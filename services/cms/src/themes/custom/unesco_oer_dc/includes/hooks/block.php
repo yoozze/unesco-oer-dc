@@ -76,6 +76,16 @@ function unesco_oer_dc_preprocess_block(&$variables) {
         $variables['content']['keys']['#control_size'] = 'small';
     }
 
+    // Breadcrumb
+    if ($variables['base_plugin_id'] === 'system_breadcrumb_block') {
+        $classes[] = 'c-page-navigation__breadcrumb';
+    }
+
+    // Local tasks
+    if ($variables['base_plugin_id'] === 'local_tasks_block') {
+        $classes[] = 'c-page-navigation__local-tasks c-navigation c-navigation--local-tasks';
+    }
+
     // Custom block
     $block_name = get_block_name($variables['derivative_plugin_id']);
     if (!empty($block_name)) {

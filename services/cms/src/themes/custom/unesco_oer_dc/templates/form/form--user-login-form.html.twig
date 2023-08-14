@@ -1,0 +1,27 @@
+{#
+/**
+ * @file
+ * Theme override for a 'form' element.
+ *
+ * Available variables
+ * - attributes: A list of HTML attributes for the wrapper element.
+ * - children: The child elements of the form.
+ *
+ * @see template_preprocess_form()
+ */
+#}
+<form{{attributes.addClass('c-form--'~attributes.id|clean_class)}}>
+    <div class="c-form__header">
+        <div class="c-form__icon">
+            {{ svg_icon('lock-open') }}
+        </div>
+        <h1 class="c-form__title">{{ 'Login'|t }}</h1>
+    </div>
+    <div class="c-form__body">
+        {{ element.name }}
+        {{ element.pass }}
+        {{ element.form_build_id }}
+        {{ element.form_id }}
+        {{ element.actions }}
+    </div>
+</form>

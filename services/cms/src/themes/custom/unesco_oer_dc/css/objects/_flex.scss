@@ -1,0 +1,58 @@
+// # Flex
+// ======
+
+.o-flex {
+    display: flex;
+}
+
+$flex-directions: row, row-reverse, column, column-reverse;
+
+@each $flex-direction in $flex-directions {
+    .o-flex--#{$flex-direction} {
+        @extend .o-flex;
+        flex-direction: $flex-direction;
+    }
+}
+
+$flex-wraps: nowrap, wrap, wrap-reverse;
+
+@each $flex-wrap in $flex-wraps {
+    .o-flex--wrap_#{$flex-wrap} {
+        @extend .o-flex;
+        flex-wrap: $flex-wrap;
+    }
+}
+
+$flex-justifications: flex-start, flex-end, center, space-between, space-around, space-evenly;
+
+@each $flex-justification in $flex-justifications {
+    .o-flex--justify_#{$flex-justification} {
+        @extend .o-flex;
+        justify-content: $flex-justification;
+    }
+}
+
+$flex-alignments: flex-start, flex-end, center, baseline, stretch;
+
+@each $flex-alignment in $flex-alignments {
+    .o-flex--align_#{$flex-alignment} {
+        @extend .o-flex;
+        align-items: $flex-alignment;
+    }
+}
+
+.o-flex--grow {
+    @extend .o-flex;
+    flex-grow: 1;
+}
+
+.o-flex--shrink {
+    @extend .o-flex;
+    flex-shrink: 1;
+}
+
+.o-flex--stretch-height {
+    @extend .o-flex;
+    flex-direction: column;
+    flex-grow: 1;
+}

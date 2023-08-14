@@ -26,6 +26,8 @@ services:
         #     - external
         ports:
             - ${PROJECT_PORT}:80
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
         volumes:
             # - cms-data:/var/www/html
             # - ./services/cms/web:/opt/drupal/web

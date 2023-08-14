@@ -1,0 +1,44 @@
+{#
+/**
+ * @file
+ * Theme override to display primary and secondary local tasks.
+ *
+ * Available variables:
+ * - primary: HTML list items representing primary tasks.
+ * - secondary: HTML list items representing secondary tasks.
+ *
+ * Each item in these variables (primary and secondary) can be individually
+ * themed in menu-local-task.html.twig.
+ */
+#}
+{% set options = {
+    'popper': {
+        'placement': 'bottom-end'
+    }
+} %}
+{% if primary %}
+    {# <h2 class="visually-hidden">{{ 'Primary tabs'|t }}</h2> #}
+    <div class="c-navigation__dropdown c-dropdown" data-options="{{ options|json_encode }}">
+        <button class="c-dropdown__toggle c-icon-button c-icon-button--standard" title="{{ 'Primary local tasks'|t }}">
+            {{ svg_icon('more-vert', 'c-icon-button__icon') }}
+        </button>
+        <div class="c-dropdown__menu c-menu">
+            <ul class="c-menu__items">
+                {{ primary }}
+            </ul>
+        </div>
+    </div>
+{% endif %}
+{% if secondary %}
+    {# <h2 class="visually-hidden">{{ 'Secondary tabs'|t }}</h2> #}
+    <div class="c-navigation__dropdown c-dropdown" data-options="{{ options|json_encode }}">
+        <button class="c-dropdown__toggle c-icon-button c-icon-button--standard" title="{{ 'Secondary local tasks'|t }}">
+            {{ svg_icon('more-vert', 'c-icon-button__icon') }}
+        </button>
+        <div class="c-dropdown__menu c-menu">
+            <ul class="c-menu__items">
+                {{ secondary }}
+            </ul>
+        </div>
+    </div>
+{% endif %}

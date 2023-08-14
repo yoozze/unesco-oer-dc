@@ -957,6 +957,12 @@ default_socket_timeout = 60
 
 ;zend_extension=opcache
 
+[xdebug]
+xdebug.mode=debug
+xdebug.client_host=host.docker.internal
+xdebug.start_with_request=yes
+xdebug.log=/tmp/xdebug.log
+
 ;;;;;;;;;;;;;;;;;;;
 ; Module Settings ;
 ;;;;;;;;;;;;;;;;;;;

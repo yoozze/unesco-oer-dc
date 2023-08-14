@@ -1,0 +1,30 @@
+// # Page Navigation
+// =================
+
+.c-page-navigation {
+    display: flex;
+    justify-content: center;
+    background-color: color('background-alt');
+}
+
+// ## Page Navigation Container
+// ----------------------------
+
+.c-page-navigation__container {
+    display: flex;
+}
+
+// ## Page Navigation Breadcrumb
+// -----------------------------
+
+.c-page-navigation__breadcrumb {
+    flex-grow: 1;
+    margin-right: size(3);
+}
+
+// ## Page Navigation Local Tasks
+// ------------------------------
+
+.c-page-navigation__local-tasks {
+    margin-left: auto;
+}

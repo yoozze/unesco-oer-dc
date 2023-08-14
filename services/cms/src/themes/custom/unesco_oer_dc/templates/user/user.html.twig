@@ -1,0 +1,64 @@
+{#
+/**
+ * @file
+ * Theme override to present all user data.
+ *
+ * This template is used when viewing a registered user's page,
+ * e.g., example.com/user/123. 123 being the user's ID.
+ *
+ * Available variables:
+ * - content: A list of content items. Use 'content' to print all content, or
+ *   print a subset such as 'content.field_example'. Fields attached to a user
+ *   such as 'user_picture' are available as 'content.user_picture'.
+ * - attributes: HTML attributes for the container element.
+ * - user: A Drupal User entity.
+ *
+ * @see template_preprocess_user()
+ */
+#}
+<article{{attributes.addClass(['c-article', 'c-article--user'])}}>
+    <div class="c-article__header">
+        <div class="o-container">
+            <div class="c-article__content">
+                <div class="c-article__toolbar">
+                    {% for role in user.roles %}
+                        <span class="c-article__category">{{ role.target_id }}</span>
+                    {% endfor %}
+                </div>
+                <h1 class="c-article__title">{{ user.label }}</h1>
+                <dl class="c-article__meta">
+                    <div class="c-article__meta-item">
+                        <div>
+                            <dt>
+                                {{ svg_icon('mail', 'c-article__meta-icon') }}
+                                <span>{{ 'E-mail'|t }}</span>
+                            </dt>
+                            <dd>{{ user.mail.value }}</dd>
+                        </div>
+                    </div>
+                </dl>
+            </div>
+        </div>
+    </div>
+    {% if content %}
+        <div class="c-article__body">
+            <div class="o-container">
+                <div class="c-article__content">
+                    <div class="c-article__main">
+                        <div class="c-article__description">
+                            <form class="c-form c-form--user">
+                                {{- content -}}
+                                <div class="c-form__field c-form__field--type_item c-form__field--name_ c-form__field--no-label">
+                                    <div class="c-form__control c-form__control--type_item c-form__control--name_  ">
+                                        <h4 class="label">{{ 'Last login' }}</h4>
+                                        {{ user.login.value|date('l, j F Y H:i') }}
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</article>

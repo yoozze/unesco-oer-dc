@@ -65,20 +65,17 @@ class Article extends Component {
 
         this.title = this.element.querySelector(`.${Article.bem('title')}`);
         this.body = this.element.querySelector(`.${Article.bem('body')}`);
-        if (this.body === null) {
-            return;
-        }
+        this.bodyContent = this.body?.querySelector(`.${Article.bem('content')}`) || null;
+        this.main = this.bodyContent?.querySelector(`.${Article.bem('main')}`) || null;
+        this.sidebar = this.body?.querySelector(`.${Article.bem('sidebar')}`) || null;
+        this.headings = this.main?.querySelectorAll('h2, h3') || [];
 
-        this.bodyContent = this.body.querySelector(`.${Article.bem('content')}`);
-        this.main = this.bodyContent.querySelector(`.${Article.bem('main')}`);
-        this.sidebar = this.body.querySelector(`.${Article.bem('sidebar')}`);
-        this.headings = this.main.querySelectorAll('h2, h3');
         if (this.sidebar !== null && this.headings.length > 0) {
             this.nav = this.createArticleNav();
             this.observeContentHeadings();
         }
 
-        if (this.nav) {
+        if (this.nav !== null) {
             this.nav.addEventListener('click', this.hadleNavLinkClick.bind(this));
         }
     }

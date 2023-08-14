@@ -11,7 +11,13 @@
 // ## Latest News View Content
 // ---------------------------
 
-// .c-latest-news-view__content {}
+.c-latest-news-view__content {
+    position: relative;
+
+    &>.contextual {
+        top: negative(3);
+    }
+}
 
 // ## Latest News View List
 // ------------------------

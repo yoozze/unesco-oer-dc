@@ -66,6 +66,10 @@ COPY $ROOT/src/.htaccess ./web/
 COPY $ROOT/src/robots.txt ./web/
 COPY $ROOT/config/php.ini-$ENV /usr/local/etc/php/php.ini
 
+# Install xdebug
+RUN pear config-set php_ini /usr/local/etc/php/php.ini
+RUN pecl install xdebug
+
 # TODO: run drupal.sh --install
 # CMD ["sh", "-c", "drupal.sh --install"]
 # CMD ["bash /opt/drupal/drupal.sh --install"]

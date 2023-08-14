@@ -1,15 +1,15 @@
 {#
 /**
  * @file
- * Theme override latest news block.
+ * Theme override upcoming events block.
  */
 #}
 <div{{attributes.setAttribute('class','c-upcoming-events-view')}}>
-    {{ title_prefix }}
+    {# {{ title_prefix }} #}
     {% if label %}
         <h2{{title_attributes}}>{{ label }}</h2>
     {% endif %}
-    {{ title_suffix }}
+    {# {{ title_suffix }} #}
     {% block content %}
         {{ content }}
     {% endblock %}

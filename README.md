@@ -88,3 +88,28 @@ $ bash run.sh --archive-restore path/to/archive
 ```
 This restores website from given archive dump (code, files, and database).
 Note: `cms` service must be running.
+
+## Debugging with Xdebug
+
+VS Code `launch.json` config:
+```
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Listen for Xdebug on Docker",
+            "type": "php",
+            "request": "launch",
+            "hostname": "0.0.0.0",
+            "port": 9003,
+            "pathMappings": {
+                "/opt/drupal/web": "${workspaceFolder}/services/cms/src"
+            },
+            "xdebugSettings": {
+                "show_hidden": 1
+            }
+        }
+    ]
+}
+
+```

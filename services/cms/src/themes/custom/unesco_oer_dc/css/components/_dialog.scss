@@ -1,7 +1,7 @@
 .c-dialog {
-    @include elevation(4);
+    @include elevation(5);
 
-    border-radius: size('radius' 2);
+    border-radius: size('radius' 7);
 }
 
 .c-dialog__header {

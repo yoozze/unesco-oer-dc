@@ -154,6 +154,18 @@ $account-padding-y: size(1);
     padding-bottom: $account-padding-y;
 }
 
+// Navigation - Local Tasks
+// ------------------------
+
+$local-tasks-padding-y: size(0.5);
+
+.c-navigation--local-tasks {
+    // display: flex;
+    // align-items: center;
+    padding-top: $account-padding-y;
+    padding-bottom: $account-padding-y;
+}
+
 // ## Navigation - Footer
 // ----------------------
 

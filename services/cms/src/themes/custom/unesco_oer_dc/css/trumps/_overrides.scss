@@ -2,3 +2,18 @@ pre.sf-dump,
 pre.sf-dump .sf-dump-default {
     position: static !important;
 }
+
+.contextual {
+    top: size(2px);
+
+    button.trigger {
+        right: size(2px);
+        width: size(3) !important;
+        height: size(3) !important;
+
+        &:focus,
+        &:hover {
+            box-shadow: 0 0 0 1px var(--gin-color-focus-border), 0 0 0 2px var(--gin-color-focus);
+        }
+    }
+}

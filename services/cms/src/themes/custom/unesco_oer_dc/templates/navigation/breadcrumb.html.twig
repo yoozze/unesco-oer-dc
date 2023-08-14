@@ -7,7 +7,7 @@
  * - breadcrumb: Breadcrumb trail items.
  */
 #}
-{% if breadcrumb %}
+{% if breadcrumb %}    
     <nav class="c-breadcrumb" role="navigation" aria-labelledby="system-breadcrumb">
         <h2 class="c-breadcrumb__title visually-hidden" id="system-breadcrumb">{{ 'Breadcrumb'|t }}</h2>
         <ol class="c-breadcrumb__items">
@@ -27,4 +27,5 @@
             {% endfor %}
         </ol>
     </nav>
+    {# {{ dump() }} #}
 {% endif %}

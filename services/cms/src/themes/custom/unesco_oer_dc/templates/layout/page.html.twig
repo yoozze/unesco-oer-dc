@@ -37,7 +37,7 @@
  * - page.sidebar_first: Items for the first sidebar.
  * - page.sidebar_second: Items for the second sidebar.
  * - page.footer: Items for the footer region.
- * - page.breadcrumb: Items for the breadcrumb region.
+ * - page.page_navigation: Items for the page navigation region.
  *
  * @see template_preprocess_page()
  * @see html.html.twig
@@ -50,19 +50,22 @@
         {{ page.header_bottom }}
     </header>
 
+    {{ page.page_navigation }}
+
     {{ page.hero }}
 
-    {{ page.breadcrumb }}
-
-    {# {{ page.highlighted }} #}
+    {{ page.highlighted }}
 
     {# {{ page.help }} #}
 
     <main class="o-main" role="main">
-        <a id="main-content" tabindex="-1"></a>{# link is in html.html.twig #}
+        <a id="main-content" tabindex="-1"></a>
+        {# link is in html.html.twig #}
 
         <div class="o-layout-content">
-            {{ page.content }}
+            {% block content %}
+                {{ page.content }}
+            {% endblock %}
         </div>
 
     </main>
@@ -70,8 +73,12 @@
     {{ page.banner }}
 
     <footer class="c-page-footer" role="contentinfo">
-        {{ page.footer_top }}
-        {{ page.footer_bottom }}
+        {% block footer_top %}
+            {{ page.footer_top }}
+        {% endblock %}
+        {% block footer_bottom %}
+            {{ page.footer_bottom }}
+        {% endblock %}
     </footer>
     {# <script>console.log('PAGE', {{ _context | json_encode | raw}});</script> #}
     {# {{ dump() }} #}
