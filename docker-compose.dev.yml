@@ -25,7 +25,8 @@ services:
             SMTP_AUTOTLS: ${SMTP_AUTOTLS}
             SMTP_USERNAME: ${SMTP_USERNAME}
             SMTP_PASSWORD: ${SMTP_PASSWORD}
-            MIX_FOO_VARIABLE: frontend
+            SMTP_FROM: ${SMTP_FROM}
+            SMTP_FROMNAME: ${SMTP_FROMNAME}
         depends_on:
             - db
         ports:

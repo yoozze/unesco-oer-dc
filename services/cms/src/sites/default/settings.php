@@ -899,8 +899,8 @@ $config['smtp.settings']['smtp_protocol'] = getenv('SMTP_PROTOCOL');
 $config['smtp.settings']['smtp_autotls'] = getenv('SMTP_AUTOTLS');
 $config['smtp.settings']['smtp_username'] = getenv('SMTP_USERNAME');
 $config['smtp.settings']['smtp_password'] = getenv('SMTP_PASSWORD');
-$config['smtp.settings']['smtp_from'] = getenv('SITE_MAIL');
-$config['smtp.settings']['smtp_fromname'] = getenv('SITE_NAME');
+$config['smtp.settings']['smtp_from'] = getenv('SMTP_FROM');
+$config['smtp.settings']['smtp_fromname'] = getenv('SMTP_FROMNAME');
 
 /**
  * Load local development override configuration, if available.
