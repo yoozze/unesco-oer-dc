@@ -38,7 +38,7 @@ assert_options(ASSERT_ACTIVE, TRUE);
 /**
  * Enable local development services.
  */
-$settings['container_yamls'][] = DRUPAL_ROOT . '/sites/development.services.yml';
+$settings['container_yamls'][] = $app_root . '/' . $site_path . '/services.development.yml';
 
 /**
  * Show all error messages, with backtrace information.
@@ -154,24 +154,4 @@ $settings['skip_permissions_hardening'] = TRUE;
  */
 # $settings['config_exclude_modules'] = ['devel', 'stage_file_proxy'];
 
-/**
- * Trusted host configuration.
- */
-$settings['trusted_host_patterns'] = [
-  '^localhost$',
-  '^atena.ijs.si$',
-  '^motorka.ijs.si$',
-  '^oerdynamiccoalition.org$',
-  '127\.0\.0\.1',
-  'unesco-oer.loca.lt',
-  'unesco-oer-dc.loca.lt',
-];
 
-/**
- * SMTP overrides.
- */
-$config['smtp.settings']['smtp_host'] = "email";
-$config['smtp.settings']['smtp_port'] = "1025";
-$config['smtp.settings']['smtp_protocol'] = "standard";
-$config['smtp.settings']['smtp_autotls'] = "off";
-// $config['smtp.settings']['smtp_from'] = getenv('SITE_MAIL');

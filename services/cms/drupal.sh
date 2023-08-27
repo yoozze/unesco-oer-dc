@@ -7,10 +7,11 @@ MODE="$1"
 # Check if option passed is valid
 OPTIONS_ARRAY=(
     "--help"
+    "--fix-permissions"
+    "--get-modules"
     "--install"
     "--install-modules"
     "--install-site"
-    "--fix-permissions"
 )
 VALID_OPTION="false"
 
@@ -23,6 +24,7 @@ fi
 for k in "${OPTIONS_ARRAY[@]}"; do
     if [ $k = $1 ]; then
         VALID_OPTION="true"
+        break
     fi
 done
 
@@ -33,31 +35,74 @@ if [ $VALID_OPTION = "false" ]; then
 fi
 
 if [ $MODE = "--help" ]; then
+    echo "bash drupal.sh --fix-permissions      | Fix filesystem permissions"
+    echo "bash drupal.sh --get-modules          | Get modules"
     echo "bash drupal.sh --install              | Install everything"
     echo "bash drupal.sh --install-modules      | Install modules"
     echo "bash drupal.sh --install-site         | Install site"
-    echo "bash drupal.sh --fix-permissions      | Fix filesystem permissions"
     exit 0
 fi
 
+MODULES=(
+    "admin_toolbar:^3.3.0"
+    "backup_migrate:^5.0.3"
+    "coder:^8.3.16"
+    "coffee:^1.3"
+    "devel:^5.1.1"
+    "gin:^3.0@RC"
+    "gin_toolbar:^1.0@RC"
+    "pathauto:^1.11"
+    "smtp:^1.2"
+    "file_delete:^2.0"
+    "drush_language:^1.0@RC"
+    "easy_breadcrumb:^2.0"
+    "language_switcher_extended:^1.1"
+    "paragraphs:^1.15"
+    "svg_image:^3.0"
+    "views_bulk_operations:^4.2.3"
+    "fancy_file_delete:^2.0"
+    "file_replace:^1.3"
+    "node_read_time:^1.11"
+    "addtoany:^2.0.4"
+    "views_ajax_history:^1.7"
+    "select2:^1.15"
+    "select2_multicheck:^1.0"
+    "conditional_fields:^4.0@alpha"
+    # "taxonomy_multidelete_terms:^1.4"
+    # "realistic_dummy_content:^3.1"
+    # "estimated_read_time:^1.0"
+    # "taxonomy_import:^2.0.11"
+    # "content_type_clone:^1.0"
+)
+
+if [ $MODE = "--get-modules" ]; then
+    cmd="composer require"
+    for module in "${MODULES[@]}"; do
+        # name=${module%%:*}
+        # version=${module#*:}
+        cmd="$cmd drupal/$module"
+    done
+    eval $cmd
+fi
+
 # STATUS=$(drush status 'DB name')
-set +e
-STATUS=$(drush config:get system.site name)
-set -e
-INSTALLED="false"
+# set +e
+# STATUS=$(drush config:get system.site name)
+# set -e
+# INSTALLED="false"
 
 # if [[ "$STATUS" =~ "$DB_NAME" ]]; then
 #     INSTALLED="true"
 # fi
 
-if [[ "$STATUS" =~ "$SITE_NAME" ]]; then
-    INSTALLED="true"
-fi
+# if [[ "$STATUS" =~ "$SITE_NAME" ]]; then
+#     INSTALLED="true"
+# fi
 
-if [[ $MODE =~ "--install" ]] && [ $INSTALLED = "true" ]; then
-    echo "Drupal already installed!"
-    exit 0
-fi
+# if [[ $MODE =~ "--install" ]] && [ $INSTALLED = "true" ]; then
+#     echo "Drupal already installed!"
+#     exit 0
+# fi
 
 if [ $MODE = "--install" ] || [ $MODE = "--fix-permissions" ]; then
     echo "Fixing files ownership..."
@@ -83,59 +128,69 @@ fi
 if [ $MODE = "--install" ] || [ $MODE = "--install-modules" ]; then
     echo "Installing modules..."
 
-    # Uninstall unused modeules
-
     # Install modules
-    drush pm:install --yes admin
-    drush pm:install --yes admin_toolbar
-    drush pm:install --yes admin_toolbar_tools
-    drush pm:install --yes backup_migrate
-    drush pm:install --yes coffee
-    drush pm:install --yes config_translation
-    drush pm:install --yes content_translation
-    drush pm:install --yes devel
-    drush pm:install --yes devel_generate
-    drush pm:install --yes language
-    drush pm:install --yes locale
-    drush pm:install --yes pathauto
-    drush pm:install --yes smtp
-    drush pm:install --yes drush_language
-    drush pm:install --yes file_delete
-    drush pm:install --yes realistic_dummy_content
-    drush pm:install --yes easy_breadcrumb
-    drush pm:install --yes twig_extension
-    drush pm:install --yes language_switcher_extended
-    drush pm:install --yes layout_builder
-    drush pm:install --yes paragraphs
-    drush pm:install --yes svg_image
-    drush pm:install --yes fancy_file_delete
-    drush pm:install --yes file_replace
-    drush pm:install --yes addtoany
-    drush pm:install --yes views_ajax_history
-    drush pm:install --yes media_library
-    drush pm:install --yes select2
-    drush pm:install --yes select2_multicheck
-    drush pm:install --yes conditional_fields
-    # drush pm:install --yes estimated_read_timec_.,mn 
-    # drush pm:install --yes taxonomy_import
-    # drush pm:install --yes taxonomy_multidelete_terms
+    cmd="drush pm:install --yes"
 
-    # Set theme
-    drush theme:install --yes unesco_oer_dc
-    drush config:set --yes system.theme default unesco_oer_dc
+    # - Core
+    cmd="$cmd admin"
+    cmd="$cmd config_translation"
+    cmd="$cmd content_translation"
+    cmd="$cmd language"
+    cmd="$cmd locale"
+    cmd="$cmd layout_builder"
+    cmd="$cmd media_library"
 
-    # Set admin theme
-    drush theme:install --yes gin
+    # - Contrib
+    for module in "${MODULES[@]}"; do
+        name=${module%%:*}
+
+        if
+            [ $name = "gin" ] ||
+            [ $name = "gin_toolbar" ] ||
+            [ $name = "coder" ];
+        then
+            continue
+        fi
+
+        cmd="$cmd $name"
+
+        if [ $name = "admin_toolbar" ]; then
+            cmd="$cmd admin_toolbar_tools"
+        fi
+
+        if [ $name = "devel" ]; then
+            cmd="$cmd devel_generate"
+        fi
+    done
+
+    # - Custom
+    cmd="$cmd twig_extension"
+
+    eval $cmd
+
+    # Install themes
+    drush theme:install --yes unesco_oer_dc gin
     drush pm:install --yes gin_toolbar
-    drush config:set --yes system.theme admin gin
 
-    # Set configuration
+    # Configure
+    drush config:set --yes system.theme default unesco_oer_dc
+    drush config:set --yes system.theme admin gin
     drush config:set --yes smtp.settings smtp_on on
 
     # Add languages
     drush language-add fr
-    drush language-add es
-    drush language-add ru
-    drush language-add ar
-    drush language-add zh-hans
+    # drush language-add es
+    # drush language-add ru
+    # drush language-add ar
+    # drush language-add zh-hans
+
+    # Uninstall unused core modeules
+    # drush pm:uninstall --yes breakpoint
+
+    # Uninstall on production
+    if [ $ENV = "production" ]; then
+        cmd="drush pm:uninstall --yes"
+        cmd="$cmd coder"
+        eval $cmd
+    fi
 fi

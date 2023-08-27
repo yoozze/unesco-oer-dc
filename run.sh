@@ -16,6 +16,7 @@ OPTIONS_ARRAY=(
     "--sync-core"
     "--archive-dump"
     "--archive-restore"
+    "--setup"
     "--help"
 )
 VALID_OPTION="false"
@@ -30,6 +31,7 @@ fi
 for k in "${OPTIONS_ARRAY[@]}"; do
     if [ $k = $1 ]; then
         VALID_OPTION="true"
+        break
     fi
 done
 
@@ -50,6 +52,7 @@ if [ $MODE = "--help" ]; then
     echo "bash run.sh --sync-core [args]        | Synchronize core files on host"
     echo "bash run.sh --archive-dump            | Dump archive to archives directory"
     echo "bash run.sh --archive-restore [args]  | Restore archive from given file"
+    echo "bash run.sh --setup [args]            | Setup services"
     exit 0
 fi
 
@@ -66,10 +69,11 @@ echo "$PREFIX: $COMPOSE_FILE"
 if [ $MODE = "--build" ]; then
     echo "$PREFIX: Building... $ARGS"
     docker compose -f $COMPOSE_FILE build $ARGS
-    npm install
 
-    if [ $ENV = "production" ]; then
-        npm run build
+    if [ $ENV = "development" ]; then
+        cd services/cms
+        npm install
+        npm run dev $ARGS
     fi
 fi
 
@@ -85,6 +89,8 @@ fi
 
 if [ $MODE = "--watch" ]; then
     echo "$PREFIX: Watching... $ARGS"
+    cd services/cms
+    # npm install
     npm run watch $ARGS
 fi
 
@@ -155,4 +161,20 @@ if [ $MODE = "--archive-restore" ]; then
         drush archive:restore /tmp/archive.tar.gz --db
     "
     echo "$PREFIX: Archive restored"
+fi
+
+if [ $MODE = "--setup" ]; then
+    echo "$PREFIX: Setting up... $ARGS"
+    if [ $ENV = "production" ]; then
+        docker exec ${PROJECT_NAME}_cms sh -c "
+            npm install
+            npm run build
+        "
+    fi
+    docker exec ${PROJECT_NAME}_cms sh -c "
+        bash drupal.sh --fix-permissions &&
+        bash drupal.sh --install-modules &&
+        drush updatedb --no-cache-clear &&
+        drush cache:rebuild
+    "
 fi

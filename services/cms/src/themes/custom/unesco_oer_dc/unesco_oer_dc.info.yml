@@ -4,7 +4,7 @@ base theme: stable9
 # base theme: false
 description: 'A custom theme for the UNESCO OER DC portal'
 alt text: 'Screenshot of UNESCO OER DC, Drupal front-end theme.'
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^9 || ^10
 libraries:
   - unesco_oer_dc/global-styling
 regions:

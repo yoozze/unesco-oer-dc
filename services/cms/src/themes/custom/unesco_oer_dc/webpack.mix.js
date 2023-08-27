@@ -14,6 +14,7 @@ mix.disableSuccessNotifications()
     })
     .js('js/main.js', 'dist')
     .sass('css/style.scss', 'dist')
+    // .version()
     .sourceMaps()
     .browserSync({
         proxy: 'localhost:8080',
@@ -29,3 +30,7 @@ mix.disableSuccessNotifications()
             'unesco_oer_dc.theme',
         ],
     });
+
+// if (mix.inProduction()) {
+//     mix.version();
+// }

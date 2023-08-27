@@ -4,7 +4,7 @@ import Slider from './components/Slider';
 import SearchForm from './components/SearchForm';
 import SearchFormBlock from './components/SearchFormBlock';
 
-import './misc/debug';
+// import './misc/debug';
 
 let timeout;
 

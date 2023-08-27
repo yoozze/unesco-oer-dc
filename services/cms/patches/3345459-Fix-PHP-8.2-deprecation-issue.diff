@@ -1,0 +1,18 @@
+diff --git a/src/DependencyHelper.php b/src/DependencyHelper.php
+index 297759007d7cbb7416aff2cc049904215bfb8efe..8299d6848fb3e1f0dff5123d5af8deb40832a1ca 100644
+--- a/src/DependencyHelper.php
++++ b/src/DependencyHelper.php
+@@ -84,6 +84,13 @@ class DependencyHelper {
+    */
+   protected $inheriting_fields;
+ 
++  /**
++   * The module handler service.
++   *
++   * @var \Drupal\Core\Extension\ModuleHandlerInterface
++   */
++  protected $module_handler;
++
+   /**
+    * Constructor method.
+    *

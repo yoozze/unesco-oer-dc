@@ -2,8 +2,8 @@
     "name": "unesco-oer-dc",
     "version": "1.0.0",
     "workspaces": [
-        "services/cms/src/themes/custom/*",
-        "services/cms/src/modules/custom/*"
+        "src/modules/custom/*",
+        "src/themes/custom/*"
     ],
     "scripts": {
         "dev": "npm run dev --workspaces",
