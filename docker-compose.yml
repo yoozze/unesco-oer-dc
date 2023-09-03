@@ -29,6 +29,7 @@ services:
             SMTP_FROMNAME: ${SMTP_FROMNAME}
         depends_on:
             - db
+        hostname: oerdynamiccoalition.org
         ports:
             - ${PROJECT_PORT}:80
         volumes:
