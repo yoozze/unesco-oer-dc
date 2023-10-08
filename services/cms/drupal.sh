@@ -44,7 +44,7 @@ if [ $MODE = "--help" ]; then
 fi
 
 MODULES=(
-    "admin_toolbar:^3.3.0"
+    "admin_toolbar:^3.4.2"
     "backup_migrate:^5.0.3"
     "coder:^8.3.16"
     "coffee:^1.3"
