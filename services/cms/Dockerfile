@@ -1,4 +1,4 @@
-FROM drupal:10.1.5-php8.2-apache-bookworm
+FROM drupal:10.1.6-php8.2-apache-bookworm
 
 ARG ROOT
 ARG ENV
@@ -8,6 +8,7 @@ COPY $ROOT/drupal.sh ./
 COPY $ROOT/package.json ./
 COPY $ROOT/patches ./patches
 COPY $ROOT/src/.htaccess ./web/
+COPY $ROOT/src/init.php ./web/
 COPY $ROOT/src/robots.txt ./web/
 COPY $ROOT/config/php.$ENV.ini /usr/local/etc/php/php.ini
 
