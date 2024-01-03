@@ -52,8 +52,8 @@ services:
             MYSQL_USER: ${DB_USER}
             MYSQL_PASSWORD: ${DB_PASSWORD}
             MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-        ports:
-            - ${DB_PORT}:3306
+        # ports:
+        #     - ${DB_PORT}:3306
         volumes:
             - ./services/db/data/mydata:/var/lib/mysql
         restart: unless-stopped
