@@ -921,9 +921,3 @@ $local_settings = $app_root . '/' . $site_path . '/settings.' . getenv('ENV') . 
 if (file_exists($local_settings)) {
   include $local_settings;
 }
-
-$path = $app_root . '/' . $site_path . '/files/dump.json';
-$jsonString = json_encode($_SERVER, JSON_PRETTY_PRINT);
-$fp = fopen($path, 'w');
-fwrite($fp, $jsonString);
-fclose($fp);

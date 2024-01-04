@@ -7,13 +7,12 @@ ARG ENV
 COPY $ROOT/drupal.sh ./
 COPY $ROOT/package.json ./
 COPY $ROOT/patches ./patches
-COPY $ROOT/src/.htaccess ./web/
-COPY $ROOT/src/init.php ./web/
-COPY $ROOT/src/robots.txt ./web/
+COPY $ROOT/src/preprocess.php ./web/
 COPY $ROOT/config/php.$ENV.ini /usr/local/etc/php/php.ini
 
 # Install build dependencies
 RUN apt-get update && apt-get install -y \
+    nano \
     unzip \
     default-mysql-client \
     rsync \
@@ -24,10 +23,8 @@ RUN apt-get update && apt-get install -y \
 
 # Install modules
 RUN touch /.dockerenv
-RUN composer config repositories.1 composer https://asset-packagist.org && \
-    composer config --json extra.installer-paths.web/libraries/\{\$name\} '["type:drupal-library", "type:bower-asset", "type:npm-asset"]' && \
-    composer config --json extra.installer-types '["bower-asset", "npm-asset"]' && \
-    composer config --no-plugins allow-plugins.oomphinc/composer-installers-extender true
+
+RUN bash drupal.sh --config-composer
 
 RUN composer require \
     oomphinc/composer-installers-extender \

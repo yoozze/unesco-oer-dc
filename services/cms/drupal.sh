@@ -7,6 +7,7 @@ MODE="$1"
 # Check if option passed is valid
 OPTIONS_ARRAY=(
     "--help"
+    "--config-composer"
     "--fix-permissions"
     "--get-modules"
     "--install"
@@ -35,12 +36,22 @@ if [ $VALID_OPTION = "false" ]; then
 fi
 
 if [ $MODE = "--help" ]; then
+    echo "bash drupal.sh --config-composer      | Configure composer"
     echo "bash drupal.sh --fix-permissions      | Fix filesystem permissions"
     echo "bash drupal.sh --get-modules          | Get modules"
     echo "bash drupal.sh --install              | Install everything"
     echo "bash drupal.sh --install-modules      | Install modules"
     echo "bash drupal.sh --install-site         | Install site"
     exit 0
+fi
+
+if [ $MODE = "--config-composer" ]; then
+    echo "Configuring composer..."
+    composer config repositories.1 composer https://asset-packagist.org
+    # composer config --json extra.drupal-scaffold.file-mapping '{ "[web-root]/.htaccess": false }'
+    composer config --json extra.installer-paths.web/libraries/\{\$name\} '["type:drupal-library", "type:bower-asset", "type:npm-asset"]'
+    composer config --json extra.installer-types '["bower-asset", "npm-asset"]'
+    composer config --no-plugins allow-plugins.oomphinc/composer-installers-extender true
 fi
 
 MODULES=(
