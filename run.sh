@@ -14,6 +14,7 @@ OPTIONS_ARRAY=(
     "--log"
     "--enter"
     "--sync-core"
+    "--sync-git"
     "--archive-dump"
     "--archive-restore"
     "--setup"
@@ -49,7 +50,8 @@ if [ $MODE = "--help" ]; then
     echo "bash run.sh --watch [args]            | Watch files"
     echo "bash run.sh --log [args]              | Display log"
     echo "bash run.sh --enter [args]            | Enter into container"
-    echo "bash run.sh --sync-core [args]        | Synchronize core files on host"
+    echo "bash run.sh --sync-core [args]        | Synchronize core drupal files on host (with drupal image)"
+    echo "bash run.sh --sync-git [args]         | Synchronize source code on host (with Github image)"
     echo "bash run.sh --archive-dump            | Dump archive to archives directory"
     echo "bash run.sh --archive-restore [args]  | Restore archive from given file"
     echo "bash run.sh --setup [args]            | Setup services"
@@ -130,6 +132,14 @@ if [ $MODE = "--sync-core" ]; then
         sudo rm -rf $SRC_PATH/themes/contrib
         sudo docker cp ${PROJECT_NAME}_cms:/opt/drupal/web/themes/contrib $SRC_PATH/themes
     fi
+fi
+
+if [ $MODE = "--sync-git" ]; then
+    echo "$PREFIX: Synchronyzing source code from Github... $ARGS"
+    sudo chown $USER:$USER services/cms/src/sites/default
+    git pull origin master
+    # docker exec ${PROJECT_NAME}_cms sh -c "bash drupal.sh --fix-permissions"
+    sudo chown www-data:www-data services/cms/src/sites/default
 fi
 
 ARCHIVE_PATH="./archive"

@@ -48,7 +48,6 @@ fi
 if [ $MODE = "--config-composer" ]; then
     echo "Configuring composer..."
     composer config repositories.1 composer https://asset-packagist.org
-    # composer config --json extra.drupal-scaffold.file-mapping '{ "[web-root]/.htaccess": false }'
     composer config --json extra.installer-paths.web/libraries/\{\$name\} '["type:drupal-library", "type:bower-asset", "type:npm-asset"]'
     composer config --json extra.installer-types '["bower-asset", "npm-asset"]'
     composer config --no-plugins allow-plugins.oomphinc/composer-installers-extender true
