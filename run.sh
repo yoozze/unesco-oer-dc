@@ -143,32 +143,35 @@ if [ $MODE = "--sync-git" ]; then
 fi
 
 ARCHIVE_PATH="./archive"
-SETTINGS_FILE="/opt/drupal/web/sites/default/settings.php"
+ARCHIVE_NAME="$(date +"%Y%m%d_%H%M%S")"
 
 if [ $MODE = "--archive-dump" ]; then
     echo "$PREFIX: Archiving... $ARGS"
-    # docker exec ${PROJECT_NAME}_cms sh -c "
-    #     cp $SETTINGS_FILE $SETTINGS_FILE.bak &&
-    #     drush archive:dump --exclude-code-paths=web/sites/default/settings.php &&
-    #     rm $SETTINGS_FILE.bak
-    # "
     docker exec ${PROJECT_NAME}_cms sh -c "
-        drush archive:dump --db --exclude-code-paths=web/sites/default/settings.php
+        mkdir -p /tmp/$ARCHIVE_NAME &&
+        echo $PREFIX: - Database &&
+        drush archive:dump --db --destination=/tmp/$ARCHIVE_NAME/db.tar.gz &&
+        echo $PREFIX: - Files &&
+        tar -zcf /tmp/$ARCHIVE_NAME/files.tar.gz web/sites/default/files &&
+        tar -zcf /tmp/$ARCHIVE_NAME.tar.gz -C /tmp/$ARCHIVE_NAME . &&
+        rm -rf /tmp/$ARCHIVE_NAME
     "
     mkdir -p $ARCHIVE_PATH
-    docker cp ${PROJECT_NAME}_cms:/tmp/archive.tar.gz $ARCHIVE_PATH/"$(date +"%Y%m%dT%H%M%S").tar.gz"
-    echo "$PREFIX: Archive saved to $ARCHIVE_PATH/$(date +"%Y%m%dT%H%M%S").tar.gz"
+    docker cp ${PROJECT_NAME}_cms:/tmp/$ARCHIVE_NAME.tar.gz "$ARCHIVE_PATH/$ARCHIVE_NAME.tar.gz"
+    echo "$PREFIX: Archive saved to $ARCHIVE_PATH/$ARCHIVE_NAME.tar.gz"
 fi
 
 if [ $MODE = "--archive-restore" ]; then
     echo "$PREFIX: Restoring archive... $ARGS"     
     docker cp $ARGS ${PROJECT_NAME}_cms:/tmp/archive.tar.gz
-    # docker exec ${PROJECT_NAME}_cms sh -c "
-    #     drush archive:restore /tmp/archive.tar.gz --db &&
-    #     drush archive:restore /tmp/archive.tar.gz --files --files-destination-relative-path web/sites/default/files
-    # "
     docker exec ${PROJECT_NAME}_cms sh -c "
-        drush archive:restore /tmp/archive.tar.gz --db
+        rm -rf /tmp/archive &&
+        mkdir -p /tmp/archive &&
+        tar -zxf /tmp/archive.tar.gz -C /tmp/archive &&
+        echo $PREFIX: - Database &&
+        drush archive:restore /tmp/archive/db.tar.gz --db &&
+        echo $PREFIX: - Files &&
+        tar -zxf /tmp/archive/files.tar.gz -C .
     "
     echo "$PREFIX: Archive restored"
 fi
