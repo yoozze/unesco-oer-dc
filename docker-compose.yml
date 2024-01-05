@@ -32,11 +32,14 @@ services:
         hostname: oerdynamiccoalition.org
         ports:
             - ${PROJECT_PORT}:80
+            - 443:443
         volumes:
             - ./services/cms/src/sites:/opt/drupal/web/sites
             - ./services/cms/src/data:/opt/drupal/web/data
             - ./services/cms/src/modules/custom:/opt/drupal/web/modules/custom
             - ./services/cms/src/themes/custom:/opt/drupal/web/themes/custom
+            - cms-data:/var/www/html
+            - certbot-etc:/etc/letsencrypt
         restart: unless-stopped
 
     db:
@@ -58,5 +61,17 @@ services:
             - ./services/db/data/mydata:/var/lib/mysql
         restart: unless-stopped
 
-# volumes:
-#     db-data:
+    certbot:
+        container_name: ${PROJECT_NAME}_certbot
+        image: certbot/certbot
+        depends_on:
+            - cms
+        volumes:
+            - certbot-etc:/etc/letsencrypt
+            - cms-data:/var/www/html
+        command: certonly --webroot --webroot-path=/var/www/html --agree-tos --no-eff-email --force-renewal -d oerdynamiccoalition.org -d www.oerdynamiccoalition.org
+
+volumes:
+    # db-data:
+    cms-data:
+    certbot-etc:
