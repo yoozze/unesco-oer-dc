@@ -13,3 +13,9 @@ node_modules/
 .env.production.local
 .env.*.local
 **/.vscode/
+
+services/cms/src/sites/development.services.yml
+services/cms/src/sites/example.settings.local.php
+services/cms/src/sites/example.sites.php
+services/cms/src/sites/default/default.services.yml
+services/cms/src/sites/default/default.settings.php
