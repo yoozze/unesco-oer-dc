@@ -795,6 +795,7 @@ $settings['trusted_host_patterns'] = [
   '^atena\.ijs\.si$',
   '^194\.249\.231\.12$',
   '^oerdynamiccoalition\.org$',
+  '^www\.oerdynamiccoalition\.org$',
 ];
 
 /**
