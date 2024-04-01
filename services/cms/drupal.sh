@@ -54,11 +54,11 @@ if [ $MODE = "--config-composer" ]; then
 fi
 
 MODULES=(
-    "admin_toolbar:^3.4.2"
-    "backup_migrate:^5.0.3"
-    "coder:^8.3.16"
+    "admin_toolbar:^3.4"
+    "backup_migrate:^5.0"
+    "coder:^8.3"
     "coffee:^1.3"
-    "devel:^5.1.1"
+    "devel:^5.1"
     "gin:^3.0@RC"
     "gin_toolbar:^1.0@RC"
     "pathauto:^1.11"
@@ -69,11 +69,11 @@ MODULES=(
     "language_switcher_extended:^1.1"
     "paragraphs:^1.15"
     "svg_image:^3.0"
-    "views_bulk_operations:^4.2.3"
+    "views_bulk_operations:^4.2"
     "fancy_file_delete:^2.0"
     "file_replace:^1.3"
     "node_read_time:^1.13"
-    "addtoany:^2.0.5"
+    "addtoany:^2.0"
     "views_ajax_history:^1.7"
     "select2:^1.15"
     "select2_multicheck:^1.0"
@@ -82,7 +82,7 @@ MODULES=(
     # "taxonomy_multidelete_terms:^1.4"
     # "realistic_dummy_content:^3.1"
     # "estimated_read_time:^1.0"
-    # "taxonomy_import:^2.0.11"
+    # "taxonomy_import:^2.0"
     # "content_type_clone:^1.0"
 )
 
