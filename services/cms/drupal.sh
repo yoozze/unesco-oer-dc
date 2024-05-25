@@ -79,6 +79,7 @@ MODULES=(
     "select2_multicheck:^1.0"
     "conditional_fields:^4.0@alpha"
     "google_analytics:^4.0"
+    "token:^1.14"
     # "taxonomy_multidelete_terms:^1.4"
     # "realistic_dummy_content:^3.1"
     # "estimated_read_time:^1.0"
