@@ -1,8 +1,10 @@
 /** @module components/SearchForm */
 
 import Component from './Component';
+import Form from './Form';
+import Button from './Button';
 
-class SearchForm extends Component {
+class SearchForm extends Form {
     /**
      * @type {HTMLInputElement | null} Search input element.
      */
@@ -14,24 +16,14 @@ class SearchForm extends Component {
     submit = null;
 
     /**
-     * @type {HTMLButtonElement | null} Submit button element.
+     * @type {HTMLButtonElement | null} X5GON button element.
      */
     xButton = null;
 
     /**
-     * @type {HTMLDialogElement | null} Submit button element.
+     * @type {HTMLDialogElement | null} X5GON dialog element.
      */
     xDialog = null;
-
-    /**
-     * Get component block name.
-     *
-     * @override
-     * @returns {string} Component block name.
-     */
-    static get block() {
-        return 'c-form';
-    }
 
     /**
      * Get component modifier name.
@@ -60,7 +52,7 @@ class SearchForm extends Component {
 
         this.xDialog = this.createXDialog();
 
-        this.input.addEventListener('keydown', this.handleInputKeydown.bind(this));
+        this.input.addEventListener('input', this.handleInputChange.bind(this));
     }
 
     /**
@@ -68,20 +60,16 @@ class SearchForm extends Component {
      * @returns {HTMLButtonElement} x5gon search button.
      */
     createXButton() {
-        console.log('Creating x5gon search...');
-        const xButton = document.createElement('button');
-        xButton.classList.add('c-form__x-button', 'c-button', 'c-button--outlined');
-        xButton.setAttribute('type', 'button');
+        const xButton = Button.create({
+            className: 'c-form__x-button',
+            // TODO: translate
+            label: 'Search X5GON',
+            variant: 'outlined',
+        });
         if (this.input.value.trim() === '') {
-            // xButton.classList.add('is-hidden');
             xButton.setAttribute('disabled', 'disabled');
         }
 
-        const xButtonLabel = document.createElement('span');
-        xButtonLabel.classList.add('c-button__label');
-        xButtonLabel.innerText = 'Search x5gon';
-
-        xButton.appendChild(xButtonLabel);
         this.submit.insertAdjacentElement('afterend', xButton);
 
         return xButton;
@@ -96,9 +84,11 @@ class SearchForm extends Component {
         xDialog.classList.add('c-dialog');
         xDialog.innerHTML = `
                 <div class="c-dialog__header">
-                    <h2 class="c-dialog__title">Search results for "<b>...</b>"</h2>
+                    <h2 class="c-dialog__title">X5GON: Search results for "<b>...</b>"</h2>
                     <button class="c-dialog__close c-icon-button c-icon-button--standard" type="button">
-                        <svg class="c-icon c-icon--search c-icon-button__icon" xmlns:xlink="http://www.w3.org/1999/xlink"><use xlink:href="#close"></use></svg>
+                        <svg class="c-icon c-icon--close c-icon-button__icon" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <use xlink:href="#close"></use>
+                        </svg>
                     </button>
                 </div>
                 <div class="c-dialog__body">
@@ -159,22 +149,6 @@ class SearchForm extends Component {
     }
 
     /**
-     * Handle form submit event.
-     * @param {SubmitEvent} event - Form submit event.
-     */
-    handleFormSubmit(event) {
-        // console.log(event);
-        // if (!this.form.classList.contains('is-active')) {
-        //     this.form.classList.add('is-active');
-        //     this.input.focus();
-        //     console.log('preventDefault');
-        //     event.preventDefault();
-        //     return true;
-        // }
-        // return true;
-    }
-
-    /**
      * Handle form submit click event.
      * @param {PointerEvent} event - Pointer event.
      */
@@ -184,14 +158,11 @@ class SearchForm extends Component {
 
     /**
      * Handle input keydown event.
-     * @param {KeyboardEvent} event - Keyboard event.
+     * @param {InputEvent} event - Input event.
      */
-    handleInputKeydown(event) {
-        // if (event.key === 'Escape') {
-        //     this.form.classList.remove('is-active');
-        //     this.submit.focus();
-        // }
-        if (this.input.value.trim() !== '') {
+    handleInputChange(event) {
+        console.log(event.target.value);
+        if (event.target.value.trim() !== '') {
             this.xButton.removeAttribute('disabled');
         } else {
             this.xButton.setAttribute('disabled', 'disabled');

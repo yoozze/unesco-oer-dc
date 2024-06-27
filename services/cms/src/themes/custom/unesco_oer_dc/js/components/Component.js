@@ -53,9 +53,9 @@ class Component {
      * Generate BEM class(es) from given arguments.
      * Block name is implicitly set by `block` getter.
      *
-     * @param {string|string[]} [element=this.element] - Element name or modifier name(s). If non-empty
+     * @param {string | string[]} [element=this.element] - Element name or modifier name(s). If non-empty
      * array is provided `modifier` is ignored and this is used as list of modifier names.
-     * @param {string|string[]} [modifier=this.modifier] - Modifier name(s).
+     * @param {string | string[]} [modifier=this.modifier] - Modifier name(s).
      * @returns {string} BEM class(es).
      */
     static bem(element = this.element, modifier = this.modifier) {
@@ -77,7 +77,7 @@ class Component {
     /**
      * Initialize selected elements.
      *
-     * @param {HTMLElement[]|null} [elements=null] - Dom selector/DOM node/jQuery object to be initialized.
+     * @param {HTMLElement[] | null} [elements=null] - Dom selector/DOM node/jQuery object to be initialized.
      * @param {Object} [options={}] - Component options.
      * @returns {Object[]} Array of component instances.
      */
@@ -103,6 +103,19 @@ class Component {
         }
 
         return components;
+    }
+
+    /**
+     * Create component element.
+     *
+     * @param {string} [tagName='div'] - Tag name.
+     * @param {Object} [props={}] - Component properties.
+     * @returns {HTMLElement | null} HTML element.
+     */
+    static create(tagName = 'div', props = {}) {
+        const element = document.createElement(tagName);
+        Component.init([element], props);
+        return element;
     }
 
     /**

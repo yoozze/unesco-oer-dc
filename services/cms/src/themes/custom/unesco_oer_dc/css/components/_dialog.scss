@@ -1,8 +1,15 @@
+// # Dialog
+// ========
+
 .c-dialog {
     @include elevation(5);
 
     border-radius: size('radius' 7);
+    border-width: 0;
 }
+
+// ## Dialog Header
+// ----------------
 
 .c-dialog__header {
     display: flex;
@@ -10,9 +17,19 @@
     justify-content: space-between;
 }
 
+// ## Dialog Title
+// ---------------
+
 .c-dialog__title {
     @include font('title-large');
 
     margin-top: 0;
     margin-bottom: 0;
+}
+
+// ## Dialog Close
+// ---------------
+
+.c-dialog__close {
+    margin-left: size(2);
 }
