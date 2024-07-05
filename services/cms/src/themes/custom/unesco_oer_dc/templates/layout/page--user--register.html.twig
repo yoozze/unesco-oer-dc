@@ -1,0 +1,16 @@
+{% extends "page.html.twig" %}
+
+{% block content %}
+    {{ page.content.messages}}
+    <div class="o-region o-flex--stretch-height">
+        <article{{attributes.addClass(['c-article', 'c-article--user-register'])}}>
+            <div class="c-article__body">
+                <div class="o-container o-flex--stretch-height o-flex--align_center">
+                    <div class="c-article__content">
+                        {{ page.content.system_main}}
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div>
+{% endblock %}

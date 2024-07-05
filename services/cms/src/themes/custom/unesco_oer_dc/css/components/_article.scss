@@ -13,6 +13,8 @@ $sidebar-width: size(366px);
     }
 }
 
+.c-article--user-register,
+.c-article--user-password,
 .c-article--user-login {
     display: flex;
     flex-direction: column;
@@ -246,8 +248,11 @@ $meta-icon-size: size(2.75);
 .c-article__body {
     display: flex;
     justify-content: center;
+    max-width: 100%;
     padding-bottom: size('section-padding');
 
+    .c-article--user-register &,
+    .c-article--user-password &,
     .c-article--user-login & {
         padding-top: size('section-padding');
     }

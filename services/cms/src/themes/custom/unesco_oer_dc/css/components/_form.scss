@@ -142,7 +142,11 @@ $page-width: size('page-width');
     }
 }
 
+.c-form--user-register-form,
+.c-form--user-pass,
 .c-form--user-login-form {
+    // @include elevation(2);
+
     $icon-size: size(6);
 
     max-width: size(464px);
@@ -160,6 +164,16 @@ $page-width: size('page-width');
         margin-top: 0;
         margin-bottom: 0;
         text-align: center;
+    }
+
+    .c-form__description {
+        margin-top: size(2);
+
+        & > p {
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
     }
 
     .c-form__icon {
@@ -182,13 +196,34 @@ $page-width: size('page-width');
         margin-bottom: size(3);
     }
 
-    .c-form__field-description {
-        @include hide-visually;
-    }
-
     .c-form__button {
         width: 100%;
     }
+}
+
+// ## Form Header
+
+.c-form__header {
+}
+
+// ## Form Title
+
+.c-form__title {
+}
+
+// ## Form Icon
+
+.c-form__icon {
+}
+
+// ## Form Description
+
+.c-form__description {
+}
+
+// ## Form Body
+
+.c-form__body {
 }
 
 // ## Form Fieldset
@@ -298,6 +333,10 @@ $input-border-radius: size('radius' 1);
         outline-offset: -$input-outline-width;
     }
 
+    &:autofill {
+        box-shadow: 0 0 0px 1000px color('autofill') inset;
+    }
+
     & ~ label {
         position: absolute;
         display: block;
@@ -319,14 +358,14 @@ $input-border-radius: size('radius' 1);
             scale(1);
 
         @include before('') {
-            @include transition('all');
+            @include transition('opacity' 'height');
 
             position: absolute;
             left: 0;
             bottom: $input-border-width;
             right: 0;
             z-index: 0;
-            height: 0;
+            height: 100%;
             background-color: color('background');
             opacity: 0;
         }
@@ -340,6 +379,7 @@ $input-border-radius: size('radius' 1);
         }
     }
 
+    &:autofill ~ label,
     &:focus ~ label,
     &:not(:placeholder-shown) ~ label {
         color: $label-color-active;
@@ -352,6 +392,12 @@ $input-border-radius: size('radius' 1);
         @include before(null) {
             height: 50%;
             opacity: 1;
+        }
+    }
+
+    &:autofill ~ label {
+        @include before(null) {
+            background-color: color('autofill');
         }
     }
 }
@@ -409,6 +455,10 @@ $input-padding-y-small: size(0.875);
 // -------------------------
 
 .c-form__field-description {
+    @include font('body-small');
+
+    padding: size(0.5) size(2) 0;
+    color: color('font-muted');
 }
 
 // ## Form Field Error
