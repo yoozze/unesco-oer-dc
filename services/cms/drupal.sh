@@ -80,6 +80,7 @@ MODULES=(
     "conditional_fields:^4.0@alpha"
     "google_analytics:^4.0"
     "token:^1.14"
+    # "workflow:^1.8"
     # "taxonomy_multidelete_terms:^1.4"
     # "realistic_dummy_content:^3.1"
     # "estimated_read_time:^1.0"
@@ -150,7 +151,8 @@ if [ $MODE = "--install" ] || [ $MODE = "--install-modules" ]; then
     cmd="$cmd language"
     cmd="$cmd locale"
     cmd="$cmd layout_builder"
-    cmd="$cmd media_library"
+    cmd="$cmd workflows"
+    cmd="$cmd content_moderation"
 
     # - Contrib
     for module in "${MODULES[@]}"; do
