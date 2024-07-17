@@ -893,6 +893,11 @@ $config['image.settings']['allow_insecure_derivatives'] = TRUE;
 # $settings['migrate_file_private_path'] = '';
 
 /**
+ * Enable state cache: https://www.drupal.org/node/3177901
+ */
+$settings['state_cache'] = TRUE;
+
+/**
  * SMTP settings.
  */
 $config['smtp.settings']['smtp_host'] = getenv('SMTP_HOST');
