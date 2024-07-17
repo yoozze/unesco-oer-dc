@@ -137,6 +137,7 @@ fi
 if [ $MODE = "--sync-git" ]; then
     echo "$PREFIX: Synchronyzing source code from Github... $ARGS"
     sudo chown $USER:$USER services/cms/src/sites/default
+    sudo chmod 755 services/cms/src/sites/default/
     git pull origin master
     # docker exec ${PROJECT_NAME}_cms sh -c "bash drupal.sh --fix-permissions"
     sudo chown www-data:www-data services/cms/src/sites/default
