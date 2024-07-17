@@ -1,4 +1,4 @@
-FROM drupal:10.3.0-php8.3-apache-bookworm
+FROM drupal:10.3.1-php8.3-apache-bookworm
 
 ARG ROOT
 ARG ENV
