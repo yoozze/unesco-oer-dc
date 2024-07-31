@@ -121,12 +121,12 @@ fi
 if [ $MODE = "--install" ] || [ $MODE = "--fix-permissions" ]; then
     echo "Fixing files ownership..."
     chown www-data:www-data web/sites
-    sudo chmod 755 web/sites
+    chmod 755 web/sites
     chown www-data:www-data web/sites/default
-    sudo chmod 755 web/sites/default
+    chmod 755 web/sites/default
     mkdir -p web/sites/default/files
     chown www-data:www-data -R web/sites/default/files
-    sudo chmod 755 web/sites/default/files
+    chmod 755 web/sites/default/files
     # chmod 777 -R  web/sites/default/files
 fi
 
