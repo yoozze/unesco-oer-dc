@@ -123,6 +123,7 @@ $outlined-color: color('blue');
 $outlined-color-disabled: color('disabled');
 $outlined-border-color: color('blue');
 $outlined-border-color-active: color('blue');
+$outlined-bg-color: transparent;
 $outlined-bg-color-layer: color('blue');
 
 .c-button--outlined {
@@ -131,6 +132,7 @@ $outlined-bg-color-layer: color('blue');
     padding-top: $outlined-padding-y;
     padding-bottom: $outlined-padding-y;
     color: $outlined-color;
+    background-color: $outlined-bg-color;
     border: 1px solid $outlined-border-color;
 
     &:not(:disabled):not(.is-disabled):hover {
@@ -171,6 +173,7 @@ $outlined-bg-color-layer: color('blue');
 $text-padding-x: size(1.5);
 $text-color: color('blue');
 $text-color-disabled: color('disabled');
+$text-bg-color: transparent;
 $text-bg-color-layer: color('blue');
 
 .c-button--text {
@@ -179,6 +182,7 @@ $text-bg-color-layer: color('blue');
     padding-left: $text-padding-x;
     padding-right: $text-padding-x;
     color: $text-color;
+    background-color: $text-bg-color;
 
     &:not(:disabled):not(.is-disabled):hover {
         @include before(null) {

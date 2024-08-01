@@ -1,0 +1,116 @@
+// # EU Cookie Compliance
+// ======================
+
+.sliding-popup-bottom {
+    width: 100%;
+    transform: translateY(1px);
+}
+
+.eu-cookie-withdraw-banner,
+.eu-cookie-compliance-banner {
+    @include elevation(3);
+
+    padding-top: size(3);
+    padding-bottom: size(3);
+    background-color: color('background');
+}
+
+// ## Buttons
+// ----------
+
+$cookie-button-size: size(6);
+
+.eu-cookie-withdraw-tab {
+    @extend .c-button;
+    @extend .c-button--filled;
+    @include elevation(3);
+    @include before(null) {
+        background-image: url('data:image/svg+xml,<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g fill="%23fff"><path d="M12 22C10.6167 22 9.31667 21.7375 8.1 21.2125C6.88333 20.6875 5.825 19.975 4.925 19.075C4.025 18.175 3.3125 17.1166 2.7875 15.9C2.2625 14.6833 2 13.3833 2 12C2 10.75 2.24167 9.52498 2.725 8.32498C3.20833 7.12498 3.88333 6.05414 4.75 5.11248C5.61667 4.17081 6.65833 3.41248 7.875 2.83748C9.09167 2.26248 10.425 1.97498 11.875 1.97498C12.225 1.97498 12.5833 1.99164 12.95 2.02498C13.3167 2.05831 13.6917 2.11664 14.075 2.19998C13.925 2.94998 13.975 3.65831 14.225 4.32498C14.475 4.99164 14.85 5.54581 15.35 5.98748C15.85 6.42914 16.4458 6.73331 17.1375 6.89998C17.8292 7.06664 18.5417 7.02498 19.275 6.77498C18.8417 7.75831 18.9042 8.69998 19.4625 9.59998C20.0208 10.5 20.85 10.9666 21.95 11C21.9667 11.1833 21.9792 11.3541 21.9875 11.5125C21.9958 11.6708 22 11.8416 22 12.025C22 13.3916 21.7375 14.6791 21.2125 15.8875C20.6875 17.0958 19.975 18.1541 19.075 19.0625C18.175 19.9708 17.1167 20.6875 15.9 21.2125C14.6833 21.7375 13.3833 22 12 22ZM10.5 9.99998C10.9167 9.99998 11.2708 9.85414 11.5625 9.56248C11.8542 9.27081 12 8.91664 12 8.49998C12 8.08331 11.8542 7.72914 11.5625 7.43748C11.2708 7.14581 10.9167 6.99998 10.5 6.99998C10.0833 6.99998 9.72917 7.14581 9.4375 7.43748C9.14583 7.72914 9 8.08331 9 8.49998C9 8.91664 9.14583 9.27081 9.4375 9.56248C9.72917 9.85414 10.0833 9.99998 10.5 9.99998ZM8.5 15C8.91667 15 9.27083 14.8541 9.5625 14.5625C9.85417 14.2708 10 13.9166 10 13.5C10 13.0833 9.85417 12.7291 9.5625 12.4375C9.27083 12.1458 8.91667 12 8.5 12C8.08333 12 7.72917 12.1458 7.4375 12.4375C7.14583 12.7291 7 13.0833 7 13.5C7 13.9166 7.14583 14.2708 7.4375 14.5625C7.72917 14.8541 8.08333 15 8.5 15ZM15 16C15.2833 16 15.5208 15.9041 15.7125 15.7125C15.9042 15.5208 16 15.2833 16 15C16 14.7166 15.9042 14.4791 15.7125 14.2875C15.5208 14.0958 15.2833 14 15 14C14.7167 14 14.4792 14.0958 14.2875 14.2875C14.0958 14.4791 14 14.7166 14 15C14 15.2833 14.0958 15.5208 14.2875 15.7125C14.4792 15.9041 14.7167 16 15 16ZM12 20C14.0333 20 15.8375 19.3 17.4125 17.9C18.9875 16.5 19.85 14.7166 20 12.55C19.1667 12.1833 18.5125 11.6833 18.0375 11.05C17.5625 10.4166 17.2417 9.70831 17.075 8.92498C15.7917 8.74164 14.6917 8.19164 13.775 7.27498C12.8583 6.35831 12.2917 5.25831 12.075 3.97498C10.7417 3.94164 9.57083 4.18331 8.5625 4.69998C7.55417 5.21664 6.7125 5.87914 6.0375 6.68748C5.3625 7.49581 4.85417 8.37498 4.5125 9.32498C4.17083 10.275 4 11.1666 4 12C4 14.2166 4.77917 16.1041 6.3375 17.6625C7.89583 19.2208 9.78333 20 12 20Z"/></g></svg>');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 32px;
+    }
+
+    position: absolute;
+    top: negative(size(2));
+    right: size(2);
+    left: auto;
+    width: $cookie-button-size;
+    height: $cookie-button-size;
+    margin-bottom: size(2);
+    text-indent: 200%;
+    white-space: nowrap;
+    background-color: color('fuchsia');
+    border-radius: 50%;
+    transform: translateY(-100%);
+}
+
+.eu-cookie-compliance-secondary-button {
+    @extend .c-button;
+    @extend .c-button--filled;
+}
+
+.eu-cookie-compliance-default-button {
+    @extend .c-button;
+    @extend .c-button--outlined;
+}
+
+.eu-cookie-compliance-more-button {
+    @extend .c-button;
+    @extend .c-button--text;
+
+    margin-top: size(1);
+}
+
+.eu-cookie-withdraw-button {
+    @extend .c-button;
+    @extend .c-button--filled;
+}
+
+// ## Container
+// ------------
+
+.eu-cookie-compliance-content {
+    @extend .o-container;
+
+    display: flex;
+    gap: size(3);
+}
+
+// ## Message
+// ----------
+
+.eu-cookie-compliance-message {
+    flex-grow: 1;
+    max-width: none;
+    float: none;
+
+    h2 {
+        @include font('title-large');
+        margin-top: 0;
+        margin-bottom: size(1);
+    }
+
+    p {
+        &:last-of-type {
+            display: inline-block;
+            margin-bottom: 0;
+        }
+    }
+}
+
+// ## Buttons
+// ----------
+
+.eu-cookie-compliance-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: size(1);
+    max-width: none;
+    float: none;
+
+    button {
+        white-space: nowrap;
+    }
+}
