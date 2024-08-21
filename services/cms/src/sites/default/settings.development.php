@@ -154,4 +154,6 @@ $settings['skip_permissions_hardening'] = TRUE;
  */
 # $settings['config_exclude_modules'] = ['devel', 'stage_file_proxy'];
 
-
+$settings['trusted_host_patterns'] = [
+    '^.*$',
+];

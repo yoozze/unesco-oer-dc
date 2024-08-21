@@ -201,6 +201,25 @@ $page-width: size('page-width');
     }
 }
 
+.c-form--comment-form {
+    // .c-form__radios,
+    .c-form__checkboxes {
+        display: flex;
+
+        .c-form__field {
+            margin-right: size(4);
+        }
+    }
+
+    .c-article + & {
+        max-width: size(1440px);
+        padding-right: size(366px);
+        padding-bottom: size(10);
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
 // ## Form Header
 
 .c-form__header {
@@ -231,12 +250,16 @@ $page-width: size('page-width');
 
 .c-form__fieldset {
     box-sizing: border-box;
+    margin-left: 0;
 }
 
 // ## Form Legend
 // --------------
 
 .c-form__legend {
+    @include font('title-medium');
+
+    margin-bottom: size(2);
 }
 
 // ## Form Fieldset Wrapper
@@ -263,8 +286,24 @@ $page-width: size('page-width');
 .c-form__container {
 }
 
+// ## Form Group
+// -------------
+
+.c-form__group {
+    display: flex;
+    margin-right: negative(size(1));
+    margin-left: negative(size(1));
+
+    & > * {
+        flex-grow: 1;
+        flex-basis: 0;
+        margin-right: size(1);
+        margin-left: size(1);
+    }
+}
+
 // ## Form Field
-// ------------
+// -------------
 
 .c-form__field {
     position: relative;
@@ -299,6 +338,10 @@ $label-bg-offset: size(0.5);
     // pointer-events: none;
     // top: 1.5rem;
     // left: 0;
+
+    &[for='edit-comment-body-0-value'] {
+        @include hide-visually();
+    }
 }
 
 // ## Form Control
@@ -311,9 +354,9 @@ $label-bg-offset: size(0.5);
 // ## Form Input
 // -------------
 
-$input-padding-x: size(2);
-$input-padding-y: size(1.875);
-$input-border-width: 1px;
+$input-padding-x: size('input-padding-x');
+$input-padding-y: size('input-padding-y');
+$input-border-width: size('input-border-width', 'px');
 $input-outline-width: 2 * $input-border-width;
 $input-border-radius: size('radius' 1);
 
@@ -334,12 +377,16 @@ $input-border-radius: size('radius' 1);
     }
 
     &:autofill {
-        box-shadow: 0 0 0px 1000px color('autofill') inset;
+        box-shadow: 0 0 0 size(1000px) color('autofill') inset;
     }
+
+    // &:invalid {
+    //     outline-color: color('error');
+    // }
 
     & ~ label {
         position: absolute;
-        display: block;
+        display: flex;
         pointer-events: none;
         padding-left: $label-bg-offset;
         padding-right: $label-bg-offset;
@@ -400,10 +447,19 @@ $input-border-radius: size('radius' 1);
             background-color: color('autofill');
         }
     }
+
+    &:required ~ label {
+        &::after {
+            content: '*';
+            position: relative;
+            color: color('error');
+            margin-left: size(0.25);
+        }
+    }
 }
 
-$input-padding-x-small: size(2);
-$input-padding-y-small: size(0.875);
+$input-padding-x-small: size('input-padding-x-small');
+$input-padding-y-small: size('input-padding-y-small');
 
 .c-form__input--small {
     padding: $input-padding-y-small $input-padding-x-small;
@@ -430,13 +486,216 @@ $input-padding-y-small: size(0.875);
 // ## Form Checkbox
 // ----------------
 
+$checkbox-size: size('checkbox-size');
+$checkbox-bg-size: size('checkbox-bg-size');
+
 .c-form__checkbox {
+    @include hide-visually();
+
+    &:not(:disabled):hover {
+        & ~ label {
+            @include before(null) {
+                border-color: color('checkbox-border-alt');
+            }
+
+            @include after(null) {
+                background-color: rgba(color('checkbox-bg'), size('opacity' 1));
+            }
+        }
+    }
+
+    &:not(:disabled):active,
+    &:not(:disabled):focus {
+        & ~ label {
+            @include before(null) {
+                border-color: color('checkbox-border-alt');
+            }
+
+            @include after(null) {
+                background-color: rgba(color('checkbox-bg'), size('opacity' 2));
+            }
+        }
+    }
+
+    &:checked {
+        &:not(:disabled) ~ label {
+            @include before(null) {
+                content: url(image-data('check-small'));
+                background-color: color('active');
+                border-color: color('active');
+            }
+        }
+
+        &:not(:disabled):hover ~ label {
+            @include after(null) {
+                background-color: rgba(color('active'), size('opacity' 1));
+            }
+        }
+
+        &:not(:disabled):active ~ label,
+        &:not(:disabled):focus ~ label {
+            @include after(null) {
+                background-color: rgba(color('active'), size('opacity' 2));
+            }
+        }
+
+        &:disabled ~ label {
+            @include before(null) {
+                content: url(image-data('check-small'));
+                background-color: color('disabled');
+                border-color: color('disabled');
+            }
+        }
+    }
+
+    &:disabled {
+        & ~ label {
+            @include before(null) {
+                border-color: color('disabled');
+                opacity: size('opacity' 5);
+            }
+        }
+    }
+
+    & ~ label {
+        display: flex;
+        align-items: flex-start;
+        width: fit-content;
+
+        @include before('') {
+            display: flex;
+            flex-shrink: 0;
+            justify-content: center;
+            align-items: center;
+            width: $checkbox-size;
+            height: $checkbox-size;
+            margin-top: size(0.375);
+            margin-right: size(1.5);
+            margin-bottom: size(0.375);
+            border: size('checkbox-border-width', 'px') solid color('checkbox-border');
+            border-radius: size('checkbox-border-radius');
+        }
+
+        @include after('') {
+            @include transition('background-color');
+
+            position: absolute;
+            top: negative(size(8px));
+            left: negative(size(11px));
+            z-index: -1;
+            display: block;
+            width: $checkbox-bg-size;
+            height: $checkbox-bg-size;
+            background-color: transparent;
+            border-radius: 50%;
+        }
+    }
 }
 
 // ## Form Radio
 // -------------
 
+$radio-size: size('radio-size');
+$radio-bg-size: size('radio-bg-size');
+
 .c-form__radio {
+    @include hide-visually();
+
+    &:not(:disabled):hover {
+        & ~ label {
+            @include before(null) {
+                outline-color: color('checkbox-border-alt');
+            }
+
+            @include after(null) {
+                background-color: rgba(color('checkbox-bg'), size('opacity' 1));
+            }
+        }
+    }
+
+    &:not(:disabled):active,
+    &:not(:disabled):focus {
+        & ~ label {
+            @include before(null) {
+                outline-color: color('checkbox-border-alt');
+            }
+
+            @include after(null) {
+                background-color: rgba(color('checkbox-bg'), size('opacity' 2));
+            }
+        }
+    }
+
+    &:checked {
+        &:not(:disabled) ~ label {
+            @include before(null) {
+                background-color: color('active');
+                outline-color: color('active');
+            }
+        }
+
+        &:not(:disabled):hover ~ label {
+            @include after(null) {
+                background-color: rgba(color('active'), size('opacity' 1));
+            }
+        }
+
+        &:not(:disabled):active ~ label,
+        &:not(:disabled):focus ~ label {
+            @include after(null) {
+                background-color: rgba(color('active'), size('opacity' 2));
+            }
+        }
+
+        &:disabled ~ label {
+            @include before(null) {
+                background-color: color('disabled');
+                outline-color: color('disabled');
+            }
+        }
+    }
+
+    &:disabled {
+        & ~ label {
+            @include before(null) {
+                outline-color: color('disabled');
+                opacity: size('opacity' 5);
+            }
+        }
+    }
+
+    & ~ label {
+        display: flex;
+        align-items: flex-start;
+        width: fit-content;
+
+        @include before('') {
+            display: flex;
+            flex-shrink: 0;
+            justify-content: center;
+            align-items: center;
+            width: $radio-size;
+            height: $radio-size;
+            margin: size(0.875) size(2) size(0.875) size(0.625);
+            outline: size('radio-border-width', 'px') solid color('checkbox-border');
+            outline-offset: size(3px);
+            border-radius: 50%;
+        }
+
+        @include after('') {
+            @include transition('background-color');
+
+            position: absolute;
+            top: negative(size(8px));
+            left: negative(size(10px));
+            z-index: -1;
+            display: block;
+            width: $radio-bg-size;
+            height: $radio-bg-size;
+            background-color: transparent;
+            border-radius: 50%;
+        }
+    }
 }
 
 // ## Form Textarea
@@ -449,6 +708,13 @@ $input-padding-y-small: size(0.875);
 // --------------
 
 .c-form__select {
+    @extend .c-form__input;
+
+    appearance: none;
+    padding-right: size('select-padding-right');
+    background-image: url(image-data('arrow-drop-down'));
+    background-repeat: no-repeat;
+    background-position: right size(2) center;
 }
 
 // ## Form Field Description

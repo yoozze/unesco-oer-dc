@@ -12,7 +12,7 @@
 ///     (e.g. `line-height`), or a length to be converted into different units (e.g. `24px`),
 ///     or a base-size and adjustments to be made (e.g. `24px ('minor-third': 2)`).
 ///     For the sake of consistent documentation, keeping adjustments in the configuration
-///     is recommend whenever possible.
+///     is recommended whenever possible.
 /// @param {string} $unit [$default-units] - The desired units for the output (e.g. `px` or `rem`).
 /// @param {number} $from-context [$_font-size-browser-default] - When converting FROM
 ///     relative units, the absolute length (in px) to which $length refers - e.g. for `$lengths`

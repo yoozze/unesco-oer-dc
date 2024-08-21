@@ -11,7 +11,7 @@
  */
 #}
 {% apply spaceless %}
-<select{{attributes}}>
+<select{{attributes.addClass('c-form__select')}}>
     {% for option in options %}
         {% if option.type == 'optgroup' %}
             <optgroup label="{{ option.label }}">

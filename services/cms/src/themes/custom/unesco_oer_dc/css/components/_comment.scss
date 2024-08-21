@@ -1,0 +1,143 @@
+// # Comment
+// ---------
+
+$comment-padding: size(3);
+$comment-icon-size: size(20px);
+
+.c-comment {
+    margin-top: size(4);
+}
+
+// ## Comment Content
+// ------------------
+
+.c-comment__content {
+    @include elevation(1);
+
+    border-radius: size('radius' 3);
+}
+
+// ## Comment Header
+// -----------------
+
+.c-comment__header {
+    padding: size(4) $comment-padding;
+    background-color: color('background-alt');
+    border-radius: size('radius' 3) size('radius' 3) 0 0;
+}
+
+// ## COmment Title
+// ----------------
+
+.c-comment__title {
+    margin-top: 0;
+}
+
+// ## Date-time
+// ------------
+
+.c-comment__date-time {
+    display: flex;
+    color: color('font-muted');
+
+    & > span {
+        display: flex;
+        align-items: center;
+
+        & > svg {
+            width: $comment-icon-size;
+            height: $comment-icon-size;
+            margin-top: size(1px);
+            margin-right: size(1);
+            flex-shrink: 0;
+        }
+
+        & + span {
+            @include before('') {
+                width: size(6px);
+                height: size(6px);
+                margin: 0 size(2);
+                border-radius: 100%;
+                background-color: color('font-muted');
+            }
+        }
+    }
+}
+
+// ## Comment Info
+// ---------------
+
+$comment-info-cell-y-padding: size(0.25);
+
+.c-comment__info {
+    display: table;
+    padding: $comment-padding;
+    margin: 0;
+
+    & > div {
+        display: table-row;
+
+        & > dt {
+            display: table-cell;
+            padding: $comment-info-cell-y-padding size(2) $comment-info-cell-y-padding 0;
+            color: color('font-muted');
+
+            @include after(':');
+
+            & > svg {
+                display: none;
+                width: $comment-icon-size;
+                height: $comment-icon-size;
+                max-width: none;
+                margin-right: size(1);
+            }
+        }
+
+        & > dd {
+            display: table-cell;
+            padding: $comment-info-cell-y-padding 0;
+        }
+    }
+}
+
+// ## Comment Recommendations
+// --------------------------
+
+.c-comment__recommendations {
+    padding: $comment-padding;
+    margin: 0;
+
+    & > div {
+        margin-bottom: size(2);
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        & > dt {
+            color: color('font-muted');
+        }
+
+        & > dd {
+            margin-left: 0;
+        }
+    }
+}
+
+// ## Comment Body
+// ---------------
+
+.c-comment__body {
+    padding: $comment-padding;
+}
+
+// ## Comment Label
+// ----------------
+
+.c-comment__label {
+    @include font('title-large');
+
+    padding: $comment-padding $comment-padding 0;
+    margin: 0;
+    border-top: 1px solid color('border');
+}

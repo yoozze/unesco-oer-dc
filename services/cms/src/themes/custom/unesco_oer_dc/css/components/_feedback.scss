@@ -1,0 +1,26 @@
+// # Feedback
+// ----------
+
+.c-feedback {
+    padding-top: size(4);
+    margin-top: size(4);
+    border-top: 1px solid color('border');
+}
+
+// ## Feedback Title
+// ----------------
+
+.c-feedback__title {
+    &:first-child {
+        margin-top: 0;
+    }
+}
+
+// # Feedback Form Ttile
+// ---------------------
+
+.c-feedback__form-title {
+    &:first-child {
+        margin-top: 0;
+    }
+}

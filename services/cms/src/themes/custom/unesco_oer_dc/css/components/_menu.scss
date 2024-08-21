@@ -1,17 +1,13 @@
 // # Menu
 // ======
 
-$menu-radius: size('radius' 1);
-
 .c-menu {
     @include elevation(2);
     @include font('body-large');
 
-    // position: absolute;
-    // display: none;
     padding: size(1) 0;
     background-color: color('light');
-    border-radius: $menu-radius;
+    border-radius: size('menu-radius');
 
     // @include before('') {
     //     position: absolute;
@@ -62,29 +58,30 @@ $divider: 1px solid color('divider');
 // ## Menu Link
 // -------------
 
-$link-bg-color: color('abbey');
-
 .c-menu__link {
     @include transition('color' 'background-color');
 
-    display: block;
-    padding: size(1.5) size(2);
+    display: flex;
+    align-items: center;
+    padding: size('menu-link-padding-y') size('menu-link-padding-x');
     text-decoration: none;
     color: color('font');
 
     &:hover {
-        background-color: rgba($link-bg-color, size('opacity' 1));
+        background-color: rgba(color('menu-link-bg'), size('opacity' 1));
     }
 
     &:focus {
-        background-color: rgba($link-bg-color, size('opacity' 2));
+        background-color: rgba(color('menu-link-bg'), size('opacity' 2));
     }
 
     &:active {
-        background-color: rgba($link-bg-color, size('opacity' 3));
+        background-color: rgba(color('menu-link-bg'), size('opacity' 3));
     }
 
     &.is-active {
-        background-color: rgba($link-bg-color, size('opacity' 3));
+        background-color: rgba(color('menu-link-bg'), size('opacity' 3));
     }
 }
+
+

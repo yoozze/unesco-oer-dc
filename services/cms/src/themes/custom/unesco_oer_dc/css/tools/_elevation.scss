@@ -39,7 +39,11 @@ $elevation: () !default;
 /// @requires {function} elevation
 /// @requires {variable} $elevation
 /// @param {number} $size - Elevation size.
+/// @param {string | null} $important - Indicates if `!important` should be added to every property
+///     value.
 /// @outputs The box-shadow property with a value based on given elevation size.
-@mixin elevation($size) {
-    box-shadow: elevation($size);
+@mixin elevation($size, $important: false) {
+    $important: if($important, unquote('!important'), null);
+
+    box-shadow: elevation($size) $important;
 }

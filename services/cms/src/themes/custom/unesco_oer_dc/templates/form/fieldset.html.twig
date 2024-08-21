@@ -33,14 +33,14 @@
 %}
 <fieldset{{attributes.addClass(classes)}}>
     {%
-    set legend_span_classes = [
+    set legend_classes = [
       'c-form__legend',
       required ? 'c-form__legend--required',
     ]
   %}
     {#  Always wrap fieldset legends in a <span> for CSS positioning. #}
-    <legend{{legend.attributes}}>
-        <span{{legend_span.attributes.addClass(legend_span_classes)}}>{{ legend.title }}</span>
+    <legend{{legend.attributes.addClass(legend_classes)}}>
+        <span{{legend_span.attributes}}>{{ legend.title }}</span>
     </legend>
     <div class="c-form__fieldset-wrapper">
         {% if description_display == 'before' and description.content %}

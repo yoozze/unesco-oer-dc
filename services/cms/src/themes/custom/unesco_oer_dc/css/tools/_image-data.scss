@@ -1,0 +1,31 @@
+// # Image Data Tools
+// ==================
+
+// ## Variables
+// ------------
+
+/// Define a map of image data.
+///
+/// @group image
+/// @access public
+/// @type map
+$image-data: () !default;
+
+// ## Functions
+// ------------
+
+/// Return the numeric index of a named layer in your `$z-index` list.
+///
+/// @group image-data
+/// @access public
+/// @requires {variable} $image-data
+/// @param {string} $image - Image name.
+/// @returns {string} - Image data for given image name.
+@function image-data($image) {
+    @if type-of($image) != 'string' {
+        @error '#{$image} is not a valid image name.';
+    }
+
+    $data: map-get($image-data, $image);
+    @return $data;
+}

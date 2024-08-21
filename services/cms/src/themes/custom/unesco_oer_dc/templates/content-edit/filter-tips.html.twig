@@ -1,0 +1,64 @@
+{#
+/**
+ * @file
+ * Theme override for a set of filter tips.
+ *
+ * Available variables:
+ * - tips: Descriptions and a CSS ID in the form of 'module-name/filter-id'
+ *   (only used when 'long' is TRUE) for each filter in one or more text
+ *   formats.
+ * - long: A flag indicating whether the passed-in filter tips contain extended
+ *   explanations, i.e. intended to be output on the path 'filter/tips'
+ *   (TRUE), or are in a short format, i.e. suitable to be displayed below a
+ *   form element. Defaults to FALSE.
+ * - multiple: A flag indicating there is more than one filter tip.
+ *
+ * @see template_preprocess_filter_tips()
+ */
+#}
+
+<article{{attributes.addClass('c-article').setAttribute('data-options', {
+    'articleNavTitle': 'On this page'|t,
+}|json_encode)}}>
+    {% if multiple %}
+        <div class="c-article__header">
+            <div class="o-container">
+                <div class="c-article__content">
+                    <h1 class="c-article__title">{{ 'Text Formats'|t }}</h1>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if tips|length %}
+        <div class="c-article__body">
+            <div class="o-container">
+                <div class="c-article__content">
+                    <div class="c-article__main">
+                        {% for name, tip in tips %}
+
+                            {% if multiple %}
+                                <div{{attributes}}>
+                                    <h2>{{ tip.name }}</h2>
+                                {% endif %}
+
+                                {% if tip.list|length %}
+                                    <ul>
+                                        {% for item in tip.list %}
+                                            <li{{tip.attributes}}>{{ item.tip }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+
+                                {% if multiple %}
+                                </div>
+                            {% endif %}
+
+                        {% endfor %}
+                    </div>
+                    <aside class="c-article__sidebar"></aside>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</article>

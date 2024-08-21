@@ -1,0 +1,65 @@
+{#
+/**
+ * @file
+ * Theme override for a 'form' element.
+ *
+ * Available variables
+ * - attributes: A list of HTML attributes for the wrapper element.
+ * - children: The child elements of the form.
+ *
+ * @see template_preprocess_form()
+ */
+#}
+<form{{attributes.addClass('c-form--'~attributes.id|clean_class)}}>
+	{{element.form_build_id}}
+	{{element.form_token}}
+	{{element.form_id}}
+
+	<div>
+		{{element.comment_body.widget['#description']}}
+	</div>
+
+	<h3>{{'Recommendations'|t}}</h3>
+	<p>{{'Please specify which action area you are commenting on'|t}}:</p>
+
+	{{element.field_recommendations_i}}
+	{{element.field_recommendations_ii}}
+	{{element.field_recommendations_iii}}
+	{{element.field_recommendations_iv}}
+	{{element.field_recommendations_v}}
+
+	<h3>{{'New recommendation'|t}}</h3>
+	<p>{{'Please submit your comment. By submitting the comment you agree that it can be publicly posted with your name and institution.'|t}}</p>
+
+	{{element.subject}}
+	{{element.comment_body}}
+
+	<div class="c-form__group">
+		{{element.field_first_name}}
+		{{element.field_last_name}}
+	</div>
+	<div class="c-form__group">
+		{{element.field_email_address}}
+		{{element.field_gender}}
+	</div>
+	<div class="c-form__group">
+		{{element.field_organization}}
+		{{element.field_position}}
+	</div>
+	<div class="c-form__group">
+		{{element.field_institution}}
+		{{element.field_institution_type}}
+	</div>
+	<div class="c-form__group">
+		{{element.field_country}}
+		{{element.field_region}}
+	</div>
+
+	{{element.field_submitting}}
+
+	{{element.footer}}
+	{{element.actions}}
+
+	{# {{ children }} #}
+	{# {{dump()}} #}
+</form>
