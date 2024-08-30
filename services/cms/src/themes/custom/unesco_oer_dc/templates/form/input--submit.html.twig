@@ -19,7 +19,7 @@
     icon ? 'c-icon-button' : 'c-button',
     icon ? 'c-icon-button--standard' : 'c-button--filled',
 ] %}
-<button{{attributes|without('value').setAttribute('class', classes)}}>
+<button{{attributes|without('value').addClass(classes)}}>
     {% if leading_icon %}
         {{ svg_icon(leading_icon, 'c-button__leading-icon') }}
     {% endif %}

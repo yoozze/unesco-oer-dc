@@ -24,7 +24,7 @@
     'c-buttons--more-link',
     'c-buttons--' ~ element['#view'].current_display|clean_class
 ] %}
-<div{{attributes.setAttribute('class',classes)}}>
+<div{{attributes.addClass(classes)}}>
     {% set url = element['#url'] %}
     <a class="c-section__link c-button c-button--filled" href="{{ url.external ? url.uri : url }}" target="{{ url.external ? '_blank' : '_self' }}">
         <span class="c-button__label">{{ element['#title'] }}</span>

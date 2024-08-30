@@ -20,6 +20,8 @@
  */
 #}
 {% set classes = [
+    has_parent ? 'js-form-wrapper',
+    has_parent ? 'form-wrapper',
     'c-form__container'
 ]|merge((attributes.class ?? [])|map(c => 'c-form__container--' ~ c|replace({'container-' : ''}))) %}
-<div{{attributes.setAttribute('class',classes)}}>{{ children }}</div>
+<div{{attributes.addClass(classes)}}>{{ children }}</div>

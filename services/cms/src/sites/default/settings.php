@@ -910,6 +910,13 @@ $config['smtp.settings']['smtp_from'] = getenv('SMTP_FROM');
 $config['smtp.settings']['smtp_fromname'] = getenv('SMTP_FROMNAME');
 
 /**
+ * Custom strings override.
+ */
+$settings['locale_custom_strings_en'][''] = [
+  'Your comment has been queued for review by site administrators and will be published after approval.' => 'Thank you for taking the time to share your feedback! Your comment is currently under review. We appreciate your input and look forward to sharing your contribution with our community.',
+];
+
+/**
  * Load local development override configuration, if available.
  *
  * Create a settings.local.php file to override variables on secondary (staging,

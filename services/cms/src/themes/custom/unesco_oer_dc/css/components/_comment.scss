@@ -106,20 +106,47 @@ $comment-info-cell-y-padding: size(0.25);
 .c-comment__recommendations {
     padding: $comment-padding;
     margin: 0;
+}
 
-    & > div {
-        margin-bottom: size(2);
+// ## Comment Recommendation
+// -------------------------
+
+.c-comment__recommendation {
+    margin-bottom: size(2);
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    & > dt {
+        color: color('font-muted');
+    }
+
+    & > dd {
+        margin-left: 0;
+    }
+}
+
+// ## Comment Recommendation Comment
+// ---------------------------------
+
+.c-comment__recommendation-comment {
+    padding: size(2);
+    margin-top: size(1);
+    background-color: color('background-alt');
+    border-radius: size('radius' 3);
+
+    &:first-child {
+        margin-top: 0;
+    }
+
+    & > * {
+        &:first-child {
+            margin-top: 0;
+        }
 
         &:last-child {
             margin-bottom: 0;
-        }
-
-        & > dt {
-            color: color('font-muted');
-        }
-
-        & > dd {
-            margin-left: 0;
         }
     }
 }

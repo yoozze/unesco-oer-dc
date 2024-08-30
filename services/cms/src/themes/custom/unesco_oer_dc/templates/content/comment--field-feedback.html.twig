@@ -135,27 +135,34 @@
             {% endfor %}
         </dl>
 
-        {% set recommendations = [
-            'field_recommendations_i',
-            'field_recommendations_ii',
-            'field_recommendations_iii',
-            'field_recommendations_iv',
-            'field_recommendations_v',
+        {% set recommendation_groups = [
+            ['field_recommendations_i', 'field_comment_action_area_i'],
+            ['field_recommendations_ii', 'field_comment_action_area_ii'],
+            ['field_recommendations_iii', 'field_comment_action_area_iii'],
+            ['field_recommendations_iv', 'field_comment_action_area_iv'],
+            ['field_recommendations_v', 'field_comment_action_area_v'],
         ] %}
 
         <p class="c-comment__label">{{'Recommendations'|t}}</p>
         <dl class="c-comment__recommendations">
-            {% for recommendation_key in recommendations %}
-                <div>
-                    <dt>{{ content[recommendation_key]['#title'] }}</dt>
+            {% for recommendation_group in recommendation_groups %}
+                {% set recommendation = content[recommendation_group[0]] %}
+                {% set recommendation_comment = content[recommendation_group[1]] %}
+                <div class="c-comment__recommendation">
+                    <dt>{{ recommendation['#title'] }}</dt>
                     {% set values = [] %}
-                    {% for key, value in content[recommendation_key] %}
+                    {% for key, value in recommendation %}
                         {% if key matches '/^\\d+$/' %}
                             {% set values = values|merge([value]) %}
                         {% endif %}
                     {% endfor %}
                     {% if values is not empty %}
                         <dd>{{ values|map(v => v|render)|join(', ') }}</dd>
+                    {% endif %}
+                    {% if recommendation_comment[0] is not empty %}
+                        <div class="c-comment__recommendation-comment">
+                            {{recommendation_comment[0]}}
+                        </div>
                     {% endif %}
                 </div>
             {% endfor %}
@@ -164,7 +171,7 @@
         {% set comment = content['comment_body'] %}
         <p class="c-comment__label">{{ comment['#title'] }}</p>
         <div class="c-comment__body">
-            {{ comment[0] }}
+            <div class="c-comment__recommendation-comment">{{ comment[0] }}</div>
         </div>
     </div>
     {# {{dump()}} #}
