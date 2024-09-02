@@ -707,6 +707,10 @@ $radio-bg-size: size('radio-bg-size');
 // ----------------
 
 .c-form__textarea {
+    @extend .c-form__input;
+
+    min-height: size(13);
+    resize: vertical;
 }
 
 // ## Form Select

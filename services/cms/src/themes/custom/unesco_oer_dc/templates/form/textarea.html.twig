@@ -13,6 +13,6 @@
  * @see template_preprocess_textarea()
  */
 #}
-<div{{ wrapper_attributes }}>
-    <textarea{{ attributes }}>{{ value }}</textarea>
-</div>
+{# <div{{ wrapper_attributes.addClass('c-form__textarea-wrapper') }}> #}
+    <textarea{{ attributes.addClass('c-form__textarea') }}>{{ value }}</textarea>
+{# </div> #}

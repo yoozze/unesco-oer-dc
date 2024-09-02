@@ -249,12 +249,11 @@ $meta-icon-size: size(2.75);
     display: flex;
     justify-content: center;
     max-width: 100%;
+    padding-top: size('section-padding');
     padding-bottom: size('section-padding');
 
-    .c-article--user-register &,
-    .c-article--user-password &,
-    .c-article--user-login & {
-        padding-top: size('section-padding');
+    .c-article__header + & {
+        padding-top: 0;
     }
 }
 

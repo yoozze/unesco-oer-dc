@@ -72,7 +72,13 @@
         {% if prefix is not empty %}
             <span class="c-form__field-prefix">{{ prefix }}</span>
         {% endif %}
-        {{ children }}
+        {% if type == 'item' %}
+            <div class="c-form__input" readonly>
+                {{ children }}
+            </div>
+        {% else %}
+            {{ children }}
+        {% endif %}
         {{ label }}
         {% if suffix is not empty %}
             <span class="c-form__field-suffix">{{ suffix }}</span>
@@ -88,4 +94,5 @@
             {{ description.content }}
         </div>
     {% endif %}
+    {# {{dump()}} #}
 </div>
