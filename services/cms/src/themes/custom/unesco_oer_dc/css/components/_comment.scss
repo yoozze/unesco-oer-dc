@@ -26,11 +26,98 @@ $comment-icon-size: size(20px);
     border-radius: size('radius' 3) size('radius' 3) 0 0;
 }
 
-// ## COmment Title
+// ## Comment Title
 // ----------------
 
 .c-comment__title {
     margin-top: 0;
+}
+
+// ## Comment Meta
+// ---------------
+
+.c-comment__meta {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: size(2);
+    margin-bottom: 0;
+    color: color('font-muted');
+}
+
+// ## Comment Meta Item
+// --------------------
+
+$meta-item-inline-separator-spacer: size(0.5);
+$meta-item-separator-spacer: size(2);
+$meta-item-separator-size: size(0.75);
+
+.c-comment__meta-item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: start;
+
+    & > div {
+        display: flex;
+        flex-shrink: 0;
+
+        dt {
+            display: flex;
+            flex-shrink: 0;
+
+            svg {
+                flex-shrink: 0;
+                width: $comment-icon-size;
+                height: $comment-icon-size;
+                margin-top: size(0.25);
+                margin-right: size(1);
+            }
+
+            span {
+                @include hide-visually();
+            }
+        }
+
+        dd {
+            display: flex;
+            margin-left: 0;
+        }
+    }
+
+    & > div + div {
+        @include before(attr(data-separator)) {
+            margin-right: $meta-item-inline-separator-spacer;
+            margin-left: $meta-item-inline-separator-spacer;
+        }
+    }
+
+    & + .c-comment__meta-item {
+        @include before('') {
+            width: $meta-item-separator-size;
+            height: $meta-item-separator-size;
+            margin-top: size(1.125);
+            margin-right: $meta-item-separator-spacer;
+            margin-left: $meta-item-separator-spacer;
+            background-color: color('bullet');
+            border-radius: 100%;
+        }
+    }
+}
+
+// ## Comment Author
+// -----------------
+
+.c-comment__author {
+    display: flex;
+    align-items: center;
+    margin-bottom: size(2);
+
+    @include before('') {
+        width: size(6px);
+        height: size(6px);
+        margin: 0 size(2);
+        border-radius: 100%;
+        background-color: color('font-muted');
+    }
 }
 
 // ## Date-time
@@ -38,27 +125,30 @@ $comment-icon-size: size(20px);
 
 .c-comment__date-time {
     display: flex;
+    flex-wrap: wrap;
     color: color('font-muted');
 
     & > span {
         display: flex;
-        align-items: center;
+        // align-items: center;
 
         & > svg {
             width: $comment-icon-size;
             height: $comment-icon-size;
-            margin-top: size(1px);
+            margin-top: size(0.25);
             margin-right: size(1);
             flex-shrink: 0;
         }
 
         & + span {
             @include before('') {
-                width: size(6px);
-                height: size(6px);
-                margin: 0 size(2);
+                width: $meta-item-separator-size;
+                height: $meta-item-separator-size;
+                margin-top: size(1.125);
+                margin-right: $meta-item-separator-spacer;
+                margin-left: $meta-item-separator-spacer;
+                background-color: color('bullet');
                 border-radius: 100%;
-                background-color: color('font-muted');
             }
         }
     }
@@ -156,6 +246,16 @@ $comment-info-cell-y-padding: size(0.25);
 
 .c-comment__body {
     padding: $comment-padding;
+
+    & > * {
+        &:first-child {
+            margin-top: 0;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
 }
 
 // ## Comment Label
@@ -168,3 +268,36 @@ $comment-info-cell-y-padding: size(0.25);
     margin: 0;
     border-top: 1px solid color('border');
 }
+
+// ## Comment Footer
+// -----------------
+
+.c-comment__footer {
+    padding: $comment-padding;
+    padding-top: 0;
+    // background-color: color('background-alt');
+    // border-radius: 0 0 size('radius' 3) size('radius' 3);
+    // border-top: 1px solid color('border');
+}
+
+// ## Comment Links
+// ----------------
+
+.c-comment__links {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 negative(0.5);
+    padding: 0;
+    list-style: none;
+}
+
+// ## Comment Link Item
+// --------------------
+
+.c-comment__link-item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 0 size(0.5);
+}
+

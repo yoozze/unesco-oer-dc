@@ -344,6 +344,7 @@ $label-bg-offset: size(0.5);
     &[for='edit-field-comment-action-area-iii-0-value'],
     &[for='edit-field-comment-action-area-iv-0-value'],
     &[for='edit-field-comment-action-area-v-0-value'],
+    &[for='edit-comment-body-0-value--2'],
     &[for='edit-comment-body-0-value'] {
         @include hide-visually();
     }

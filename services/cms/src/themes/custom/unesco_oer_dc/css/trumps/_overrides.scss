@@ -17,3 +17,27 @@ pre.sf-dump .sf-dump-default {
         }
     }
 }
+
+
+div[data-drupal-messages] {
+    // @extend .o-container;
+
+    // margin-right: auto;
+    // margin-left: auto;
+
+    color: color('blue-10');
+    background-color: rgba(color('blue'), size('opacity' 2));
+    border-color: rgba(color('blue'), size('opacity' 3));
+}
+
+.messages__wrapper {}
+
+.messages {}
+
+.messages--status {
+    padding-top: size(2);
+    padding-bottom: size(2);
+    color: color('blue-10');
+    background-color: rgba(color('blue'), size('opacity' 2));
+    border-color: rgba(color('blue'), size('opacity' 3));
+}
