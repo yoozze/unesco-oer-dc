@@ -24,4 +24,4 @@
     has_parent ? 'form-wrapper',
     'c-form__container'
 ]|merge((attributes.class ?? [])|map(c => 'c-form__container--' ~ c|replace({'container-' : ''}))) %}
-<div{{attributes.addClass(classes)}}>{{ children }}</div>
+<div{{attributes.setAttribute('class',classes)}}>{{ children }}</div>

@@ -14,7 +14,7 @@ function initComponents() {
     Dropdown.init();
     Article.init();
     Slider.init();
-    SearchForm.init();
+    // SearchForm.init();
     SearchFormBlock.init();
 
     console.log('Components:', window._components);
