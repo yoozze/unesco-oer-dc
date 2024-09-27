@@ -18,10 +18,15 @@
         <h1 class="c-form__title">{{ 'Login'|t }}</h1>
     </div>
     <div class="c-form__body">
-        {{ element.name }}
-        {{ element.pass }}
         {{ element.form_build_id }}
         {{ element.form_id }}
+        {{ element.name }}
+        {{ element.pass }}
+        <div class="c-form__field c-form__field--link">
+            <a href="/user/password">
+                {{ 'Reset your password'|t }}
+            </a>
+        </div>
         {{ element.actions }}
     </div>
     {# {{ dump() }} #}
