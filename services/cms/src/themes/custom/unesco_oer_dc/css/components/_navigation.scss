@@ -152,6 +152,12 @@ $account-padding-y: size(1);
     align-items: center;
     padding-top: $account-padding-y;
     padding-bottom: $account-padding-y;
+
+    &>a {
+        &:nth-child(n+1) {
+            margin-left: size(1);
+        }
+    }
 }
 
 // Navigation - Local Tasks

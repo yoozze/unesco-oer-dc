@@ -45,6 +45,9 @@
     <a class="c-navigation__button c-button c-button--tonal" href="{{ path(item.url.routeName) }}">
         {# {{ svg_icon('login', 'c-button__leading-icon') }} #} <span class="c-button__label">{{ item.title }}</span>
     </a>
+    <a class="c-navigation__button c-button c-button--outlined" href="https://survey.unesco.org/3/index.php?r=survey/index&sid=163625&lang=en" target="_blank">
+        <span class="c-button__label">{{ 'Join'|t }}</span> {{ svg_icon('open-in-new', 'c-button__trailing-icon') }}
+    </a>
 {% endif %}
 
 {% macro menu_links(items, attributes, menu_level) %}
