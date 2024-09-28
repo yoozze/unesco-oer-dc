@@ -206,9 +206,9 @@ if [ $MODE = "--install" ] || [ $MODE = "--install-modules" ]; then
     # drush pm:uninstall --yes breakpoint
 
     # Uninstall on production
-    if [ $ENV = "production" ]; then
-        cmd="drush pm:uninstall --yes"
-        cmd="$cmd coder"
-        eval $cmd
-    fi
+    # if [ $ENV = "production" ]; then
+    #     cmd="drush pm:uninstall --yes"
+    #     cmd="$cmd coder"
+    #     eval $cmd
+    # fi
 fi
