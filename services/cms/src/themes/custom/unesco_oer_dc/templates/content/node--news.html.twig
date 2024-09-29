@@ -90,6 +90,9 @@
                 {{ title_suffix }}
                 <dl class="c-article__meta">
                     <div class="c-article__meta-item">
+                        {{ author_name }}
+                    </div>
+                    <div class="c-article__meta-item">
                         {{ date }}
                     </div>
                     <div class="c-article__meta-item">
@@ -129,4 +132,4 @@
     </div>
     {# <script>console.log('NODE', {{ _context | json_encode | raw}});</script> #}
 </article>
-{# {{ dump() }} #}
+{{ dump() }}

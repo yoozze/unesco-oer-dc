@@ -1,9 +1,8 @@
 // # Overrides
 // ===========
 
-
-// ## Gin Toolbar
-// ---------------
+// ## Admin Toolbar
+// ----------------
 body.toolbar-tray-open.toolbar-horizontal.toolbar-fixed,
 html.toolbar-tray-open.toolbar-horizontal.toolbar-fixed {
     @include above(976px) {
@@ -13,9 +12,12 @@ html.toolbar-tray-open.toolbar-horizontal.toolbar-fixed {
     }
 }
 
-pre.sf-dump,
-pre.sf-dump .sf-dump-default {
-    position: static !important;
+.admin-toolbar {
+    .toolbar-menu__item {
+        &:not(:has(.toolbar-menu__item--has-dropdown))[data-url=''] {
+            display: none;
+        }
+    }
 }
 
 // # Contextual Links
@@ -60,4 +62,12 @@ div[data-drupal-messages] {
     color: color('blue-10');
     background-color: rgba(color('blue'), size('opacity' 2));
     border-color: rgba(color('blue'), size('opacity' 3));
+}
+
+// # Symfony Dump
+// --------------
+
+pre.sf-dump,
+pre.sf-dump .sf-dump-default {
+    position: static !important;
 }

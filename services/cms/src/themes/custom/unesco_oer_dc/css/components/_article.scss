@@ -60,7 +60,7 @@ $toolbar-spacing: size(0.5);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-right: $sidebar-width;
+    // padding-right: $sidebar-width;
     margin-right: negative($toolbar-spacing);
     margin-bottom: size(1);
     margin-left: negative($toolbar-spacing);
@@ -89,7 +89,7 @@ $toolbar-spacing: size(0.5);
 .c-article__title {
     // @include font('display-medium');
 
-    padding-right: $sidebar-width;
+    // padding-right: $sidebar-width;
     margin-top: 0;
     margin-bottom: 0;
 }

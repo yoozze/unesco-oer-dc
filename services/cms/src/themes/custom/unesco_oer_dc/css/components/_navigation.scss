@@ -154,7 +154,7 @@ $account-padding-y: size(1);
     padding-bottom: $account-padding-y;
 
     &>a {
-        &:nth-child(n+1) {
+        &:nth-of-type(n+2) {
             margin-left: size(1);
         }
     }
