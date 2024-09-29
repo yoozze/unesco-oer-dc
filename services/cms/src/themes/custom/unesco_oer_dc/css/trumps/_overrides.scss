@@ -1,8 +1,25 @@
+// # Overrides
+// ===========
+
+
+// ## Gin Toolbar
+// ---------------
+body.toolbar-tray-open.toolbar-horizontal.toolbar-fixed,
+html.toolbar-tray-open.toolbar-horizontal.toolbar-fixed {
+    @include above(976px) {
+        .o-off-canvas-page-wrapper {
+            margin-left: var(--drupal-displace-offset-left);
+        }
+    }
+}
+
 pre.sf-dump,
 pre.sf-dump .sf-dump-default {
     position: static !important;
 }
 
+// # Contextual Links
+// ------------------
 .contextual {
     top: size(2px);
 
@@ -18,7 +35,8 @@ pre.sf-dump .sf-dump-default {
     }
 }
 
-
+// # Drupal Messages
+// -----------------
 div[data-drupal-messages] {
     // @extend .o-container;
 
@@ -30,9 +48,11 @@ div[data-drupal-messages] {
     border-color: rgba(color('blue'), size('opacity' 3));
 }
 
-.messages__wrapper {}
+.messages__wrapper {
+}
 
-.messages {}
+.messages {
+}
 
 .messages--status {
     padding-top: size(2);
