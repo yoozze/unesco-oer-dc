@@ -204,6 +204,7 @@ $page-width: size('page-width');
 
     .c-form__field--link {
         padding: size(1) 0;
+        margin-bottom: size(2);
         text-align: right;
     }
 
@@ -212,7 +213,7 @@ $page-width: size('page-width');
     }
 
     .c-form__footer {
-        padding: size(3) size(3) size(4);
+        padding: size(2) size(3);
         text-align: center;
         border-top: 1px solid color('border');
     }
