@@ -244,19 +244,17 @@ $meta-item-inline-separator-spacer: size(0.5);
 
 .c-content-item__field--field-location {
     .c-content-item__field-content {
+        // @include truncate-text();
+
         word-break: break-all;
-        // white-space: nowrap;
-        // overflow: hidden;
-        // text-overflow: ellipsis;
     }
 }
 
 .c-content-item__field--field-author {
     .c-content-item__field-content {
+        // @include truncate-text();
+
         word-break: break-all;
-        // white-space: nowrap;
-        // overflow: hidden;
-        // text-overflow: ellipsis;
     }
 }
 

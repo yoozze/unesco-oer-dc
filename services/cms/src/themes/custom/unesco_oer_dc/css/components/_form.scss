@@ -409,6 +409,8 @@ $input-border-radius: size('radius' 1);
     // }
 
     & ~ label {
+        @include truncate-text();
+
         position: absolute;
         display: flex;
         pointer-events: none;
@@ -417,9 +419,6 @@ $input-border-radius: size('radius' 1);
         top: 0;
         left: 0;
         max-width: calc(100% - #{2 * $input-padding-x});
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
         border-radius: $input-border-radius;
         transform-origin: top left;
         transform: translate(
@@ -442,11 +441,10 @@ $input-border-radius: size('radius' 1);
         }
 
         & > span {
+            @include truncate-text();
+
             position: relative;
             display: block;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
     }
 

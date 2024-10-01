@@ -64,7 +64,5 @@ $item-bullet-size: size(0.75);
 // -------------------
 
 .c-breadcrumb__label {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    @include truncate-text();
 }

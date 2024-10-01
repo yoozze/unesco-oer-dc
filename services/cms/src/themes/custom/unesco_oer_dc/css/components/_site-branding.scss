@@ -3,7 +3,9 @@
 
 .c-site-branding {
     display: flex;
+    // flex-shrink: 1;
     align-items: center;
+    overflow: hidden;
 }
 
 // ## Site Branding Logo
@@ -11,6 +13,7 @@
 
 .c-site-branding__logo {
     display: flex;
+    flex-shrink: 0;
     align-items: center;
     height: 100%;
     min-width: 72px;
@@ -26,8 +29,11 @@
 $name-padding-y: size(1.25);
 
 .c-site-branding__name {
-    display: flex;
-    align-items: center;
+    @include truncate-text();
+
+    // display: flex;
+    // flex-shrink: 1;
+    // align-items: center;
     height: 100%;
     padding-top: $name-padding-y;
     padding-bottom: $name-padding-y;
