@@ -14,6 +14,7 @@ $item-spacing: size(0.5);
 
 .c-pager__items {
     display: flex;
+    flex-wrap: wrap;
     padding-left: 0;
     margin: 0 -$item-spacing;
     // margin-right: -$item-spacing;
@@ -25,8 +26,9 @@ $item-spacing: size(0.5);
 // -------------
 
 .c-pager__item {
-    padding-right: $item-spacing;
-    padding-left: $item-spacing;
+    // padding-right: $item-spacing;
+    // padding-left: $item-spacing;
+    padding: $item-spacing;
 }
 
 $ellipsis-size: size(2.5);
