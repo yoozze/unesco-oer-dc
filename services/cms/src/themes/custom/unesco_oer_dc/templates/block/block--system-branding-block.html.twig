@@ -20,7 +20,9 @@
         </a>
     {% endif %}
     {% if site_name %}
-        <a class="c-site-branding__name" href="{{ path('<front>') }}" rel="home">{{ site_name }}</a>
+        <a class="c-site-branding__name" href="{{ path('<front>') }}" rel="home" title="{{ site_name|e('html_attr') }}">
+            {{ site_name }}
+        </a>
     {% endif %}
     {{ site_slogan }}
 {% endblock %}

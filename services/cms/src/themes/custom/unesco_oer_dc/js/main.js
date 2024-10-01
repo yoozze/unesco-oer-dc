@@ -3,6 +3,7 @@ import Dropdown from './components/Dropdown';
 import Slider from './components/Slider';
 import SearchForm from './components/SearchForm';
 import SearchFormBlock from './components/SearchFormBlock';
+import MainNavigation from './components/MainNavigation';
 
 // import './misc/debug';
 
@@ -16,6 +17,7 @@ function initComponents() {
     Slider.init();
     // SearchForm.init();
     SearchFormBlock.init();
+    MainNavigation.init();
 
     console.log('Components:', window._components);
 }

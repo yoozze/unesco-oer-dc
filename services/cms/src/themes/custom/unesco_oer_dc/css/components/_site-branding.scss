@@ -6,6 +6,10 @@
     // flex-shrink: 1;
     align-items: center;
     overflow: hidden;
+
+    @include below('bp-xs') {
+        @include hide-visually();
+    }
 }
 
 // ## Site Branding Logo
@@ -20,6 +24,11 @@
 
     img {
         display: inline-block;
+    }
+
+    @include below('bp-sm') {
+        width: 48px;
+        overflow: hidden;
     }
 }
 

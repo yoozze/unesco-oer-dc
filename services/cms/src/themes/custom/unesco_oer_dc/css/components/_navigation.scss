@@ -22,6 +22,37 @@
 $main-bg-color: color('abbey');
 
 .c-navigation--main {
+    display: flex;
+    align-items: center;
+
+    & > button {
+        display: none;
+        margin-top: size(1.5);
+        margin-bottom: size(1.5);
+
+        &[aria-expanded='true'] {
+            & > svg {
+                &:last-of-type {
+                    display: inline-block;
+                }
+
+                &:first-of-type {
+                    display: none;
+                }
+            }
+        }
+
+        & > svg {
+            &:last-of-type {
+                display: none;
+            }
+        }
+
+        @include below('bp-lg') {
+            display: block;
+        }
+    }
+
     & > ul {
         display: flex;
         height: 100%;
@@ -60,6 +91,30 @@ $main-bg-color: color('abbey');
                     height: size(0.5);
                     background-color: color('orange');
                 }
+            }
+        }
+
+        @include below('bp-lg') {
+            @include z-index('popup');
+            @include elevation(2);
+
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            left: 0;
+            display: none;
+            flex-direction: column;
+            background-color: color('light');
+            height: auto;
+            // margin: size(1);
+
+            &.is-visible {
+                display: flex;
+            }
+
+            a {
+                padding: size(2);
             }
         }
     }
@@ -149,12 +204,13 @@ $account-padding-y: size(1);
 
 .c-navigation--account {
     display: flex;
+    flex-shrink: 0;
     align-items: center;
     padding-top: $account-padding-y;
     padding-bottom: $account-padding-y;
 
-    &>a {
-        &:nth-of-type(n+2) {
+    & > a {
+        &:nth-of-type(n + 2) {
             margin-left: size(1);
         }
     }
@@ -180,7 +236,7 @@ $footer-icon-size: size(2.5);
 
 .c-navigation--footer {
     padding-right: $footer-gutter;
-    padding-bottom: $footer-gutter;
+    padding-bottom: $footer-gutter * 2;
     padding-left: $footer-gutter;
 
     & > ul {

@@ -61,8 +61,8 @@ $footer-gutter: negative(3);
     flex-grow: 1;
     flex-wrap: wrap;
     margin-right: $footer-gutter;
+    margin-bottom: 2 * $footer-gutter;
     margin-left: $footer-gutter;
-    margin-bottom: $footer-gutter;
 
     @include below('bp-md') {
         justify-content: flex-start;

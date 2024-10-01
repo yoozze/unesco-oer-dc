@@ -3,7 +3,7 @@
 
 .c-page-header {
     @include z-index('header');
-    
+
     position: sticky;
     top: 0;
 }
@@ -74,6 +74,10 @@
 .c-page-header__container--bottom {
     & > div:first-child {
         margin-right: size('gutter') * 2;
+
+        @include below('bp-lg') {
+            margin-right: size('gutter');
+        }
     }
 
     & > nav:nth-child(2) {
@@ -84,7 +88,11 @@
         margin-left: auto;
     }
 
-    & > *:nth-child(n + 4) {
-        margin-left: size(1);
+    & > * {
+        flex-shrink: 0;
+
+        &:nth-child(n + 4) {
+            margin-left: size(1);
+        }
     }
 }

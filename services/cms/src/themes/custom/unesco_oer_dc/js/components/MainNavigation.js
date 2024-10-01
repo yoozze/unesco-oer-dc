@@ -1,10 +1,8 @@
-/** @module components/Dropdown */
-
-import { computePosition, flip, shift, offset, autoUpdate } from '@floating-ui/dom';
+/** @module components/MainNavigation */
 
 import Component from './Component';
 
-class Dropdown extends Component {
+class MainNavigation extends Component {
     /**
      * @type {HTMLButtonElement | null} Menu toggle button element.
      */
@@ -22,44 +20,38 @@ class Dropdown extends Component {
      * @returns {string} Component block name.
      */
     static get block() {
-        return 'c-dropdown';
+        return 'c-navigation';
     }
 
     /**
-     * Dropdown constructor.
+     * Get component modifier name.
+     *
+     * @override
+     * @returns {string} Component modifier name.
+     */
+    static get modifier() {
+        return 'main';
+    }
+
+    /**
+     * MainNavigation constructor.
      *
      * @param {HtmlElement} element - DOM element to be initialized.
-     * @param {Object} options - Dropdown options.
+     * @param {Object} options - MainNavigation options.
      */
     constructor(element, options = {}) {
         super(element, options);
 
-        this.toggle = this.element.querySelector(`.${Dropdown.bem('toggle')}`);
-        this.menu = this.element.querySelector(`.${Dropdown.bem('menu')}`);
+        this.toggle = this.element.querySelector('button');
+        this.menu = this.element.querySelector('ul');
 
-        this.element.addEventListener('keyup', this.handleKeyUp.bind(this));
         this.element.addEventListener('focusout', this.handleFocusOut.bind(this));
+        this.element.addEventListener('keyup', this.handleKeyUp.bind(this));
         this.toggle.addEventListener('click', this.handleToggleClick.bind(this));
     }
 
     /**
-     * Update menu position.
-     */
-    updatePosition() {
-        computePosition(this.toggle, this.menu, {
-            placement: 'bottom-start',
-            middleware: [offset(4), flip(), shift({ padding: 8 })],
-            ...(this.options.popper || {}),
-        }).then(({ x, y }) => {
-            Object.assign(this.menu.style, {
-                left: `${x}px`,
-                top: `${y}px`,
-            });
-        });
-    }
-
-    /**
-     * Toggle menu visibility.
+     * Toggles the menu visibility.
      *
      * @param {boolean} state - Menu visibility state.
      */
@@ -67,24 +59,27 @@ class Dropdown extends Component {
         const isVisible = state !== undefined ? !state : this.menu.classList.contains('is-visible');
         if (!isVisible) {
             this.menu.classList.add('is-visible');
-            // document.body.appendChild(this.menu);
-            this.cleanup = autoUpdate(this.toggle, this.menu, this.updatePosition.bind(this));
             this.toggle.setAttribute('aria-expanded', 'true');
         } else {
             this.menu.classList.remove('is-visible');
-            // this.element.appendChild(this.menu);
             this.toggle.setAttribute('aria-expanded', 'false');
-
-            if (this.cleanup) {
-                this.cleanup();
-            }
         }
     }
 
     /**
-     * Handle dropdown focus out event.
+     * Handle toggle button click event.
      *
-     * @param {FocusEvent} event
+     * @param {Event} event - Button click event.
+     */
+    handleToggleClick(event) {
+        event.preventDefault();
+        this.toggleMenu();
+    }
+
+    /**
+     * Handle focus out event.
+     *
+     * @param {FocusEvent} event - Focus out event.
      */
     handleFocusOut(event) {
         setTimeout(() => {
@@ -95,16 +90,6 @@ class Dropdown extends Component {
                 this.toggleMenu(false);
             }
         }, 0);
-    }
-
-    /**
-     * Handle toggle click event.
-     *
-     * @param {PointerEvent} event - Click event.
-     */
-    handleToggleClick(event) {
-        event.preventDefault();
-        this.toggleMenu();
     }
 
     /**
@@ -120,4 +105,4 @@ class Dropdown extends Component {
     }
 }
 
-export default Dropdown;
+export default MainNavigation;
