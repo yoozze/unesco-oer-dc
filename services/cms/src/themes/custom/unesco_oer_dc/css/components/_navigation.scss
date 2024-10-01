@@ -22,6 +22,7 @@
 $main-bg-color: color('abbey');
 
 .c-navigation--main {
+    position: static !important;
     display: flex;
     align-items: center;
 

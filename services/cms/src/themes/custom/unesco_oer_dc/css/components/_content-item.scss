@@ -194,7 +194,7 @@ $meta-item-inline-separator-spacer: size(0.5);
         margin: 0;
 
         .c-content-item--card & {
-            min-width: size('card-item-min-width');
+            // min-width: size('card-item-min-width');
             // margin: -1px -1px 0;
             border-radius: $card-item-radius $card-item-radius 0 0;
             overflow: hidden;
@@ -205,7 +205,8 @@ $meta-item-inline-separator-spacer: size(0.5);
             @include transition('transform');
 
             display: block;
-            max-width: 100%;
+            // max-width: 100%;
+            width: 100%;
             height: auto;
             // opacity: size('opacity' 8);
         }

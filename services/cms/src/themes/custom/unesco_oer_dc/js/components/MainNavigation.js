@@ -42,8 +42,8 @@ class MainNavigation extends Component {
     constructor(element, options = {}) {
         super(element, options);
 
-        this.toggle = this.element.querySelector('button');
-        this.menu = this.element.querySelector('ul');
+        this.toggle = this.element.querySelector(':scope > button');
+        this.menu = this.element.querySelector(':scope > ul');
 
         this.element.addEventListener('focusout', this.handleFocusOut.bind(this));
         this.element.addEventListener('keyup', this.handleKeyUp.bind(this));

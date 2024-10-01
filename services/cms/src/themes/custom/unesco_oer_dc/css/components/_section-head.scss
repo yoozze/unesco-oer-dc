@@ -13,6 +13,10 @@
 
 .c-section-head__col {
     width: 9 / 12 * 100%;
+
+    @include below('bp-lg') {
+        width: auto;
+    }
 }
 
 // ## Section Head Name

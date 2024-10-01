@@ -52,6 +52,10 @@ $filters-padding: size(4);
         &>.o-row {
             &>.o-col {
                 width: 75%;
+
+                @include below('bp-xl') {
+                    width: auto;
+                }
             }
         }
     }
@@ -91,4 +95,19 @@ $item-gutter: size('gutter') / 2;
     padding-right: $item-gutter;
     padding-left: $item-gutter;
     margin-bottom: $item-gutter * 2;
+
+    @include below('bp-xl') {
+        flex: 0 0 33.33333%;
+        max-width: 33.33333%;
+    }
+
+    @include below('bp-lg') {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+
+    @include below('bp-md') {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
 }

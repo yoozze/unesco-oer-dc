@@ -14,7 +14,7 @@
 .c-latest-news-view__content {
     position: relative;
 
-    &>.contextual {
+    & > .contextual {
         top: negative(3);
     }
 }
@@ -23,6 +23,7 @@
 // ------------------------
 
 .c-latest-news-view__list {
+    flex-wrap: wrap;
     padding-left: 0;
     margin-top: 0;
     margin-bottom: 0;
@@ -40,5 +41,22 @@ $item-gutter: size('gutter') / 2;
     max-width: 25%;
     padding-right: $item-gutter;
     padding-left: $item-gutter;
+
+    @include below('bp-xl') {
+        flex: 0 0 50%;
+        max-width: 50%;
+
+        &:nth-child(n + 3) {
+            margin-top: size(3);
+        }
+    }
+
+    @include below('bp-md') {
+        flex: 0 0 100%;
+        max-width: 100%;
+
+        &:nth-child(n + 2) {
+            margin-top: size(3);
+        }
+    }
 }
-  

@@ -29,6 +29,10 @@ $sidebar-width: size(366px);
 .c-article__content {
     .c-article__body & {
         display: flex;
+
+        @include below('bp-lg') {
+            flex-direction: column;
+        }
     }
 
     .c-article__body--with-nav & {
@@ -264,6 +268,11 @@ $meta-icon-size: size(2.75);
     // flex: 1;
     // max-width: size('max-width');
     width: calc(100% - #{$sidebar-width});
+
+    @include below('bp-lg') {
+        order: 2;
+        width: auto;
+    }
 }
 
 // ## Article Media
@@ -306,6 +315,10 @@ $meta-icon-size: size(2.75);
                 margin-bottom: 0;
             }
         }
+    }
+
+    @include below('bp-lg') {
+        margin-top: 0;
     }
 }
 
@@ -364,6 +377,13 @@ $meta-icon-size: size(2.75);
 .c-article__sidebar {
     width: $sidebar-width;
     padding-left: size(3);
+
+    @include below('bp-lg') {
+        order: 1;
+        width: auto;
+        padding-left: 0;
+        margin-bottom: size(4);
+    }
 }
 
 // ## Article Nav
