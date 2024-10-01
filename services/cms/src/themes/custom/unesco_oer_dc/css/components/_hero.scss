@@ -41,6 +41,10 @@ $hero-padding: size('section-padding');
 
 .c-hero__content {
     width: 8 / 12 * 100%;
+
+    @include below('bp-lg') {
+        width: auto;
+    }
 }
 
 // ## Hero Title
@@ -93,6 +97,10 @@ $hero-padding: size('section-padding');
     img {
         position: relative;
         width: 70%;
+    }
+
+    @include below('bp-lg') {
+        display: none;
     }
 }
 
