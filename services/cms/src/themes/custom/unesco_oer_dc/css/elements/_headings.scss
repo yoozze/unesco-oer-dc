@@ -16,5 +16,9 @@ $headings: (
         @include font($font);
         margin-top: 1.0em;
         margin-bottom: 0.5em;
+
+        @include below('bp-lg') {
+            @include responsive-font-size($font);
+        }
     }
 }

@@ -203,3 +203,15 @@ $fonts: () !default;
 @mixin letter-spacing($font) {
     letter-spacing: size(font($font, 'letter-spacing'));
 }
+
+/// Output responsive font size based on your font configuration for `$font` in `$fonts` map.
+///
+/// @group fonts
+/// @access public
+/// @param {string} $font - The key-name of a font in the `$fonts` map.
+/// @outputs `font-size` property based on your font configuration for `$font` in `$fonts` map.
+@mixin responsive-font-size($font) {
+    @include below('bp-lg') {
+        font-size: calc(map-get(map-get($fonts, $font), 'font-size') * 0.5 + 2vw);
+    }
+}

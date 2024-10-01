@@ -56,6 +56,10 @@ $banner-padding: size('section-padding');
     @include font('display-small');
 
     margin-top: 0;
+
+    @include below('bp-lg') {
+        @include responsive-font-size('display-small');
+    }
 }
 
 // ## Banner Body
