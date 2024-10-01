@@ -180,6 +180,7 @@ $footer-icon-size: size(2.5);
 
 .c-navigation--footer {
     padding-right: $footer-gutter;
+    padding-bottom: $footer-gutter;
     padding-left: $footer-gutter;
 
     & > ul {

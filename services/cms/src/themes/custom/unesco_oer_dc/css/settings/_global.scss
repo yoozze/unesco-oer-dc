@@ -418,6 +418,15 @@ $sizes: (
     'radio-size': 10px,
     'radio-bg-size': 40px,
     'radio-border-width': 2px,
+
+    // Breakpoints
+    'bp-xxl': 1440px,
+    'bp-xl': 1200px,
+    'bp-lg': 992px,
+    'bp-md': 768px,
+    'bp-sm': 576px,
+    'bp-xs': 480px,
+    'bp-xxs': 320px,
 );
 
 // ## Z-indices
