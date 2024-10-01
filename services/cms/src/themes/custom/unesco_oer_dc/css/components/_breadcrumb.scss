@@ -55,6 +55,7 @@ $item-bullet-size: size(0.75);
 // ------------------
 
 .c-breadcrumb__icon {
+    flex-shrink: 0;
     margin-right: size(0.5);
     font-size: size(3);
 }
