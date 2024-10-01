@@ -7,25 +7,31 @@
  * - breadcrumb: Breadcrumb trail items.
  */
 #}
-{% if breadcrumb %}    
+
+{% set breadcrumbs = [] %}
+{% for item in breadcrumb %}
+    {% if item.text and (item.url or loop.index > 1) %}
+        {% set breadcrumbs = breadcrumbs|merge([item]) %}
+    {% endif %}
+{% endfor %}
+
+{% if breadcrumbs|length > 0 %}    
     <nav class="c-breadcrumb" role="navigation" aria-labelledby="system-breadcrumb">
         <h2 class="c-breadcrumb__title visually-hidden" id="system-breadcrumb">{{ 'Breadcrumb'|t }}</h2>
         <ol class="c-breadcrumb__items">
-            {% for item in breadcrumb %}
-                {% if item.text and (item.url or loop.index > 1) %}
-                    <li class="c-breadcrumb__item">
-                        {% if item.url %}
-                            <a class="c-breadcrumb__link" href="{{ item.url }}">
-                                {% if loop.index == 1 %}
-                                    {{ svg_icon('home', 'c-breadcrumb__icon') }}
-                                {% endif %}
-                                <span class="c-breadcrumb__label">{{ item.text }}</span>
-                            </a>
-                        {% else %}
+            {% for item in breadcrumbs %}
+                <li class="c-breadcrumb__item">
+                    {% if item.url %}
+                        <a class="c-breadcrumb__link" href="{{ item.url }}">
+                            {% if loop.index == 1 %}
+                                {{ svg_icon('home', 'c-breadcrumb__icon') }}
+                            {% endif %}
                             <span class="c-breadcrumb__label">{{ item.text }}</span>
-                        {% endif %}
-                    </li>
-                {% endif %}
+                        </a>
+                    {% else %}
+                        <span class="c-breadcrumb__label">{{ item.text }}</span>
+                    {% endif %}
+                </li>
             {% endfor %}
         </ol>
     </nav>
