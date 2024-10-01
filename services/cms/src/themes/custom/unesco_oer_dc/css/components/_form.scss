@@ -121,7 +121,19 @@ $page-width: size('page-width');
     height: 100%;
 
     &.is-active {
+        position: absolute;
+        right: 0;
+        left: 0;
+        z-index: 1;
+        display: flex;
+        height: auto;
+        padding: size(1.5) size(3);
+        background-color: color('light');
+
         .c-form__field {
+            flex-grow: 1;
+            margin: 0;
+
             .js & {
                 display: block;
             }

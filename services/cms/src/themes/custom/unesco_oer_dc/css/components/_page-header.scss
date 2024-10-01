@@ -72,6 +72,8 @@
 }
 
 .c-page-header__container--bottom {
+    position: relative;
+
     & > div:first-child {
         margin-right: size('gutter') * 2;
 

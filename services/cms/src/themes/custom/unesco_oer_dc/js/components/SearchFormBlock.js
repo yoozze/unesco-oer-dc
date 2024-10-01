@@ -41,6 +41,7 @@ class SearchFormBlock extends Component {
         this.submit = this.element.querySelector('button[type="submit"]');
         this.input = this.element.querySelector('input[type="search"]');
 
+        this.form.addEventListener('focusout', this.handleFocusOut.bind(this));
         if (this.submit !== null) {
             this.submit.addEventListener('click', this.handleSubmitClick.bind(this));
         }
@@ -91,6 +92,20 @@ class SearchFormBlock extends Component {
             this.form.classList.remove('is-active');
             this.submit.focus();
         }
+    }
+
+    /**
+     * Handle focus out event.
+     *
+     * @param {FocusEvent} event - Focus out event.
+     */
+    handleFocusOut(event) {
+        setTimeout(() => {
+            if (!this.form.contains(document.activeElement)) {
+                // this.toggleMenu(false);
+                this.form.classList.remove('is-active');
+            }
+        }, 0);
     }
 }
 
