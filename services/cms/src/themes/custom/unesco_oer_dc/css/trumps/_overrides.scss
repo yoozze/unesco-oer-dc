@@ -3,10 +3,11 @@
 
 // ## Admin Toolbar
 // ----------------
-body.toolbar-tray-open.toolbar-horizontal.toolbar-fixed,
-html.toolbar-tray-open.toolbar-horizontal.toolbar-fixed {
-    @include above(976px) {
-        .o-off-canvas-page-wrapper {
+body.toolbar-vertical.toolbar-fixed,
+html.toolbar-vertical.toolbar-fixed {
+    margin-left: 0;
+    .o-off-canvas-page-wrapper {
+        @include above(976px) {
             margin-left: var(--drupal-displace-offset-left);
         }
     }
