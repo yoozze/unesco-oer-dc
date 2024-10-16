@@ -77,6 +77,14 @@ $footer-gutter: negative(3);
     margin-top: 0;
     margin-bottom: 0;
     margin-right: size(2);
+
+    a {
+        color: color('light');
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
 }
 
 // ## Page Footer Logo
@@ -85,4 +93,8 @@ $footer-gutter: negative(3);
 .c-page-footer__logo {
     align-self: center;
     margin-left: auto;
+
+    @include below('bp-md') {
+        display: none;
+    }
 }

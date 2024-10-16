@@ -17,7 +17,8 @@
         {% if content %}
             {{ content }}
         {% else %}
-            <p class="c-page-footer__copyright">&copy; {{ "now"|date("Y") }} {{ elements['#site_name'] }}</p>
+            {# <p class="c-page-footer__copyright">&copy; {{ "now"|date("Y") }} {{ elements['#site_name'] }}</p> #}
+            <p class="c-page-footer__copyright">{{ 'Unless otherwise noted all of the content in this site is'|t }} &copy; <a href="https://creativecommons.org/licenses/by-sa/3.0/igo/" target="_blank">UNESCO CC-BY-SA 3.0 IGO</a>.</p>
             <img class="c-page-footer__logo" src="/{{ base_path ~ directory }}/images/oer-icons.svg" alt="{{ 'OER logo'|t }}" />
         {% endif %}
     </div>
