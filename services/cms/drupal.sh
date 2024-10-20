@@ -81,6 +81,7 @@ MODULES=(
     "token:^1.14"
     "google_analytics:^4.0"
     "eu_cookie_compliance:^1.25"
+    "restui:^1.22"
     # "workflow:^1.8"
     # "taxonomy_multidelete_terms:^1.4"
     # "realistic_dummy_content:^3.1"
@@ -157,6 +158,9 @@ if [ $MODE = "--install" ] || [ $MODE = "--install-modules" ]; then
     cmd="$cmd layout_builder"
     cmd="$cmd workflows"
     cmd="$cmd content_moderation"
+    cmd="$cmd basic_auth"
+    cmd="$cmd rest"
+    cmd="$cmd serialization"
 
     # - Contrib
     for module in "${MODULES[@]}"; do
