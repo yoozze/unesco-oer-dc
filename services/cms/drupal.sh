@@ -187,6 +187,7 @@ if [ $MODE = "--install" ] || [ $MODE = "--install-modules" ]; then
 
     # - Custom
     cmd="$cmd twig_extension"
+    cmd="$cmd public_api"
 
     eval $cmd
 
