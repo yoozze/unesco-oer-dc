@@ -25,8 +25,9 @@
  * @todo Delete as part of https://www.drupal.org/node/3015623
  */
 #}
-{% set item = items|first %}
 <div>
     <dt>{{ svg_icon('draft') }} <span>{{ label }}</span></dt>
-    <dd><span>{{ item.content }}</span></dd>
+    {% for item in items %}
+        <dd><span>{{ item.content }}</span></dd>
+    {% endfor %}
 </div>
