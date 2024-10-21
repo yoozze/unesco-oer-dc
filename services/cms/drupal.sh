@@ -82,6 +82,7 @@ MODULES=(
     "google_analytics:^4.0"
     "eu_cookie_compliance:^1.25"
     "restui:^1.22"
+    "file_rename:^1.0"
     # "workflow:^1.8"
     # "taxonomy_multidelete_terms:^1.4"
     # "realistic_dummy_content:^3.1"
