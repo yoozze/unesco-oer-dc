@@ -7,4 +7,8 @@
 function unesco_oer_dc_preprocess_region(&$variables) {
     $classes = &get_classes($variables);
     $classes[] = 'o-region';
+
+    // Get the current route name
+    $route = \Drupal::routeMatch()->getRouteName();
+    $variables['route'] = $route;
 }

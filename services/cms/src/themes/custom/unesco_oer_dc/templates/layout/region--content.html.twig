@@ -12,9 +12,41 @@
  * @see template_preprocess_region()
  */
 #}
+{% set system_routes = {
+    'system.403': 'Access Denied',
+    'system.404': 'Page Not Found',
+    'system.500': 'Server Error',
+} %}
+
 {% if content %}
     <div{{ attributes }}>
-        {{ content }}
+        {% if route in system_routes|keys %}
+            {{ elements.messages }}
+            <article class="c-article c-article--without-image">
+                <div class="c-article__header">
+                    <div class="o-container">
+                        <div class="c-article__content">
+                            <h1 class="c-article__title">
+                                {{ system_routes[route]|t }}
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="c-article__body">
+                    <div class="o-container">
+                        <div class="c-article__content">
+                            <div class="c-article__main">
+                                <div class="c-article__description c-text-box">
+                                    <p>{{ elements.system_main }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        {% else %}
+            {{ content }}
+        {% endif %}
     </div>
     {# {{ dump() }} #}
 {% endif %}
