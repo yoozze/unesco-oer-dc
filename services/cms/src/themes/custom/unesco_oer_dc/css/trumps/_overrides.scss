@@ -40,29 +40,33 @@ html.toolbar-vertical.toolbar-fixed {
 
 // # Drupal Messages
 // -----------------
-div[data-drupal-messages] {
-    // @extend .o-container;
 
-    // margin-right: auto;
-    // margin-left: auto;
+// div[data-drupal-messages] {}
 
-    color: color('blue-10');
-    background-color: rgba(color('blue'), size('opacity' 2));
-    border-color: rgba(color('blue'), size('opacity' 3));
-}
+// .messages__wrapper {}
 
-.messages__wrapper {
-}
+$messages-item-padding-x: max(calc((100% - size('page-width')) / 2), size(3));
 
 .messages {
+    @extend .c-status-messages__item;
+
+    display: block;
+    padding-top: size(2);
+    padding-bottom: size(2);
+    padding-left: $messages-item-padding-x;
+    padding-right: $messages-item-padding-x;
 }
 
 .messages--status {
-    padding-top: size(2);
-    padding-bottom: size(2);
-    color: color('blue-10');
-    background-color: rgba(color('blue'), size('opacity' 2));
-    border-color: rgba(color('blue'), size('opacity' 3));
+    @extend .c-status-messages__item--status;
+}
+
+.messages--error {
+    @extend .c-status-messages__item--error;
+}
+
+.messages--warning {
+    @extend .c-status-messages__item--warning;
 }
 
 // # Symfony Dump
