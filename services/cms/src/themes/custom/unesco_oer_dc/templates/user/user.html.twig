@@ -46,19 +46,40 @@
                 <div class="c-article__content">
                     <div class="c-article__main">
                         <div class="c-article__description">
-                            <form class="c-form c-form--user">
-                                {{- content -}}
-                                <div class="c-form__field c-form__field--type_item c-form__field--name_ c-form__field--no-label">
+                            {# <form class="c-form c-form--user"> #}
+                                {# {{- content -}} #}
+                                {# <div class="c-form__field c-form__field--type_item c-form__field--name_ c-form__field--no-label">
                                     <div class="c-form__control c-form__control--type_item c-form__control--name_  ">
                                         <h4 class="label">{{ 'Last login' }}</h4>
                                         {{ user.login.value|date('l, j F Y H:i') }}
                                     </div>
+                                </div> #}
+                                <div class="c-user-details">
+                                    {% if elements.user_picture %}
+                                        <div class="c-user-details__avatar">
+                                            {{ elements.user_picture }}
+                                        </div>
+                                    {% endif %}
+                                    <div class="c-user-details__info">
+                                        {{ elements.field_first_name }}
+                                        {{ elements.field_last_name }}
+                                        {{ elements.field_gender }}
+                                        {{ elements.field_position }}
+                                        {{ elements.field_country }}
+                                        {{ elements.field_region }}
+                                        {{ elements.field_institution_type }}
+                                        {{ elements.field_institution }}
+                                    </div>
+                                    
                                 </div>
-                            </form>
+
+                                {# {{ elements.member_for }} #}
+                            {# </form> #}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     {% endif %}
+    {# {{ dump() }} #}
 </article>

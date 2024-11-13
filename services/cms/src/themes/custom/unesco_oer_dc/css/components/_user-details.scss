@@ -1,0 +1,81 @@
+// # User Details
+// ==============
+
+.c-user-details {
+    display: flex;
+    // align-items: center;
+    // justify-content: space-between;
+    // padding-top: size(2);
+    // padding-bottom: size(2);
+    // padding-left: size(3);
+    // padding-right: size(3);
+
+    @include below('bp-md') {
+        flex-direction: column;
+    }
+}
+
+// ## User Details Avatar
+// ----------------------
+
+.c-user-details__avatar {
+    flex-shrink: 1;
+    flex-grow: 0;
+    max-width: 100%;
+    padding-right: size(3);
+
+    img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        border-radius: size('radius' 3);
+    }
+}
+
+// ## User Details Info
+// --------------------
+
+.c-user-details__info {
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: center;
+    flex-grow: 1;
+
+    &>div {
+        &>div {
+            display: inline-block;
+            // display: flex;
+            // flex-wrap: wrap;
+            // align-items: center;
+            // justify-content: space-between;
+            // padding-top: size(2);
+            // padding-bottom: size(2);
+            // padding-left: size(3);
+            // padding-right: size(3);
+            // border-top: 1px solid;
+            // border-bottom: 1px solid;
+
+            &:first-child {
+                @include after(':');
+
+                min-width: 150px;
+                color: color('font-muted');
+            }
+
+            a {
+                color: color('font');
+                text-decoration: none;
+                // set user interaction to none
+                pointer-events: none;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+
+    @include below('bp-md') {
+        margin-top: size(3);
+    }
+}       
