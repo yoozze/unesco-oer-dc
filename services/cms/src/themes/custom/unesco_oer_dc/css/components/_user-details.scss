@@ -3,16 +3,14 @@
 
 .c-user-details {
     display: flex;
-    // align-items: center;
-    // justify-content: space-between;
-    // padding-top: size(2);
-    // padding-bottom: size(2);
-    // padding-left: size(3);
-    // padding-right: size(3);
 
-    @include below('bp-md') {
+    @include below('bp-lg') {
         flex-direction: column;
     }
+}
+
+.c-user-details--profile {
+    margin-top: negative(size(16));
 }
 
 // ## User Details Avatar
@@ -26,9 +24,22 @@
 
     img {
         display: block;
-        max-width: 100%;
         height: auto;
-        border-radius: size('radius' 3);
+        background-color: color('background');
+        border: size(1) solid color('background');
+        border-radius: 50%;
+    }
+
+    .c-user-details--profile & {
+        margin-top: negative(size(16));
+
+        @include below('bp-lg') {
+            margin-top: 0;
+
+            img {
+                max-width: 100%;
+            }
+        }
     }
 }
 
@@ -36,36 +47,34 @@
 // --------------------
 
 .c-user-details__info {
-    // display: flex;
-    // flex-direction: column;
-    // justify-content: center;
+    @include elevation(1);
+
+    display: table;
     flex-grow: 1;
+    padding-top: size(1.5);
+    padding-bottom: size(1.5);
+    background-color: color('background');
+    border-radius: size('radius' 3);
 
     &>div {
+        display: table-row;
+
         &>div {
-            display: inline-block;
-            // display: flex;
-            // flex-wrap: wrap;
-            // align-items: center;
-            // justify-content: space-between;
-            // padding-top: size(2);
-            // padding-bottom: size(2);
-            // padding-left: size(3);
-            // padding-right: size(3);
-            // border-top: 1px solid;
-            // border-bottom: 1px solid;
+            display: table-cell;
+            padding: size(1.5) size(3);
+            border-bottom: 1px solid rgba(color('border'), size('opacity' 5));
 
             &:first-child {
                 @include after(':');
 
-                min-width: 150px;
+                width: fit-content;
+                max-width: fit-content;
                 color: color('font-muted');
             }
 
             a {
                 color: color('font');
                 text-decoration: none;
-                // set user interaction to none
                 pointer-events: none;
 
                 &:hover {
@@ -73,9 +82,15 @@
                 }
             }
         }
+
+        &:last-child {
+            &>div {
+                border-bottom: 0;
+            }
+        }
     }
 
-    @include below('bp-md') {
+    @include below('bp-lg') {
         margin-top: size(3);
     }
 }       

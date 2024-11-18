@@ -16,27 +16,49 @@
  * @see template_preprocess_user()
  */
 #}
-<article{{attributes.addClass(['c-article', 'c-article--user'])}}>
+<article{{attributes.addClass(['c-article', 'c-article--with-image', 'c-article--user'])}}>
     <div class="c-article__header">
         <div class="o-container">
             <div class="c-article__content">
-                <div class="c-article__toolbar">
-                    {% for role in user.roles %}
-                        <span class="c-article__category">{{ role.target_id }}</span>
-                    {% endfor %}
-                </div>
                 <h1 class="c-article__title">{{ user.label }}</h1>
-                {# <dl class="c-article__meta">
+                <dl class="c-article__meta">
                     <div class="c-article__meta-item">
                         <div>
-                            <dt>
-                                {{ svg_icon('mail', 'c-article__meta-icon') }}
-                                <span>{{ 'E-mail'|t }}</span>
+                            <dt title="{{ 'Role'|t }}">
+                                {{ svg_icon('group', 'c-article__meta-icon') }}
+                                <span>{{ 'Role'|t }}</span>
                             </dt>
-                            <dd>{{ user.mail.value }}</dd>
+                            <dd>
+                                {% for role in user.roles %}
+                                    <span>{{ role.target_id }}</span>
+                                    <span>{{ role.label }}</span>
+                                {% endfor %}
+                            </dd>
                         </div>
                     </div>
-                </dl> #}
+                    <div class="c-article__meta-item">
+                        <div>
+                            <dt title="{{ 'Last login'|t }}">
+                                {{ svg_icon('update', 'c-article__meta-icon') }}
+                                <span>{{ 'Last login'|t }}</span>
+                            </dt>
+                            <dd>
+                                <span>{{ user.login.value|date('j F Y, H:i') }}</span>
+                            </dd>
+                        </div>
+                    </div>
+                    <div class="c-article__meta-item">
+                        <div>
+                            <dt title="{{ 'Last login'|t }}">
+                                {{ svg_icon('verified-user', 'c-article__meta-icon') }}
+                                <span>{{ 'Member for'|t }}</span>
+                            </dt>
+                            <dd>
+                                <span>{{ elements.member_for['#markup']|striptags }}</span>
+                            </dd>
+                        </div>
+                    </div>
+                </dl>
             </div>
         </div>
     </div>
@@ -44,39 +66,37 @@
         <div class="c-article__body">
             <div class="o-container">
                 <div class="c-article__content">
-                    <div class="c-article__main">
+                    {# <div class="c-article__main"> #}
                         <div class="c-article__description">
-                            {# <form class="c-form c-form--user"> #}
-                                {# {{- content -}} #}
-                                {# <div class="c-form__field c-form__field--type_item c-form__field--name_ c-form__field--no-label">
-                                    <div class="c-form__control c-form__control--type_item c-form__control--name_  ">
-                                        <h4 class="label">{{ 'Last login' }}</h4>
-                                        {{ user.login.value|date('l, j F Y H:i') }}
-                                    </div>
-                                </div> #}
-                                <div class="c-user-details">
-                                    {% if elements.user_picture %}
-                                        <div class="c-user-details__avatar">
-                                            {{ elements.user_picture }}
-                                        </div>
-                                    {% endif %}
-                                    <div class="c-user-details__info">
-                                        {{ elements.field_first_name }}
-                                        {{ elements.field_last_name }}
-                                        {{ elements.field_gender }}
-                                        {{ elements.field_position }}
-                                        {{ elements.field_country }}
-                                        {{ elements.field_region }}
-                                        {{ elements.field_institution_type }}
-                                        {{ elements.field_institution }}
-                                    </div>
-                                    
+                            {# {{- content -}} #}
+                            {# <div class="c-form__field c-form__field--type_item c-form__field--name_ c-form__field--no-label">
+                                <div class="c-form__control c-form__control--type_item c-form__control--name_  ">
+                                    <h4 class="label">{{ 'Last login' }}</h4>
+                                    {{ user.login.value|date('l, j F Y H:i') }}
                                 </div>
+                            </div> #}
+                            <div class="c-user-details c-user-details--profile">
+                                {% if elements.user_picture %}
+                                    <div class="c-user-details__avatar">
+                                        {{ elements.user_picture }}
+                                    </div>
+                                {% endif %}
+                                <div class="c-user-details__info">
+                                    {{ elements.field_first_name }}
+                                    {{ elements.field_last_name }}
+                                    {{ elements.field_gender }}
+                                    {{ elements.field_position }}
+                                    {{ elements.field_country }}
+                                    {{ elements.field_region }}
+                                    {{ elements.field_institution_type }}
+                                    {{ elements.field_institution }}
+                                </div>
+                                
+                            </div>
 
-                                {# {{ elements.member_for }} #}
-                            {# </form> #}
+                            {# {{ elements.member_for }} #}
                         </div>
-                    </div>
+                    {# </div> #}
                 </div>
             </div>
         </div>

@@ -98,3 +98,4 @@ include_once __DIR__ . '/includes/hooks/image.php';
 include_once __DIR__ . '/includes/hooks/formatter.php';
 include_once __DIR__ . '/includes/hooks/links.php';
 include_once __DIR__ . '/includes/hooks/breadcrumb.php';
+include_once __DIR__ . '/includes/hooks/user.php';

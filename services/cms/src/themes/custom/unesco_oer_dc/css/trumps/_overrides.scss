@@ -55,6 +55,10 @@ $messages-item-padding-x: max(calc((100% - size('page-width')) / 2), size(3));
     padding-bottom: size(2);
     padding-left: $messages-item-padding-x;
     padding-right: $messages-item-padding-x;
+
+    & + & {
+        border-top-width: 0;
+    }
 }
 
 .messages--status {
