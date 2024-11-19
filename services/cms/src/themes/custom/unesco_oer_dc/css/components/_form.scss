@@ -257,6 +257,10 @@ $page-width: size('page-width');
     }
 }
 
+.c-form--observatory {
+    margin-top: size(3);
+}
+
 // ## Form Header
 
 .c-form__header {
@@ -287,7 +291,11 @@ $page-width: size('page-width');
 
 .c-form__fieldset {
     box-sizing: border-box;
+    padding: size(1) size(3);
     margin-left: 0;
+    margin-bottom: size(2);
+    border: 1px solid color('border');
+    border-radius: size('radius' 3);
 }
 
 // ## Form Legend
@@ -296,7 +304,11 @@ $page-width: size('page-width');
 .c-form__legend {
     @include font('title-medium');
 
-    margin-bottom: size(2);
+    padding-right: size(1);
+    padding-left: size(1);
+    margin-right: negative(size(1));
+    margin-left: negative(size(1));
+    margin-bottom: size(1.5);
 }
 
 // ## Form Fieldset Wrapper
@@ -315,6 +327,19 @@ $page-width: size('page-width');
 // --------------
 
 .c-form__radios {
+}
+
+.c-form__radios--inline {
+    $spacer: size('gutter') / 2;
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: negative($spacer);
+    margin-left: negative($spacer);
+
+    .c-form__field {
+        margin-right: $spacer;
+        margin-left: $spacer;
+    }
 }
 
 // ## Form Container

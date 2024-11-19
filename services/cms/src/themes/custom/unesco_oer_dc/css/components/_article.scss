@@ -279,6 +279,10 @@ $meta-icon-size: size(2.75);
     .c-article__header + & {
         padding-top: 0;
     }
+
+    .c-article--observatory & {
+        padding-bottom: 0;
+    }
 }
 
 // # Article main

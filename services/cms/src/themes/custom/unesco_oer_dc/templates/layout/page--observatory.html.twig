@@ -1,0 +1,109 @@
+{% extends "page.html.twig" %}
+
+{% block content %}
+    {{ page.content.messages}}
+    <div class="o-region">
+        <article{{attributes.addClass(['c-article', 'c-article--observatory'])}}>
+            <div class="c-article__header">
+                <div class="o-container">
+                    <div class="c-article__content">
+                        <h1 class="c-article__title">{{ page['#title'] }}</h1>
+                        <form id="observatory-form" class="c-form c-form--observatory" method="get" action="">
+                            <fieldset class="c-form__fieldset">
+                                <legend class="c-form__legend">
+                                    <span>{{ areas_of_action.vocabulary.label }}</span>
+                                </legend>
+                                <div class="c-form__fieldset-wrapper">
+                                    <div class="c-form__radios">
+                                        {% for idx, term in areas_of_action.terms %}
+                                            {% set checked = (idx == get.area - 1) ? 'checked' : '' %}
+                                            <div class="c-form__field c-form__field--type_radio">
+                                                <div class="c-form__control c-form__control--type_radio">
+                                                    <input class="c-form__radio" id="area-of-action-{{ term.tid }}" name="area" type="radio" value="{{ idx + 1 }}" {{ checked }}>
+                                                    <label class="c-form__label" for="area-of-action-{{ term.tid }}">
+                                                        <span>{{ term.name }}</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset class="c-form__fieldset">
+                                <legend class="c-form__legend">
+                                    <span>{{ 'View'|t }}</span>
+                                </legend>
+                                <div class="c-form__fieldset-wrapper">
+                                    <div class="c-form__radios c-form__radios--inline">
+                                        <div class="c-form__field c-form__field--type_radio">
+                                            <div class="c-form__control c-form__control--type_radio">
+                                                <input class="c-form__radio" id="view-news" name="view" type="radio" value="news" {{ get.view == 'news' ? 'checked' : '' }}>
+                                                <label class="c-form__label" for="view-news">
+                                                    <span>{{ 'News'|t }}</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="c-form__field c-form__field--type_radio">
+                                            <div class="c-form__control c-form__control--type_radio">
+                                                <input class="c-form__radio" id="view-dashboard" name="view" type="radio" value="dashboard" {{ get.view == 'dashboard' ? 'checked' : '' }}>
+                                                <label class="c-form__label" for="view-dashboard">
+                                                    <span>{{ 'Dashboard'|t }}</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <div class="c-form__actions">
+                                <button class="c-button c-button--filled" type="submit">
+                                    <span class="c-button__label">
+                                        {{ 'Submit'|t }}
+                                    </span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="c-article__body">
+                <div class="o-container">
+                    <div class="c-article__content">
+                        {# {{ page.content.system_main }} #}
+                        {% if get.view == 'news' %}
+                            {% set keys = [
+                                'f23b14f7-60d1-4786-9ca4-f8fdd56682ec',
+                                '9365e3e0-4914-41b5-822a-9e373e2fd3fa',
+                                '1ebf4034-deab-452e-a0e4-edf356eb2139',
+                                '50c9b223-8eec-49ee-b6cb-46631ed37dcf',
+                                'f9d34ef5-0d04-4e2e-8fc7-ade59aef9801'
+                            ] %}
+                            <iframe
+                                width="100%"
+                                {# height="1280" #}
+                                frameborder="0"
+                                style="aspect-ratio: 1440/1280"
+                                src="https://news-widget.pages.dev/news?sdg=4&amp;topicKey={{ keys[get.area - 1] }}"
+                            ></iframe>
+                        {% else %}
+                            {% set keys = [
+                                '2d2a5660-a46b-11ef-bb8e-094d83929987',
+                                '0dbc27c0-a46d-11ef-bb8e-094d83929987',
+                                '37487260-a46d-11ef-bb8e-094d83929987',
+                                '5dab4270-a46d-11ef-bb8e-094d83929987',
+                                '7f6bb390-a46d-11ef-bb8e-094d83929987'
+                            ] %}
+                            <iframe
+                                width="100%"
+                                {# height="900" #}
+                                frameborder="0"
+                                style="aspect-ratio: 1440/900"
+                                src="https://public.midas.ijs.si/kibana-sgd/app/dashboards#/view/{{ keys[get.area - 1] }}?embed=true&_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-150y,to:now))&_a=()"
+                            ></iframe>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div>
+    {# {{ dump() }} #}
+{% endblock %}
