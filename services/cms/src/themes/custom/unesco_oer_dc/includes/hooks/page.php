@@ -92,5 +92,10 @@ function unesco_oer_dc_preprocess_page(&$variables) {
             'area' => $area,
             'view' => $view
         ];
+
+        // Invalidate cache when query string changes
+        $variables['page']['#cache']['contexts'][] = 'url.query_args';
+        $variables['page']['#cache']['contexts'][] = 'url.query_args:area';
+        $variables['page']['#cache']['contexts'][] = 'url.query_args:view';
     }
 }

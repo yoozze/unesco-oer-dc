@@ -2,6 +2,7 @@ import Article from './components/Article';
 import Dropdown from './components/Dropdown';
 import Slider from './components/Slider';
 import SearchForm from './components/SearchForm';
+import ObservatoryForm from './components/ObservatoryForm';
 import SearchFormBlock from './components/SearchFormBlock';
 import MainNavigation from './components/MainNavigation';
 
@@ -16,6 +17,7 @@ function initComponents() {
     Article.init();
     Slider.init();
     // SearchForm.init();
+    ObservatoryForm.init();
     SearchFormBlock.init();
     MainNavigation.init();
 

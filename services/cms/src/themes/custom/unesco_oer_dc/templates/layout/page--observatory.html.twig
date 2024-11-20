@@ -14,7 +14,7 @@
                                     <span>{{ areas_of_action.vocabulary.label }}</span>
                                 </legend>
                                 <div class="c-form__fieldset-wrapper">
-                                    <div class="c-form__radios">
+                                    <div class="c-form__radios c-form__radios--area">
                                         {% for idx, term in areas_of_action.terms %}
                                             {% set checked = (idx == get.area - 1) ? 'checked' : '' %}
                                             <div class="c-form__field c-form__field--type_radio">
@@ -34,7 +34,7 @@
                                     <span>{{ 'View'|t }}</span>
                                 </legend>
                                 <div class="c-form__fieldset-wrapper">
-                                    <div class="c-form__radios c-form__radios--inline">
+                                    <div class="c-form__radios c-form__radios--view c-form__radios--inline">
                                         <div class="c-form__field c-form__field--type_radio">
                                             <div class="c-form__control c-form__control--type_radio">
                                                 <input class="c-form__radio" id="view-news" name="view" type="radio" value="news" {{ get.view == 'news' ? 'checked' : '' }}>
@@ -78,6 +78,7 @@
                                 'f9d34ef5-0d04-4e2e-8fc7-ade59aef9801'
                             ] %}
                             <iframe
+                                id="observatory-iframe"
                                 width="100%"
                                 {# height="1280" #}
                                 frameborder="0"
@@ -93,6 +94,7 @@
                                 '7f6bb390-a46d-11ef-bb8e-094d83929987'
                             ] %}
                             <iframe
+                                id="observatory-iframe"
                                 width="100%"
                                 {# height="900" #}
                                 frameborder="0"

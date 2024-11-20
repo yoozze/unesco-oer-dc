@@ -259,6 +259,12 @@ $page-width: size('page-width');
 
 .c-form--observatory {
     margin-top: size(3);
+
+    .js & {
+        .c-form__actions {
+            display: none;
+        }
+    }
 }
 
 // ## Form Header
