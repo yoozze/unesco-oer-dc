@@ -74,6 +74,10 @@ class ObservatoryForm extends Form {
         // Set the initial area from selected radio button.
         this.area = Number(this.areaRadios.querySelector('input:checked').value);
 
+        // const url = new URL(window.location.href);
+        // const area = Math.min(1, Math.max(5, Number(url.searchParams.get('area')))) || DEFAULT_AREA;
+        // const view = VIEWS[url.searchParams.get('view')] || DEFAULT_VIEW;
+
         // Update browser history with initial area and view.
         this.updateBrowserHistory();
 
@@ -105,7 +109,7 @@ class ObservatoryForm extends Form {
             '50c9b223-8eec-49ee-b6cb-46631ed37dcf',
             'f9d34ef5-0d04-4e2e-8fc7-ade59aef9801',,
         ] : [
-            '2d2a5660-a46b-11ef-bb8e-094d83929987',
+            'c0f2ee30-a7da-11ef-bb8e-094d83929987',
             '0dbc27c0-a46d-11ef-bb8e-094d83929987',
             '37487260-a46d-11ef-bb8e-094d83929987',
             '5dab4270-a46d-11ef-bb8e-094d83929987',
