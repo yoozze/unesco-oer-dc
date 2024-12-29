@@ -144,7 +144,7 @@ if [ $MODE = "--sync-git" ]; then
 fi
 
 ARCHIVE_PATH="./archive"
-ARCHIVE_NAME="$(date +"%Y%m%d_%H%M%S")"
+ARCHIVE_NAME="$(date +"%Y%m%dT%H%M%S")"
 
 if [ $MODE = "--archive-dump" ]; then
     echo "$PREFIX: Archiving... $ARGS"
