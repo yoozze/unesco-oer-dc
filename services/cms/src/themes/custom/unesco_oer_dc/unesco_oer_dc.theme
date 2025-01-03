@@ -81,6 +81,12 @@ function get_media_image($id, $image_style = '') {
     return $media_info;
 }
 
+function get_join_link() {
+    $language_id = \Drupal::languageManager()->getCurrentLanguage()->getId();
+    $link = 'https://surveys.unesco.org/163625?lang=' . $language_id;
+    return $link;
+}
+
 include_once __DIR__ . '/includes/hooks/html.php';
 include_once __DIR__ . '/includes/hooks/page.php';
 include_once __DIR__ . '/includes/hooks/node.php';
