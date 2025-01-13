@@ -75,7 +75,8 @@ MODULES=(
     "node_read_time:^1.13"
     "addtoany:^2.0"
     "views_ajax_history:^1.7"
-    "select2:^2.0"
+    # "select2:^2.0" # broken design
+    "select2:^1.15"
     "select2_multicheck:^1.0"
     "conditional_fields:^4.0@alpha"
     "token:^1.14"
