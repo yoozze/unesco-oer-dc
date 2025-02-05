@@ -9,11 +9,18 @@ services:
             args:
                 ROOT: ./services/cms
                 ENV: ${ENV}
+                DB_NAME: ${DB_NAME}
+                DB_USER: ${DB_USER}
+                DB_PASSWORD: ${DB_PASSWORD}
+                DB_PORT: ${DB_PORT}
+                PROJECT_BASE_URL: ${PROJECT_BASE_URL}
         environment:
             ENV: ${ENV}
             DB_NAME: ${DB_NAME}
             DB_USER: ${DB_USER}
             DB_PASSWORD: ${DB_PASSWORD}
+            DB_PORT: ${DB_PORT}
+            PROJECT_BASE_URL: ${PROJECT_BASE_URL}
             SITE_NAME: ${SITE_NAME}
             SITE_MAIL: ${SITE_MAIL}
             ACCOUNT_NAME: ${ACCOUNT_NAME}

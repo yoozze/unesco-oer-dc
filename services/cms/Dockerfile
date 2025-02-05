@@ -2,13 +2,27 @@ FROM drupal:10.4.1-php8.3-apache-bookworm
 
 ARG ROOT
 ARG ENV
+ARG DB_NAME
+ARG DB_USER
+ARG DB_PASSWORD
+ARG DB_PORT
+ARG PROJECT_BASE_URL
+
+# Set env variables
+ENV DB_NAME=${DB_NAME}
+ENV DB_USER=${DB_USER}
+ENV DB_PASSWORD=${DB_PASSWORD}
+ENV DB_PORT=${DB_PORT}
+ENV PROJECT_BASE_URL=${PROJECT_BASE_URL}
 
 # Copy project files from host
 COPY $ROOT/drupal.sh ./
 COPY $ROOT/package.json ./
 COPY $ROOT/patches ./patches
+COPY $ROOT/scripts ./scripts
 COPY $ROOT/src/preprocess.php ./web/
 COPY $ROOT/config/php.$ENV.ini /usr/local/etc/php/php.ini
+COPY $ROOT/config/crontab /var/spool/cron/crontabs/root
 
 # Install build dependencies
 RUN apt-get update && apt-get install -y \
@@ -19,6 +33,8 @@ RUN apt-get update && apt-get install -y \
     moreutils \
     jq \
     npm \
+    cron \
+    gettext \
     && rm -rf /var/lib/apt/lists/*
 
 # Install modules
@@ -33,6 +49,9 @@ RUN composer require \
 
 RUN bash drupal.sh --get-modules
 
+# Prepare scripts
+RUN envsubst < ./scripts/cron_env.sh > /tmp/cron_env.sh && cp /tmp/cron_env.sh ./scripts/cron_env.sh
+
 # Apply patches
 RUN bash patches/patch.sh
 
@@ -42,3 +61,6 @@ RUN pecl install apcu
 # Build assets
 RUN jq '.workspaces=["web/modules/custom/*","web/themes/custom/*"]' package.json | sponge package.json
 # RUN npm install && npm run build
+
+# Start the cron service and Drupal
+CMD cron && docker-php-entrypoint apache2-foreground
