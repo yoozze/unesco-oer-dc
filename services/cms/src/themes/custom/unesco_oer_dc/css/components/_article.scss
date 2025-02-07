@@ -98,7 +98,7 @@ $toolbar-spacing: size(0.5);
     margin-bottom: 0;
 
     .c-article--user & {
-        margin-left: size('avatar') + size(3);
+        margin-left: size('avatar') + size('gutter') + size(2);
 
         @include below('bp-lg') {
             margin-left: 0;
@@ -119,7 +119,7 @@ $toolbar-spacing: size(0.5);
     color: color('font-muted');
 
     .c-article--user & {
-        margin-left: size('avatar') + size(3);
+        margin-left: size('avatar') + size('gutter') + size(2);
 
         @include below('bp-lg') {
             margin-left: 0;
@@ -143,6 +143,10 @@ $toolbar-spacing: size(0.5);
             margin-top: negative(12);
         }
     }
+}
+
+.c-article__meta--list {
+    flex-direction: column;
 }
 
 // ## Article Meta Item
@@ -207,8 +211,12 @@ $meta-icon-size: size(2.75);
                 // @include after(':');
 
                 // padding-right: size(0.5);
-                .c-article__meta:not(.c-article__meta--sidebar) & {
+                .c-article__meta:not(.c-article__meta--sidebar, .c-article__meta--list) & {
                     @include hide-visually();
+                }
+
+                .c-article__meta--list & {
+                    @include after(':');
                 }
             }
         }
@@ -222,10 +230,16 @@ $meta-icon-size: size(2.75);
                 display: block;
                 margin-left: size(3.5);
             }
+
+            .c-article__meta--list & {
+                margin-left: size(1);
+                color: color('font');
+            }
         }
     }
 
     & > div + div {
+
         @include before(attr(data-separator)) {
             margin-right: $meta-item-inline-separator-spacer;
             margin-left: $meta-item-inline-separator-spacer;
@@ -243,7 +257,7 @@ $meta-icon-size: size(2.75);
     }
 
     & + .c-article__meta-item {
-        .c-article__meta:not(.c-article__meta--sidebar) & {
+        .c-article__meta:not(.c-article__meta--sidebar, .c-article__meta--list) & {
             @include before('') {
                 width: $meta-item-separator-size;
                 height: $meta-item-separator-size;
