@@ -1,4 +1,5 @@
-FROM drupal:10.4.1-php8.3-apache-bookworm
+# FROM drupal:10.4.1-php8.3-apache-bookworm
+FROM drupal:10.4.1-php8.3-fpm-bookworm
 
 ARG ROOT
 ARG ENV
@@ -56,4 +57,5 @@ RUN pear config-set php_ini /usr/local/etc/php/php.ini
 RUN pecl install xdebug
 
 # Start the cron service and Drupal
-CMD cron && docker-php-entrypoint apache2-foreground
+# CMD cron && docker-php-entrypoint apache2-foreground
+CMD cron && docker-php-entrypoint php-fpm

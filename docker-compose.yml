@@ -1,6 +1,27 @@
-version: '3.4'
+# version: '3.4'
 
 services:
+    client:
+        container_name: ${PROJECT_NAME}_client
+        build:
+            context: .
+            dockerfile: ./services/client/Dockerfile.dev
+            args:
+                ROOT: ./services/client
+                ENV: ${ENV}
+        depends_on:
+            - cms
+        ports:
+            - 80:80
+            - 443:443
+        volumes:
+            - ./services/cms/src/sites:/var/www/html/sites
+            - ./services/cms/src/data:/var/www/html/data
+            - ./services/cms/src/modules/custom:/var/www/html/modules/custom
+            - ./services/cms/src/themes/custom:/var/www/html/themes/custom
+            - cms-data:/var/www/html
+        restart: unless-stopped
+
     cms:
         container_name: ${PROJECT_NAME}_cms
         build:
@@ -37,9 +58,9 @@ services:
         depends_on:
             - db
         hostname: oerdynamiccoalition.org
-        ports:
-            - 80:80
-            - 443:443
+        # ports:
+        #     - 80:80
+        #     - 443:443
         volumes:
             - ./services/cms/src/sites:/opt/drupal/web/sites
             - ./services/cms/src/data:/opt/drupal/web/data

@@ -1,4 +1,5 @@
-FROM drupal:10.4.1-php8.3-apache-bookworm
+# FROM drupal:10.4.1-php8.3-apache-bookworm
+FROM drupal:10.4.1-php8.3-fpm-bookworm
 
 ARG ROOT
 ARG ENV
@@ -63,4 +64,5 @@ RUN jq '.workspaces=["web/modules/custom/*","web/themes/custom/*"]' package.json
 # RUN npm install && npm run build
 
 # Start the cron service and Drupal
-CMD cron && docker-php-entrypoint apache2-foreground
+# CMD cron && docker-php-entrypoint apache2-foreground
+CMD cron && docker-php-entrypoint php-fpm

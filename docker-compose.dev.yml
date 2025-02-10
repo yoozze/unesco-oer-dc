@@ -1,6 +1,25 @@
-version: '3.4'
+# version: '3.4'
 
 services:
+    client:
+        container_name: ${PROJECT_NAME}_client
+        build:
+            context: .
+            dockerfile: ./services/client/Dockerfile.dev
+            args:
+                ROOT: ./services/client
+                ENV: ${ENV}
+        depends_on:
+            - cms
+        ports:
+            - ${PROJECT_PORT}:80
+        volumes:
+            - ./services/cms/src/sites:/var/www/html/sites
+            - ./services/cms/src/data:/var/www/html/data
+            - ./services/cms/src/modules/custom:/var/www/html/modules/custom
+            - ./services/cms/src/themes/custom:/var/www/html/themes/custom
+            - cms-data:/var/www/html
+
     cms:
         container_name: ${PROJECT_NAME}_cms
         build:
@@ -36,8 +55,8 @@ services:
             SMTP_FROMNAME: ${SMTP_FROMNAME}
         depends_on:
             - db
-        ports:
-            - ${PROJECT_PORT}:80
+        # ports:
+        #     - ${PROJECT_PORT}:80
         extra_hosts:
             - "host.docker.internal:host-gateway"
         volumes:
@@ -45,6 +64,7 @@ services:
             - ./services/cms/src/data:/opt/drupal/web/data
             - ./services/cms/src/modules/custom:/opt/drupal/web/modules/custom
             - ./services/cms/src/themes/custom:/opt/drupal/web/themes/custom
+            - cms-data:/var/www/html
 
     db:
         container_name: ${PROJECT_NAME}_db
@@ -80,5 +100,6 @@ services:
         ports:
             - ${EMAIL_CLIENT_PORT}:8025
 
-# volumes:
+volumes:
+    cms-data:
 #     db-data:
