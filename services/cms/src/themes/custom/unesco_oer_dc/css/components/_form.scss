@@ -163,8 +163,10 @@ $page-width: size('page-width');
     }
 }
 
+.c-form--user-form,
 .c-form--user-register-form,
 .c-form--user-pass,
+.c-form--user-pass-reset,
 .c-form--user-login-form {
     // @include elevation(2);
 

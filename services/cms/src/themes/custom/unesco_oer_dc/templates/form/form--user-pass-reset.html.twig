@@ -1,0 +1,24 @@
+{#
+/**
+ * @file
+ * Theme override for a 'form' element.
+ *
+ * Available variables
+ * - attributes: A list of HTML attributes for the wrapper element.
+ * - children: The child elements of the form.
+ *
+ * @see template_preprocess_form()
+ */
+#}
+<form{{attributes.addClass('c-form--'~attributes.id|clean_class)}}>
+    <div class="c-form__header">
+        <div class="c-form__icon">
+            {{ svg_icon('key') }}
+        </div>
+        <h1 class="c-form__title">{{ 'Password Reset'|t }}</h1>
+    </div>
+    <div class="c-form__body">
+        {{ children }}
+    </div>
+    {# {{ dump() }} #}
+</form>

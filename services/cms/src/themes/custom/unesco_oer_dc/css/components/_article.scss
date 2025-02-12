@@ -13,6 +13,8 @@ $sidebar-width: size(366px);
     }
 }
 
+// .c-article--user,
+.c-article--user--reset,
 .c-article--user-register,
 .c-article--user-password,
 .c-article--user-login {
@@ -22,6 +24,7 @@ $sidebar-width: size(366px);
     justify-content: center;
     align-items: center;
     flex-grow: 1;
+    color: color('font-light');
     background-color: color('background-dark');
 
     @include before('') {
@@ -40,6 +43,7 @@ $sidebar-width: size(366px);
 
     form {
         position: relative;
+        color: color('font');
     }
 }
 
