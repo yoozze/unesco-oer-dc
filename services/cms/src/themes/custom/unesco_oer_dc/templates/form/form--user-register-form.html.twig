@@ -11,24 +11,27 @@
  */
 #}
 <form{{attributes.addClass('c-form--'~attributes.id|clean_class)}}>
-	<div class="c-form__header">
-		<div class="c-form__icon">
-			{{ svg_icon('person-add') }}
-		</div>
-		<h1 class="c-form__title">{{ 'Registration'|t }}</h1>
-	</div>
-	<div class="c-form__body">
-		{{ element.account }}
-		{{ element.user_picture }}
-		{{ element.administer_users }}
-		{{ element.language }}
-		{{ element.form_build_id }}
-		{{ element.form_id }}
-		{{ element.contact }}
-		{{ element.timezone }}
-		{{ element.path }}
-		{{ element.footer }}
-		{{ element.actions }}
-	</div>
-	{# {{ dump() }} #}
+    <div class="c-form__header">
+        <div class="c-form__icon">
+            {{ svg_icon('person-filled') }}
+        </div>
+        <h1 class="c-form__title">{{ 'Registration'|t }}</h1>
+    </div>
+    <div class="c-form__body">
+        {# {{ children }} #}
+        {{ element.form_build_id }}
+        {{ element.form_id }}
+        {# {{ element.field_first_name }} #}
+        {# {{ element.field_last_name }} #}
+        {# {{ element.user_picture }} #}
+        {{ element.account }}
+        {{ element.contact.contact }}
+        {{ element.administer_users }}
+        {{ element.language }}
+        {{ element.timezone }}
+        {{ element.path }}
+        {{ element.footer }}
+        {{ element.actions }}
+    </div>
+    {# {{ dump() }} #}
 </form>

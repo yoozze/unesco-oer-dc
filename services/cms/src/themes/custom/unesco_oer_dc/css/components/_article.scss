@@ -16,11 +16,31 @@ $sidebar-width: size(366px);
 .c-article--user-register,
 .c-article--user-password,
 .c-article--user-login {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     flex-grow: 1;
+    background-color: color('background-dark');
+
+    @include before('') {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        // z-index: 0;
+        background-image: url('/themes/custom/unesco_oer_dc/images/background.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        opacity: size('opacity' 4);
+    }
+
+    form {
+        position: relative;
+    }
 }
 
 // ## Article Content
