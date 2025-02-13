@@ -53,6 +53,10 @@ function get_user_initials($user) {
  * @param string $id
  */
 function generate_background_color($id) {
+    if (empty($id)) {
+        throw new InvalidArgumentException("ID cannot be empty");
+    }
+
     $colors = [
         'navy-blue' => '#001b59',
         'aqua' => '#00aaa0',
@@ -64,17 +68,15 @@ function generate_background_color($id) {
         'abbey' => '#58595b',
         'chathams-blue' => '#174e86'
     ];
-    $len = strlen($id);
-    $hash = 0;
-    $i = 0;
-    while ($i < $len) {
-        $hash = ord($id[$i]) + (($hash << 5) - $hash);
-        $hash = $hash & $hash;
-        $i++;
-    }
 
-    $color_name = array_keys($colors)[$hash % count($colors)];
-    $color = $colors[$color_name];
+    $color_keys = array_keys($colors);
+    $color_values = array_values($colors);
+
+    $hash = md5($id);
+    $hash = hexdec(substr($hash, 0, 8));
+
+    $color_index = $hash % count($color_keys);
+    $color = $color_values[$color_index];
 
     return $color;
 }
