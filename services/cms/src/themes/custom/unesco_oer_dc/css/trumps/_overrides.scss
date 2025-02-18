@@ -21,8 +21,8 @@ html.toolbar-vertical.toolbar-fixed {
     }
 }
 
-// # Contextual Links
-// ------------------
+// ## Contextual Links
+// -------------------
 .contextual {
     top: size(2px);
 
@@ -38,8 +38,8 @@ html.toolbar-vertical.toolbar-fixed {
     }
 }
 
-// # Drupal Messages
-// -----------------
+// ## Drupal Messages
+// ------------------
 
 // div[data-drupal-messages] {}
 
@@ -73,10 +73,44 @@ $messages-item-padding-x: max(calc((100% - size('page-width')) / 2), size(3));
     @extend .c-status-messages__item--warning;
 }
 
-// # Symfony Dump
-// --------------
+// ## Symfony Dump
+// ---------------
 
 pre.sf-dump,
 pre.sf-dump .sf-dump-default {
     position: static !important;
+}
+
+// ## Password Strength
+
+.password-strength {}
+
+.password-strength__meter {
+    height: size(1);
+    border-radius: size(1);
+}
+
+.password-strength__indicator {
+    border-radius: size(1);
+
+    &.is-weak {
+        background-color: color('red');
+    }
+
+    &.is-fair {
+        background-color: color('orange');
+    }
+
+    &.is-good {
+        background-color: color('green-70');
+    }
+
+    &.is-strong {
+        background-color: color('green');
+    }
+}
+
+.password-strength__title {
+    @include font('body-small');
+    color: color('font-muted');
 }

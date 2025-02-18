@@ -1,0 +1,56 @@
+// # Details
+// =========
+
+$details-border-radius: size('radius' 3);
+
+.c-details {
+    margin-bottom: size(3);
+    border: 1px solid color('border');
+    border-radius: $details-border-radius;
+}
+
+// ## Details Summary
+// ------------------
+
+.c-details__summary {
+    @include transition('background-color');
+    padding: size(2);
+    cursor: pointer;
+    border-radius: $details-border-radius;
+
+    [open] > & {
+        border-radius: $details-border-radius $details-border-radius 0 0;
+    }
+
+    &:hover {
+        background-color: rgba(color('blue'), size('opacity' 1));
+    }
+
+    &::marker {
+        content: none;
+    }
+
+    @include before(null) {
+        @include transition('transform');
+
+        content: url(image-data('navigate-next'));
+        display: inline-block;
+        margin-right: size(2);
+
+        [open] > & {
+            transform: rotate(90deg);
+        }
+    }
+}
+
+// ## Details Body
+// ---------------
+
+.c-details__body {
+    padding: size(2);
+    border-top: 1px solid color('border');
+
+    :last-child {
+        margin-bottom: 0;
+    }
+}

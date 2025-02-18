@@ -13,12 +13,54 @@
 <form{{attributes.addClass('c-form--'~attributes.id|clean_class)}}>
     <div class="c-form__header">
         <div class="c-form__icon">
-            {{ svg_icon('person-filled') }}
+            {{ svg_icon('person-edit') }}
         </div>
-        <h1 class="c-form__title">{{ 'User settings'|t }}</h1>
+        <h1 class="c-form__title">{{ 'User details'|t }}</h1>
     </div>
     <div class="c-form__body">
-        {{ children }}
+        {# {{ children }} #}
+        {{ element.form_build_id }}
+        {{ element.form_token }}
+        {{ element.form_id }}
+        <div class="c-form__group">
+            {{ element.field_first_name }}
+            {{ element.field_last_name }}
+            {{ element.field_gender }}
+        </div>
+        {# {{ element.field_position }} #}
+        {# {{ element.field_institution }} #}
+        {# {{ element.field_institution_type }} #}
+        <div class="c-form__group">
+            {{ element.field_country }}
+            {{ element.field_region }}
+        </div>
+        {{ element.user_picture }}
+        {# {{ element.account }} #}
+        <div class="c-form__group">
+            {{ element.account.current_pass }}
+            {{ element.account.mail }}
+        </div>
+        {{ element.account.name }}
+        {# {{ element.account.pass }} #}
+        <div class="c-form__group">
+            {{ element.account.pass.pass1 }}
+            {{ element.account.pass.pass2 }}
+        </div>
+        {{ element.account.status }}
+        {{ element.account.roles }}
+        {{ element.account.notify }}
+        <div class="c-form__group">
+            {# {{ element.language }} #}
+            {{ element.language.preferred_langcode }}
+            {# {{ element.timezone }} #}
+            {{ element.timezone.timezone }}
+        </div>
+        {# {{ element.contact }} #}
+        {{ element.contact.contact }}
+        {# {{ element.google_analytics }} #}
+        {{ element.google_analytics.user_account_users }}
+        {{ element.footer }}
+        {{ element.actions }}
     </div>
     {# {{ dump() }} #}
 </form>

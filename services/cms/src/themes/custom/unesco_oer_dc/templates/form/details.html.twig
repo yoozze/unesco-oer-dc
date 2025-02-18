@@ -15,24 +15,37 @@
  * @see template_preprocess_details()
  */
 #}
-<details{{ attributes }}>
-  {%
-    set summary_classes = [
-      required ? 'js-form-required',
-      required ? 'form-required',
-    ]
-  %}
-  {%- if title -%}
-    <summary{{ summary_attributes.addClass(summary_classes) }}>{{ title }}</summary>
-  {%- endif -%}
+<details{{ attributes.addClass('c-details') }}>
+    {%
+        set summary_classes = [
+            'c-details__summary',
+            required ? 'js-form-required',
+            required ? 'form-required',
+        ]
+    %}
+    {%- if title -%}
+        <summary{{ summary_attributes.addClass(summary_classes) }}>{{ title }}</summary>
+    {%- endif -%}
 
-  {% if errors %}
-    <div>
-      {{ errors }}
-    </div>
-  {% endif %}
+    {% if errors %}
+        <div class="c-details__error">
+            {{ errors }}
+        </div>
+    {% endif %}
 
-  {{ description }}
-  {{ children }}
-  {{ value }}
+    {% if description %}
+        <div class="c-details__description">
+            {{ description }}
+        </div>
+    {% endif %}
+    {% if children %}
+        <div class="c-details__body">
+            {{ children }}
+        </div>
+    {% endif %}
+    {% if value %}
+        <div class="c-details__value">
+            {{ value }}
+        </div>
+    {% endif %}
 </details>

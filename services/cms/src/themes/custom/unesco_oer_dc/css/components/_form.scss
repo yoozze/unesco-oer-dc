@@ -240,6 +240,20 @@ $page-width: size('page-width');
     }
 }
 
+.c-form--user-form {
+    max-width: size(952px);
+
+    .c-form__button {
+        width: auto;
+    }
+
+    @include below('bp-md') {
+        .c-form__group {
+            flex-direction: column;
+        }
+    }
+}
+
 .c-form--comment-form {
     // .c-form__radios,
     .c-form__checkboxes {
@@ -376,6 +390,7 @@ $page-width: size('page-width');
 // -------------
 
 .c-form__field {
+    box-sizing: border-box;
     position: relative;
     margin-bottom: size(2);
 }
@@ -436,6 +451,60 @@ $input-border-width: size('input-border-width', 'px');
 $input-outline-width: 2 * $input-border-width;
 $input-border-radius: size('radius' 1);
 
+@mixin input-label {
+    @include truncate-text();
+
+    position: absolute;
+    display: flex;
+    pointer-events: none;
+    padding-left: $label-bg-offset;
+    padding-right: $label-bg-offset;
+    top: 0;
+    left: 0;
+    max-width: calc(100% - #{2 * $input-padding-x});
+    border-radius: $input-border-radius;
+    transform-origin: top left;
+    transform: translate(
+            $input-padding-x + size($input-border-width) - $label-bg-offset,
+            $input-padding-y + size($input-border-width)
+        )
+        scale(1);
+
+    @include before('') {
+        @include transition('opacity' 'height');
+
+        position: absolute;
+        left: 0;
+        bottom: $input-border-width;
+        right: 0;
+        z-index: 0;
+        height: 100%;
+        background-color: color('background');
+        opacity: 0;
+    }
+
+    & > span {
+        @include truncate-text();
+
+        position: relative;
+        display: block;
+    }
+}
+
+@mixin input-label-minimized {
+    color: $label-color-active;
+    transform: translate(
+            $input-padding-x + size($input-border-width) - $label-bg-offset,
+            negative(1) - size($input-border-width)
+        )
+        scale(0.75);
+
+    @include before(null) {
+        height: 50%;
+        opacity: 1;
+    }
+}
+
 .c-form__input {
     @include font('body-large');
     @include transition('outline-color');
@@ -443,6 +512,7 @@ $input-border-radius: size('radius' 1);
     width: 100%;
     padding: $input-padding-y $input-padding-x;
     color: color('font');
+    background-color: color('light');
     border: $input-border-width solid color('border');
     border-radius: $input-border-radius;
     outline: none;
@@ -461,59 +531,13 @@ $input-border-radius: size('radius' 1);
     // }
 
     & ~ label {
-        @include truncate-text();
-
-        position: absolute;
-        display: flex;
-        pointer-events: none;
-        padding-left: $label-bg-offset;
-        padding-right: $label-bg-offset;
-        top: 0;
-        left: 0;
-        max-width: calc(100% - #{2 * $input-padding-x});
-        border-radius: $input-border-radius;
-        transform-origin: top left;
-        transform: translate(
-                $input-padding-x + size($input-border-width) - $label-bg-offset,
-                $input-padding-y + size($input-border-width)
-            )
-            scale(1);
-
-        @include before('') {
-            @include transition('opacity' 'height');
-
-            position: absolute;
-            left: 0;
-            bottom: $input-border-width;
-            right: 0;
-            z-index: 0;
-            height: 100%;
-            background-color: color('background');
-            opacity: 0;
-        }
-
-        & > span {
-            @include truncate-text();
-
-            position: relative;
-            display: block;
-        }
+        @include input-label;
     }
 
     &:autofill ~ label,
     &:focus ~ label,
     &:not(:placeholder-shown) ~ label {
-        color: $label-color-active;
-        transform: translate(
-                $input-padding-x + size($input-border-width) - $label-bg-offset,
-                negative(1) - size($input-border-width)
-            )
-            scale(0.75);
-
-        @include before(null) {
-            height: 50%;
-            opacity: 1;
-        }
+        @include input-label-minimized;
     }
 
     &:autofill ~ label {
@@ -554,6 +578,18 @@ $input-padding-y-small: size('input-padding-y-small');
                 )
                 scale(0.75);
         }
+    }
+}
+
+.c-form__input--file {
+    padding-top: size(1.5);
+    padding-bottom: size(1.5);
+}
+
+.c-form__image-widget {
+    & ~ label {
+        @include input-label;
+        @include input-label-minimized();
     }
 }
 
@@ -656,7 +692,7 @@ $checkbox-bg-size: size('checkbox-bg-size');
             position: absolute;
             top: negative(size(8px));
             left: negative(size(11px));
-            z-index: -1;
+            z-index: 0;
             display: block;
             width: $checkbox-bg-size;
             height: $checkbox-bg-size;
