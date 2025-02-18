@@ -1,5 +1,6 @@
 name: Twig Extension
 description: 'Twig custom extension - Filter and function'
-type: module
 package: Theme
+
+type: module
 core_version_requirement: ^9.2 || ^10

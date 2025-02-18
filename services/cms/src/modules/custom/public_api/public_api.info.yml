@@ -1,5 +1,6 @@
 name: Public REST API
 description: Module for implementing Custom Public REST API Resource.
+package: REST API
+
 type: module
 core_version_requirement: ^10 || ^11
-package: REST API

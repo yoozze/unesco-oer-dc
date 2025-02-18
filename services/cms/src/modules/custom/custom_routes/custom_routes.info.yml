@@ -1,0 +1,6 @@
+name: Custom Routes
+description: Custom routes for the site.
+package: Custom
+
+type: module
+core_version_requirement: ^10 || ^11
