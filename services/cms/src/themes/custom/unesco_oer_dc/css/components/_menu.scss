@@ -84,4 +84,21 @@ $divider: 1px solid color('divider');
     }
 }
 
+.c-menu__link--with-icon {
+    @include before() {
+        display: flex;
+        flex-shrink: 0;
+        justify-content: center;
+        align-items: center;
+        width: size('icon');
+        height: size('icon');
+        margin-right: size(1.5);
+        line-height: 0;
+    }
 
+    &.is-active {
+        @include before(null) {
+            content: url(image-data('check'));
+        }
+    }
+}

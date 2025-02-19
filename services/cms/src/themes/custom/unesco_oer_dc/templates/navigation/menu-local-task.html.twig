@@ -17,7 +17,11 @@
 {% set blacklist_routs = ['user.register'] %}
 {% set menu_link = element['#link'] %}
 {% if menu_link.url.routeName not in blacklist_routs %}
-    {% set link_classes = ['c-menu__link'] %}
+    {% set link_classes = [
+        'c-menu__link',
+        'c-menu__link--with-icon',
+        'c-menu__link--' ~ menu_link.url.routeName,
+    ] %}
     {% if is_active %}
         {% set link_classes = link_classes|merge(['is-active']) %}
     {% endif %}
