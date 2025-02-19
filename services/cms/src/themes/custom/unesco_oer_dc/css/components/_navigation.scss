@@ -231,8 +231,8 @@ $local-tasks-padding-y: size(0.5);
     @include above('bp-sm') {
         flex: 1;
         flex-basis: 100%;
-        padding-top: 0;
-        padding-bottom: size(2);
+        padding-top: size(1);
+        padding-bottom: size(1);
 
         button {
             display: none;

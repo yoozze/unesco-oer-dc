@@ -21,6 +21,10 @@
 .c-page-navigation__breadcrumb {
     flex-grow: 1;
     margin-right: size(3);
+
+    @include above('bp-sm') {
+        margin-right: 0;
+    }
 }
 
 // ## Page Navigation Local Tasks
@@ -28,4 +32,8 @@
 
 .c-page-navigation__local-tasks {
     margin-left: auto;
+
+    // .c-page-navigation__breadcrumb + & {
+    //     padding-top: 0;
+    // }
 }
