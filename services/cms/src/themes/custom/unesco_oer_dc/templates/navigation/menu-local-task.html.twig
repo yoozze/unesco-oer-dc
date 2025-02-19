@@ -14,5 +14,13 @@
  * @see template_preprocess_menu_local_task()
  */
 #}
+{% set blacklist_routs = ['user.register'] %}
 {% set menu_link = element['#link'] %}
-<li{{ attributes.addClass('c-menu__item') }}>{{ link(menu_link.title, menu_link.url, { 'class': ['c-menu__link'] }) }}</li>
+{% if menu_link.url.routeName not in blacklist_routs %}
+    {% set link_classes = ['c-menu__link'] %}
+    {% if is_active %}
+        {% set link_classes = link_classes|merge(['is-active']) %}
+    {% endif %}
+    <li{{ attributes.addClass('c-menu__item') }}>{{ link(menu_link.title, menu_link.url, { 'class': link_classes }) }}</li>
+{% endif %}
+{# {{ dump() }} #}

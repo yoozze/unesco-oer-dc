@@ -23,6 +23,8 @@
     padding-right: size(3);
 
     img {
+        @include elevation(1);
+
         display: block;
         height: auto;
         background-color: color('background');
@@ -56,10 +58,10 @@
     background-color: color('background');
     border-radius: size('radius' 3);
 
-    &>div {
+    & > div {
         display: table-row;
 
-        &>div {
+        & > div {
             display: table-cell;
             padding: size(1.5) size(3);
             border-bottom: 1px solid rgba(color('border'), size('opacity' 5));
@@ -84,7 +86,7 @@
         }
 
         &:last-child {
-            &>div {
+            & > div {
                 border-bottom: 0;
             }
         }
@@ -93,4 +95,4 @@
     @include below('bp-lg') {
         margin-top: size(3);
     }
-}       
+}
