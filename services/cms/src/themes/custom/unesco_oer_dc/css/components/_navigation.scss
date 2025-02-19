@@ -227,6 +227,50 @@ $local-tasks-padding-y: size(0.5);
     // align-items: center;
     padding-top: $account-padding-y;
     padding-bottom: $account-padding-y;
+
+    @include above('bp-sm') {
+        flex: 1;
+        flex-basis: 100%;
+        padding-top: 0;
+        padding-bottom: size(2);
+
+        button {
+            display: none;
+
+            & + div {
+                position: static;
+                display: block;
+                width: 100%;
+                padding: size(0.5);
+                background-color: rgba(color('abbey-50'), size('opacity' 1));
+                // background-color: transparent;
+                border-radius: size('radius' 6);
+                box-shadow: none;
+
+                & > ul {
+                    display: flex;
+                    flex-wrap: wrap;
+
+                    & > li {
+                        & > a {
+                            @include before(null) {
+                                display: none;
+                            }
+
+                            padding: size(0.5) size(2);
+                            margin: size(0.5);
+                            border-radius: size('radius' 6);
+
+                            &.is-active {
+                                @include elevation(1);
+                                background-color: color('light');
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 // ## Navigation - Footer
