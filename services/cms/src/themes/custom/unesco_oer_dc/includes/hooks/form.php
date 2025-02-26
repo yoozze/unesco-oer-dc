@@ -29,6 +29,12 @@ function unesco_oer_dc_form_alter(&$form, &$form_state, $form_id) {
                 ':input[name^="field_recommendations_v["]' => ['checked' => TRUE]
             ]
         ];
+    } else if ($form_id === 'node_event_form') {
+        // $field_area_of_action = $form['field_area_of_action'];
+        // Set default value
+        // $form['field_area_of_action']['widget']['#default_value'] = ['985'];
+        // $default_value = $form['field_area_of_action']['widget']['#default_value'];
+        // $field_area_of_action['widget']['#value'] = ['985'];
     }
 }
 

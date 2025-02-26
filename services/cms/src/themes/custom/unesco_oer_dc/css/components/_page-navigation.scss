@@ -2,9 +2,12 @@
 // =================
 
 .c-page-navigation {
+    // @include elevation(1);
+    // position: relative;
     display: flex;
     justify-content: center;
     background-color: color('background-alt');
+    // border-bottom: 1px solid color('border');
 }
 
 // ## Page Navigation Container

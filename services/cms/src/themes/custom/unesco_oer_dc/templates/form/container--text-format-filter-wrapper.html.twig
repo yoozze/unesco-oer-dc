@@ -20,18 +20,14 @@
  */
 #}
 {% set skip_ids = [
-    'edit-field-description-0-format-help',
-    'edit-comment-body-0-format-help',
-    'edit-comment-body-0-format-help--2',
-    'edit-field-comment-action-area-i-0-format-help',
-    'edit-field-comment-action-area-ii-0-format-help',
-    'edit-field-comment-action-area-iii-0-format-help',
-    'edit-field-comment-action-area-iv-0-format-help',
-    'edit-field-comment-action-area-v-0-format-help',
 ] %}
 {% if attributes.id|render not in skip_ids %}
 	{% set classes = [
         'c-form__container'
     ]|merge((attributes.class ?? [])|map(c => 'c-form__container--' ~ c|replace({'container-' : ''}))) %}
-	<div{{attributes.addClass(classes)}}>{{ children }}</div>
+	<div{{attributes.addClass(classes)}}>
+		{# {{ children }} #}
+		{{ element.format }}
+	</div>
+    {# {{ dump()}} #}
 {% endif %}

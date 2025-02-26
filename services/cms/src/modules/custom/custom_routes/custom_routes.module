@@ -1,0 +1,75 @@
+<?php
+
+use Drupal\Core\Cache\RefinableCacheableDependencyInterface;
+use Drupal\Core\Menu\LocalTaskManagerInterface;
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_menu_local_tasks_alter().
+ */
+function custom_routes_menu_local_tasks_alter(&$local_tasks, $route_name, RefinableCacheableDependencyInterface &$cacheability) {
+
+    if (\Drupal::currentUser()->isAuthenticated()) {
+        $user_roles = \Drupal::currentUser()->getRoles();
+        $is_authenticated = in_array('authenticated', $user_roles) && count($user_roles) === 1;
+
+        $node_type = \Drupal::routeMatch()->getParameter('node_type');
+        $node_type_id = is_object($node_type) ? $node_type->id() : "";
+
+        $is_event_view = $route_name === 'view.events.events_view';
+        $is_add_event = $route_name === 'node.add' && $node_type_id === 'event';
+        if ($is_event_view || $is_add_event) {
+            $local_tasks['tabs'][0]['view'] = [
+                '#theme' => 'menu_local_task',
+                '#link' => [
+                    'title' => t('View'),
+                    'url' => Url::fromRoute('view.events.events_view'),
+                ],
+                '#active' => $is_event_view,
+                '#weight' => 10,
+            ];
+            $local_tasks['tabs'][0]['add'] = [
+                '#theme' => 'menu_local_task',
+                '#link' => [
+                    'title' => $is_authenticated ? t('Submit event') : t('Add event'),
+                    'url' => Url::fromRoute('node.add', ['node_type' => 'event']),
+                ],
+                '#active' => $is_add_event,
+                '#weight' => 20,
+            ];
+
+            // The tab we're adding is dependent on a user's access to add content.
+            $cacheability->addCacheContexts([
+                'user.permissions',
+            ]);
+        }
+
+        $is_news_view = $route_name === 'view.news.news_view';
+        $is_add_news = $route_name === 'node.add' && $node_type_id === 'news';
+        if ($is_news_view || $is_add_news) {
+            $local_tasks['tabs'][0]['view'] = [
+                '#theme' => 'menu_local_task',
+                '#link' => [
+                    'title' => t('View'),
+                    'url' => Url::fromRoute('view.news.news_view'),
+                ],
+                '#active' => $is_news_view,
+                '#weight' => 10,
+            ];
+            $local_tasks['tabs'][0]['add'] = [
+                '#theme' => 'menu_local_task',
+                '#link' => [
+                    'title' => $is_authenticated ? t('Submit news') : t('Add news'),
+                    'url' => Url::fromRoute('node.add', ['node_type' => 'news']),
+                ],
+                '#active' => $is_add_news,
+                '#weight' => 20,
+            ];
+
+            // The tab we're adding is dependent on a user's access to add content.
+            $cacheability->addCacheContexts([
+                'user.permissions',
+            ]);
+        }
+    }
+}

@@ -1,0 +1,10 @@
+// # CKEditor
+// ==========
+
+.ck-editor {
+    & + label {
+        // display: none;
+        @include input-label;
+        @include input-label-minimized;
+    }
+}

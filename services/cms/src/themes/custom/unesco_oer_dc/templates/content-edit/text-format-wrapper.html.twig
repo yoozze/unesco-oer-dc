@@ -13,11 +13,11 @@
  * @see template_preprocess_text_format_wrapper()
  */
 #}
-<div class="js-text-format-wrapper js-form-item form-item">
+<div class="c-form__text-format-wrapper js-text-format-wrapper js-form-item form-item">
 	{{ children }}
     {% set attributes_array = attributes.toArray() %}
     {% set blacklist_ids = ['edit-comment-body-0--description'] %}
 	{% if description and attributes_array.id not in blacklist_ids %}
-		<div{{attributes}}>{{ description }}</div>
+		<div{{attributes.addClass('c-form__field-description')}}>{{ description }}</div>
 	{% endif %}
 </div>

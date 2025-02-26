@@ -163,6 +163,8 @@ $page-width: size('page-width');
     }
 }
 
+.c-form--node-news-form,
+.c-form--node-event-form,
 .c-form--contact-message-personal-form,
 .c-form--contact-message-feedback-form,
 .c-form--user-form,
@@ -170,7 +172,7 @@ $page-width: size('page-width');
 .c-form--user-pass,
 .c-form--user-pass-reset,
 .c-form--user-login-form {
-    // @include elevation(2);
+    @include elevation(3);
 
     $icon-size: size(6);
 
@@ -217,8 +219,14 @@ $page-width: size('page-width');
         padding: size(3) size(3) size(4);
     }
 
+    .c-form__group {
+        @include below('bp-md') {
+            flex-direction: column;
+        }
+    }
+
     .c-form__field {
-        margin-bottom: size(3);
+        // margin-bottom: size(3);
     }
 
     .c-form__field--name_pass {
@@ -248,11 +256,14 @@ $page-width: size('page-width');
     .c-form__button {
         width: auto;
     }
+}
 
-    @include below('bp-md') {
-        .c-form__group {
-            flex-direction: column;
-        }
+.c-form--node-news-form,
+.c-form--node-event-form {
+    max-width: size(952px);
+
+    .c-form__button {
+        width: auto;
     }
 }
 
@@ -317,7 +328,7 @@ $page-width: size('page-width');
     box-sizing: border-box;
     padding: size(1) size(3);
     margin-left: 0;
-    margin-bottom: size(2);
+    margin-bottom: size(3);
     border: 1px solid color('border');
     border-radius: size('radius' 3);
 }
@@ -372,6 +383,10 @@ $page-width: size('page-width');
 .c-form__container {
 }
 
+.c-form__container--js-filter-wrapper {
+    display: none;
+}
+
 // ## Form Group
 // -------------
 
@@ -394,7 +409,7 @@ $page-width: size('page-width');
 .c-form__field {
     box-sizing: border-box;
     position: relative;
-    margin-bottom: size(2);
+    margin-bottom: size(3);
 }
 
 // ## Form Field Prefix
@@ -820,6 +835,16 @@ $radio-bg-size: size('radio-bg-size');
     resize: vertical;
 }
 
+// ## Form Text Format Wrapper
+// ---------------------------
+.c-form__text-format-wrapper {
+    margin-bottom: size(3);
+
+    .c-form__field--type_textarea {
+        margin-bottom: 0;
+    }
+}
+
 // ## Form Select
 // --------------
 
@@ -841,6 +866,12 @@ $radio-bg-size: size('radio-bg-size');
 
     padding: size(0.5) size(2) 0;
     color: color('font-muted');
+
+    .c-form__fieldset-wrapper > & {
+        padding-right: 0;
+        padding-left: 0;
+        margin-top: negative(size(3));
+    }
 }
 
 // ## Form Field Error

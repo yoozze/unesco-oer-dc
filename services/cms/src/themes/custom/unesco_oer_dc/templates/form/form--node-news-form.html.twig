@@ -1,0 +1,60 @@
+{#
+/**
+ * @file
+ * Theme override for a 'form' element.
+ *
+ * Available variables
+ * - attributes: A list of HTML attributes for the wrapper element.
+ * - children: The child elements of the form.
+ *
+ * @see template_preprocess_form()
+ */
+#}
+<form{{attributes.addClass('c-form--'~attributes.id|clean_class)}}>
+    <div class="c-form__header">
+        <div class="c-form__icon">
+            {{ svg_icon('contextual-token-add') }}
+        </div>
+        <h1 class="c-form__title">{{ 'Submit news'|t }}</h1>
+    </div>
+    <div class="c-form__body">
+        {# {{ children }} #}
+
+        {{ element.meta }}
+        {{ element.changed }}
+        {{ element.title }}
+        {{ element.revision }}
+        {{ element.form_build_id }}
+        {{ element.form_token }}
+        {{ element.form_id }}
+        {{ element.field_description }}
+        {# {{ element.field_image }} #}
+        {# {{ element.field_url }} #}
+        <div class="visually-hidden_">
+            {{ element.field_area_of_action }}
+        </div>
+        <div class="visually-hidden">
+            {{ element.field_audience }}
+        </div>
+        {# {{ element.field_country }} #}
+        {# {{ element.field_region }} #}
+        {# {{ element.field_links }} #}
+        {# {{ element.langcode }} #}
+        {{ element.uid }}
+        {{ element.created }}
+        {{ element.promote }}
+        {{ element.sticky }}
+        {{ element.path }}
+        {# {{ element.revision_information }} #}
+        {{ element.status }}
+        {# {{ element.revision_log }} #}
+        {{ element.author }}
+        {{ element.options }}
+        {# {{ element.advanced }} #}
+        {# {{ element.footer }} #}
+        {# {{ element.moderation_state }} #}
+        {# {{ element.actions }} #}
+        {{ element.actions.submit }}
+    </div>
+    {# {{ dump() }} #}
+</form>
