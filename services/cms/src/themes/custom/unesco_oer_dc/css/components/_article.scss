@@ -26,21 +26,7 @@ $sidebar-width: size(366px);
     align-items: center;
     flex-grow: 1;
     color: color('font-light');
-    background-color: color('background-dark');
-
-    @include before('') {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        // z-index: 0;
-        background-image: url('/themes/custom/unesco_oer_dc/images/background.jpg');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        opacity: size('opacity' 4);
-    }
+    background-color: color('background-alt');
 
     form {
         position: relative;
@@ -52,6 +38,8 @@ $sidebar-width: size(366px);
 // ------------------
 
 .c-article__content {
+    max-width: 100%;
+
     .c-article__body & {
         display: flex;
 
@@ -264,7 +252,6 @@ $meta-icon-size: size(2.75);
     }
 
     & > div + div {
-
         @include before(attr(data-separator)) {
             margin-right: $meta-item-inline-separator-spacer;
             margin-left: $meta-item-inline-separator-spacer;
@@ -276,7 +263,7 @@ $meta-icon-size: size(2.75);
         align-items: center;
         text-decoration: none;
 
-        &>span {
+        & > span {
             @include truncate-text();
         }
     }

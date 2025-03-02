@@ -176,10 +176,10 @@ $page-width: size('page-width');
 
     $icon-size: size(6);
 
-    max-width: size(464px);
-    background-color: color('background-alt');
-    border: 1px solid color('border');
-    border-radius: size('radius' 3);
+    width: size(464px);
+    max-width: 100%;
+    background-color: color('background');
+    border-radius: size('radius' 4);
 
     .c-form__header {
         padding: size(4) size(3) size(1);
@@ -251,7 +251,7 @@ $page-width: size('page-width');
 }
 
 .c-form--user-form {
-    max-width: size(952px);
+    width: size(952px);
 
     .c-form__button {
         width: auto;
@@ -260,7 +260,7 @@ $page-width: size('page-width');
 
 .c-form--node-news-form,
 .c-form--node-event-form {
-    max-width: size(952px);
+    width: size(952px);
 
     .c-form__button {
         width: auto;
