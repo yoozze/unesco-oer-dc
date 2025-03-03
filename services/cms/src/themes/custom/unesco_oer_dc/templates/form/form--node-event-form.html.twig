@@ -10,7 +10,12 @@
  * @see template_preprocess_form()
  */
 #}
-<form{{attributes.addClass('c-form--'~attributes.id|clean_class)}}>
+{% set classes = [
+    'c-form--standalone',
+    'c-form--lg',
+    'c-form--'~attributes.id|clean_class
+] %}
+<form{{attributes.addClass(classes)}}>
     <div class="c-form__header">
         <div class="c-form__icon">
             {{ svg_icon('calendar-add-on') }}
@@ -27,16 +32,16 @@
         {{ element.form_build_id }}
         {{ element.form_token }}
         {{ element.form_id }}
-        {{ element.field_location }}
-        {{ element.field_venue_link }}
+        <div class="c-form__group">
+            {{ element.field_location }}
+            {{ element.field_venue_link }}
+        </div>
         {{ element.field_start_date }}
         {{ element.field_end_date }}
         {{ element.field_description }}
         {# {{ element.field_image }} #}
         {{ element.field_event_type }}
-        <div class="visually-hidden_">
-            {{ element.field_area_of_action }}
-        </div>
+        {{ element.field_area_of_action }}
         <div class="visually-hidden">
             {{ element.field_audience }}
         </div>

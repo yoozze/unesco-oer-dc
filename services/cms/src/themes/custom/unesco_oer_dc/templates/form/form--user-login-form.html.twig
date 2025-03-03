@@ -10,7 +10,12 @@
  * @see template_preprocess_form()
  */
 #}
-<form{{attributes.addClass('c-form--'~attributes.id|clean_class)}}>
+{% set classes = [
+    'c-form--standalone',
+    'c-form--sm',
+    'c-form--'~attributes.id|clean_class
+] %}
+<form{{attributes.addClass(classes)}}>
     <div class="c-form__header">
         <div class="c-form__icon">
             {{ svg_icon('lock-open') }}
@@ -22,12 +27,17 @@
         {{ element.form_id }}
         {{ element.name }}
         {{ element.pass }}
-        <div class="c-form__field c-form__field--link">
+        {# <div class="c-form__field c-form__field--link">
             <a href="/user/password">
                 {{ 'Reset your password'|t }}
             </a>
-        </div>
+        </div> #}
         {{ element.actions }}
     </div>
+    <div class="c-form__footer">
+		<a href="/user/password">
+			{{ 'Reset your password'|t }}
+		</a>
+	</div>
     {# {{ dump() }} #}
 </form>

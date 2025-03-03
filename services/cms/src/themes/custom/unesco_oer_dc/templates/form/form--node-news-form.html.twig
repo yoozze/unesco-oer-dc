@@ -10,7 +10,12 @@
  * @see template_preprocess_form()
  */
 #}
-<form{{attributes.addClass('c-form--'~attributes.id|clean_class)}}>
+{% set classes = [
+    'c-form--standalone',
+    'c-form--lg',
+    'c-form--'~attributes.id|clean_class
+] %}
+<form{{attributes.addClass(classes)}}>
     <div class="c-form__header">
         <div class="c-form__icon">
             {{ svg_icon('contextual-token-add') }}
@@ -30,9 +35,7 @@
         {{ element.field_description }}
         {# {{ element.field_image }} #}
         {# {{ element.field_url }} #}
-        <div class="visually-hidden_">
-            {{ element.field_area_of_action }}
-        </div>
+        {{ element.field_area_of_action }}
         <div class="visually-hidden">
             {{ element.field_audience }}
         </div>

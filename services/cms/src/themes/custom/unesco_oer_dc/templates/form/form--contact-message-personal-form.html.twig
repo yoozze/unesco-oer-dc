@@ -10,7 +10,12 @@
  * @see template_preprocess_form()
  */
 #}
-<form{{attributes.addClass('c-form--'~attributes.id|clean_class)}}>
+{% set classes = [
+    'c-form--standalone',
+    'c-form--md',
+    'c-form--'~attributes.id|clean_class
+] %}
+<form{{attributes.addClass(classes)}}>
     <div class="c-form__header">
         <div class="c-form__icon">
             {{ svg_icon('alternate-email') }}
@@ -23,9 +28,11 @@
         {{ element.form_build_id }}
         {{ element.form_id }}
         {{ element.form_token }}
-        
-        {{ element.name }}
-        {{ element.mail }}
+
+        <div class="c-form__group">
+            {{ element.name }}
+            {{ element.mail }}
+        </div>
         {{ element.recipient }}
         {{ element.subject }}
         {{ element.message }}

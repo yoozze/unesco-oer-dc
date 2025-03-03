@@ -14,7 +14,9 @@
  * @see template_preprocess_menu_local_task()
  */
 #}
-{% set blacklist_routs = ['user.register'] %}
+{% set blacklist_routs = is_active ? [] : [
+    'user.register'
+] %}
 {% set menu_link = element['#link'] %}
 {% if menu_link.url.routeName not in blacklist_routs %}
     {% set link_classes = [

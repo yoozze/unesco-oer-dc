@@ -163,23 +163,14 @@ $page-width: size('page-width');
     }
 }
 
-.c-form--node-news-form,
-.c-form--node-event-form,
-.c-form--contact-message-personal-form,
-.c-form--contact-message-feedback-form,
-.c-form--user-form,
-.c-form--user-register-form,
-.c-form--user-pass,
-.c-form--user-pass-reset,
-.c-form--user-login-form {
+.c-form--standalone {
     @include elevation(3);
 
-    $icon-size: size(6);
-
-    width: size(464px);
+    // width: size('grid-size-4');
     max-width: 100%;
     background-color: color('background');
     border-radius: size('radius' 4);
+    // backdrop-filter: blur(size(2));
 
     .c-form__header {
         padding: size(4) size(3) size(1);
@@ -204,6 +195,8 @@ $page-width: size('page-width');
     }
 
     .c-form__icon {
+        $icon-size: size(6);
+
         display: flex;
         justify-content: center;
         margin-bottom: size(2);
@@ -219,20 +212,6 @@ $page-width: size('page-width');
         padding: size(3) size(3) size(4);
     }
 
-    .c-form__group {
-        @include below('bp-md') {
-            flex-direction: column;
-        }
-    }
-
-    .c-form__field {
-        // margin-bottom: size(3);
-    }
-
-    .c-form__field--name_pass {
-        margin-bottom: 0;
-    }
-
     .c-form__field--link {
         padding: size(1) 0;
         margin-bottom: size(2);
@@ -240,31 +219,45 @@ $page-width: size('page-width');
     }
 
     .c-form__button {
-        width: 100%;
+        @include below('bp-sm') {
+            width: 100%;
+        }
+
+        // width: 100%;
     }
 
     .c-form__footer {
         padding: size(2) size(3);
         text-align: center;
+        background-color: color('background-alt');
         border-top: 1px solid color('border');
+        border-bottom-right-radius: size('radius' 4);
+        border-bottom-left-radius: size('radius' 4);
     }
 }
 
-.c-form--user-form {
-    width: size(952px);
+.c-form--sm {
+    width: size('grid-size-4');
 
     .c-form__button {
-        width: auto;
+        width: 100%;
     }
 }
 
-.c-form--node-news-form,
-.c-form--node-event-form {
-    width: size(952px);
+.c-form--md {
+    width: size('grid-size-6');
+}
 
-    .c-form__button {
-        width: auto;
-    }
+.c-form--lg {
+    width: size('grid-size-8');
+}
+
+.c-form--xl {
+    width: size('grid-size-10');
+}
+
+.c-form--full {
+    width: size('grid-size-12');
 }
 
 .c-form--comment-form {
@@ -401,6 +394,10 @@ $page-width: size('page-width');
         margin-right: size(1);
         margin-left: size(1);
     }
+
+    @include below('bp-md') {
+        flex-direction: column;
+    }
 }
 
 // ## Form Field
@@ -411,6 +408,14 @@ $page-width: size('page-width');
     position: relative;
     margin-bottom: size(3);
 }
+
+// .c-form__field--type_managed-file {
+//     @extend .c-form__fieldset;
+// }
+
+// .c-form__control--type_managed-file {
+//     @extend .c-form__input;
+// }
 
 // ## Form Field Prefix
 // --------------------
