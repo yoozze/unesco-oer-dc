@@ -7,6 +7,8 @@
 // -------------------
 
 .c-breadcrumb__items {
+    @include font('label-large');
+
     display: flex;
     align-items: center;
     margin: 0;
@@ -27,17 +29,15 @@ $item-bullet-size: size(0.75);
 
     & + li {
         position: relative;
-        margin-left: size(2.75);
+        margin-left: size(3.75);
 
-        @include before('') {
+        @include before(null) {
+            content: url(image-data('navigate-next'));
             position: absolute;
-            top: size(1.25);
-            left: negative(1.875);
-            display: block;
-            width: $item-bullet-size;
-            height: $item-bullet-size;
-            background-color: color('bullet');
-            border-radius: 50%;
+            top: size(0.125);
+            left: negative(2.125);
+            transform: scale(0.8);
+            opacity: size('opacity' 7);
         }
     }
 }
@@ -58,7 +58,7 @@ $item-bullet-size: size(0.75);
 .c-breadcrumb__icon {
     flex-shrink: 0;
     margin-right: size(0.5);
-    font-size: size(3);
+    font-size: size(2.5);
 }
 
 // ## Breadcrumb Label
