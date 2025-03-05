@@ -65,6 +65,11 @@ $sidebar-width: size(366px);
     .c-article__body--with-nav & {
         padding-right: 0;
     }
+
+    .c-article--node-add & {
+        flex-direction: column;
+        width: 100%;
+    }
 }
 
 // ## Article Header

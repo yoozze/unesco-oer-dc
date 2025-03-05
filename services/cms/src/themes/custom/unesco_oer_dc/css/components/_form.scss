@@ -164,7 +164,7 @@ $page-width: size('page-width');
 }
 
 .c-form--standalone {
-    @include elevation(3);
+    @include elevation(1);
 
     // width: size('grid-size-4');
     max-width: 100%;

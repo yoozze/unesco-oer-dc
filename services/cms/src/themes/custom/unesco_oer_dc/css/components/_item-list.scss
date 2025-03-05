@@ -1,0 +1,56 @@
+// # Item List
+// ===========
+
+@mixin item-list-link() {
+    @extend .c-menu__link;
+    @include truncate-text();
+
+    position: relative;
+    display: block;
+    padding: size('item-list-padding-y') size('item-list-padding-x');
+    padding-right: 2 * size('item-list-padding-x');
+
+    @include after(null) {
+        content: url(image-data('navigate-next'));
+        position: absolute;
+        right: size('item-list-padding-x');
+    }
+}
+
+.c-item-list {
+    @include elevation(1);
+
+    margin: 0;
+    padding: size(1.5) 0;
+    background-color: color('light');
+    border-radius: size('radius' 3);
+}
+
+// ## Item List Item
+// -----------------
+
+.c-item-list__item {
+    padding: size(1.5) size(3);
+    border-bottom: 1px solid rgba(color('border'), size('opacity' 5));
+
+    &:last-child {
+        border-bottom: 0;
+    }
+
+    .c-item-list--node-add-list & {
+        a {
+            @include item-list-link();
+        }
+    }
+}
+
+.c-item-list__item--with-link {
+    padding: 0;
+}
+
+// ## Item List Link
+// -----------------
+
+.c-item-list__link {
+    @include item-list-link();
+}
