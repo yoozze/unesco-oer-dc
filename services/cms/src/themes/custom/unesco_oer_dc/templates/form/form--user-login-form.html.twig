@@ -35,9 +35,10 @@
         {{ element.actions }}
     </div>
     <div class="c-form__footer">
-		<a href="/user/password">
-			{{ 'Reset your password'|t }}
-		</a>
-	</div>
+        <a class="c-form__button c-button c-button--text" href="/user/password">
+            {{ svg_icon('key', 'c-button__leading-icon') }}
+            <span class="c-button__label">{{ 'Reset your password'|t }}</span>
+        </a>
+    </div>
     {# {{ dump() }} #}
 </form>

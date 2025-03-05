@@ -229,8 +229,10 @@ $page-width: size('page-width');
     .c-form__footer {
         padding: size(2) size(3);
         text-align: center;
-        background-color: color('background-alt');
+        // background-color: color('background-alt');
+        // background-color: color('blue-95');
         border-top: 1px solid color('border');
+        // border-top: 1px solid rgba(color('border'), size('opacity' 5));
         border-bottom-right-radius: size('radius' 4);
         border-bottom-left-radius: size('radius' 4);
     }

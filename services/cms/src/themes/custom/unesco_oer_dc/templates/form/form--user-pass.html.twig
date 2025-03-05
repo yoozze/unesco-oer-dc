@@ -16,25 +16,26 @@
     'c-form--'~attributes.id|clean_class
 ] %}
 <form{{attributes.addClass(classes)}}>
-	<div class="c-form__header">
-		<div class="c-form__icon">
-			{{ svg_icon('key') }}
-		</div>
-		<h1 class="c-form__title">{{ 'Password Reset'|t }}</h1>
-        <div class="c-form__description">
-		    <p>{{ element.mail['#children'] }}</p>
+    <div class="c-form__header">
+        <div class="c-form__icon">
+            {{ svg_icon('key') }}
         </div>
-	</div>
-	<div class="c-form__body">
-		{{ element.name }}
-		{{ element.form_build_id }}
-		{{ element.form_id }}
-		{{ element.actions }}
-	</div>
-	<div class="c-form__footer">
-		<a href="/user/login">
-			{{ 'Log in'|t }}
-		</a>
-	</div>
+        <h1 class="c-form__title">{{ 'Password Reset'|t }}</h1>
+        <div class="c-form__description">
+            <p>{{ element.mail['#children'] }}</p>
+        </div>
+    </div>
+    <div class="c-form__body">
+        {{ element.name }}
+        {{ element.form_build_id }}
+        {{ element.form_id }}
+        {{ element.actions }}
+    </div>
+    <div class="c-form__footer">
+        <a class="c-form__button c-button c-button--text" href="/user/login">
+            {{ svg_icon('lock-open', 'c-button__leading-icon') }}
+            <span class="c-button__label">{{ 'Log in'|t }}</span>
+        </a>
+    </div>
     {# {{ dump() }} #}
 </form>
