@@ -79,6 +79,7 @@ function unesco_oer_dc_preprocess_block(&$variables) {
     // Breadcrumb
     if ($variables['base_plugin_id'] === 'system_breadcrumb_block') {
         $classes[] = 'c-page-navigation__breadcrumb';
+        $classes[] = 'c-page-navigation__breadcrumb--' . count($variables['content']['#links']);
     }
 
     // Local tasks

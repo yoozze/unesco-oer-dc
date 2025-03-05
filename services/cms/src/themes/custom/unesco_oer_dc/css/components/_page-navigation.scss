@@ -36,7 +36,7 @@
 .c-page-navigation__local-tasks {
     margin-left: auto;
 
-    // .c-page-navigation__breadcrumb + & {
-    //     padding-top: 0;
-    // }
+    .c-page-navigation__breadcrumb--1 + & {
+        padding-top: size(2);
+    }
 }
