@@ -67,12 +67,18 @@ class Dropdown extends Component {
         const isVisible = state !== undefined ? !state : this.menu.classList.contains('is-visible');
         if (!isVisible) {
             this.menu.classList.add('is-visible');
-            // document.body.appendChild(this.menu);
+            if (this.options.popper.global) {
+                document.body.appendChild(this.menu);
+            }
+
             this.cleanup = autoUpdate(this.toggle, this.menu, this.updatePosition.bind(this));
             this.toggle.setAttribute('aria-expanded', 'true');
         } else {
             this.menu.classList.remove('is-visible');
-            // this.element.appendChild(this.menu);
+            if (this.options.popper.global) {
+                this.element.appendChild(this.menu);
+            }
+
             this.toggle.setAttribute('aria-expanded', 'false');
 
             if (this.cleanup) {

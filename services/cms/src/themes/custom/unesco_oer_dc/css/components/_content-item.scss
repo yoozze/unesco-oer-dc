@@ -36,7 +36,7 @@ $card-item-radius: size('radius' 3);
         }
 
         @include before(null) {
-            background-color: rgba(color('blue'), size('opacity' 1))
+            background-color: rgba(color('blue'), size('opacity' 1));
         }
     }
 
@@ -45,7 +45,7 @@ $card-item-radius: size('radius' 3);
 
         z-index: -1;
         background-color: $card-item-bg-color;
-        border-radius: $card-item-radius;   
+        border-radius: $card-item-radius;
     }
 }
 
@@ -87,6 +87,7 @@ $toolbar-padding: size(2);
         margin-left: -1px;
     }
 
+    button,
     a {
         @include z-index('local2');
 
@@ -246,6 +247,9 @@ $meta-item-inline-separator-spacer: size(0.5);
     }
 }
 
+// ## Content Item Field
+// ---------------------
+
 .c-content-item__field--field-location {
     .c-content-item__field-content {
         // @include truncate-text();
@@ -262,6 +266,79 @@ $meta-item-inline-separator-spacer: size(0.5);
     }
 }
 
+// ## Content Item Link
+// --------------------
+
+@mixin content-item-link() {
+    $spacing: size(0.25);
+    $button-size: size(4);
+
+    width: $button-size;
+    height: $button-size;
+    margin-right: $spacing;
+    margin-left: $spacing;
+
+    svg {
+        $icon-size: size(2.5);
+
+        width: $icon-size;
+        height: $icon-size;
+    }
+}
+
+@mixin content-item-link-over-image() {
+    @include before(null) {
+        background-color: rgba(color('light'), 0.48);
+    }
+
+    color: color('abbey-10');
+
+    &:not(:disabled):not(.is-disabled):hover {
+        @include before(null) {
+            background-color: rgba(color('light'), 0.64);
+        }
+    }
+
+    &:not(:disabled):not(.is-disabled):focus {
+        @include before(null) {
+            background-color: rgba(color('light'), 0.76);
+        }
+    }
+
+    &:not(:disabled):not(.is-disabled).is-active,
+    &:not(:disabled):not(.is-disabled):active {
+        @include before(null) {
+            background-color: rgba(color('light'), 0.88);
+        }
+    }
+}
+
+.c-content-item__link {
+    margin-right: size(0.25);
+    margin-left: auto;
+
+    & > button {
+        & + div {
+            max-width: size(220px);
+        }
+    }
+
+    & > button,
+    & > a {
+        @include content-item-link();
+    }
+
+    .c-content-item--card.c-content-item--with-image & {
+        & > button,
+        & > a {
+            @include content-item-link-over-image();
+        }
+    }
+}
+
+// ## Content Item Share
+// ---------------------
+
 .c-content-item__share {
     .addtoany_list {
         $spacing: size(0.25);
@@ -270,23 +347,12 @@ $meta-item-inline-separator-spacer: size(0.5);
         // margin-left: negative($spacing);
 
         & > a {
-            $button-size: size(4);
+            @include content-item-link();
 
             display: none;
-            width: $button-size;
-            height: $button-size;
-            margin-right: $spacing;
-            margin-left: $spacing;
 
             &:last-child {
                 display: flex;
-            }
-
-            svg {
-                $icon-size: size(2.5);
-
-                width: $icon-size;
-                height: $icon-size;
             }
         }
     }
@@ -294,30 +360,7 @@ $meta-item-inline-separator-spacer: size(0.5);
     .c-content-item--card.c-content-item--with-image & {
         .addtoany_list {
             & > a {
-                @include before(null) {
-                    background-color: rgba(color('light'), 0.48);
-                }
-
-                color: color('abbey-10');
-
-                &:not(:disabled):not(.is-disabled):hover {
-                    @include before(null) {
-                        background-color: rgba(color('light'), 0.64);
-                    }
-                }
-
-                &:not(:disabled):not(.is-disabled):focus {
-                    @include before(null) {
-                        background-color: rgba(color('light'), 0.76);
-                    }
-                }
-
-                &:not(:disabled):not(.is-disabled).is-active,
-                &:not(:disabled):not(.is-disabled):active {
-                    @include before(null) {
-                        background-color: rgba(color('light'), 0.88);
-                    }
-                }
+                @include content-item-link-over-image();
             }
         }
     }
@@ -381,4 +424,11 @@ $link-icon-size: size(4);
             transform: translateX(0);
         }
     }
+}
+
+// ## Content Item Dropdown
+// ------------------------
+
+.c-content-item__dropdown {
+    max-width: size(220px);
 }

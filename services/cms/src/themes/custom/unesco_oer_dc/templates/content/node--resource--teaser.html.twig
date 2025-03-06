@@ -83,6 +83,53 @@
             <span class="c-content-item__category">
                 {{ content.field_media_type }}
             </span>
+            {% if content.field_url[0] %}
+                <span class="c-content-item__link">
+                    {% set link_url = content.field_url[0]['#url'] %}
+                    <a class=" c-icon-button c-icon-button--standard" href="{{ link_url.uri }}" target="_blank">
+                        {{ svg_icon('link', 'c-icon-button__icon') }}
+                    </a>
+                </span>
+            {% endif %}
+            {% if content.field_file['#items'] %}
+                {% set items_count = content.field_file['#items']|length %}
+                {% if items_count == 1 %}
+                    {% set media = content.field_file[0]['#media'] %}
+                    {% set file_url = file_url(media.field_media_document.entity.uri.value) %}
+                    <span class="c-content-item__link">
+                        <a class=" c-icon-button c-icon-button--standard" href="{{ file_url }}" target="_blank">
+                            {{ svg_icon('download', 'c-icon-button__icon') }}
+                        </a>
+                    </span>
+                {% elseif items_count > 1 %}
+                    {% set options = {
+                        'popper': {
+                            'placement': 'bottom-end',
+                            'global': true
+                        }
+                    } %}
+                    <span class="c-content-item__link c-dropdown" data-options="{{ options|json_encode }}">
+                        <button class="c-dropdown__toggle c-icon-button c-icon-button--standard">
+                            {{ svg_icon('download', 'c-icon-button__icon') }}
+                        </button>
+                        <div class="c-content-item__dropdown c-dropdown__menu c-menu">
+                            <ul class="c-menu__items">
+                                {% for i in 0..(items_count - 1) %}
+                                    {% set media = content.field_file[i]['#media'] %}
+                                    {% set entity = media.field_media_document.entity %}
+                                    {% set file_url = file_url(entity.uri.value) %}
+                                    <li class="c-menu__item">
+                                        <a class="c-menu__link" href="{{ file_url }}" target="_blank">
+                                            {{ entity.filename.value }}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </span>
+                {% endif %}                
+            {% endif %}
+            
             <span class="c-content-item__share">
                 {{ content.addtoany }}
             </span>
@@ -110,5 +157,5 @@
             {{ content.field_description }}
         </div> #}
     </div>
-    {# {{ dump(content.field_description) }} #}
+    {# {{ dump() }} #}
 </article>
