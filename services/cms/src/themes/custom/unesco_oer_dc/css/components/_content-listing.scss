@@ -3,7 +3,6 @@
 
 .c-content-listing {}
 
-
 // ## Content Listing Header
 // -------------------------
 
@@ -16,14 +15,13 @@ $header-padding: size(2);
     background-color: color('background-alt');
 
     .o-container {
-        &>.o-row {
-            &>.o-col {
+        & > .o-row {
+            & > .o-col {
                 width: 75%;
             }
         }
     }
 }
-
 
 // ## Content Listing Title
 // ------------------------
@@ -34,7 +32,6 @@ $header-padding: size(2);
     margin-top: 0;
     margin-bottom: 0;
 }
-
 
 // ## Content Listing Filters
 // --------------------------
@@ -49,8 +46,8 @@ $filters-padding: size(4);
     background-color: color('background-alt');
 
     .o-container {
-        &>.o-row {
-            &>.o-col {
+        & > .o-row {
+            & > .o-col {
                 width: 75%;
 
                 @include below('bp-xl') {
@@ -60,7 +57,6 @@ $filters-padding: size(4);
         }
     }
 }
-
 
 // ## Content Listing Main
 // -----------------------
@@ -110,4 +106,9 @@ $item-gutter: size('gutter') / 2;
         flex: 0 0 100%;
         max-width: 100%;
     }
+}
+
+.c-content-listing__item--row {
+    flex: 0 0 100%;
+    max-width: 100%;
 }

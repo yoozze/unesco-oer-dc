@@ -10,7 +10,8 @@ function unesco_oer_dc_theme_suggestions_views_view_alter(&$suggestions, &$varia
         'news_view',
         'events_view',
         'resources_view',
-        'activities_view'
+        'activities_view',
+        'updates_view'
     ];
     $current_display = $variables['view']->current_display;
     if (in_array($current_display, $content_type_views)) {

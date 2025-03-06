@@ -8,3 +8,7 @@ $margin-x: negative('gutter') / 2;
     margin-right: $margin-x;
     margin-left: $margin-x;
 }
+
+.o-row--column {
+    flex-direction: column;
+}

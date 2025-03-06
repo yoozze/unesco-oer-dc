@@ -62,7 +62,12 @@
     <div class="c-content-listing__main">
         <div class="c-content-listing__container o-container">
             {% if rows -%}
-            <ul class="c-content-listing__list o-row">
+            {% set list_class = [
+                'c-content-listing__list',
+                'o-row',
+                id == 'updates' ? 'o-row--column' : '',
+            ] %}
+            <ul class="{{ list_class|join(' ') }}">
                  {{ rows }}
             </ul>
             {% elseif empty -%}
