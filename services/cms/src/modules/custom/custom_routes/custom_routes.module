@@ -12,6 +12,9 @@ function custom_routes_menu_local_tasks_alter(&$local_tasks, $route_name, Refina
     if (\Drupal::currentUser()->isAuthenticated()) {
         $user_roles = \Drupal::currentUser()->getRoles();
         $is_authenticated = in_array('authenticated', $user_roles) && count($user_roles) === 1;
+        $is_contributor = in_array('contributor', $user_roles);
+        $is_moderator = in_array('moderator', $user_roles);
+        $is_administrator = in_array('administrator', $user_roles);
 
         $node_type = \Drupal::routeMatch()->getParameter('node_type');
         $node_type_id = is_object($node_type) ? $node_type->id() : "";
@@ -63,6 +66,62 @@ function custom_routes_menu_local_tasks_alter(&$local_tasks, $route_name, Refina
                     'url' => Url::fromRoute('node.add', ['node_type' => 'news']),
                 ],
                 '#active' => $is_add_news,
+                '#weight' => 20,
+            ];
+
+            // The tab we're adding is dependent on a user's access to add content.
+            $cacheability->addCacheContexts([
+                'user.permissions',
+            ]);
+        }
+
+        $is_resource_view = $route_name === 'view.resources.resources_view';
+        $is_add_resource = $route_name === 'node.add' && $node_type_id === 'resource';
+        if (($is_contributor || $is_moderator || $is_administrator) && ($is_resource_view || $is_add_resource)) {
+            $local_tasks['tabs'][0]['view'] = [
+                '#theme' => 'menu_local_task',
+                '#link' => [
+                    'title' => t('View'),
+                    'url' => Url::fromRoute('view.resources.resources_view'),
+                ],
+                '#active' => $is_resource_view,
+                '#weight' => 10,
+            ];
+            $local_tasks['tabs'][0]['add'] = [
+                '#theme' => 'menu_local_task',
+                '#link' => [
+                    'title' => t('Add resource'),
+                    'url' => Url::fromRoute('node.add', ['node_type' => 'resource']),
+                ],
+                '#active' => $is_add_resource,
+                '#weight' => 20,
+            ];
+
+            // The tab we're adding is dependent on a user's access to add content.
+            $cacheability->addCacheContexts([
+                'user.permissions',
+            ]);
+        }
+
+        $is_update_view = $route_name === 'view.updates.updates_view';
+        $is_add_update = $route_name === 'node.add' && $node_type_id === 'update';
+        if (($is_contributor || $is_moderator || $is_administrator) && ($is_update_view || $is_add_update)) {
+            $local_tasks['tabs'][0]['view'] = [
+                '#theme' => 'menu_local_task',
+                '#link' => [
+                    'title' => t('View'),
+                    'url' => Url::fromRoute('view.updates.updates_view'),
+                ],
+                '#active' => $is_update_view,
+                '#weight' => 10,
+            ];
+            $local_tasks['tabs'][0]['add'] = [
+                '#theme' => 'menu_local_task',
+                '#link' => [
+                    'title' => t('Add update'),
+                    'url' => Url::fromRoute('node.add', ['node_type' => 'update']),
+                ],
+                '#active' => $is_add_update,
                 '#weight' => 20,
             ];
 
