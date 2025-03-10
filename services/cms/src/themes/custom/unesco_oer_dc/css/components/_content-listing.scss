@@ -18,6 +18,10 @@ $header-padding: size(2);
         & > .o-row {
             & > .o-col {
                 width: 75%;
+
+                @include below('bp-xl') {
+                    width: auto;
+                }
             }
         }
     }
@@ -111,4 +115,10 @@ $item-gutter: size('gutter') / 2;
 .c-content-listing__item--row {
     flex: 0 0 100%;
     max-width: 100%;
+}
+
+.c-content-listing__item--update {
+    &:last-child {
+        margin-bottom: 0;
+    }
 }

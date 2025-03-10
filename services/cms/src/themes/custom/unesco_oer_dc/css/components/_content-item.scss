@@ -56,7 +56,32 @@ $card-item-radius: size('radius' 3);
     flex-direction: column;
     width: 100%;
     background-color: color('light');
+    // border: 1px solid $card-item-border-color;
     border-radius: $card-item-radius;
+}
+
+.c-content-item--update {
+    padding: size(2);
+
+    & > ul {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 0;
+        margin: negative(0.5);
+        list-style-type: none;
+
+        li {
+            margin: size(0.5);
+
+            @include below('bp-sm') {
+                flex-basis: 100%;
+            }
+
+            & > a {
+                width: 100%;
+            }
+        }
+    }
 }
 
 // ## Content Item Head
@@ -245,8 +270,12 @@ $meta-item-inline-separator-spacer: size(0.5);
     margin-bottom: 0;
     font-size: size(2.25);
 
-    .c-content-item--row-card & {
-        @include font('headline-small');
+    // .c-content-item--row-card & {
+    //     @include font('headline-small');
+    //     margin-bottom: size(2);
+    // }
+
+    .c-content-item--update & {
         margin-bottom: size(2);
     }
 }
@@ -371,15 +400,15 @@ $meta-item-inline-separator-spacer: size(0.5);
         }
     }
 
-    .c-content-item--row-card & {
-        @include after(null) {
-            display: none;
-        }
+    // .c-content-item--row-card & {
+    //     @include after(null) {
+    //         display: none;
+    //     }
 
-        & > div {
-            margin: negative(0.25);
-        }
-    }
+    //     & > div {
+    //         margin: negative(0.25);
+    //     }
+    // }
 }
 
 // ## Content Item Share

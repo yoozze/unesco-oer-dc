@@ -34,6 +34,44 @@ function unesco_oer_dc_theme_suggestions_views_view_unformatted_alter(&$suggesti
     // }
 }
 
+function unesco_oer_dc_preprocess_views_view_unformatted(&$variables) {
+    $current_display = $variables['view']->current_display;
+
+    if ($current_display === 'updates_view') {
+        $rows = $variables['rows'];
+        $groups = [];
+        foreach ($rows as $row) {
+            $node = $row['content']['#node'];
+            $values = $node->toArray();
+            $title = $values['title'][0]['value'];
+            $url = $values['field_url'][0]['uri'];
+            $created = $values['created'][0]['value'];
+            $year = date('Y', $created);
+            if (empty($groups[$year])) {
+                $groups[$year] = [];
+            }
+
+            $groups[$year][] = [
+                'title' => $title,
+                'url' => $url,
+                'created' => $created
+            ];
+        }
+
+        // Sort the groups by year descending
+        krsort($groups);
+
+        // Sort the items by created date ascending
+        foreach ($groups as $year => &$items) {
+            usort($items, function ($a, $b) {
+                return $a['created'] - $b['created'];
+            });
+        }
+
+        $variables['groups'] = $groups;
+    }
+}
+
 function unesco_oer_dc_theme_suggestions_views_view_fields_alter(&$suggestions, &$variables) {
     $current_display = $variables['view']->current_display;
     if (in_array($current_display, ['latest_news_view', 'news_view'])) {

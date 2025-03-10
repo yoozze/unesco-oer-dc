@@ -31,7 +31,7 @@
         <css-placeholder token="{{ placeholder_token }}">
         <js-placeholder token="{{ placeholder_token }}">
     </head>
-    <body{{ attributes.addClass(['c-page']) }}>
+    <body{{ attributes.addClass(['c-page', 'c-page--' ~ slug]) }}>
         {{ svg_icons | raw }}
         {#
             Keyboard navigation/accessibility link to main content section in
@@ -45,4 +45,5 @@
         {{ page_bottom }}
         <js-bottom-placeholder token="{{ placeholder_token }}">
     </body>
+    {# {{ dump() }} #}
 </html>

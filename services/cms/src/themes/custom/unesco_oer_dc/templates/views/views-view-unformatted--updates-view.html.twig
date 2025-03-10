@@ -15,19 +15,27 @@
  * @see template_preprocess_views_view_unformatted()
  */
 #}
-{% if title %}
-    <h3>{{ title }}</h3>
-{% endif %}
-{% for row in rows %}
-    <li class="c-content-listing__item c-content-listing__item--row">
-        {# <div{{row.attributes.addClass([
-            'c-content-item',
-            'c-content-item--card',
-            'c-content-item--resource',
-            row.content['#row']._entity.get('field_image')[0] ? 'c-content-item--with-image' : 'c-content-item--without-image',
-        ])}}>
-            {{- row.content -}}
-        </div> #}
-        {{- row.content -}}
-    </li>
+{# {% if title %}
+	<h3>{{ title }}</h3>
+{% endif %} #}
+{% for year, rows in groups %}
+	<li class="c-content-listing__item c-content-listing__item--row c-content-listing__item--update">
+		<div class="c-content-item c-content-item--update c-content-item--row-card">
+			<h2 class="c-content-item__title">{{ year }}</h2>
+			<ul>
+				{% for row in rows %}
+					<li>
+						<a class="c-button c-button--outlined" href="{{ row.url }}" target="_blank">
+							<span class="c-button__label">
+								{{ row.created|date('F') }}
+							</span>
+							{{ svg_icon('open-in-new', 'c-button__trailing-icon') }}
+						</a>
+					</li>
+				{% endfor %}
+			</ul>
+			{# {{ dump(rows) }} #}
+		</div>
+	</li>
 {% endfor %}
+{# {{ dump() }} #}

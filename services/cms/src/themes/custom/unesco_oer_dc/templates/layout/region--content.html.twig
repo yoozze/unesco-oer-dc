@@ -19,7 +19,7 @@
 } %}
 
 {% if content %}
-    <div{{ attributes }}>
+    <div{{ attributes.addClass('o-flex--stretch-height') }}>
         {% if route in system_routes|keys %}
             {{ elements.messages }}
             <article class="c-article c-article--without-image">

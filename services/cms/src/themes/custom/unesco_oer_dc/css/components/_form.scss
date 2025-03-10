@@ -382,6 +382,11 @@ $page-width: size('page-width');
     display: none;
 }
 
+.c-form__container--views-element-container {
+    flex-grow: 1;
+    background-color: color('background-alt');
+}
+
 // ## Form Group
 // -------------
 

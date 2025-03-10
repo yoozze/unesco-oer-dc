@@ -57,6 +57,7 @@ $button-size: size(5);
     min-width: $button-size;
     // min-height: $button-size;
     border-color: color('border');
+    background-color: color('light');
 
     .is-active>& {
         border-color: color('blue');

@@ -47,15 +47,17 @@
         </div>
     </div>
 
-    <div class="c-content-listing__filters">
-        <div class="c-content-listing__container o-container">
-            <div class="o-row">
-                <div class="o-col">
-                    {{ exposed }}
+    {% if exposed|length > 0 %}
+        <div class="c-content-listing__filters">
+            <div class="c-content-listing__container o-container">
+                <div class="o-row">
+                    <div class="o-col">
+                        {{ exposed }}
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    {% endif %}
 
     {{ attachment_before }}
 
