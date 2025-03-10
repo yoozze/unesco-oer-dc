@@ -68,31 +68,41 @@
  */
 #}
 <article{{attributes.addClass('c-article')}}>
-
-    {{ title_prefix }}
-    {% if label and not page %}
-        <h2{{title_attributes}}>
-            <a href="{{ url }}" rel="bookmark">{{ label }}</a>
-        </h2>
-    {% endif %}
-    {{ title_suffix }}
-
-    {% if display_submitted %}
-        <footer>
-            {{ author_picture }}
-            <div{{author_attributes}}>
-                {% trans %}Submitted by
-                {{ author_name }}
-                on
-                {{ date }}{% endtrans %}
-                {{ metadata }}
+    <div class="c-article__header">
+        <div class="o-container">
+            <div class="c-article__content">
+                <div class="c-article__toolbar">
+                    <span class="c-article__category">{{ 'Update'|t }}</span>
+                    <span class="c-article__share">
+                        {{ content.addtoany }}
+                    </span>
+                </div>
+                {{ title_prefix }}
+                <h1{{title_attributes.addClass('c-article__title')}}>
+                    {{ label }}
+                </h1>
+                {{ title_suffix }}
+                <dl class="c-article__meta">
+                    <div class="c-article__meta-item">
+                        {{ author_name }}
+                    </div>
+                    <div class="c-article__meta-item">
+                        {{ date }}
+                    </div>
+                </dl>
             </div>
-        </footer>
-    {% endif %}
-
-    <div{{content_attributes}}>
-        {{ content }}
+        </div>
     </div>
-    {# <script>console.log('NODE', {{ _context | json_encode | raw}});</script> #}
+    <div class="c-article__body">
+        <div class="o-container">
+            <div{{content_attributes.addClass('c-article__content')}}>
+                <div class="c-article__main">
+                    <div class="c-article__description">
+                        {{ content }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     {# {{ dump() }} #}
 </article>
