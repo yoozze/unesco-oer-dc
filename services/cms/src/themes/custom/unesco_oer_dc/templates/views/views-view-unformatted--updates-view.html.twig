@@ -16,26 +16,28 @@
  */
 #}
 {# {% if title %}
-	<h3>{{ title }}</h3>
+    <h3>{{ title }}</h3>
 {% endif %} #}
-{% for year, rows in groups %}
-	<li class="c-content-listing__item c-content-listing__item--row c-content-listing__item--update">
-		<div class="c-content-item c-content-item--update c-content-item--row-card">
-			<h2 class="c-content-item__title">{{ year }}</h2>
-			<ul>
-				{% for row in rows %}
-					<li>
-						<a class="c-button c-button--outlined" href="{{ row.url }}" target="_blank">
-							<span class="c-button__label">
-								{{ row.created|date('F') }}
-							</span>
-							{{ svg_icon('open-in-new', 'c-button__trailing-icon') }}
-						</a>
-					</li>
-				{% endfor %}
-			</ul>
-			{# {{ dump(rows) }} #}
-		</div>
-	</li>
+{% for year, updates in groups %}
+    <li class="c-content-listing__item c-content-listing__item--row c-content-listing__item--update">
+        <div class="c-content-item c-content-item--update c-content-item--row-card">
+            <h2 class="c-content-item__title">{{ year }}</h2>
+            <ul>
+                {% for update in updates %}
+                    <li>
+                        {% set url = update.row.content['#node'].field_url.uri %}
+                        {% set created = update.row.content['#node'].created.value %}
+                        <a class="c-button c-button--outlined" href="{{ url }}" target="_blank">
+                            <span class="c-button__label">
+                                {{ created|date('F') }}
+                            </span>
+                            {{ svg_icon('open-in-new', 'c-button__trailing-icon') }}
+                        </a>
+                        {# {{ dump(update) }} #}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </li>
 {% endfor %}
 {# {{ dump() }} #}

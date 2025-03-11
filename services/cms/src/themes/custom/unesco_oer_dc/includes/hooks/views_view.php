@@ -43,8 +43,6 @@ function unesco_oer_dc_preprocess_views_view_unformatted(&$variables) {
         foreach ($rows as $row) {
             $node = $row['content']['#node'];
             $values = $node->toArray();
-            $title = $values['title'][0]['value'];
-            $url = $values['field_url'][0]['uri'];
             $created = $values['created'][0]['value'];
             $year = date('Y', $created);
             if (empty($groups[$year])) {
@@ -52,9 +50,8 @@ function unesco_oer_dc_preprocess_views_view_unformatted(&$variables) {
             }
 
             $groups[$year][] = [
-                'title' => $title,
-                'url' => $url,
-                'created' => $created
+                'created' => $created,
+                'row' => $row
             ];
         }
 
