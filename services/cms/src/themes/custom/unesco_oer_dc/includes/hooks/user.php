@@ -96,6 +96,13 @@ function generate_avatar($user, $size = 100) {
     return $avatar;
 }
 
+function unesco_oer_dc_theme_suggestions_user_alter(&$suggestions, &$variables) {
+    $view_mode = $variables['elements']['#view_mode'];
+    if (!empty($view_mode)) {
+        $suggestions[] = 'user__' . clean_suggetion($view_mode);
+    }
+}
+
 function unesco_oer_dc_preprocess_user(&$variables) {
     $elements = &$variables['elements'];
 

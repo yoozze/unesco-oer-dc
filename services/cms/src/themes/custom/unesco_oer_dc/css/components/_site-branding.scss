@@ -5,7 +5,7 @@
     display: flex;
     // flex-shrink: 1;
     align-items: center;
-    overflow: hidden;
+    // overflow: hidden;
 
     @include below('bp-xs') {
         @include hide-visually();

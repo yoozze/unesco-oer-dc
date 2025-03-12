@@ -19,7 +19,7 @@
     <h3>{{ title }}</h3>
 {% endif %}
 {% for row in rows %}
-    <li{{row.attributes.addClass(['c-content-listing__item'])}}>
+    <li{{row.attributes.addClass(['c-content-listing__item', 'c-content-listing__item--row'])}}>
         {{- row.content -}}
     </li>
 {% endfor %}

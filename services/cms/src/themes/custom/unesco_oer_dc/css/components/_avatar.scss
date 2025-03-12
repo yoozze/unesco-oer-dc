@@ -1,0 +1,154 @@
+// # Avatar
+// ========
+
+.c-avatar {
+    display: flex;
+
+    @include below('bp-sm') {
+        flex-direction: column;
+    }
+}
+
+// .c-avatar--small {}
+
+// .c-avatar--large {}
+
+// ## Avatar Image
+// ---------------
+
+$avatar-image-large: size(320px);
+$avatar-image-medium: size(160px);
+$avatar-image-small: size(80px);
+.c-avatar__image {
+    // flex-shrink: 1;
+    flex-shrink: 0;
+    flex-grow: 0;
+    max-width: 100%;
+
+    img {
+        // @include elevation(1);
+
+        display: block;
+        width: $avatar-image-medium;
+        height: auto;
+        padding: size(1);
+        background-color: color('background');
+        border: 1px solid color('border');
+        border-radius: 50%;
+
+        .c-avatar--small & {
+            width: $avatar-image-small;
+            padding: size(0.5);
+        }
+    }
+}
+
+// ## Avatar Details
+// -----------------
+
+.c-avatar__details {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+    padding-left: size(3);
+
+    @include below('bp-sm') {
+        margin-top: size(2);
+    }
+}
+
+// ## Avatar Name
+// --------------
+
+.c-avatar__name {
+    @include font('headline-medium');
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+// # Avatar Meta
+// =============
+
+.c-avatar__meta {
+    margin: 0;
+    // display: table;
+}
+
+// # Avatar Meta Item
+// ==================
+
+.c-avatar__meta-item {
+    // display: table-row;
+    display: flex;
+    margin-top: size(0.5);
+
+    @include below('bp-md') {
+        display: block;
+    }
+
+    &:first-child {
+        margin-top: size(1);
+    }
+
+    dt {
+        // @include truncate-text();
+
+        // display: table-cell;
+        display: flex;
+        align-items: start;
+        
+        min-width: size(18);
+        padding-right: size(1);
+        // font-weight: bold;
+        color: color('font-muted');
+        white-space: nowrap;
+
+        & > svg {
+            flex-shrink: 0;
+            width: size(2.5);
+            height: size(2.5);
+            margin-right: size(1);
+            margin-top: size(0.25);
+        }
+
+        & > span {
+            // @include truncate-text();
+            @include after(':');
+        }
+    }
+
+    dd {
+        // display: table-cell;
+        flex-grow: 1;
+        // padding-left: size(1);
+        margin-left: 0;
+
+        @include below('bp-md') {
+            margin-left: size(3.5);
+        }
+    }
+}
+
+// ## Avatar Meta Icon
+// -------------------
+
+.c-avatar__meta-icon {
+}
+
+// ## Avatar Actions
+// -----------------
+
+.c-avatar__actions {
+    display: flex;
+    align-items: center;
+    margin-top: size(2);
+
+    & > * {
+        margin-right: size(1);
+    }
+
+    & > *:last-child {
+        margin-right: 0;
+    }
+}
