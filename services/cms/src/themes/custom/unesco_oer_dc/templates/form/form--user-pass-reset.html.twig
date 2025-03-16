@@ -15,7 +15,7 @@
     'c-form--sm',
     'c-form--'~attributes.id|clean_class
 ] %}
-<form{{attributes.addClass('c-form--'~attributes.id|clean_class)}}>
+<form{{attributes.addClass(classes)}}>
     <div class="c-form__header">
         <div class="c-form__icon">
             {{ svg_icon('key') }}
