@@ -62,9 +62,24 @@ $avatar-image-small: size(80px);
 // --------------
 
 .c-avatar__name {
-    @include font('headline-medium');
+    @include font('title-large');
     margin-top: 0;
     margin-bottom: 0;
+}
+
+// ## Avatar Link
+// --------------
+
+.c-avatar__link {
+    @include transition('color' 'text-decoration');
+    
+    color: color('blue-10');
+    text-decoration: none;
+
+    &:focus,
+    &:hover {
+        color: color('blue');
+    }
 }
 
 // # Avatar Meta

@@ -37,34 +37,11 @@
             {% endif %}
             <div class="c-avatar__details">
                 <h2 class="c-avatar__name">
-                    {# <a href="{{ path('entity.user.contact_form', {'user': user.id}) }}"> #}
-                    <a href="{{ path('entity.user.canonical', {'user': user.id}) }}">
-                        {{ user.label }}
+                    <a class="c-avatar__link" href="{{ path('entity.user.canonical', {'user': user.id}) }}">
+                        {{ display_name }}
                     </a>
                 </h2>
                 <dl class="c-avatar__meta">
-                    {% if content.field_first_name[0] %}
-                        <div class="c-avatar__meta-item">
-                            <dt>
-                                {{ svg_icon('id-card', 'c-avatar__meta-icon') }}
-                                <span>{{ content.field_first_name['#title'] }}</span>
-                            </dt>
-                            <dd>
-                                <span>{{ content.field_first_name[0]['#context']['value'] }}</span>
-                            </dd>
-                        </div>
-                    {% endif %}
-                    {% if content.field_last_name[0] %}
-                        <div class="c-avatar__meta-item">
-                            <dt>
-                                {{ svg_icon('id-card', 'c-avatar__meta-icon') }}
-                                <span>{{ content.field_last_name['#title'] }}</span>
-                            </dt>
-                            <dd>
-                                <span>{{ content.field_last_name[0]['#context']['value'] }}</span>
-                            </dd>
-                        </div>
-                    {% endif %}
                     {% if content.field_institution[0] %}
                         <div class="c-avatar__meta-item">
                             <dt>
@@ -87,42 +64,12 @@
                             </dd>
                         </div>
                     {% endif %}
-
-                    {# <div class="c-avatar__meta-item">
-                        <dt title="{{ 'Role'|t }}">
-                            {{ svg_icon('group', 'c-avatar__meta-icon') }}
-                            <span>{{ 'Role'|t }}</span>
-                        </dt>
-                        <dd>
-                            {% for role in user.roles %}
-                                <span>{{ role.target_id }}</span>
-                                <span>{{ role.label }}</span>
-                            {% endfor %}
-                        </dd>
-                    </div> #}
-                    {# <div class="c-avatar__meta-item">
-                        <dt title="{{ 'Last login'|t }}">
-                            {{ svg_icon('update', 'c-avatar__meta-icon') }}
-                            <span>{{ 'Last login'|t }}</span>
-                        </dt>
-                        <dd>
-                            <span>{{ user.login.value|date('j F Y, H:i') }}</span>
-                        </dd>
-                    </div> #}
-                    {# <div class="c-avatar__meta-item">
-                        <dt title="{{ 'Last login'|t }}">
-                            {{ svg_icon('verified-user', 'c-avatar__meta-icon') }}
-                            <span>{{ 'Member for'|t }}</span>
-                        </dt>
-                        <dd>
-                            <span>{{ elements.member_for['#markup']|striptags }}</span>
-                        </dd>
-                    </div> #}
                 </dl>
                 <div class="c-avatar__actions">
-                    {# <a href="{{ path('entity.user.canonical', {'user': user.id}) }}" class="c-button c-button--outlined">
+                    <a href="{{ path('entity.user.canonical', {'user': user.id}) }}" class="c-button c-button--filled">
+                        {{ svg_icon('account-circle', 'c-button__leading-icon') }}
                         {{ 'View profile'|t }}
-                    </a> #}
+                    </a>
                     <a href="{{ path('entity.user.contact_form', {'user': user.id}) }}" class="c-button c-button--outlined">
                         {{ svg_icon('mail', 'c-button__leading-icon') }}
                         <span class="c-button__label">{{ 'Contact'|t }}</span>

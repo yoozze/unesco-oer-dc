@@ -127,10 +127,13 @@ function unesco_oer_dc_preprocess_user(&$variables) {
         $elements['user_picture'] = [
             '#theme' => 'image',
             '#uri' => $uri,
-            '#alt' => $alt,
             '#attributes' => [
                 'class' => ['c-user__picture'],
             ],
         ];
     }
+
+    $display_name = get_user_display_name($user);
+    $elements['user_picture']['#alt'] = $display_name;
+    $variables['display_name'] = $display_name;
 }
