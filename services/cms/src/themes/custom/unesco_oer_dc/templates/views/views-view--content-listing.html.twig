@@ -67,7 +67,7 @@
             {% set list_class = [
                 'c-content-listing__list',
                 'o-row',
-                id in ['updates', 'users'] ? 'o-flex--column' : '',
+                id in ['updates', 'users_'] ? 'o-flex--column' : '',
             ] %}
             <ul class="{{ list_class|join(' ') }}">
                  {{ rows }}

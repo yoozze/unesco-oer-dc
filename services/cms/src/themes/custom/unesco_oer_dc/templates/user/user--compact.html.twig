@@ -29,7 +29,7 @@
         {% endif %}
     </div> #}
     <div class="c-content-item__body">
-        <div class="c-avatar">
+        <div class="c-avatar c-avatar--card">
             {% if elements.user_picture %}
                 <div class="c-avatar__image">
                     {{ elements.user_picture }}
@@ -41,34 +41,36 @@
                         {{ display_name }}
                     </a>
                 </h2>
-                <dl class="c-avatar__meta">
-                    {% if content.field_institution[0] %}
-                        <div class="c-avatar__meta-item">
-                            <dt>
-                                {{ svg_icon('account-balance', 'c-avatar__meta-icon') }}
-                                <span>{{ content.field_institution['#title'] }}</span>
-                            </dt>
-                            <dd>
-                                <span>{{ content.field_institution[0]['#context']['value'] }}</span>
-                            </dd>
-                        </div>
-                    {% endif %}
-                    {% if content.field_country[0] %}
-                        <div class="c-avatar__meta-item">
-                            <dt>
-                                {{ svg_icon('globe', 'c-avatar__meta-icon') }}
-                                <span>{{ content.field_country['#title'] }}</span>
-                            </dt>
-                            <dd>
-                                <span>{{ content.field_country[0]['#title'] }}</span>
-                            </dd>
-                        </div>
-                    {% endif %}
-                </dl>
+                {% if content.field_institution[0] or content.field_country[0] %}
+                    <dl class="c-avatar__info c-data-list">
+                        {% if content.field_institution[0] %}
+                            <div class="c-data-list__item">
+                                <dt class="c-data-list__label">
+                                    <span>{{ svg_icon('account-balance', 'c-data-list__icon') }}</span>
+                                    <span>{{ content.field_institution['#title'] }}</span>
+                                </dt>
+                                <dd class="c-data-list__value">
+                                    <span>{{ content.field_institution[0]['#context']['value'] }}</span>
+                                </dd>
+                            </div>
+                        {% endif %}
+                        {% if content.field_country[0] %}
+                            <div class="c-data-list__item">
+                                <dt class="c-data-list__label">
+                                    <span>{{ svg_icon('globe', 'c-data-list__icon') }}</span>
+                                    <span>{{ content.field_country['#title'] }}</span>
+                                </dt>
+                                <dd class="c-data-list__value">
+                                    <span>{{ content.field_country[0]['#title'] }}</span>
+                                </dd>
+                            </div>
+                        {% endif %}
+                    </dl>
+                {% endif %}
                 <div class="c-avatar__actions">
                     <a href="{{ path('entity.user.canonical', {'user': user.id}) }}" class="c-button c-button--filled">
                         {{ svg_icon('account-circle', 'c-button__leading-icon') }}
-                        {{ 'View profile'|t }}
+                        <span class="c-button__label">{{ 'View profile'|t }}</span>
                     </a>
                     <a href="{{ path('entity.user.contact_form', {'user': user.id}) }}" class="c-button c-button--outlined">
                         {{ svg_icon('mail', 'c-button__leading-icon') }}

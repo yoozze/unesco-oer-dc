@@ -1,0 +1,64 @@
+// # Data List
+// # ==========
+
+.c-data-list {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: size(0.5);
+}
+
+// ## Data List Item
+// -----------------
+
+.c-data-list__item {
+    display: grid;
+    grid-template-columns: subgrid;
+    gap: size(2);
+    grid-column: span 2;
+    align-items: baseline;
+
+    @include below('bp-sm') {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+}
+
+
+// ## Data List Label
+// ------------------
+
+.c-data-list__label {
+    display: flex;
+    gap: size(0.75);
+    margin: 0;
+    color: color('font-muted');
+
+    // @include after(':') {
+    //     margin-left: auto;
+    // };
+
+    & > span {
+        flex-shrink: 0;
+    }
+}
+
+// ## Data List Icon
+// -----------------
+
+.c-data-list__icon {
+    flex-shrink: 0;
+    margin-bottom: size(0.25);
+}
+
+// ## Data List Value
+// ------------------
+
+.c-data-list__value {
+    display: flex;
+    margin: 0;
+
+    @include below('bp-sm') {
+        padding-left: size(2.75);
+    }
+}
+

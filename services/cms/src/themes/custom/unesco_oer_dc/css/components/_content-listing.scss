@@ -122,3 +122,13 @@ $item-gutter: size('gutter') / 2;
         margin-bottom: 0;
     }
 }
+
+.c-content-listing__item--user {
+    flex-basis: 50%;
+    max-width: 50%;
+
+    @include below('bp-xl') {
+        flex-basis: 100%;
+        max-width: 100%;
+    }
+}
