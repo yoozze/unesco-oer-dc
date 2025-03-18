@@ -16,90 +16,93 @@
  * @see template_preprocess_user()
  */
 #}
-<article{{attributes.addClass(['c-article', 'c-article--with-image', 'c-article--user'])}}>
-    <div class="c-article__header">
+<article{{attributes.addClass(['c-article', 'c-article--with-image_', 'c-article--headless', 'c-article--user'])}}>
+    <div class="c-article__body">
         <div class="o-container">
             <div class="c-article__content">
-                <h1 class="c-article__title">{{ user.label }}</h1>
-                <dl class="c-article__meta c-article__meta--list">
-                    <div class="c-article__meta-item">
-                        <div>
-                            <dt title="{{ 'Role'|t }}">
-                                {{ svg_icon('group', 'c-article__meta-icon') }}
-                                <span>{{ 'Role'|t }}</span>
-                            </dt>
-                            <dd>
-                                {% for role in user.roles %}
-                                    <span>{{ role.target_id }}</span>
-                                    <span>{{ role.label }}</span>
-                                {% endfor %}
-                            </dd>
+                <div class="c-avatar c-avatar--lg o-flex--grow">
+                    {% if elements.user_picture %}
+                        <div class="c-avatar__image">
+                            {{ elements.user_picture }}
                         </div>
-                    </div>
-                    <div class="c-article__meta-item">
-                        <div>
-                            <dt title="{{ 'Last login'|t }}">
-                                {{ svg_icon('update', 'c-article__meta-icon') }}
-                                <span>{{ 'Last login'|t }}</span>
-                            </dt>
-                            <dd>
-                                <span>{{ user.login.value|date('j F Y, H:i') }}</span>
-                            </dd>
-                        </div>
-                    </div>
-                    <div class="c-article__meta-item">
-                        <div>
-                            <dt title="{{ 'Last login'|t }}">
-                                {{ svg_icon('verified-user', 'c-article__meta-icon') }}
-                                <span>{{ 'Member for'|t }}</span>
-                            </dt>
-                            <dd>
-                                <span>{{ elements.member_for['#markup']|striptags }}</span>
-                            </dd>
-                        </div>
-                    </div>
-                </dl>
-            </div>
-        </div>
-    </div>
-    {% if content %}
-        <div class="c-article__body">
-            <div class="o-container">
-                <div class="c-article__content">
-                    {# <div class="c-article__main"> #}
-                        <div class="c-article__description">
-                            {# {{- content -}} #}
-                            {# <div class="c-form__field c-form__field--type_item c-form__field--name_ c-form__field--no-label">
-                                <div class="c-form__control c-form__control--type_item c-form__control--name_  ">
-                                    <h4 class="label">{{ 'Last login' }}</h4>
-                                    {{ user.login.value|date('l, j F Y H:i') }}
-                                </div>
-                            </div> #}
-                            <div class="c-user-details c-user-details--profile">
-                                {% if elements.user_picture %}
-                                    <div class="c-user-details__avatar">
-                                        {{ elements.user_picture }}
-                                    </div>
-                                {% endif %}
-                                <div class="c-user-details__info">
-                                    {{ elements.field_first_name }}
-                                    {{ elements.field_last_name }}
-                                    {{ elements.field_gender }}
-                                    {{ elements.field_position }}
-                                    {{ elements.field_country }}
-                                    {{ elements.field_region }}
-                                    {{ elements.field_institution_type }}
-                                    {{ elements.field_institution }}
-                                </div>
-                                
+                    {% endif %}
+                    <div class="c-avatar__details">
+                        <h1 class="c-avatar__name">{{ display_name }}</h1>
+                        <dl class="c-avatar__meta c-data-list">
+                            <div class="c-data-list__item">
+                                <dt class="c-data-list__label" title="{{ 'Username'|t }}">
+                                    <span>{{ svg_icon('person-filled', 'c-data-list__icon') }}</span>
+                                    <span>{{ 'Username'|t }}</span>
+                                </dt>
+                                <dd class="c-data-list__value">
+                                    <span>{{ user.label }}</span>
+                                </dd>
                             </div>
-
-                            {# {{ elements.member_for }} #}
-                        </div>
-                    {# </div> #}
+                            <div class="c-data-list__item">
+                                <dt class="c-data-list__label" title="{{ 'Role'|t }}">
+                                    <span>{{ svg_icon('group', 'c-data-list__icon') }}</span>
+                                    <span>{{ 'Role'|t }}</span>
+                                </dt>
+                                <dd class="c-data-list__value">
+                                    {% for role in user.roles %}
+                                        <span>{{ role.target_id }}</span>
+                                        <span>{{ role.label }}</span>
+                                    {% endfor %}
+                                </dd>
+                            </div>
+                            <div class="c-data-list__item">
+                                <dt class="c-data-list__label" title="{{ 'Last login'|t }}">
+                                    <span>{{ svg_icon('update', 'c-data-list__icon') }}</span>
+                                    <span>{{ 'Last login'|t }}</span>
+                                </dt>
+                                <dd class="c-data-list__value">
+                                    <span>{{ user.login.value|date('j F Y, H:i') }}</span>
+                                </dd>
+                            </div>
+                            {# <div class="c-data-list__item">
+                                <dt class="c-data-list__label" title="{{ 'Member for'|t }}">
+                                    <span>{{ svg_icon('verified-user', 'c-data-list__icon') }}</span>
+                                    <span>{{ 'Member for'|t }}</span>
+                                </dt>
+                                <dd class="c-data-list__value">
+                                    <span>{{ elements.member_for['#markup']|striptags }}</span>
+                                </dd>
+                            </div> #}
+                            <div class="c-data-list__item">
+                                <dt class="c-data-list__label" title="{{ 'Member since'|t }}">
+                                    <span>{{ svg_icon('verified-user', 'c-data-list__icon') }}</span>
+                                    <span>{{ 'Member since'|t }}</span>
+                                </dt>
+                                <dd class="c-data-list__value">
+                                    <span>{{ user.created.value|date('j F Y, H:i') }}</span>
+                                </dd>
+                            </div>
+                        </dl>
+                        {% if (
+                            elements.field_first_name[0] or
+                            elements.field_last_name[0] or
+                            elements.field_gender[0] or
+                            elements.field_position[0] or
+                            elements.field_institution[0] or
+                            elements.field_institution_type[0] or
+                            elements.field_country[0] or
+                            elements.field_region[0]
+                        ) %}
+                            <div class="c-avatar__info">
+                                {{ elements.field_first_name }}
+                                {{ elements.field_last_name }}
+                                {{ elements.field_gender }}
+                                {{ elements.field_position }}
+                                {{ elements.field_institution }}
+                                {{ elements.field_institution_type }}
+                                {{ elements.field_country }}
+                                {{ elements.field_region }}
+                            </div>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
-    {% endif %}
+    </div>
     {# {{ dump() }} #}
 </article>

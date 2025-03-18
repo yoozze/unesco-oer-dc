@@ -7,7 +7,7 @@
     align-items: center;
     // overflow: hidden;
 
-    @include below('bp-xs') {
+    @include below('bp-md') {
         @include hide-visually();
     }
 }

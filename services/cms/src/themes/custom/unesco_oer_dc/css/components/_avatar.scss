@@ -11,7 +11,11 @@
 
 // .c-avatar--sm {}
 
-// .c-avatar--lg {}
+.c-avatar--lg {
+    @include below('bp-lg') {
+        flex-direction: column;
+    }
+}
 
 // ## Avatar Image
 // ---------------
@@ -22,14 +26,18 @@ $avatar-image-md: size(120px);
 $avatar-image-sm: size(80px);
 $avatar-image-xs: size(40px);
 .c-avatar__image {
-    // flex-shrink: 1;
     flex-shrink: 0;
     flex-grow: 0;
     max-width: 100%;
 
+    .c-avatar--lg & {
+        @include below('bp-lg') {
+            margin: size(0) auto;
+        }
+    }
+
     .c-avatar--card & {
         @include below('bp-sm') {
-            // align-self: center;
             margin: size(1) auto;
         }
     }
@@ -64,6 +72,12 @@ $avatar-image-xs: size(40px);
         .c-avatar--lg & {
             width: $avatar-image-lg;
         }
+
+        .c-avatar--card & {
+            @include below('bp-sm') {
+                width: $avatar-image * 1.25;
+            }
+        }
     }
 }
 
@@ -78,8 +92,17 @@ $avatar-image-xs: size(40px);
     padding-left: size(3);
 
     @include below('bp-sm') {
-        margin-top: size(2);
+        padding-top: size(2);
         padding-left: 0;
+    }
+
+    .c-avatar--lg & {
+        padding-left: size(4);
+
+        @include below('bp-lg') {
+            padding-left: 0;
+            padding-top: size(3);
+        }
     }
 }
 
@@ -90,6 +113,11 @@ $avatar-image-xs: size(40px);
     @include font('title-large');
     margin-top: 0;
     margin-bottom: 0;
+
+    .c-avatar--lg & {
+        @include font('display-large');
+        margin-bottom: size(2);
+    }
 }
 
 // ## Avatar Link
@@ -107,18 +135,65 @@ $avatar-image-xs: size(40px);
     }
 }
 
-// # Avatar Info
+// # Avatar Meta
 // =============
 
-.c-avatar__info {
+.c-avatar__meta {
     margin: size(1) 0 0;
-    // display: table;
 }
 
-// ## Avatar Meta Icon
-// -------------------
+// ## Avatar Info
+// --------------
 
-.c-avatar__meta-icon {
+.c-avatar__info {
+    @include elevation(1);
+
+    display: grid;
+    grid-template-columns: auto 1fr;
+    padding-top: size(1.5);
+    padding-bottom: size(1.5);
+    margin-top: size(3);
+    background-color: color('background');
+    border-radius: size('radius' 3);
+
+    & > div {
+        display: grid;
+        grid-template-columns: subgrid;
+        gap: size(3);
+        grid-column: span 2;
+        align-items: baseline;
+        padding: size(1.5) size(3);
+        border-bottom: 1px solid color('border-light');
+
+        @include below('bp-sm') {
+            grid-template-columns: 1fr;
+            gap: 0;
+        }
+
+        & > div {
+            display: flex;
+
+            &:first-child {
+                width: fit-content;
+                max-width: fit-content;
+                color: color('font-muted');
+            }
+
+            a {
+                color: color('font');
+                text-decoration: none;
+                pointer-events: none;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+
+        &:last-child {
+            border-bottom: 0;
+        }
+    }
 }
 
 // ## Avatar Actions
