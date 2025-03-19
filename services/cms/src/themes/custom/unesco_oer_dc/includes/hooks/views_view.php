@@ -20,6 +20,35 @@ function unesco_oer_dc_theme_suggestions_views_view_alter(&$suggestions, &$varia
     }
 }
 
+function unesco_oer_dc_preprocess_views_view(&$variables) {
+    $current_display = $variables['view']->current_display;
+    $variables['content_type'] = str_replace('_view', '', $current_display);
+
+    if ($current_display === 'breakout_sessions_view') {
+        $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('resource_category');
+        $terms = array_reduce($terms, function ($carry, $term) {
+            $term_id = $term->tid;
+            $term_name = $term->name;
+            $term_url = \Drupal::service('path_alias.manager')->getAliasByPath('/taxonomy/term/' . $term_id);
+            $carry[$term_id] = [
+                'name' => $term_name,
+                'url' => $term_url,
+                'parent' => $term->parents[0] ?? null,
+                'children' => []
+            ];
+            return $carry;
+        }, []);
+
+        foreach ($terms as $term_id => &$term) {
+            if (!empty($term['parent'])) {
+                $terms[$term['parent']]['children'][] = $term_id;
+            }
+        }
+
+        $variables['terms'] = $terms;
+    }
+}
+
 function unesco_oer_dc_theme_suggestions_views_view_unformatted_alter(&$suggestions, &$variables) {
     // if (
     //     !empty($variables['rows']) &&
