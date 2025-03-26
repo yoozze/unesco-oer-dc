@@ -19,9 +19,15 @@
  * @see template_preprocess_container()
  */
 #}
+{% set base_class = has_parent ? 'c-form__container' : 'c-container' %}
 {% set classes = [
     has_parent ? 'js-form-wrapper',
     has_parent ? 'form-wrapper',
-    'c-form__container'
-]|merge((attributes.class ?? [])|map(c => 'c-form__container--' ~ c|replace({'container-' : ''}))) %}
-<div{{attributes.setAttribute('class',classes)}}>{{ children }}</div>
+    base_class,
+    element['#type'] ? base_class ~ '--' ~ element['#type']|clean_class,
+    element['#name'] ? base_class ~ '--' ~ element['#name']|clean_class,
+]|merge((attributes.class ?? [])|map(c => base_class ~ '--' ~ c|replace({'container-' : ''}))) %}
+<div{{attributes.setAttribute('class',classes)}}>
+    {{ children }}
+    {# {{ dump() }} #}
+</div>

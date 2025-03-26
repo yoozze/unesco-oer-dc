@@ -70,7 +70,7 @@ class Article extends Component {
         this.sidebar = this.body?.querySelector(`.${Article.bem('sidebar')}`) || null;
         this.headings = this.main?.querySelectorAll('h2, h3') || [];
 
-        if (this.sidebar !== null && this.headings.length > 0) {
+        if (this.sidebar !== null && this.headings.length > 0 && this.options.articleNavTitle) {
             this.nav = this.createArticleNav();
             this.observeContentHeadings();
         }

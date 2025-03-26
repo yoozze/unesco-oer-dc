@@ -1,0 +1,20 @@
+// # Text
+// ======
+
+// ## Text Font
+// ------------
+
+@each $name, $props in $fonts {
+    .o-text--font_#{$name} {
+        @include font($name);
+    }
+}
+
+// ## Text Color
+// -------------
+
+@each $name, $value in $colors {
+    .o-text--color_#{$name} {
+        color: color($name);
+    }
+}

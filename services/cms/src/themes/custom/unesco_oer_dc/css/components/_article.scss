@@ -501,10 +501,11 @@ $meta-icon-size: size(2.75);
 .c-article__nav-title {
     // @include font('label-large');
 
-    padding: size(3) size(3) size(1);
-    margin-bottom: 0;
+    padding: size(3) size(3) size(2);
+    margin-bottom: size(1);
     color: color('font-muted');
     // border-bottom: 1px solid rgba(color('border'), size('opacity' 5));
+    border-bottom: 1px solid color('border-light');
 }
 
 // ## Article Nav List
@@ -523,9 +524,15 @@ $meta-icon-size: size(2.75);
 .c-article__nav-item {
     // border-bottom: 1px solid rgba(color('border'), size('opacity' 5));
 
-    &:first-child {
-        font-weight: 700;
+    &.is-active {
+        & > a:not(.is-active) {
+            font-weight: 700;
+            color: color('font');
+        }
     }
+    // &:first-child {
+    //     font-weight: 700;
+    // }
 }
 
 // ## Article Nav Link
@@ -541,6 +548,7 @@ $nav-bg-color: color('abbey');
     text-decoration: none;
     padding: size(0.75) size(3);
     color: color('font');
+    // color: color('blue');
 
     &:hover {
         background-color: rgba($main-bg-color, size('opacity' 1));
@@ -551,14 +559,15 @@ $nav-bg-color: color('abbey');
     }
 
     &.is-active {
+        color: color('font');
         background-color: rgba($main-bg-color, size('opacity' 2));
 
-        @include before(null) {
+        @include after(null) {
             opacity: 1;
         }
     }
 
-    @include before('') {
+    @include after('') {
         @include transition('opacity');
 
         position: absolute;
@@ -569,10 +578,37 @@ $nav-bg-color: color('abbey');
         background-color: color('orange');
         opacity: 0;
     }
+
+    li ul & {
+        @include before('') {
+            display: inline-block;
+            width: size(5px);
+            height: size(5px);
+            margin: size(0) size(11px) size(2px) negative(2);
+            border: 1px solid color('bullet');
+            border-radius: 50%;
+        }
+
+        &.is-active {
+            @include before(null) {
+                background-color: color('bullet');
+            }
+        }
+    }
+}
+
+.c-article__nav-link--h1 {
+    font-weight: 700;
+    color: color('font');
 }
 
 .c-article__nav-link--h3 {
-    padding-left: size(5);
+    padding-left: size(6);
+}
+
+.c-article__nav-link--level-1 {
+    padding-left: size(6);
+    color: color('blue');
 }
 
 // ## Article Divider

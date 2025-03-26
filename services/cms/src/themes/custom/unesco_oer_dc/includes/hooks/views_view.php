@@ -4,6 +4,8 @@
  * Implements theme hooks for views_view.
  */
 
+use Drupal\taxonomy\Entity\Term;
+
 function unesco_oer_dc_theme_suggestions_views_view_alter(&$suggestions, &$variables) {
     // global $content_type_views;
     $content_type_views = [
@@ -24,28 +26,57 @@ function unesco_oer_dc_preprocess_views_view(&$variables) {
     $current_display = $variables['view']->current_display;
     $variables['content_type'] = str_replace('_view', '', $current_display);
 
-    if ($current_display === 'breakout_sessions_view') {
+    if ($current_display === 'dubai_declaration_view') {
         $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('resource_category');
-        $terms = array_reduce($terms, function ($carry, $term) {
+        $active_term = \Drupal::routeMatch()->getParameter('taxonomy_term');
+        $active_term_id = $active_term ? $active_term->id() : null;
+        $terms_map = [];
+        foreach ($terms as $term) {
             $term_id = $term->tid;
             $term_name = $term->name;
+            $term_depth = $term->depth;
+            $term_parent = $term->parents[0] ?? null;
+            $term_description = null;
+            if ($term_id === $active_term_id || $term_depth === 0) {
+                $term_data = Term::load($term_id);
+                $term_description = $term_data->getDescription();
+            }
             $term_url = \Drupal::service('path_alias.manager')->getAliasByPath('/taxonomy/term/' . $term_id);
-            $carry[$term_id] = [
+            $term_value = [
                 'name' => $term_name,
+                'description' => $term_description,
                 'url' => $term_url,
-                'parent' => $term->parents[0] ?? null,
+                'active' => $term_id === $active_term_id,
+                'depth' => $term_depth,
+                'parent' => $term_parent,
                 'children' => []
             ];
-            return $carry;
-        }, []);
+            $terms_map[$term_id] = $term_value;
+        }
 
-        foreach ($terms as $term_id => &$term) {
-            if (!empty($term['parent'])) {
-                $terms[$term['parent']]['children'][] = $term_id;
+        foreach ($terms_map as $term_id => &$term) {
+            if (!empty($term['parent']) && !empty($terms_map[$term['parent']])) {
+                $parent = &$terms_map[$term['parent']];
+                if (empty($parent['children'])) {
+                    $parent['children'] = [];
+
+                    // If first child, set parent's url to first child's url
+                    $parent['url'] = $term['url'];
+                }
+
+                $parent['children'][] = $term_id;
+
+                // If child is active, set parent as active
+                if ($term['active']) {
+                    $parent['active'] = true;
+                    $term_data = Term::load($term['parent']);
+                    $parent['description'] = $term_data->getDescription();
+                }
             }
         }
 
-        $variables['terms'] = $terms;
+        $variables['terms'] = $terms_map;
+        $variables['active_term_id'] = $active_term_id;
     }
 }
 
@@ -116,6 +147,30 @@ function unesco_oer_dc_theme_suggestions_views_view_fields_alter(&$suggestions, 
     if (in_array($current_display, ['activities_view'])) {
         $suggestions[] = 'views_view_fields__content_item__activity_card';
     }
+
+    // if (in_array($current_display, ['dubai_declaration_view'])) {
+    //     $suggestions[] = 'views_view_fields__dubai_declaration';
+    // }
+}
+
+function unesco_oer_dc_preprocess_views_view_fields(&$variables) {
+    // $view_id = $variables['view']->id();
+    // if ($view_id === 'dubai_declaration') {
+
+    //     $variables['title'] = $variables['row']->_entity->get('title')->value;
+
+    //     $content_type = $variables['row']->_entity->get('field_media_type')->entity->name->value;
+    //     $variables['content_type'] = $content_type;
+
+    //     $file = $variables['row']->_entity->get('field_file')->entity;
+    //     $variables['file'] = $file;
+
+    //     $url = $variables['row']->_entity->get('field_url')->uri;
+    //     $variables['url'] = $url;
+
+    //     // $variables['raw_value'] = $variables['row']->_entity->get('field_name')->value;
+    //     $variables['raw_value'] = 'test';
+    // }
 }
 
 function unesco_oer_dc_theme_suggestions_views_view_field_alter(&$suggestions, &$variables) {

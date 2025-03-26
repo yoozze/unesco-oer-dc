@@ -1,0 +1,135 @@
+{#
+/**
+ * @file
+ * Theme override for main view template.
+ *
+ * Available variables:
+ * - attributes: Remaining HTML attributes for the element.
+ * - css_name: A CSS-safe version of the view name.
+ * - css_class: The user-specified classes names, if any.
+ * - header: The optional header.
+ * - footer: The optional footer.
+ * - rows: The results of the view query, if any.
+ * - empty: The content to display if there are no rows.
+ * - pager: The optional pager next/prev links to display.
+ * - exposed: Exposed widget form/info to display.
+ * - feed_icons: Optional feed icons to display.
+ * - more: An optional link to the next page of results.
+ * - title: Title of the view, only used when displaying in the admin preview.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the view title.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the view title.
+ * - attachment_before: An optional attachment view to be displayed before the
+ *   view content.
+ * - attachment_after: An optional attachment view to be displayed after the
+ *   view content.
+ * - dom_id: Unique id for every view being printed to give unique class for
+ *   Javascript.
+ *
+ * @see template_preprocess_views_view()
+ */
+#}
+{% import _self as menus %}
+
+{% macro menu_links(all_items, children, menu_level) %}
+    {% import _self as menus %}
+    {% if children %}
+        <ul class="c-article__nav-list">
+        {% for key, value in children %}
+            {% set item = all_items[value] %}
+            {% set item_class = [
+                'c-article__nav-item',
+                'c-article__nav-item--level-' ~ menu_level,
+                item.active ? 'is-active' : '',
+            ] %}
+            <li class="{{ item_class|join(' ') }}">
+                {% set link_class = [
+                    'c-article__nav-link',
+                    'c-article__nav-link--level-' ~ menu_level,
+                    item.active and menu_level > 0 ? 'is-active' : '',
+                ] %}
+                <a class="{{ link_class|join(' ') }}" href="{{ item.url }}">{{ item.name }}</a>
+                {% if item.children|length > 0 and item.active %}
+                    {{ menus.menu_links(all_items, item.children, menu_level + 1) }}
+                {% endif %}
+            </li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+{% endmacro %}
+
+{% set subtitle = '2019 UNESCO Recommendation on OER'|t %}
+{% set root_term_id = terms|keys|first %}
+{% set root_term = terms[root_term_id] %}
+{% set active_term = terms[active_term_id] %}
+{% set active_term_parent = terms[active_term.parent] %}
+{# {% set classes = [
+    'c-content-listing',
+    dom_id ? 'js-view-dom-id-' ~ dom_id,
+] %} #}
+{% set classes = [
+    'c-article',
+    'c-article--dubai-declaration',
+    dom_id ? 'js-view-dom-id-' ~ dom_id,
+] %}
+<article{{attributes.addClass(classes)}}>
+    <div class="c-article__header">
+        <div class="o-container">
+            <div class="c-article__content">
+                <div class="c-article__toolbar">
+                    <span></span>
+                    {{ content.addtoany }}
+                </div>
+                {{ title_prefix }}
+                <h1{{title_attributes.addClass('c-article__title')}}>
+                    {{ root_term.name }}
+                </h1>
+                {{ title_suffix }}
+            </div>
+        </div>
+    </div>
+    <div class="c-article__body">
+        <div class="o-container">
+            <div{{content_attributes.addClass('c-article__content')}}>
+                <div class="c-article__main">
+                    <div class="c-article__description">
+                        <div class="c-text-box">
+                            {{ root_term.description|raw }}
+                            {% if active_term.depth == 2 %}
+                                <h2>{{ subtitle }}</h2>
+                                <h3 class="o-text--font_title-large">
+                                    <span>{{ active_term_parent.name }}</span> / <span class="o-text--color_blue">{{ active_term.name }}</span>
+                                </h3>
+                                {{ active_term.description|raw }}
+                            {% endif %}
+                            
+                            
+                            {% if rows -%}
+                                <div class="c-article__related">
+                                    <div>
+                                        <p>{{ 'Resources'|t }}:</p>
+                                        <ul>
+                                            {{ rows }}
+                                        </ul>
+                                    </div>
+                                </div>
+                            {% elseif empty -%}
+                                {{ empty }}
+                            {% endif %}
+
+                            {# {{ pager }} #}
+                        </div>
+                    </div>
+                </div>
+                <aside class="c-article__sidebar">
+                    <nav class="c-article__nav">
+                        <p class="c-article__nav-title">{{ subtitle }}</p>
+                        {{ menus.menu_links(terms, root_term.children, 0) }}
+                    </nav>
+                </aside>
+            </div>
+        </div>
+    </div>
+    {# {{ dump() }} #}
+</article>
