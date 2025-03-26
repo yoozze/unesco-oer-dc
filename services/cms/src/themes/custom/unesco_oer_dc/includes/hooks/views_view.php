@@ -77,6 +77,10 @@ function unesco_oer_dc_preprocess_views_view(&$variables) {
 
         $variables['terms'] = $terms_map;
         $variables['active_term_id'] = $active_term_id;
+
+        // Invalidate cache if taxonomy term changes
+        $variables['view']->element['#cache']['tags'][] = 'taxonomy_term_list';
+        $variables['#cache']['tags'][] = 'taxonomy_term_list';
     }
 }
 
