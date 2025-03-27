@@ -61,7 +61,9 @@ function unesco_oer_dc_preprocess_views_view(&$variables) {
                     $parent['children'] = [];
 
                     // If first child, set parent's url to first child's url
-                    $parent['url'] = $term['url'];
+                    if ($term['depth'] > 1) {
+                        $parent['url'] = $term['url'];
+                    }
                 }
 
                 $parent['children'][] = $term_id;

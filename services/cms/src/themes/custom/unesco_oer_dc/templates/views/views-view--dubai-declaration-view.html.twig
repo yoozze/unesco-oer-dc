@@ -32,29 +32,35 @@
 #}
 {% import _self as menus %}
 
-{% macro menu_links(all_items, children, menu_level) %}
+{% macro menu_links(all_items, root_item, children, menu_level) %}
     {% import _self as menus %}
     {% if children %}
         <ul class="c-article__nav-list">
-        {% for key, value in children %}
-            {% set item = all_items[value] %}
-            {% set item_class = [
-                'c-article__nav-item',
-                'c-article__nav-item--level-' ~ menu_level,
-                item.active ? 'is-active' : '',
-            ] %}
-            <li class="{{ item_class|join(' ') }}">
-                {% set link_class = [
-                    'c-article__nav-link',
-                    'c-article__nav-link--level-' ~ menu_level,
-                    item.active and menu_level > 0 ? 'is-active' : '',
+            {% if menu_level == 0 %}
+                <li class="{{ 'c-article__nav-item' ~ (root_item.active ? ' is-active' : '') }}">
+                    <a class="c-article__nav-link" href="{{ root_item.url }}">{{ 'Overview'|t }}</a>
+                </li>
+            {% endif %}
+            
+            {% for key, value in children %}
+                {% set item = all_items[value] %}
+                {% set item_class = [
+                    'c-article__nav-item',
+                    'c-article__nav-item--level-' ~ menu_level,
+                    item.active ? 'is-active' : '',
                 ] %}
-                <a class="{{ link_class|join(' ') }}" href="{{ item.url }}">{{ item.name }}</a>
-                {% if item.children|length > 0 and item.active %}
-                    {{ menus.menu_links(all_items, item.children, menu_level + 1) }}
-                {% endif %}
-            </li>
-        {% endfor %}
+                <li class="{{ item_class|join(' ') }}">
+                    {% set link_class = [
+                        'c-article__nav-link',
+                        'c-article__nav-link--level-' ~ menu_level,
+                        item.active and menu_level > 0 ? 'is-active' : '',
+                    ] %}
+                    <a class="{{ link_class|join(' ') }}" href="{{ item.url }}">{{ item.name }}</a>
+                    {% if item.children|length > 0 and item.active %}
+                        {{ menus.menu_links(all_items, root_item, item.children, menu_level + 1) }}
+                    {% endif %}
+                </li>
+            {% endfor %}
         </ul>
     {% endif %}
 {% endmacro %}
@@ -95,15 +101,17 @@
                 <div class="c-article__main">
                     <div class="c-article__description">
                         <div class="c-text-box">
-                            {{ root_term.description|raw }}
+                            {% if active_term.depth < 2 %}
+                                {{ root_term.description|raw }}
+                            {% endif %}
                             {% if active_term.depth == 2 %}
                                 <h2>{{ subtitle }}</h2>
                                 <h3 class="o-text--font_title-large">
-                                    <span>{{ active_term_parent.name }}</span> / <span class="o-text--color_blue">{{ active_term.name }}</span>
+                                    <span>{{ active_term_parent.name }}</span><br/>
+                                    <span class="o-text--color_blue">{{ svg_icon('subdirectory-arrow-right') }} {{ active_term.name }}</span>
                                 </h3>
                                 {{ active_term.description|raw }}
                             {% endif %}
-                            
                             
                             {% if rows -%}
                                 <div class="c-article__related">
@@ -125,7 +133,7 @@
                 <aside class="c-article__sidebar">
                     <nav class="c-article__nav">
                         <p class="c-article__nav-title">{{ subtitle }}</p>
-                        {{ menus.menu_links(terms, root_term.children, 0) }}
+                        {{ menus.menu_links(terms, root_term, root_term.children, 0) }}
                     </nav>
                 </aside>
             </div>
