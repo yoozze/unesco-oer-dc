@@ -29,6 +29,7 @@
     {{ svg_icon('menu', 'c-icon-button__icon') }}
     {{ svg_icon('close', 'c-icon-button__icon') }}
 </button>
+{{ render_var({ '#theme': 'foo_bar', '#title': 'baz' }) }}
 {{ menus.menu_links(items, attributes, 0) }}
 
 {% macro menu_links(items, attributes, menu_level) %}
@@ -40,10 +41,12 @@
             <ul>
         {% endif %}
             {% for item in items %}
-                <li{{ item.attributes }}>
-                    {{ link(item.title, item.url) }}
+                <li{{ item.attributes.addClass([item.below ? 'has-submenu']) }}>
+                    {{ link(item.title, item.url, create_attribute({ 'class': [item.below ? 'has-submenu'] })) }}
                     {% if item.below %}
-                        {{ menus.menu_links(item.below, attributes, menu_level + 1) }}
+                        <div>
+                            {{ menus.menu_links(item.below, attributes, menu_level + 1) }}
+                        </div>
                     {% endif %}
                 </li>
             {% endfor %}

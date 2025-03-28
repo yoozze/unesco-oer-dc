@@ -61,6 +61,16 @@ $main-bg-color: color('abbey');
         margin-top: 0;
         margin-bottom: 0;
 
+        li {
+            &:hover {
+                & > a {
+                    & + div {
+                        display: flex;
+                    }
+                }
+            }
+        }
+
         a {
             @include transition('color' 'background-color');
 
@@ -83,7 +93,7 @@ $main-bg-color: color('abbey');
             &.is-active {
                 background-color: rgba($main-bg-color, size('opacity' 2));
 
-                @include after('') {
+                @include before('') {
                     position: absolute;
                     right: 0;
                     bottom: 0;
@@ -91,6 +101,38 @@ $main-bg-color: color('abbey');
                     z-index: 0;
                     height: size(0.5);
                     background-color: color('orange');
+                }
+            }
+
+            &.has-submenu {
+                @include after('') {
+                    content: url(image-data('navigate-next'));
+                    padding-left: size(0.5);
+                    margin-left: size(1);
+                    transform: rotate(90deg);
+                }
+            }
+
+            & + div {
+                @extend .c-menu;
+
+                position: absolute;
+                display: none;
+
+                & > ul {
+                    @extend .c-menu__items;
+
+                    & > li {
+                        // @extend .c-menu__item;
+
+                        & > a {
+                            @extend .c-menu__link;
+
+                            &.is-active {
+                                @include before(none);
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -116,6 +158,14 @@ $main-bg-color: color('abbey');
 
             a {
                 padding: size(2);
+
+                &.has-submenu {
+                    @include after(none);
+                }
+
+                & + div {
+                    display: none !important;
+                }
             }
         }
     }
