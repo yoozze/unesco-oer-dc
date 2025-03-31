@@ -61,22 +61,13 @@ $main-bg-color: color('abbey');
         margin-top: 0;
         margin-bottom: 0;
 
-        li {
-            &:hover {
-                & > a {
-                    & + div {
-                        display: flex;
-                    }
-                }
-            }
-        }
-
         a {
             @include transition('color' 'background-color');
 
             position: relative;
             display: flex;
             align-items: center;
+            // align-items: baseline;
             height: 100%;
             padding: size(20px) size(2);
             text-decoration: none;
@@ -104,33 +95,54 @@ $main-bg-color: color('abbey');
                 }
             }
 
-            &.has-submenu {
+            &.is-toggle {
                 @include after('') {
+                    @include transition('transform');
+
                     content: url(image-data('navigate-next'));
-                    padding-left: size(0.5);
+                    // padding-left: size(0.5);
                     margin-left: size(1);
-                    transform: rotate(90deg);
+                    transform: scale(0.875) rotate(90deg);
+                }
+
+                &[aria-expanded='true'] {
+                    @include after(null) {
+                        transform: scale(0.875) rotate(-90deg);
+                    }
                 }
             }
 
-            & + div {
-                @extend .c-menu;
+            & + ul {
+                @include elevation(2);
+                $submenu-radius: size('radius' 3);
 
                 position: absolute;
                 display: none;
+                flex-direction: column;
+                list-style-type: none;
+                padding: 0;
+                background-color: color('light');
+                border-bottom-right-radius: $submenu-radius;
+                border-bottom-left-radius: $submenu-radius;
 
-                & > ul {
-                    @extend .c-menu__items;
+                &.is-visible {
+                    display: flex;
+                }
 
-                    & > li {
-                        // @extend .c-menu__item;
-
+                & > li {
+                    &:last-child {
                         & > a {
-                            @extend .c-menu__link;
+                            border-bottom-right-radius: $submenu-radius;
+                            border-bottom-left-radius: $submenu-radius;
+                        }
+                    }
 
-                            &.is-active {
-                                @include before(none);
-                            }
+                    & > a {
+                        padding-top: size(2);
+                        padding-bottom: size(2);
+
+                        &.is-active {
+                            @include before(none);
                         }
                     }
                 }
@@ -157,14 +169,34 @@ $main-bg-color: color('abbey');
             }
 
             a {
+                @include before(none);
+
                 padding: size(2);
 
-                &.has-submenu {
-                    @include after(none);
+                &.is-active {
+                    @include before(none);
                 }
 
-                & + div {
-                    display: none !important;
+                &.is-toggle {
+                    @include after(null) {
+                        margin-left: auto;
+                    }
+                }
+
+                & + ul {
+                    position: static;
+                    background-color: color('background-alt');
+                    // border-top: 1px solid color('border');
+                    border-radius: 0;
+                    box-shadow: none;
+
+                    & > li {
+                        &:last-child {
+                            & > a {
+                                border-radius: 0;
+                            }
+                        }
+                    }
                 }
             }
         }

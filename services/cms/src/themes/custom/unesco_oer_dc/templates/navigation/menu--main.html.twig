@@ -42,11 +42,9 @@
         {% endif %}
             {% for item in items %}
                 <li{{ item.attributes.addClass([item.below ? 'has-submenu']) }}>
-                    {{ link(item.title, item.url, create_attribute({ 'class': [item.below ? 'has-submenu'] })) }}
+                    {{ link(item.title, item.url, create_attribute({ 'class': [item.below ? 'is-toggle'] })) }}
                     {% if item.below %}
-                        <div>
-                            {{ menus.menu_links(item.below, attributes, menu_level + 1) }}
-                        </div>
+                        {{ menus.menu_links(item.below, attributes, menu_level + 1) }}
                     {% endif %}
                 </li>
             {% endfor %}
