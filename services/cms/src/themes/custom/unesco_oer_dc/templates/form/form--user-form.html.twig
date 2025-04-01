@@ -60,12 +60,18 @@
             {# {{ element.timezone }} #}
             {{ element.timezone.timezone }}
         </div>
+        {{ element.field_share_profile }}
         {# {{ element.contact }} #}
         {{ element.contact.contact }}
         {# {{ element.google_analytics }} #}
         {{ element.google_analytics.user_account_users }}
         {{ element.footer }}
-        {{ element.actions }}
+        <div{{ create_attribute(element.actions['#attributes']).addClass('c-form__actions') }}>
+            {{ element.actions.submit }}
+            <a class="c-form__button c-button c-button--text c-button--text_danger" href="{{ element.actions.delete['#url'] }}">
+                <span class="c-button__label">{{ element.actions.delete['#title'] }}</span>
+            </a>
+        </div>
     </div>
     {# {{ dump() }} #}
 </form>

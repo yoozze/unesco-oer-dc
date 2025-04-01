@@ -117,6 +117,33 @@ $filled-bg-color-layer: color('blue-10');
     }
 }
 
+$filled-danger-bg-color: color('red');
+$filled-danger-bg-color-layer: color('red-10');
+
+.c-button--filled_danger {
+    background-color: $filled-danger-bg-color;
+
+    &:not(:disabled):not(.is-disabled):hover {
+        @include elevation(1);
+        @include before(null) {
+            background-color: rgba($filled-danger-bg-color-layer, size('opacity' 1));
+        }
+    }
+
+    &:not(:disabled):not(.is-disabled):focus {
+        @include before(null) {
+            background-color: rgba($filled-danger-bg-color-layer, size('opacity' 2));
+        }
+    }
+
+    &:not(:disabled):not(.is-disabled).is-active,
+    &:not(:disabled):not(.is-disabled):active {
+        @include before(null) {
+            background-color: rgba($filled-danger-bg-color-layer, size('opacity' 3));
+        }
+    }
+}
+
 // ## Button - Outlined
 // --------------------
 
@@ -220,6 +247,32 @@ $text-bg-color-layer: color('blue');
 
     & > .c-button__trailing-icon {
         margin-right: 0;
+    }
+}
+
+$text-danger-color: color('red');
+$text-danger-bg-color-layer: color('red');
+
+.c-button--text_danger {
+    color: $text-danger-color;
+
+    &:not(:disabled):not(.is-disabled):hover {
+        @include before(null) {
+            background-color: rgba($text-danger-bg-color-layer, size('opacity' 1));
+        }
+    }
+
+    &:not(:disabled):not(.is-disabled):focus {
+        @include before(null) {
+            background-color: rgba($text-danger-bg-color-layer, size('opacity' 2));
+        }
+    }
+
+    &:not(:disabled):not(.is-disabled).is-active,
+    &:not(:disabled):not(.is-disabled):active {
+        @include before(null) {
+            background-color: rgba($text-danger-bg-color-layer, size('opacity' 3));
+        }
     }
 }
 

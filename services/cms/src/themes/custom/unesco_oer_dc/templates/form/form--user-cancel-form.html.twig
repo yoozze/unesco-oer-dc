@@ -1,0 +1,46 @@
+{#
+/**
+ * @file
+ * Theme override for a 'form' element.
+ *
+ * Available variables
+ * - attributes: A list of HTML attributes for the wrapper element.
+ * - children: The child elements of the form.
+ *
+ * @see template_preprocess_form()
+ */
+#}
+{% set classes = [
+    'c-form--standalone',
+    'c-form--sm',
+    'c-form--'~attributes.id|clean_class
+] %}
+<form{{attributes.addClass(classes)}}>
+    <div class="c-form__header">
+        <div class="c-form__icon">
+            {{ svg_icon('person-remove') }}
+        </div>
+        <h1 class="c-form__title">{{ 'Cancel account'|t }}</h1>
+        <div class="c-form__description">
+            <p>{{ element.description }}</p>
+        </div>
+    </div>
+    <div class="c-form__body">
+        {{ element.uid }}
+        {{ element.form_id }}
+        {{ element.form_build_id }}
+        {{ element.form_token }}
+        {{ element.user_cancel_method }}
+        {{ element.user_cancel_confirm }}
+        {{ element.user_cancel_notify }}
+        {{ element.confirm }}
+        {{ element.access }}
+        <div{{ create_attribute(element.actions['#attributes']).addClass('c-form__actions') }}>
+            {{ element.actions.submit }}
+            <a class="c-form__button c-button c-button--text" href="{{ element.actions.cancel['#url'] }}">
+                <span class="c-button__label">{{ element.actions.cancel['#title'] }}</span>
+            </a>
+        </div>
+    </div>
+    {# {{ dump() }} #}
+</form>

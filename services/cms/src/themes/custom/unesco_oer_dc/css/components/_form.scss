@@ -218,6 +218,12 @@ $page-width: size('page-width');
         text-align: right;
     }
 
+    .c-form__actions {
+        @include below('bp-sm') {
+            flex-direction: column;
+        }
+    }
+
     .c-form__button {
         @include below('bp-sm') {
             width: 100%;
@@ -891,6 +897,12 @@ $radio-bg-size: size('radio-bg-size');
 // ---------------
 
 .c-form__actions {
+    display: flex;
+    margin: negative(0.5);
+
+    & > * {
+        margin: size(0.5);
+    }
 }
 
 // ## Form Button
