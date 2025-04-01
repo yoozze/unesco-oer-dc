@@ -1,0 +1,6 @@
+name: Custom Access Control
+description: Custom access control for the site.
+package: Custom
+
+type: module
+core_version_requirement: ^10 || ^11

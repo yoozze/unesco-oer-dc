@@ -189,6 +189,7 @@ if [ $MODE = "--install" ] || [ $MODE = "--install-modules" ]; then
     done
 
     # - Custom
+    cmd="$cmd custom_access_control"
     cmd="$cmd custom_routes"
     cmd="$cmd twig_extension"
     cmd="$cmd public_api"

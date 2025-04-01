@@ -1,0 +1,22 @@
+<?php
+
+use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Entity\EntityInterface;
+
+function custom_access_control_user_access(EntityInterface $entity, $operation, AccountInterface $account) {
+    $user = $entity;
+
+    // Bypass check for administrators.
+    if ($account->hasPermission('administer users')) {
+        return AccessResult::allowed();
+    }
+
+    // Check if the user being viewed has the "Share profile" checkbox enabled.
+    if ($user->get('field_share_profile')->value) {
+        return AccessResult::allowed();
+
+    }
+
+    return AccessResult::forbidden();
+}
