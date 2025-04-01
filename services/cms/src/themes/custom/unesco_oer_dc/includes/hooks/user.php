@@ -136,4 +136,13 @@ function unesco_oer_dc_preprocess_user(&$variables) {
     $display_name = get_user_display_name($user);
     $elements['user_picture']['#alt'] = $display_name;
     $variables['display_name'] = $display_name;
+
+    // Get user contact enabled status
+    $database = \Drupal::database();
+    $query = $database->query("SELECT `value` FROM `users_data` WHERE `uid` = :uid and `module` = 'contact' and `name` = 'enabled'", [':uid' => $user->id()]);
+    $result = $query->fetchAll();
+    $variables['contact_enabled'] = $result[0]->value === '1';
+
+    // Check if this is current user
+    $variables['is_current_user'] = $user->id() === \Drupal::currentUser()->id();
 }

@@ -72,13 +72,15 @@
                         {{ svg_icon('account-circle', 'c-button__leading-icon') }}
                         <span class="c-button__label">{{ 'View profile'|t }}</span>
                     </a>
-                    <a href="{{ path('entity.user.contact_form', {'user': user.id}) }}" class="c-button c-button--outlined">
-                        {{ svg_icon('mail', 'c-button__leading-icon') }}
-                        <span class="c-button__label">{{ 'Contact'|t }}</span>
-                    </a>
+                    {% if contact_enabled and not is_current_user %}
+                        <a href="{{ path('entity.user.contact_form', {'user': user.id}) }}" class="c-button c-button--outlined">
+                            {{ svg_icon('mail', 'c-button__leading-icon') }}
+                            <span class="c-button__label">{{ 'Contact'|t }}</span>
+                        </a>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
+    {# {{ dump() }} #}
 </article>
-{# {{ dump() }} #}
