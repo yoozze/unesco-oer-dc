@@ -12,10 +12,14 @@ function custom_access_control_user_access(EntityInterface $entity, $operation, 
         return AccessResult::allowed();
     }
 
+    // Check if this is users own profile.
+    if ($account->id() === $user->id()) {
+        return AccessResult::allowed();
+    }
+
     // Check if the user being viewed has the "Share profile" checkbox enabled.
     if ($user->get('field_share_profile')->value) {
         return AccessResult::allowed();
-
     }
 
     return AccessResult::forbidden();
