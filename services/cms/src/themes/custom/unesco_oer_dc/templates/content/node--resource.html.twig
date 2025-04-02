@@ -103,7 +103,11 @@
         <div class="o-container">
             <div{{content_attributes.addClass('c-article__content')}}>
                 <div class="c-article__main">
-                    {% if content.field_image[0] %}
+                    {% if video_embed %}
+                        <div class="c-article__media">
+                            {{ video_embed|raw }}
+                        </div>
+                    {% elseif content.field_image[0] %}
                         <div class="c-article__media">
                             {{ content.field_image }}
                         </div>

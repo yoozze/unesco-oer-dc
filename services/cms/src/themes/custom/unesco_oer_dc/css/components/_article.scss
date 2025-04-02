@@ -400,6 +400,16 @@ $meta-icon-size: size(2.75);
         }
     }
 
+    iframe {
+        @include elevation(1);
+        display: block;
+        width: 100%;
+        height: auto;
+        border: 0;
+        border-radius: size('radius' 3);
+        aspect-ratio: 16 / 9;
+    }
+
     @include below('bp-lg') {
         margin-top: 0;
     }
