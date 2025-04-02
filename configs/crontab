@@ -26,4 +26,4 @@
 0 2 * * * /path/to/app/run.sh --archive-dump >> /path/to/log/backup.log 2>&1
 
 # Daily backup retention check at 3:00 AM.
-0 3 * * * /path/to/app/scripts/backup_retention.sh >> /path/to/log/retention.log 2>&1
+#0 3 * * * /path/to/app/scripts/backup_retention.sh >> /path/to/log/retention.log 2>&1
