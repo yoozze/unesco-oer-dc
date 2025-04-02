@@ -22,6 +22,8 @@
 $main-bg-color: color('abbey');
 
 .c-navigation--main {
+    @include font('label-large');
+
     position: static !important;
     display: flex;
     align-items: center;
@@ -69,7 +71,7 @@ $main-bg-color: color('abbey');
             align-items: center;
             // align-items: baseline;
             height: 100%;
-            padding: size(20px) size(2);
+            padding: size(22px) size(2);
             text-decoration: none;
             color: color('font');
 
