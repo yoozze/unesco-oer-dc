@@ -32,23 +32,126 @@
 {% set field_media_type = row._entity.field_media_type %}
 {% set field_file = row._entity.field_file %}
 {% set field_url = row._entity.field_url %}
-{% set is_hosted_on_portal = field_file[0] ? true : false %}
+{% set field_hosted_on_portal = row._entity.field_hosted_on_portal %}
+{% set field_author = row._entity.field_author %}
+{% set field_country = row._entity.field_country %}
+{% set field_language = row._entity.field_language %}
+{% set field_description = row._entity.field_description %}
+{% set field_image = row._entity.field_image %}
+
+{% set is_hosted_on_portal = field_hosted_on_portal[0].value %}
 {% set url = is_hosted_on_portal
     ? file_url(field_file.entity.field_media_document.entity.uri.value)
     : field_url.uri
 %}
-<div>
-    <span>
-        {{ field_media_type.entity.name.value }}:
-    </span>
-    <a href="{{ url }}">
-        {{ row._entity.title.value }}
-        {% if not is_hosted_on_portal %}
-            {{ svg_icon('open-in-new') }}
-        {% endif %}
-    </a>
-    {% if is_hosted_on_portal %}
-        <span class="o-text--color_font-muted">({{ field_file.entity.field_media_document.entity.filesize.value|format_size }})</span>
+
+{# <article class="c-content-item c-content-item--row"> #}
+<article{{ create_attribute({ 'class': [
+    'c-content-item',
+    'c-content-item--row',
+    field_image[0] or video_embed ? 'c-content-item--with-media' : 'c-content-item--without-media'
+] }) }}>
+    {% if video_embed or image %}
+        <div class="c-content-item__head">
+            <div class="c-content-item__media">
+                <figure>
+                    {% if video_embed %}
+                        {{ video_embed|raw }}
+                    {% else %}
+                        <img src="{{ image.thumb.url }}" width="{{ image.thumb.width }}" height="{{ image.thumb.height }}" alt="{{ image.alt }}" loading="lazy">
+                    {% endif %}
+                </figure>
+            </div>
+        </div>
     {% endif %}
-</div>
+    <div class="c-content-item__body">
+        <div class="c-content-item__toolbar">
+            <div class="c-content-item__toolbar-group">
+                <span class="c-content-item__category">
+                    {{ field_media_type.entity.name.value  }}
+                </span>
+            </div>
+            <div class="c-content-item__toolbar-group">
+                {% if is_hosted_on_portal %}
+                    <span class="c-content-item__badge">
+                        {{ 'File size'|t }}:
+                        {{ field_file.entity.field_media_document.entity.filesize.value|format_size }}
+                    </span>
+                {% endif %}
+                {% if not is_hosted_on_portal %}
+                    <span class="c-content-item__tool-button">
+                        <a class="c-icon-button c-icon-button--standard" href="{{ url }}" target="_blank">
+                            {{ svg_icon('link', 'c-icon-button__icon') }}
+                        </a>
+                    </span>
+                {% else %}
+                    <span class="c-content-item__tool-button">
+                        <a class="c-icon-button c-icon-button--standard" href="{{ url }}" title="{{ 'View'|t }}">
+                            {{ svg_icon('visibility', 'c-icon-button__icon') }}
+                        </a>
+                    </span>
+                    <span class="c-content-item__tool-button">
+                        <a class="c-icon-button c-icon-button--standard" href="{{ url }}" title="{{ 'Download'|t }}" download>
+                            {{ svg_icon('download', 'c-icon-button__icon') }}
+                        </a>
+                    </span>
+                {% endif %}
+            </div>
+        </div>
+        <h4 class="c-content-item__title">
+            <a class="c-content-item__link" href="{{ url }}">
+                {{ row._entity.title.value }}
+                {% if not is_hosted_on_portal %}
+                    {{ svg_icon('open-in-new') }}
+                {# {% else %}
+                    {{ svg_icon('arrow-right-alt') }} #}
+                {% endif %}
+            </a>
+        </h4>
+        <dl class="c-content-item__meta c-data-list">
+            <div class="c-data-list__item">
+                <dt class="c-data-list__label">
+                    <span>{{ svg_icon('person-filled', 'c-data-list__icon') }}</span>
+                    <span>{{ field_author.fieldDefinition.label }}</span>
+                </dt>
+                <dd class="c-data-list__value">
+                    <span>{{ field_author.value }}</span>
+                </dd>
+            </div>
+            <div class="c-data-list__item">
+                <dt class="c-data-list__label">
+                    <span>{{ svg_icon('globe', 'c-data-list__icon') }}</span>
+                    <span>{{ field_country.fieldDefinition.label }}</span>
+                </dt>
+                <dd class="c-data-list__value">
+                    <span>
+                        {% for item in field_country %}
+                            {{ item.entity.name.value }}
+                            {% if not loop.first %}, {% endif %}
+                        {% endfor %}
+                    </span>
+                </dd>
+            </div>
+            <div class="c-data-list__item">
+                <dt class="c-data-list__label">
+                    <span>{{ svg_icon('language', 'c-data-list__icon') }}</span>
+                    <span>{{ 'Language'|t }}</span>
+                </dt>
+                <dd class="c-data-list__value">
+                    <span>
+                        {% for item in field_language %}
+                            {{ item.entity.name.value }}
+                            {% if not loop.first %}, {% endif %}
+                        {% endfor %}
+                    </span>
+                </dd>
+            </div>
+        </dl>
+        {% if field_description.summary %}
+            <div class="c-content-item__description">
+                {{ field_description.summary|nl2br }}
+            </div>
+        {% endif %}
+    </div>
+</article>
 {# {{ dump() }} #}

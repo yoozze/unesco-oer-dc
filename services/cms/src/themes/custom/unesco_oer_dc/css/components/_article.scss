@@ -82,7 +82,7 @@ $sidebar-width: size(366px);
     padding-bottom: size(4);
     background-color: color('background-alt');
 
-    .c-article--with-image & {
+    .c-article--with-media & {
         padding-bottom: size(16);
     }
 }
@@ -170,7 +170,7 @@ $toolbar-spacing: size(0.5);
     background-color: color('light');
     border-radius: size('radius' 3);
 
-    .c-article--with-image & {
+    .c-article--with-media & {
         &:first-child {
             margin-top: negative(12);
         }
@@ -498,7 +498,7 @@ $meta-icon-size: size(2.75);
     // border: 1px solid color('border');
     border-radius: size('radius' 3);
 
-    .c-article--with-image & {
+    .c-article--with-media & {
         &:first-child {
             margin-top: negative(12);
         }
@@ -655,5 +655,19 @@ $nav-bg-color: color('abbey');
                 }
             }
         }
+    }
+}
+
+.c-article__related-list {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+.c-article__related-item {
+    margin-bottom: size(3);
+
+    &:last-child {
+        margin-bottom: 0;
     }
 }

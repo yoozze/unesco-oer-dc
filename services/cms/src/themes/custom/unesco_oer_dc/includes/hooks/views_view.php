@@ -160,23 +160,24 @@ function unesco_oer_dc_theme_suggestions_views_view_fields_alter(&$suggestions, 
 }
 
 function unesco_oer_dc_preprocess_views_view_fields(&$variables) {
-    // $view_id = $variables['view']->id();
-    // if ($view_id === 'dubai_declaration') {
+    $view_id = $variables['view']->id();
+    if ($view_id === 'dubai_declaration') {
+        $url = $variables['row']->_entity->get('field_url')->uri;
+        $variables['url'] = $url;
+        // If url is linking youtube video, prepare embed html
+        if (!empty($url) && strpos($url, 'https://www.youtube.com') !== false) {
+            $variables['video_embed'] = get_youtube_embed($url, 560 * 2, 315 * 2);
+        }
 
-    //     $variables['title'] = $variables['row']->_entity->get('title')->value;
-
-    //     $content_type = $variables['row']->_entity->get('field_media_type')->entity->name->value;
-    //     $variables['content_type'] = $content_type;
-
-    //     $file = $variables['row']->_entity->get('field_file')->entity;
-    //     $variables['file'] = $file;
-
-    //     $url = $variables['row']->_entity->get('field_url')->uri;
-    //     $variables['url'] = $url;
-
-    //     // $variables['raw_value'] = $variables['row']->_entity->get('field_name')->value;
-    //     $variables['raw_value'] = 'test';
-    // }
+        $field_image = $variables['row']->_entity->get('field_image');
+        if (!empty($field_image) && !empty($field_image->target_id)) {
+            $variables['image'] = get_media_image(
+                $field_image->target_id,
+                // 'list_item'
+                'wide'
+            );
+        }
+    }
 }
 
 function unesco_oer_dc_theme_suggestions_views_view_field_alter(&$suggestions, &$variables) {

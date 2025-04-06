@@ -15,11 +15,11 @@
  * @see template_preprocess_views_view_unformatted()
  */
 #}
-{% if title %}
+{# {% if title %}
     <h3>{{ title }}</h3>
-{% endif %}
+{% endif %} #}
 {% for row in rows %}
-    <li{{row.attributes}}>
+    <li{{row.attributes.addClass('c-article__related-item')}}>
         {{- row.content -}}
     </li>
 {% endfor %}

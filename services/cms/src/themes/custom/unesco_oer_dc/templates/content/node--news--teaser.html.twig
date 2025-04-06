@@ -71,7 +71,7 @@
     'c-content-item',
     'c-content-item--card',
     'c-content-item--news',
-    content.field_image[0] ? 'c-content-item--with-image' : 'c-content-item--without-image'
+    content.field_image[0] ? 'c-content-item--with-media' : 'c-content-item--without-media'
 ])}}>
     <div class="c-content-item__head">
         {% if content.field_image[0] %}
@@ -80,12 +80,16 @@
             </div>
         {% endif %}
         <div class="c-content-item__toolbar">
-            <span class="c-content-item__category">
-                {{ 'News'|t }}
-            </span>
-            <span class="c-content-item__share">
-                {{ content.addtoany }}
-            </span>
+            <div class="c-content-item__toolbar-group">
+                <span class="c-content-item__category">
+                    {{ 'News'|t }}
+                </span>
+            </div>
+            <div class="c-content-item__toolbar-group">
+                <span class="c-content-item__tool-button">
+                    {{ content.addtoany }}
+                </span>
+            </div>
         </div>
     </div>
 

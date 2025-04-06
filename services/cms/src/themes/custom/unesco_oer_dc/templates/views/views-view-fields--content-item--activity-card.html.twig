@@ -36,10 +36,16 @@
         {{ field(fields.field_logo) }}
     {% endif %}
     <div class="c-content-item__toolbar">
-        <span class="c-content-item__category">
-            {{ 'Activity'|t }}
-        </span>
-        {{ field(fields.addtoany_share) }}
+        <div class="c-content-item__toolbar-group">
+            <span class="c-content-item__category">
+                {{ 'Activity'|t }}
+            </span>
+        </div>
+        <div class="c-content-item__toolbar-group">
+            <span class="c-content-item__tool-button">
+                {{ field(fields.addtoany_share) }}
+            </span>
+        </div>
     </div>
 </div>
 

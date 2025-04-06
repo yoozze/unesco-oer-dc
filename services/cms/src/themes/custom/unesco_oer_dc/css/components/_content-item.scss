@@ -15,17 +15,17 @@ $card-image-height: size('card-image-height');
 $card-item-bg-color: color('light');
 // $card-item-border-color: rgba(color('blue'), size('opacity' 4));
 // $card-item-border-color: color('blue-90');
-$card-item-border-color: color('border');
+$card-item-border-color: color('border-light');
 $card-item-radius: size('radius' 3);
 
 .c-content-item--card {
     @include transition('box-shadow');
-    @include elevation(1);
+    // @include elevation(1);
 
     flex-direction: column;
     flex-grow: 1;
     background-color: color('light');
-    // border: 1px solid $card-item-border-color;
+    border: 1px solid $card-item-border-color;
     border-radius: $card-item-radius;
 
     &:hover {
@@ -60,10 +60,20 @@ $card-item-radius: size('radius' 3);
     border-radius: $card-item-radius;
 }
 
-.c-content-item--update {
-    padding: size(2);
+.c-content-item--row {
+    @include transition('box-shadow');
 
-    & > ul {
+    background-color: rgba(color('background-alt'), size('opacity' 6));
+    border: 1px solid color('border-light');
+    border-radius: $card-item-radius;
+
+    @include below('bp-xl') {
+        flex-direction: column;
+    }
+}
+
+.c-content-item--update {
+    ul {
         display: flex;
         flex-wrap: wrap;
         padding: 0;
@@ -87,9 +97,25 @@ $card-item-radius: size('radius' 3);
 // ## Content Item Head
 // --------------------
 
-// .c-content-item__head {
-//     border-bottom: 1px solid $card-item-border-color;
-// }
+.c-content-item__head {
+    // border-bottom: 1px solid $card-item-border-color;
+
+    .c-content-item--row & {
+        order: 1;
+        padding: size(2) size(2) size(2) 0;
+        width: size('grid-size-4');
+        max-width: 100%;
+
+        @include below('bp-xxl') {
+            flex: 0 0 50%;
+        }
+
+        @include below('bp-xl') {
+            width: 100%;
+            padding: 0 size(2) size(2) size(2);
+        }
+    }
+}
 
 // ## Content Item Toolbar
 // -----------------------
@@ -102,7 +128,7 @@ $toolbar-padding: size(2);
     align-items: center;
     padding: $toolbar-padding;
 
-    .c-content-item--card.c-content-item--with-image & {
+    .c-content-item--card.c-content-item--with-media & {
         position: absolute;
         top: -1px;
         left: -1px;
@@ -115,11 +141,15 @@ $toolbar-padding: size(2);
         border-radius: $card-item-radius $card-item-radius 0 0;
     }
 
-    .c-content-item--card.c-content-item--without-image & {
+    .c-content-item--card.c-content-item--without-media & {
         position: relative;
         margin-top: -1px;
         margin-right: -1px;
         margin-left: -1px;
+    }
+
+    .c-content-item--row & {
+        padding: 0;
     }
 
     button,
@@ -128,6 +158,11 @@ $toolbar-padding: size(2);
 
         position: relative;
     }
+}
+
+.c-content-item__toolbar-group {
+    display: flex;
+    align-items: center;
 }
 
 // ## Content Item Category
@@ -143,13 +178,27 @@ $category-icon-size: size(2.25);
     padding: size(0.75) size(1.5);
     color: color('light');
     background-color: color('orange');
-    border-radius: size(2);
+    border-radius: size('radius' 4);
 
     & > svg {
         width: $category-icon-size;
         height: $category-icon-size;
         margin-right: size(1);
     }
+}
+
+// ## Content Item Badge
+// ---------------------
+
+.c-content-item__badge {
+    @include font('label-large');
+
+    // padding: size(0.25) size(1);
+    padding: size(0.75) size(1.5);
+    margin: 0 size(0.5);
+    color: color('icon');
+    background-color: rgba(color('abbey'), size('opacity' 2));
+    border-radius: size('radius' 4);
 }
 
 // ## Content Item Body
@@ -165,6 +214,10 @@ $category-icon-size: size(2.25);
     .c-content-item--row-card & {
         padding: size(2);
     }
+
+    .c-content-item--row & {
+        padding: size(2);
+    }
 }
 
 // ## Content Item Meta
@@ -178,6 +231,12 @@ $meta-icon-size: size(2.25);
     margin-top: 0;
     margin-bottom: size(1);
     color: color('font-muted');
+
+    .c-content-item--row & {
+        margin-top: size(1);
+        margin-bottom: 0;
+        color: color('font');
+    }
 }
 
 // ## Content Item Meta Item
@@ -235,13 +294,16 @@ $meta-item-inline-separator-spacer: size(0.5);
 .c-content-item__media {
     figure {
         margin: 0;
+        background-color: color('background-alt');
 
         .c-content-item--card & {
-            // min-width: size('card-item-min-width');
-            // margin: -1px -1px 0;
             border-radius: $card-item-radius $card-item-radius 0 0;
             overflow: hidden;
-            // background-color: color('dark');
+        }
+
+        .c-content-item--row & {
+            border-radius: $card-item-radius;
+            overflow: hidden;
         }
 
         img {
@@ -251,11 +313,18 @@ $meta-item-inline-separator-spacer: size(0.5);
             // max-width: 100%;
             width: 100%;
             height: auto;
-            // opacity: size('opacity' 8);
         }
 
         & > figcaption {
             display: none;
+        }
+    }
+
+    .c-content-item--row & {
+        iframe {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 9;
         }
     }
 }
@@ -278,19 +347,23 @@ $meta-item-inline-separator-spacer: size(0.5);
     .c-content-item--update & {
         margin-bottom: size(2);
     }
+
+    .c-content-item--row & {
+        margin-top: size(2);
+    }
 }
 
 // ## Content Item Description
 // ---------------------------
 // .c-content-item__field--field-description,
 .c-content-item__description {
-    margin-top: size(1);
+    margin-top: size(2);
 
     p {
         margin-bottom: 0;
     }
 
-    .c-content-item--card.c-content-item--with-image & {
+    .c-content-item--card.c-content-item--with-media & {
         display: none;
     }
 }
@@ -314,17 +387,14 @@ $meta-item-inline-separator-spacer: size(0.5);
     }
 }
 
-// ## Content Item Link
-// --------------------
+// ## Content Item Tool Button
+// ---------------------------
 
-@mixin content-item-link() {
-    $spacing: size(0.25);
+@mixin content-item-tool-button() {
     $button-size: size(4);
 
     width: $button-size;
     height: $button-size;
-    margin-right: $spacing;
-    margin-left: $spacing;
 
     svg {
         $icon-size: size(2.5);
@@ -334,7 +404,7 @@ $meta-item-inline-separator-spacer: size(0.5);
     }
 }
 
-@mixin content-item-link-over-image() {
+@mixin content-item-tool-button-over-image() {
     @include before(null) {
         background-color: rgba(color('light'), 0.48);
     }
@@ -361,6 +431,59 @@ $meta-item-inline-separator-spacer: size(0.5);
     }
 }
 
+.c-content-item__tool-button {
+    $spacing: size(0.5);
+
+    margin-right: $spacing;
+    margin-left: $spacing;
+
+    &:last-child {
+        margin-right: 0;
+    }
+
+    & > button {
+        & + div {
+            max-width: size(220px);
+        }
+    }
+
+    & > button,
+    & > a {
+        @include content-item-tool-button();
+    }
+
+    .c-content-item--card.c-content-item--with-media & {
+        & > button,
+        & > a {
+            @include content-item-tool-button-over-image();
+        }
+    }
+
+    .addtoany_list {
+        & > a {
+            @include content-item-tool-button();
+
+            display: none;
+
+            &:last-child {
+                display: flex;
+                margin: 0;
+            }
+        }
+    }
+
+    .c-content-item--card.c-content-item--with-media & {
+        .addtoany_list {
+            & > a {
+                @include content-item-tool-button-over-image();
+            }
+        }
+    }
+}
+
+// ## Content Item Link
+// --------------------
+
 .c-content-item__link {
     @include transition('color' 'text-decoration');
 
@@ -372,8 +495,6 @@ $meta-item-inline-separator-spacer: size(0.5);
     }
 
     display: block;
-    margin-right: size(0.25);
-    margin-left: auto;
     color: color('blue-10');
     text-decoration: none;
 
@@ -382,62 +503,11 @@ $meta-item-inline-separator-spacer: size(0.5);
         color: color('blue');
     }
 
-    & > button {
-        & + div {
-            max-width: size(220px);
-        }
-    }
+    .c-content-item--row & {
+        @include after(none);
 
-    & > button,
-    & > a {
-        @include content-item-link();
-    }
-
-    .c-content-item--card.c-content-item--with-image & {
-        & > button,
-        & > a {
-            @include content-item-link-over-image();
-        }
-    }
-
-    // .c-content-item--row-card & {
-    //     @include after(null) {
-    //         display: none;
-    //     }
-
-    //     & > div {
-    //         margin: negative(0.25);
-    //     }
-    // }
-}
-
-// ## Content Item Share
-// ---------------------
-
-.c-content-item__share {
-    .addtoany_list {
-        $spacing: size(0.25);
-
-        // margin-right: negative($spacing);
-        // margin-left: negative($spacing);
-
-        & > a {
-            @include content-item-link();
-
-            display: none;
-
-            &:last-child {
-                display: flex;
-            }
-        }
-    }
-
-    .c-content-item--card.c-content-item--with-image & {
-        .addtoany_list {
-            & > a {
-                @include content-item-link-over-image();
-            }
-        }
+        display: inline-block;
+        color: color('link');
     }
 }
 
