@@ -70,7 +70,7 @@
 
 <article{{attributes.addClass([
     'c-article',
-    content.field_image[0] ? 'c-article--with-media' : 'c-article--without-media',
+    content.field_image[0] or video_embed ? 'c-article--with-media' : 'c-article--without-media',
 ]).setAttribute('data-options', {
     'articleNavTitle': 'On this page'|t,
 }|json_encode)}}>
