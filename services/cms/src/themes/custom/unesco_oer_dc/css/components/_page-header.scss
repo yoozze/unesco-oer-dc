@@ -3,6 +3,7 @@
 
 .c-page-header {
     @include z-index('header');
+    @include elevation(2);
 
     position: sticky;
     top: 0;
@@ -27,7 +28,6 @@
     display: flex;
     justify-content: center;
     background-color: color('background');
-    border-bottom: 1px solid color('divider');
 
     // & > .o-container {
     //     // display: flex;

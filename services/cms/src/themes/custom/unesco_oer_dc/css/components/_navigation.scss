@@ -22,7 +22,7 @@
 $main-bg-color: color('abbey');
 
 .c-navigation--main {
-    @include font('label-large');
+    @include font('body-medium');
 
     position: static !important;
     display: flex;
@@ -103,7 +103,7 @@ $main-bg-color: color('abbey');
 
                     content: url(image-data('navigate-next'));
                     // padding-left: size(0.5);
-                    margin-left: size(1);
+                    margin-left: size(1.5);
                     transform: scale(0.875) rotate(90deg);
                 }
 
@@ -119,11 +119,13 @@ $main-bg-color: color('abbey');
                 $submenu-radius: size('radius' 3);
 
                 position: absolute;
+                z-index: -1;
                 display: none;
                 flex-direction: column;
                 list-style-type: none;
                 padding: 0;
                 background-color: color('light');
+                border-top: 1px solid color('border-light');
                 border-bottom-right-radius: $submenu-radius;
                 border-bottom-left-radius: $submenu-radius;
 
@@ -156,15 +158,17 @@ $main-bg-color: color('abbey');
             @include elevation(2);
 
             position: absolute;
+            z-index: -1;
             top: 100%;
             left: 0;
             right: 0;
             left: 0;
             display: none;
             flex-direction: column;
-            background-color: color('light');
             height: auto;
             // margin: size(1);
+            background-color: color('light');
+            border-top: 1px solid color('border-light');
 
             &.is-visible {
                 display: flex;
@@ -187,10 +191,10 @@ $main-bg-color: color('abbey');
 
                 & + ul {
                     position: static;
-                    background-color: color('background-alt');
-                    // border-top: 1px solid color('border');
+                    background-color: rgba(color('background-alt'), size('opacity' 6));
+                    border-top: 1px solid color('border-light');
                     border-radius: 0;
-                    box-shadow: none;
+                    // box-shadow: none;
 
                     & > li {
                         &:last-child {
