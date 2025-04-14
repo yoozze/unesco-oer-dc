@@ -11,6 +11,11 @@
  * @see template_preprocess_image_formatter()
  */
 #}
+{# {% set image_style = 'wide' %}
+{% set image = image|merge({
+    '#style_name': image_style,
+}) %} #}
+
 {% if url %}
     {{ link(image, url) }}
 {% else %}

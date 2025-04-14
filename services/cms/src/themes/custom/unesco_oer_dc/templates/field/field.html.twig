@@ -36,32 +36,54 @@
  * @see template_preprocess_field()
  */
 #}
+{% macro item_content(content) %}
+    {% set attributes = content['#attributes'] ?? {} %}
+    {% if attributes['width'] and attributes['height'] %}
+        {% set new_attributes = attributes|merge({
+            'style': 'aspect-ratio: ' ~ attributes['width'] ~ '/' ~ attributes['height'] ~ ';'
+        }) %}
+        {% set new_content = content|merge({
+            '#attributes': new_attributes
+        }) %}
+        {{ new_content }}
+    {% else %}
+        {{ content }}
+    {% endif %}
+{% endmacro %}
+
+{% import _self as field %}
+
 {%
   set title_classes = [
     label_display == 'visually_hidden' ? 'visually-hidden',
   ]
 %}
-
+{% set classes = [
+    'c-field',
+    'c-field--' ~ field_name|clean_class,
+    'c-field--' ~ field_type|clean_class,
+    'c-field--' ~ entity_type|clean_class
+] %}
 {% if label_hidden %}
     {% if multiple %}
-        <div{{attributes}}>
+        <div{{attributes.addClass(classes)}}>
             {% for item in items %}
-                <div{{item.attributes}}>{{ item.content }}</div>
+                <div{{item.attributes}}>{{ field.item_content(item.content) }}</div>
             {% endfor %}
         </div>
     {% else %}
         {% for item in items %}
-            <div{{attributes}}>{{ item.content }}</div>
+            <div{{attributes.addClass(classes)}}>{{ field.item_content(item.content) }}</div>
         {% endfor %}
     {% endif %}
 {% else %}
-    <div{{attributes}}>
+    <div{{attributes.addClass(classes)}}>
         <div{{title_attributes.addClass(title_classes)}}>{{ label }}</div>
         {% if multiple %}
             <div>
         {% endif %}
         {% for item in items %}
-            <div{{item.attributes}}>{{ item.content }}</div>
+            <div{{item.attributes}}>{{ field.item_content(item.content) }}</div>
         {% endfor %}
         {% if multiple %}
             </div>

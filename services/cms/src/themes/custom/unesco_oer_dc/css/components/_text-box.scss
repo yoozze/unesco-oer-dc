@@ -13,12 +13,161 @@
     }
 
     blockquote {
-        @include font('title-large');
+        @include font('title-medium');
 
-        padding: size(2) size(2) size(2) size(4);
+        padding: size(3) size(3) size(3) size(4);
         margin: size(2) 0;
         font-style: italic;
-        background-color: color('background-alt');
+        background-color: rgba(color('background-alt'), size('opacity' 6));
         border-left: size(0.5) solid color('blue');
+
+        & :last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    table {
+        @include font('body-medium');
+
+        $table-border: 1px solid color('border-light');
+        $table-border-radius: size('radius' 4);
+
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        margin-bottom: size(2);
+
+        caption {
+            @include font('body-medium');
+            margin-bottom: size(1);
+            text-align: left;
+        }
+
+        thead {
+            & + tbody {
+                tr {
+                    &:first-child {
+                        th,
+                        td {
+                            border-top: 0;
+
+                            &:first-child {
+                                border-top-left-radius: 0;
+                            }
+
+                            &:last-child {
+                                border-top-right-radius: 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        tbody {
+            tr {
+                &:last-child {
+                    th,
+                    td {
+                        &:first-child {
+                            border-bottom-left-radius: $table-border-radius;
+                        }
+
+                        &:last-child {
+                            border-bottom-right-radius: $table-border-radius;
+                        }
+                    }
+                }
+
+                &:hover {
+                    th,
+                    td {
+                        background-color: rgba(color('blue'), size('opacity' 1));
+                        color: color('blue-10');
+                    }
+                }
+            }
+        }
+
+        th {
+            @include font('title-small');
+
+            background-color: rgba(color('background-alt'), size('opacity' 6));
+            padding: size(1) size(2);
+            text-align: left;
+            border-right: $table-border;
+            border-bottom: $table-border;
+        }
+
+        td {
+            padding: size(1) size(2);
+            border-right: $table-border;
+            border-bottom: $table-border;
+        }
+
+        tr {
+            &:first-child {
+                th,
+                td {
+                    border-top: $table-border;
+
+                    &:first-child {
+                        border-top-left-radius: $table-border-radius;
+                    }
+
+                    &:last-child {
+                        border-top-right-radius: $table-border-radius;
+                    }
+                }
+            }
+
+            th,
+            td {
+                &:first-child {
+                    border-left: $table-border;
+                }
+            }
+        }
+    }
+
+    figure {
+        margin: 0 0 size(2);
+    }
+
+    figcaption {
+        @include font('body-medium');
+        margin-top: size(1);
+        text-align: left;
+    }
+
+    video {
+        width: 100%;
+        height: auto;
+        border-radius: size('radius' 4);
+        aspect-ratio: unset !important;
+        // border: 1px solid color('border-light');
+        background-color: rgba(color('background-alt'), size('opacity' 6));
+    }
+
+    iframe {
+        width: 100%;
+        height: auto;
+        border-radius: size('radius' 4);
+        // border: 1px solid color('border-light');
+        background-color: rgba(color('background-alt'), size('opacity' 6));
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+        border-radius: size('radius' 4);
+        // border: 1px solid color('border-light');
+        background-color: rgba(color('background-alt'), size('opacity' 6));
+    }
+
+    .c-field--field-media-caption {
+        @include font('body-medium');
+        margin-top: size(1);
+        text-align: left;
     }
 }

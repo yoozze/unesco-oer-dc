@@ -29,7 +29,11 @@
  * @see template_preprocess_media()
  */
 #}
-<div{{attributes}}>
+{% set classes = [
+	'c-media',
+	'c-media--' ~ media.bundle[0].target_id|clean_class
+] %}
+<div{{attributes.addClass(classes)}}>
 	{{ title_suffix.contextual_links }}
 	{{ content }}
 </div>
