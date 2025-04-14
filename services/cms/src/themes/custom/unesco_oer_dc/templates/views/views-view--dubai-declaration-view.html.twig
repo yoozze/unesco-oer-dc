@@ -132,7 +132,10 @@
                 </div>
                 <aside class="c-article__sidebar">
                     <nav class="c-article__nav">
-                        <p class="c-article__nav-title">{{ subtitle }}</p>
+                        <p class="c-article__nav-title">
+                            {# {{ subtitle }} #}
+                            {{ 'Presentations are available in each Action Area'|t }}
+                        </p>
                         {{ menus.menu_links(terms, root_term, root_term.children, 0) }}
                     </nav>
                 </aside>
