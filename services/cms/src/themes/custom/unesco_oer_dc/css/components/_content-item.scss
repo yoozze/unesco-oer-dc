@@ -13,13 +13,15 @@ $card-image-height: size('card-image-height');
 // $card-item-bg-color: color('blue-95');
 // $card-item-bg-color: color('abbey-95');
 $card-item-bg-color: color('light');
+$card-item-bg-color-hover: rgba(color('blue'), size('opacity' 1));
 // $card-item-border-color: rgba(color('blue'), size('opacity' 4));
 // $card-item-border-color: color('blue-90');
 $card-item-border-color: color('border-light');
 $card-item-radius: size('radius' 4);
+$card-item-transition-duration: 0.25s;
 
 .c-content-item--card {
-    @include transition('box-shadow');
+    @include transition('box-shadow' 'border-color', $card-item-transition-duration);
     // @include elevation(1);
 
     flex-direction: column;
@@ -31,16 +33,19 @@ $card-item-radius: size('radius' 4);
     &:hover {
         @include elevation(3);
 
+        border-color: $card-item-bg-color-hover;
+
         img {
             transform: scale(1.05);
         }
 
         @include before(null) {
-            background-color: rgba(color('blue'), size('opacity' 1));
+            background-color: $card-item-bg-color-hover;
         }
     }
 
     @include before('') {
+        @include transition('background-color');
         @include stretch();
 
         z-index: -1;
@@ -50,6 +55,7 @@ $card-item-radius: size('radius' 4);
 }
 
 .c-content-item--row-card {
+    @include transition('box-shadow' 'border-color', $card-item-transition-duration);
     // @include elevation(1);
 
     display: flex;
@@ -58,14 +64,26 @@ $card-item-radius: size('radius' 4);
     background-color: color('light');
     border: 1px solid $card-item-border-color;
     border-radius: $card-item-radius;
+
+    &:hover {
+        @include elevation(3);
+
+        border-color: color('light');
+    }
 }
 
 .c-content-item--row {
-    @include transition('box-shadow');
+    @include transition('box-shadow' 'border-color', $card-item-transition-duration);
 
     background-color: rgba(color('background-alt'), size('opacity' 6));
     border: 1px solid color('border-light');
     border-radius: $card-item-radius;
+
+    &:hover {
+        @include elevation(3);
+
+        border-color: rgba(color('background-alt'), size('opacity' 6));
+    }
 
     @include below('bp-xl') {
         flex-direction: column;
