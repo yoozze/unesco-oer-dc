@@ -164,6 +164,7 @@ if [ $MODE = "--install" ] || [ $MODE = "--install-modules" ]; then
     cmd="$cmd basic_auth"
     cmd="$cmd rest"
     cmd="$cmd serialization"
+    cmd="$cmd media_library"
 
     # - Contrib
     for module in "${MODULES[@]}"; do
