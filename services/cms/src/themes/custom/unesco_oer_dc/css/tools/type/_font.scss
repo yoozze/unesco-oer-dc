@@ -94,6 +94,8 @@ $fonts: () !default;
 ///     in `$fonts` map.
 /// @param {bool} $letter-spacing - Indicates if `letter-spacing` property should be output if it's defined
 ///     in `$fonts` map.
+/// @param {string | null} $important - Indicates if `!important` should be added to every property
+///     value.
 /// @outputs Font styles based on your font configuration for `$font` in `$fonts` map.
 @mixin font(
     $font,
@@ -103,7 +105,8 @@ $fonts: () !default;
     $font-variant: true,
     $font-size: true,
     $line-height: true,
-    $letter-spacing: true
+    $letter-spacing: true,
+    $important: false
 ) {
     $font: font($font);
 
@@ -121,13 +124,14 @@ $fonts: () !default;
             'line-height': $line-height,
             'letter-spacing': $letter-spacing,
         );
+        $important: if($important, unquote('!important'), null);
 
         @each $prop, $enabled in $props {
             @if $enabled and map-has-key($font, $prop) {
                 @if $prop == 'font-size' or $prop == 'letter-spacing' {
-                    #{$prop}: size(map-get($font, $prop));
+                    #{$prop}: size(map-get($font, $prop)) $important;
                 } @else {
-                    #{$prop}: map-get($font, $prop);
+                    #{$prop}: map-get($font, $prop) $important;
                 }
             }
         }
