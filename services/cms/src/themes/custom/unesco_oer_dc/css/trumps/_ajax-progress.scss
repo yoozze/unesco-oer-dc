@@ -1,0 +1,24 @@
+// # Ajax Progress
+// # =============
+
+$progress-size: size(6);
+
+.ajax-progress-fullscreen {
+    @include elevation(2);
+
+    position: fixed;
+    z-index: z-index('loader');
+    top: 50%;
+    left: 50%;
+    margin-top: negative($progress-size / 2);
+    margin-left: negative($progress-size / 2);
+    width: $progress-size;
+    height: $progress-size;
+    background: color('light');
+    border: 4px solid color('light');
+    border-radius: 50%;
+    background-image: url(image-data('progress'));
+    background-repeat: no-repeat;
+    background-size: contain;
+    opacity: 1;
+}

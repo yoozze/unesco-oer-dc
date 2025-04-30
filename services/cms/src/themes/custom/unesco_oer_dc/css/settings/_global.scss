@@ -509,4 +509,6 @@ $image-data: (
         'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"%3E%3Cpath d="M1.4 14L0 12.6L5.6 7L0 1.4L1.4 0L7 5.6L12.6 0L14 1.4L8.4 7L14 12.6L12.6 14L7 8.4L1.4 14Z" fill="%23464749"/%3E%3C/svg%3E%0A',
     'navigate-next':
         'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="8" height="12" viewBox="0 0 8 12"%3E%3Cpath d="M1.4 12L0 10.6L4.6 6L0 1.4L1.4 0L7.4 6L1.4 12Z" fill="%23464749"/%3E%3C/svg%3E%0A',
+    'progress':
+        'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="22 22 44 44"><circle cx="44" cy="44" r="20.2" fill="none" stroke="%230069b4" stroke-width="4" stroke-linecap="round"><animateTransform attributeName="transform" type="rotate" from="0 44 44" to="360 44 44" dur="1.4s" repeatCount="indefinite"/><animate attributeName="stroke-dasharray" values="1,200;89,200;89,200" dur="1.4s" repeatCount="indefinite"/><animate attributeName="stroke-dashoffset" values="0;-35;-124" dur="1.4s" repeatCount="indefinite"/></circle></svg>'
 );
