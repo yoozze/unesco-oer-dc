@@ -105,20 +105,29 @@ $page-width: size('page-width');
     }
 }
 
-.c-form--views-exposed-form-resources-resources-view,
-.c-form--views-exposed-form-activities-activities-view,
-.c-form--views-exposed-form-events-events-view,
-.c-form--views-exposed-form-news-news-view {
-    display: flex;
-    width: 100%;
+.c-form--views-exposed-form {
+    @include elevation(1);
 
-    .c-form__field {
-        flex-grow: 1;
-        margin-bottom: 0;
+    padding: size(4) size(3);
+    background-color: color('background');
+    border-radius: size('radius' 4);
+
+    .c-form__group {
+        details {
+            overflow: auto;
+        }
+
+        @include below('bp-md') {
+            details {
+                overflow: unset;
+            }
+        }
     }
 
-    .c-button {
-        margin-left: size(1);
+    .c-form__actions {
+        @include below('bp-sm') {
+            flex-direction: column;
+        }
     }
 }
 

@@ -5,6 +5,7 @@ import SearchForm from './components/SearchForm';
 import ObservatoryForm from './components/ObservatoryForm';
 import SearchFormBlock from './components/SearchFormBlock';
 import MainNavigation from './components/MainNavigation';
+import ViewsExposedForm from './components/ViewsExposedForm';
 
 // import './misc/debug';
 
@@ -20,6 +21,7 @@ function initComponents() {
     ObservatoryForm.init();
     SearchFormBlock.init();
     MainNavigation.init();
+    ViewsExposedForm.init();
 
     console.log('Components:', window._components);
 }

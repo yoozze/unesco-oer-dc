@@ -75,9 +75,8 @@ MODULES=(
     "node_read_time:^1.13"
     "addtoany:^2.0"
     "views_ajax_history:^1.7"
-    # "select2:^2.0" # broken design
-    "select2:^1.15"
-    "select2_multicheck:^1.0"
+    "select2:^2.0"
+    # "select2_multicheck:^1.0"
     "conditional_fields:^4.0@alpha"
     "token:^1.14"
     "google_analytics:^4.0"
@@ -85,6 +84,9 @@ MODULES=(
     "restui:^1.22"
     "file_rename:^1.0"
     "twig_tweak:^3.4"
+    "better_exposed_filters:^7.0"
+    "facets:^3.0"
+    "form_options_attributes:^2.1"
     # "workflow:^1.8"
     # "taxonomy_multidelete_terms:^1.4"
     # "realistic_dummy_content:^3.1"
@@ -186,6 +188,11 @@ if [ $MODE = "--install" ] || [ $MODE = "--install-modules" ]; then
 
         if [ $name = "devel" ]; then
             cmd="$cmd devel_generate"
+        fi
+
+        if [ $name = "select2" ]; then
+            cmd="$cmd select2_facets"
+            cmd="$cmd select2_publish"
         fi
     done
 

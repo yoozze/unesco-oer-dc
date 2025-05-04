@@ -35,17 +35,21 @@
     dom_id ? 'js-view-dom-id-' ~ dom_id,
 ] %}
 <div{{attributes.addClass(classes)}}>
-    <div class="c-content-listing__header">
-        <div class="c-content-listing__container o-container">
-            <div class="o-row">
-                <div class="o-col">
-                    <h1 class="c-content-listing__title">
-                        {{ view.storage.label }}
-                    </h1>
+    {% if title %}
+        <div class="c-content-listing__header">
+            <div class="c-content-listing__container o-container">
+                <div class="o-row">
+                    <div class="o-col">
+                        <h1 class="c-content-listing__title">
+                            {{ title_prefix }}
+                            {{ title }}
+                            {{ title_suffix }}
+                        </h1>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    {% endif %}
 
     {% if exposed|length > 0 %}
         <div class="c-content-listing__filters">
@@ -63,19 +67,34 @@
 
     <div class="c-content-listing__main">
         <div class="c-content-listing__container o-container">
+            {% if header -%}
+                <div class="c-content-listing__list-header">
+                    {{ header }}
+                </div>
+            {% endif %}
+
+            {# If there are no results, show the empty message. #}
             {% if rows -%}
-            {% set list_class = [
-                'c-content-listing__list',
-                'o-row',
-                id in ['updates', 'users_'] ? 'o-flex--column' : '',
-            ] %}
-            <ul class="{{ list_class|join(' ') }}">
-                 {{ rows }}
-            </ul>
+                {% set list_class = [
+                    'c-content-listing__list',
+                    'o-row',
+                    id in ['updates', 'users_'] ? 'o-flex--column' : '',
+                ] %}
+                <ul class="{{ list_class|join(' ') }}">
+                    {{ rows }}
+                </ul>
             {% elseif empty -%}
                 {{ empty }}
             {% endif %}
 
+            {# If there is a footer, display it. #}
+            {% if footer -%}
+                <div class="c-content-listing__list-footer">
+                    {{ footer }}
+                </div>
+            {% endif %}
+
+            {# If there is a pager, display it. #}
             {{ pager }}
         </div>
     </div>

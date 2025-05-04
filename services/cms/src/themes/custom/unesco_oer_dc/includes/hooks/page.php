@@ -22,6 +22,13 @@ function unesco_oer_dc_theme_suggestions_page_alter(&$suggestions, &$variables) 
 
     // Add page suggestion
     $suggestions[] = 'page__' . clean_suggetion($slug);
+
+    $view_id = $variables['page']['content']['system_main']['#view_id'] ?? '';
+    if ($view_id) {
+        $suggestions[] = 'page__view';
+        $suggestions[] = 'page__view__' . clean_suggetion($view_id);
+        $variables['view_id'] = $view_id;
+    }
 }
 
 function unesco_oer_dc_preprocess_page(&$variables) {

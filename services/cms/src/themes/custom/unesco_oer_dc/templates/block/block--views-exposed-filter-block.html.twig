@@ -26,13 +26,18 @@
  * @see template_preprocess_block()
  */
 #}
-<div{{ attributes.addClass('c-block') }}>
+{% set classes = [
+    'c-block',
+    'c-block--view-exposed-filters'
+] %}
+<div{{ attributes.addClass(classes) }}>
     {{ title_prefix }}
     {% if label %}
-        <h2{{ title_attributes }}>{{ label }}</h2>
+        <h1{{ title_attributes }}>{{ label }}</h1>
     {% endif %}
     {{ title_suffix }}
     {% block content %}
         {{ content }}
     {% endblock %}
+    {# {{ dump() }} #}
 </div>

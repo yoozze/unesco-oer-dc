@@ -137,6 +137,7 @@
     @include elevation(3, true);
 
     background-color: color('light') !important;
+    border-width: 0 !important;
     border-radius: size('menu-radius') !important;
 }
 

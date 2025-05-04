@@ -40,12 +40,8 @@ function unesco_oer_dc_form_alter(&$form, &$form_state, $form_id) {
 
 function unesco_oer_dc_theme_suggestions_form_alter(&$suggestions, &$variables) {
     $element = &$variables['element'];
-    $suggestions[] = implode('__', [
-        'form',
-        $element['#form_id'],
-        // $element['#bundle'],
-        // $element['#view_mode']
-    ]);
+    $suggestions[] = 'form__' . clean_suggetion($element['#form_id']);
+    $suggestions[] = 'form__' . clean_suggetion($element['#id']);
 }
 
 function unesco_oer_dc_preprocess_form(&$variables) {

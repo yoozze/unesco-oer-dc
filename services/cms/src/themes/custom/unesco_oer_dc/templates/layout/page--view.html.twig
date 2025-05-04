@@ -1,0 +1,21 @@
+{% extends "page.html.twig" %}
+
+{% block content %}
+    {% set view_ids = [
+        'resources',
+        'news',
+        'events'
+    ] %}
+    {% if view_id in view_ids %}
+        <div class="o-region">
+            <div class="c-container c-container--view o-flex--justify_center">
+                <div class="o-container">
+                    {% set block_id = 'views_exposed_filter_block:' ~ view_id ~ '-' ~ view_id ~ '_view' %}
+                    {{ drupal_block(block_id) }}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    {{ page.content }}
+    {# {{ dump() }} #}
+{% endblock %}

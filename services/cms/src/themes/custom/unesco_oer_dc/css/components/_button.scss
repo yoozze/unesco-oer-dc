@@ -117,7 +117,7 @@ $filled-bg-color-layer: color('blue-10');
     }
 }
 
-$filled-danger-bg-color: color('red');
+$filled-danger-bg-color: color('red-50');
 $filled-danger-bg-color-layer: color('red-10');
 
 .c-button--filled_danger {
@@ -250,8 +250,8 @@ $text-bg-color-layer: color('blue');
     }
 }
 
-$text-danger-color: color('red');
-$text-danger-bg-color-layer: color('red');
+$text-danger-color: color('red-50');
+$text-danger-bg-color-layer: color('red-50');
 
 .c-button--text_danger {
     color: $text-danger-color;
