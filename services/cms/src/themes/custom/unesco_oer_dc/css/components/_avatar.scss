@@ -24,7 +24,8 @@ $avatar-image-lg: size(320px);
 $avatar-image: size(160px);
 $avatar-image-md: size(120px);
 $avatar-image-sm: size(80px);
-$avatar-image-xs: size(40px);
+$avatar-image-xs: size(60px);
+$avatar-image-xxs: size(60px);
 .c-avatar__image {
     flex-shrink: 0;
     flex-grow: 0;
@@ -53,6 +54,11 @@ $avatar-image-xs: size(40px);
         background-color: color('background');
         // border: 1px solid color('border-light');
         border-radius: 50%;
+
+        .c-avatar--xxs & {
+            width: $avatar-image-xxs;
+            padding: size(0.25);
+        }
 
         .c-avatar--xs & {
             width: $avatar-image-xs;

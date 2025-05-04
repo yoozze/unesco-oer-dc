@@ -111,24 +111,20 @@
                 {{ title_suffix }}
                 <dl class="c-article__meta">
                     <div class="c-article__meta-item">
-                        {{ author_name }}
+                        {# {{ author_name }} #}
+                        <div class="c-article__avatar c-avatar c-avatar--xs">
+                            <div class="c-avatar__image">
+                                {{ author_picture }}
+                            </div>
+                            {% if author_name %}
+                                <a href="{{ author_url }}">{{ author_display_name }}</a>
+                            {% else %}
+                                <span>{{ author_display_name }}</span>
+                            {% endif %}
+                        </div>
                     </div>
                     <div class="c-article__meta-item">
-                        {{ content.field_start_date }}
-                        {% if content.field_end_date[0] %}
-                            {{ content.field_end_date }}
-                        {% endif %}
-                    </div>
-                    <div class="c-article__meta-item">
-                        {% if content.field_venue_link[0] %}
-                            {% set url = content.field_venue_link[0]['#url'] %}
-                            <a href="{{ url.external ? url.uri : url }}" target="{{ url.external ? '_blank' : '_self' }}">
-                                {{ content.field_location }}
-                                {{ url.external ? svg_icon('open-in-new') : '' }}
-                            </a>
-                        {% else %}
-                            {{ content.field_location }}
-                        {% endif %}
+                        {{ date }}
                     </div>
                 </dl>
             </div>
@@ -158,7 +154,29 @@
                         </div>
                     {% endif %}
                 </div>
-                <aside class="c-article__sidebar"></aside>
+                <aside class="c-article__sidebar">
+                    <dl class="c-article__meta c-article__meta--sidebar">
+                        <div class="c-article__meta-item">
+                            {{ content.field_start_date }}
+                        </div>
+                        {% if content.field_end_date[0] %}
+                            <div class="c-article__meta-item">
+                                {{ content.field_end_date }}
+                            </div>
+                        {% endif %}
+                        <div class="c-article__meta-item">
+                            {% if content.field_venue_link[0] %}
+                                {% set url = content.field_venue_link[0]['#url'] %}
+                                <a href="{{ url.external ? url.uri : url }}" target="{{ url.external ? '_blank' : '_self' }}">
+                                    {{ content.field_location }}
+                                    {{ url.external ? svg_icon('open-in-new') : '' }}
+                                </a>
+                            {% else %}
+                                {{ content.field_location }}
+                            {% endif %}
+                        </div>
+                    </dl>
+                </aside>
             </div>
         </div>
     </div>

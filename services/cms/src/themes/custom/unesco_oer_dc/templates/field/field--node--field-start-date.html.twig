@@ -39,7 +39,7 @@
 {% set item = items|first %}
 {% set date = item.content['#markup'] %}
 <div>
-    <dt>{{ svg_icon('calendar-today') }} <span>{{ label }}</span></dt>
+    <dt>{{ svg_icon('today') }} <span>{{ label }}</span></dt>
     <dd>
         {% if element['#view_mode'] != 'teaser' %}
             <time datetime="{{ date }}">

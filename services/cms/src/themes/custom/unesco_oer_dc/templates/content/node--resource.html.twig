@@ -90,7 +90,17 @@
                 {{ title_suffix }}
                 <dl class="c-article__meta">
                     <div class="c-article__meta-item">
-                        {{ author_name }}
+                        {# {{ author_name }} #}
+                        <div class="c-article__avatar c-avatar c-avatar--xs">
+                            <div class="c-avatar__image">
+                                {{ author_picture }}
+                            </div>
+                            {% if author_name %}
+                                <a href="{{ author_url }}">{{ author_display_name }}</a>
+                            {% else %}
+                                <span>{{ author_display_name }}</span>
+                            {% endif %}
+                        </div>
                     </div>
                     <div class="c-article__meta-item">
                         {{ date }}
