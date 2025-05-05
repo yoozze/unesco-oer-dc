@@ -58,7 +58,7 @@
         background-color: color('background-alt');
 
         & > li {
-            @include transition('box-shadow' 'border-color', 0.25s);
+            @include transition('box-shadow' 'border-color');
 
             width: $page-width;
             max-width: calc(100% - 2 * size(3));

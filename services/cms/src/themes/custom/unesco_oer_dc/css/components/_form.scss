@@ -24,6 +24,35 @@ $page-width: size('page-width');
     }
 
     .c-form__group {
+        & > div {
+            flex-basis: auto;
+
+            &:has(+ details) {
+                @include transition('flex-grow', size('duration' 1));
+
+                flex-grow: 1;
+
+                & + details {
+                    @include transition('flex-grow', size('duration' 1));
+
+                    flex-grow: 0;
+                }
+            }
+
+            &:has(+ details[open]) {
+                flex-grow: 0;
+
+                & + details {
+                    flex-grow: 1;
+                }
+            }
+        }
+
+        details {
+            flex-basis: auto;
+            overflow: auto;
+        }
+
         @include below('bp-xl') {
             flex-direction: column;
         }
@@ -42,16 +71,37 @@ $page-width: size('page-width');
     border-radius: size('radius' 4);
 
     .c-form__group {
+        & > div {
+            flex-basis: auto;
+
+            &:has(+ details) {
+                @include transition('flex-grow', size('duration' 1));
+
+                flex-grow: 1;
+
+                & + details {
+                    @include transition('flex-grow', size('duration' 1));
+
+                    flex-grow: 0;
+                }
+            }
+
+            &:has(+ details[open]) {
+                flex-grow: 0;
+
+                & + details {
+                    flex-grow: 1;
+                }
+            }
+        }
+
         details {
+            flex-basis: auto;
             overflow: auto;
         }
 
         @include below('bp-xl') {
             flex-direction: column;
-
-            details {
-                overflow: unset;
-            }
         }
     }
 
