@@ -13,3 +13,94 @@
 .c-container--dubai-declaration {
     background-color: transparent;
 }
+
+.c-container--search-form {
+    $padding: size('gutter');
+    $page-width: size('page-width');
+
+    padding: size(2) 0 size(3);
+    background-color: color('background-alt');
+
+
+    & + h2 {
+        display: none;
+    }
+
+    & + h3 {
+        @include font('title-large');
+
+        padding-top: size(2);
+        margin-top: 0;
+        margin-bottom: size('section-padding');
+
+        @include before('') {
+            width: calc((100% - size('page-width')) / 2);
+            padding-right: size('gutter');
+        }
+
+        @include after('') {
+            width: calc((100% - size('page-width')) / 2);
+            padding-left: size('gutter');
+            margin-left: auto;
+        }
+
+        display: flex;
+    }
+
+    & ~ ol {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex-wrap: wrap;
+        padding: 0;
+        margin: 0;
+        list-style-type: none;
+        background-color: color('background-alt');
+
+        & > li {
+            @include transition('box-shadow' 'border-color', 0.25s);
+
+            width: $page-width;
+            max-width: calc(100% - 2 * size(3));
+            padding: $padding;
+            margin: 0 size(3) size(3);
+            background-color: color('light');
+            border: 1px solid color('border-light');
+            border-radius: size('radius' 4);
+
+            &:hover {
+                @include elevation(3);
+
+                border-color: color('light');
+            }
+
+            h3 {
+                @include font('title-large');
+
+                margin-top: 0;
+            }
+        }
+    }
+
+    & ~ nav {
+        display: flex;
+        justify-content: center;
+        padding-top: size(1);
+        padding-bottom: size('section-padding');
+        margin: 0;
+        background-color: color('background-alt');
+
+        ul {
+            flex-wrap: wrap;
+            justify-content: end;
+            width: $page-width + 2 * $padding;
+            max-width: 100%;
+            padding-right: $padding;
+            padding-left: $padding;
+
+            li {
+                padding: size(0.25);
+            }
+        }
+    }
+}

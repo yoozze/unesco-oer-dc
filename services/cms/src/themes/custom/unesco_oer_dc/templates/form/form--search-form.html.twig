@@ -1,0 +1,45 @@
+{#
+/**
+ * @file
+ * Theme override for a 'form' element.
+ *
+ * Available variables
+ * - attributes: A list of HTML attributes for the wrapper element.
+ * - children: The child elements of the form.
+ *
+ * @see template_preprocess_form()
+ */
+#}
+<div class="c-container c-container--search-form o-flex--justify_center">
+    <div class="o-container">
+        <form{{attributes.addClass('c-form c-form--'~attributes.id|clean_class)}}>
+            {# {{ children }} #}
+            {{ element.form_id }}
+            {{ element.form_build_id }}
+            {{ element.form_token }}
+
+            <div class="c-form__group">
+                {{ element.basic.keys }}
+
+                {# {{ element.advanced }} #}
+                <details class="search-advanced js-form-wrapper form-wrapper c-details" data-drupal-selector="edit-advanced" id="edit-advanced" data-once="details">
+                    <summary role="button" aria-controls="edit-advanced" aria-expanded="true" class="c-details__summary">
+                        {{ 'Advanced search'|t }} <span class="summary"></span>
+                    </summary>
+                    <div class="c-details__body">
+                        {{ element.advanced['keywords-fieldset'] }}
+                        {{ element.advanced['types-fieldset']['type'] }}
+                        {{ element.advanced['lang-fieldset']['language'] }}
+                        {{ element.advanced['submit'] }}
+                    </div>
+                </details>
+            </div>
+
+            <div class="c-form__actions">
+                {{ element.basic.submit }}
+            </div>
+
+            {# {{ dump() }} #}
+        </form>
+    </div>
+</div>

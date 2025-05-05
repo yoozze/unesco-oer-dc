@@ -11,29 +11,29 @@
  */
 #}
 {% set classes = [
-	'c-form',
-	'c-form--views-exposed-form',
-	'c-form--'~attributes.id|clean_class
+    'c-form',
+    'c-form--views-exposed-form',
+    'c-form--'~attributes.id|clean_class
 ] %}
 <form{{attributes.addClass(classes)}}>
-	{# {{ children }} #}
-	{{ element.form_id }}
-	{{ element.form_build_id }}
-	{{ element.form_token }}
+    {# {{ children }} #}
+    {{ element.form_id }}
+    {{ element.form_build_id }}
+    {{ element.form_token }}
 
-	<div class="c-form__group">
-		{{ element.search }}
-		{{ element.secondary}}
-	</div>
+    <div class="c-form__group">
+        {{ element.search }}
+        {{ element.secondary}}
+    </div>
 
-	<div class="c-form__actions">
-		{{ element.actions.submit }}
-		{# {{ element.actions.reset }} #}
-		<button class="c-button c-button--text" type="reset">
-			{{ svg_icon('delete', 'c-button__leading-icon') }}
-			<span class="c-button__label">{{ 'Clear'|t }}</span>
-		</button>
-	</div>
+    <div class="c-form__actions">
+        {{ element.actions.submit }}
+        {# {{ element.actions.reset }} #}
+        <button class="c-button c-button--text" type="reset">
+            {{ svg_icon('delete', 'c-button__leading-icon') }}
+            <span class="c-button__label">{{ 'Clear'|t }}</span>
+        </button>
+    </div>
 
-	{# {{ dump() }} #}
+    {# {{ dump() }} #}
 </form>

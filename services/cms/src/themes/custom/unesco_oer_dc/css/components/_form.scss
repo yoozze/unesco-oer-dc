@@ -7,101 +7,30 @@ $page-width: size('page-width');
 // .c-form {}
 
 .c-form--search-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    // justify-content: center;
-    padding-top: size(2);
-    padding-bottom: size(4);
-    background-color: color('background-alt');
+    @include elevation(1);
+
+    padding: size(4) size(3);
+    background-color: color('background');
+    border-radius: size('radius' 4);
+
+    details {
+        & > div {
+            :last-child {
+                fieldset {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+
+    .c-form__group {
+        @include below('bp-xl') {
+            flex-direction: column;
+        }
+    }
 
     .c-form__x-button {
         margin-left: size(1);
-    }
-
-    & > div#edit-basic {
-        // display: flex;
-        width: $page-width + 2 * $padding;
-        max-width: 100%;
-        padding-right: $padding;
-        padding-left: $padding;
-    }
-
-    & > a {
-        display: none;
-    }
-
-    & > details {
-        display: none;
-    }
-
-    & + h2 {
-        display: none;
-    }
-
-    & + h3 {
-        @include font('title-large');
-
-        padding-top: size(2);
-        margin-top: 0;
-        margin-bottom: size('section-padding');
-
-        @include before('') {
-            width: calc((100% - size('page-width')) / 2);
-            padding-right: size('gutter');
-        }
-
-        @include after('') {
-            width: calc((100% - size('page-width')) / 2);
-            padding-left: size('gutter');
-            margin-left: auto;
-        }
-
-        display: flex;
-    }
-
-    & ~ ol {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        flex-wrap: wrap;
-        padding: size(4) 0;
-        margin: 0;
-        list-style-type: none;
-
-        & > li {
-            width: $page-width + 2 * $padding;
-            max-width: 100%;
-            // padding-right: $padding;
-            // padding-left: $padding;
-            padding: $padding;
-            margin-bottom: size(3);
-
-            h3 {
-                @include font('title-large');
-
-                margin-top: 0;
-            }
-        }
-    }
-
-    & ~ nav {
-        display: flex;
-        justify-content: center;
-        margin-bottom: size('section-padding');
-
-        ul {
-            flex-wrap: wrap;
-            justify-content: end;
-            width: $page-width + 2 * $padding;
-            max-width: 100%;
-            padding-right: $padding;
-            padding-left: $padding;
-
-            li {
-                padding: size(0.25);
-            }
-        }
     }
 }
 
@@ -117,7 +46,9 @@ $page-width: size('page-width');
             overflow: auto;
         }
 
-        @include below('bp-md') {
+        @include below('bp-xl') {
+            flex-direction: column;
+
             details {
                 overflow: unset;
             }
