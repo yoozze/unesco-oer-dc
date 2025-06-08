@@ -6,7 +6,15 @@
 // ## Section Head Row
 // -------------------
 
-// .c-section-head__row {}
+.c-section-head__row {
+    .c-section-head--with-media & {
+        align-items: center;
+
+        @include below('bp-xl') {
+            flex-direction: column;
+        }
+    }
+}
 
 // ## Section Head Col
 // -------------------
@@ -16,6 +24,14 @@
 
     @include below('bp-lg') {
         width: auto;
+    }
+
+    .c-section-head--with-media & {
+        width: 6 / 12 * 100%;
+
+        @include below('bp-xl') {
+            width: auto;
+        }
     }
 }
 
@@ -52,4 +68,20 @@
 
 .c-section-head__links {
     margin-top: size(4);
+}
+
+// ## Section Media
+// ----------------
+
+.c-section-head__media {
+    video {
+        width: 100%;
+        height: auto;
+        border-radius: size('radius' 4);
+        aspect-ratio: unset !important;
+
+        @include below('bp-xl') {
+            margin-top: size(3);
+        }
+    }
 }

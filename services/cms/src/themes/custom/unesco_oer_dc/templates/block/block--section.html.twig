@@ -8,6 +8,7 @@
   set classes = [
     'c-section-head',
     block_name ? 'c-section-head--' ~ block_name|clean_class,
+    content.field_media[0] ? 'c-section-head--with-media'
   ]
 %}
 <div{{attributes.addClass(classes)}}>
@@ -19,10 +20,18 @@
             {% endif %}
             {{ title_suffix }}
             {% block content %}
-                {{ content }}
+                {# {{ content }} #}
+                {{ content.field_name }}
+                {{ content.field_title }}
+                {{ content.body }}
+                {{ content.field_link }}
             {% endblock %}
         </div>
+        {% if content.field_media[0] %}
+            <div class="c-section-head__col o-col">
+                {{ content.field_media }}
+            </div>
+        {% endif %}
     </div>
-    {# <script>console.log('SECTION BLOCK', {{ _context | json_encode | raw}});</script> #}
     {# {{ dump() }} #}
 </div>
