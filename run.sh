@@ -151,7 +151,7 @@ if [ $MODE = "--archive-dump" ]; then
     docker exec ${PROJECT_NAME}_cms sh -c "
         mkdir -p /tmp/$ARCHIVE_NAME &&
         echo $PREFIX: - Database &&
-        drush archive:dump --db --destination=/tmp/$ARCHIVE_NAME/db.tar.gz &&
+        php -d memory_limit=2G /opt/drupal/vendor/bin/drush archive:dump --db --destination=/tmp/$ARCHIVE_NAME/db.tar.gz &&
         echo $PREFIX: - Files &&
         tar -zcf /tmp/$ARCHIVE_NAME/files.tar.gz web/sites/default/files &&
         tar -zcf /tmp/$ARCHIVE_NAME.tar.gz -C /tmp/$ARCHIVE_NAME . &&
