@@ -10,6 +10,7 @@ OPTIONS_ARRAY=(
     "--build"
     "--start"
     "--stop"
+    "--recreate"
     "--watch"
     "--log"
     "--enter"
@@ -47,6 +48,7 @@ if [ $MODE = "--help" ]; then
     echo "bash run.sh --buld [args]             | Build services"
     echo "bash run.sh --start [args]            | Start services"
     echo "bash run.sh --stop [args]             | Stop services"
+    echo "bash run.sh --recreate [args]         | Recreate services (stop, build, start and setup)"
     echo "bash run.sh --watch [args]            | Watch files"
     echo "bash run.sh --log [args]              | Display log"
     echo "bash run.sh --enter [args]            | Enter into container"
@@ -79,6 +81,22 @@ if [ $MODE = "--build" ]; then
     fi
 fi
 
+if [ $MODE = "--setup" ]; then
+    echo "$PREFIX: Setting up... $ARGS"
+    if [ $ENV = "production" ]; then
+        docker exec ${PROJECT_NAME}_cms sh -c "
+            npm install
+            npm run build
+        "
+    fi
+    docker exec ${PROJECT_NAME}_cms sh -c "
+        bash drupal.sh --fix-permissions &&
+        bash drupal.sh --install-modules &&
+        drush updatedb --no-cache-clear &&
+        drush cache:rebuild
+    "
+fi
+
 if [ $MODE = "--start" ]; then
     echo "$PREFIX: Starting... $ARGS"
     docker compose -f $COMPOSE_FILE up -d $ARGS
@@ -87,6 +105,14 @@ fi
 if [ $MODE = "--stop" ]; then
     echo "$PREFIX: Stopping... $ARGS"
     docker compose -f $COMPOSE_FILE down $ARGS
+fi
+
+if [ $MODE = "--recreate" ]; then
+    ## run --stop, --build, --start and --setup
+    bash run.sh --stop
+    bash run.sh --build
+    bash run.sh --start
+    bash run.sh --setup
 fi
 
 if [ $MODE = "--watch" ]; then
@@ -175,20 +201,4 @@ if [ $MODE = "--archive-restore" ]; then
         tar -zxf /tmp/archive/files.tar.gz -C .
     "
     echo "$PREFIX: Archive restored"
-fi
-
-if [ $MODE = "--setup" ]; then
-    echo "$PREFIX: Setting up... $ARGS"
-    if [ $ENV = "production" ]; then
-        docker exec ${PROJECT_NAME}_cms sh -c "
-            npm install
-            npm run build
-        "
-    fi
-    docker exec ${PROJECT_NAME}_cms sh -c "
-        bash drupal.sh --fix-permissions &&
-        bash drupal.sh --install-modules &&
-        drush updatedb --no-cache-clear &&
-        drush cache:rebuild
-    "
 fi
