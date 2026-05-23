@@ -112,6 +112,8 @@ if [ $MODE = "--recreate" ]; then
     bash run.sh --stop
     bash run.sh --build
     bash run.sh --start
+    # wait for services to start
+    sleep 10
     bash run.sh --setup
 fi
 
