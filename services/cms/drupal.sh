@@ -58,7 +58,7 @@ MODULES=(
     "backup_migrate:^5.0"
     "coder:^8.3"
     "coffee:^2.0"
-    "devel:^5.1"
+    "devel:^5.5"
     "gin:^4.0"
     "gin_toolbar:^2.0"
     "pathauto:^1.11"

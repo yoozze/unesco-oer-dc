@@ -42,7 +42,7 @@ RUN bash drupal.sh --config-composer
 RUN composer require \
     oomphinc/composer-installers-extender \
     npm-asset/select2 \
-    drush/drush:^12.1
+    drush/drush:^13.7
 
 RUN bash drupal.sh --get-modules
 
