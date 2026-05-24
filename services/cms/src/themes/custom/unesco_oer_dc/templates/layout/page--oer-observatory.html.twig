@@ -2,38 +2,18 @@
 
 {% block content %}
     {{ page.content.messages}}
-    {% set news_keys = [
-        'f23b14f7-60d1-4786-9ca4-f8fdd56682ec',
-        '9365e3e0-4914-41b5-822a-9e373e2fd3fa',
-        '1ebf4034-deab-452e-a0e4-edf356eb2139',
-        '50c9b223-8eec-49ee-b6cb-46631ed37dcf',
-        'f9d34ef5-0d04-4e2e-8fc7-ade59aef9801'
-    ] %}
-    {% set dashboard_keys = [
-        'c0f2ee30-a7da-11ef-bb8e-094d83929987',
-        '0dbc27c0-a46d-11ef-bb8e-094d83929987',
-        '37487260-a46d-11ef-bb8e-094d83929987',
-        '5dab4270-a46d-11ef-bb8e-094d83929987',
-        '7f6bb390-a46d-11ef-bb8e-094d83929987'
-    ] %}
-    {% set metrics_pilots = ['OER1', 'OER2', 'OER3', 'OER4', 'OER5'] %}
-    {% if get.view == 'dashboard' %}
-        {% set iframe_src = 'https://public.midas.ijs.si/kibana-sgd/app/dashboards#/view/' ~ dashboard_keys[get.area - 1] ~ '?embed=true&_g=(refreshInterval%3A(pause%3A!t%2Cvalue%3A60000)%2Ctime%3A(from%3Anow-150y%2Cto%3Anow))' %}
-        {% set aspect_ratio = '1440/900' %}
-    {% elseif get.view == 'metrics' %}
-        {% set iframe_src = 'https://news-widget.pages.dev/education/radial?pilot=' ~ metrics_pilots[get.area - 1] %}
-        {% set aspect_ratio = '1440/900' %}
-    {% else %}
-        {% set iframe_src = 'https://news-widget.pages.dev/news?sdg=4&topicKey=' ~ news_keys[get.area - 1] %}
-        {% set aspect_ratio = '1440/1280' %}
-    {% endif %}
+    {% set view_labels = {
+        'news': 'News'|t,
+        'dashboard': 'Dashboard'|t,
+        'metrics': 'Metrics'|t,
+    } %}
     <div class="o-region">
         <article{{attributes.addClass(['c-article', 'c-article--observatory'])}}>
             <div class="c-article__header">
                 <div class="o-container">
                     <div class="c-article__content">
                         <h1 class="c-article__title">{{ page['#title'] }}</h1>
-                        <form id="observatory-form" class="c-form c-form--observatory" method="get" action="">
+                        <form id="observatory-form" class="c-form c-form--observatory" method="get" action="" data-options="{{ observatory|json_encode|e('html_attr') }}">
                             <fieldset class="c-form__fieldset">
                                 <legend class="c-form__legend">
                                     <span>{{ areas_of_action.vocabulary.label }}</span>
@@ -41,7 +21,7 @@
                                 <div class="c-form__fieldset-wrapper">
                                     <div class="c-form__radios c-form__radios--area">
                                         {% for idx, term in areas_of_action.terms %}
-                                            {% set checked = (idx == get.area - 1) ? 'checked' : '' %}
+                                            {% set checked = (idx == observatory_current.area - 1) ? 'checked' : '' %}
                                             <div class="c-form__field c-form__field--type_radio">
                                                 <div class="c-form__control c-form__control--type_radio">
                                                     <input class="c-form__radio" id="area-of-action-{{ term.tid }}" name="area" type="radio" value="{{ idx + 1 }}" {{ checked }}>
@@ -60,30 +40,16 @@
                                 </legend>
                                 <div class="c-form__fieldset-wrapper">
                                     <div class="c-form__radios c-form__radios--view c-form__radios--inline">
-                                        <div class="c-form__field c-form__field--type_radio">
-                                            <div class="c-form__control c-form__control--type_radio">
-                                                <input class="c-form__radio" id="view-news" name="view" type="radio" value="news" {{ get.view == 'news' ? 'checked' : '' }}>
-                                                <label class="c-form__label" for="view-news">
-                                                    <span>{{ 'News'|t }}</span>
-                                                </label>
+                                        {% for view_id, view_config in observatory.views %}
+                                            <div class="c-form__field c-form__field--type_radio">
+                                                <div class="c-form__control c-form__control--type_radio">
+                                                    <input class="c-form__radio" id="view-{{ view_id }}" name="view" type="radio" value="{{ view_id }}" {{ observatory_current.view == view_id ? 'checked' : '' }}>
+                                                    <label class="c-form__label" for="view-{{ view_id }}">
+                                                        <span>{{ view_labels[view_id] }}</span>
+                                                    </label>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="c-form__field c-form__field--type_radio">
-                                            <div class="c-form__control c-form__control--type_radio">
-                                                <input class="c-form__radio" id="view-dashboard" name="view" type="radio" value="dashboard" {{ get.view == 'dashboard' ? 'checked' : '' }}>
-                                                <label class="c-form__label" for="view-dashboard">
-                                                    <span>{{ 'Dashboard'|t }}</span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="c-form__field c-form__field--type_radio">
-                                            <div class="c-form__control c-form__control--type_radio">
-                                                <input class="c-form__radio" id="view-metrics" name="view" type="radio" value="metrics" {{ get.view == 'metrics' ? 'checked' : '' }}>
-                                                <label class="c-form__label" for="view-metrics">
-                                                    <span>{{ 'Metrics'|t }}</span>
-                                                </label>
-                                            </div>
-                                        </div>
+                                        {% endfor %}
                                     </div>
                                 </div>
                             </fieldset>
@@ -95,15 +61,15 @@
                                 </button>
                             </div>
                         </form>
-                        <div class="c-article__description c-text-box" data-observatory-view="news"{% if get.view != 'news' %} hidden{% endif %}>
+                        <div class="c-article__description c-text-box" data-observatory-view="news"{% if observatory_current.view != 'news' %} hidden{% endif %}>
                             <h3>{{ 'News'|t }}</h3>
                             <p>{{ 'This view provides a multilingual coverage of the worldwide news published during the last month on OER-related topics – it is providing a media stream capturing news articles published worldwide on these topics in 60+ languages. It includes on: (i) the right hand side the main topics present in the news articles captured on the daily basis presented as a word cloud; (ii) below the word cloud, the overall news sentiment is calculated (from negative (0) to very positive (1) for a chosen date) and shown in the map and the moving gauge; and (iii) on the left hand side a list of daily news which you can scroll down and select to be redirected to the news source. For your convenience, a word cloud is shown to summarise the main concepts being discussed, captured as wikidata concepts agnostic to the language the news are written in. The sentiment analysis helps to understand emotional tone in daily news around the globe and thus we can gain insight into general public perceptions of landslide risks expressed by journalists and/or individuals.'|t }}</p>
                         </div>
-                        <div class="c-article__description c-text-box" data-observatory-view="dashboard"{% if get.view != 'dashboard' %} hidden{% endif %}>
+                        <div class="c-article__description c-text-box" data-observatory-view="dashboard"{% if observatory_current.view != 'dashboard' %} hidden{% endif %}>
                             <h3>{{ 'Dashboard'|t }}</h3>
                             <p>{{ 'This dashboard is focusing on issues related to OERs and is fed by data from a variety of sources: worldwide news, published science articles, AI policies, education resources, and innovation ecosystems. The dashboard is configurable and can explore other related issues and comparative data-driven scenarios in landslide research. The initial interactive visualisation modules show the main concepts in, e.g., OER-related research and their worldwide coverage (below on the left side), the SDG coverage on related policies and the evolution of research publications in these topics. Using mouse over the visualization graphs helps to get more information on these plots.'|t }}</p>
                         </div>
-                        <div class="c-article__description c-text-box" data-observatory-view="metrics"{% if get.view != 'metrics' %} hidden{% endif %}>
+                        <div class="c-article__description c-text-box" data-observatory-view="metrics"{% if observatory_current.view != 'metrics' %} hidden{% endif %}>
                             <h3>{{ 'Metrics'|t }}</h3>
                             <p>{{ 'This view allows you to explore the diverse OER-related topics automatically identified in available open educational resources and their distribution across the 5 OER priority areas. The data is sourced from this portal, and from Videolectures.net, a UNESCO award-winning platform that offers recorded and preprocessed lectures covering a wide variety of OER-related topics. These resources are designed to support in-depth learning and understanding of sustainable development issues, offering valuable educational content for policymakers, educators, and researchers. By engaging with this tool, you can gain a clearer perspective on the OER topics most covered in the available resources, facilitating the discovery of relevant courses and lectures to deepen your knowledge of OER challenges and solutions.'|t }}</p>
                         </div>
@@ -117,8 +83,8 @@
                             id="observatory-iframe"
                             width="100%"
                             frameborder="0"
-                            style="aspect-ratio: {{ aspect_ratio }}"
-                            src="{{ iframe_src }}"
+                            style="aspect-ratio: {{ observatory_current.iframe.aspectRatio }}"
+                            src="{{ observatory_current.iframe.src }}"
                         ></iframe>
                     </div>
                 </div>

@@ -1,36 +1,6 @@
 /** @module components/ObservatoryForm */
 
-import Component from './Component';
 import Form from './Form';
-
-import $ from 'jquery';
-
-const VIEWS = {
-    news: 'news',
-    dashboard: 'dashboard',
-    metrics: 'metrics',
-};
-
-const NEWS_KEYS = [
-    'f23b14f7-60d1-4786-9ca4-f8fdd56682ec',
-    '9365e3e0-4914-41b5-822a-9e373e2fd3fa',
-    '1ebf4034-deab-452e-a0e4-edf356eb2139',
-    '50c9b223-8eec-49ee-b6cb-46631ed37dcf',
-    'f9d34ef5-0d04-4e2e-8fc7-ade59aef9801',
-];
-
-const DASHBOARD_KEYS = [
-    'c0f2ee30-a7da-11ef-bb8e-094d83929987',
-    '0dbc27c0-a46d-11ef-bb8e-094d83929987',
-    '37487260-a46d-11ef-bb8e-094d83929987',
-    '5dab4270-a46d-11ef-bb8e-094d83929987',
-    '7f6bb390-a46d-11ef-bb8e-094d83929987',
-];
-
-const METRICS_PILOTS = ['OER1', 'OER2', 'OER3', 'OER4', 'OER5'];
-
-const DEFAULT_VIEW = VIEWS.news;
-const DEFAULT_AREA = 1;
 
 class ObservatoryForm extends Form {
     /**
@@ -39,7 +9,7 @@ class ObservatoryForm extends Form {
     areaRadios = null;
 
     /**
-     * @type {HTMLInputElement | null} Area of action radios.
+     * @type {HTMLInputElement | null} View radios.
      */
     viewRadios = null;
 
@@ -51,13 +21,12 @@ class ObservatoryForm extends Form {
     /**
      * @type {number} Area of action.
      */
-    area = DEFAULT_AREA;
+    area = 1;
 
     /**
      * @type {string} View.
-     * @default VIEWS.news
      */
-    view = DEFAULT_VIEW;
+    view = 'news';
 
     /**
      * Get component modifier name.
@@ -70,7 +39,7 @@ class ObservatoryForm extends Form {
     }
 
     /**
-     * SearchForm constructor.
+     * ObservatoryForm constructor.
      *
      * @param {HtmlElement} element - DOM element to be initialized.
      * @param {Object} options - ObservatoryForm options.
@@ -84,20 +53,15 @@ class ObservatoryForm extends Form {
         this.viewRadios = this.element.querySelector(`.${Form.bem('radios', 'view')}`);
         this.viewRadios.addEventListener('change', this.handleViewChange.bind(this));
 
-        // Query the iframe element by observatory-iframe id.
         this.iframe = document.querySelector('#observatory-iframe');
 
-        // Set the initial view vrom selected radio button.
         this.view = this.viewRadios.querySelector('input:checked').value;
-
-        // Set the initial area from selected radio button.
         this.area = Number(this.areaRadios.querySelector('input:checked').value);
 
-        // Update browser history with initial area and view.
         this.updateBrowserHistory();
 
-        // Update iframe with initial area and view if necessary.
-        if (this.view !== DEFAULT_VIEW || this.area !== DEFAULT_AREA) {
+        const { defaultView, defaultArea } = this.options;
+        if (this.view !== defaultView || this.area !== defaultArea) {
             this.updateIframe();
         }
     }
@@ -113,54 +77,37 @@ class ObservatoryForm extends Form {
     }
 
     /**
-     * Get iframe URL and aspect ratio for the current view and area.
+     * Get precomputed iframe config for the current view and area.
      *
-     * @returns {{ url: string, aspectRatio: string }}
+     * @returns {{ url: string, aspectRatio: string } | null}
      */
     getIframeConfig() {
-        const index = this.area - 1;
+        const viewConfig = this.options.views?.[this.view];
 
-        switch (this.view) {
-            case VIEWS.dashboard:
-                return {
-                    url: `https://public.midas.ijs.si/kibana-sgd/app/dashboards#/view/${DASHBOARD_KEYS[index]}?embed=true&_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-150y,to:now))&_a=()`,
-                    aspectRatio: '1440 / 900',
-                };
-            case VIEWS.metrics:
-                return {
-                    url: `https://news-widget.pages.dev/education/radial?pilot=${METRICS_PILOTS[index]}`,
-                    aspectRatio: '1440 / 900',
-                };
-            default:
-                return {
-                    url: `https://news-widget.pages.dev/news?sdg=4&topicKey=${NEWS_KEYS[index]}`,
-                    aspectRatio: '1440 / 1280',
-                };
+        if (!viewConfig?.embeds) {
+            return null;
         }
+
+        return {
+            url: viewConfig.embeds[this.area - 1],
+            aspectRatio: viewConfig.aspectRatio,
+        };
     }
 
     /**
-     * Update iframe with new area and view
-     * @returns {void}
+     * Update iframe with new area and view.
      */
     updateIframe() {
-        const { url, aspectRatio } = this.getIframeConfig();
+        const config = this.getIframeConfig();
 
-        // create new iframe element
-        const iframe = document.createElement('iframe');
-        iframe.src = url;
-        iframe.id = 'observatory-iframe';
-        iframe.setAttribute('width', '100%');
-        iframe.setAttribute('frameborder', '0');
-        iframe.style.aspectRatio = aspectRatio;
+        if (!config?.url || !this.iframe) {
+            return;
+        }
 
-        // replace old iframe with new iframe
-        this.iframe.replaceWith(iframe);
-        this.iframe = iframe;
+        this.iframe.src = config.url;
+        this.iframe.style.aspectRatio = config.aspectRatio;
 
         this.updateViewDescription();
-
-        // update browser history with new area and view
         this.updateBrowserHistory();
     }
 

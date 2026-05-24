@@ -89,15 +89,28 @@ function unesco_oer_dc_preprocess_page(&$variables) {
             'terms' => $terms
         ];
 
+        $observatory = unesco_oer_dc_observatory_config();
+        $area_count = count($observatory['views'][$observatory['defaultView']]['embeds']);
+
         // Get area and view from query string
-        $area = max(1, min(5, intval(\Drupal::request()->query->get('area') ?? '1')));
+        $area = max(1, min($area_count, intval(\Drupal::request()->query->get('area') ?? (string) $observatory['defaultArea'])));
         $view = \Drupal::request()->query->get('view');
-        if (!in_array($view, ['news', 'dashboard', 'metrics'])) {
-            $view = 'news';
+        if (!isset($observatory['views'][$view])) {
+            $view = $observatory['defaultView'];
         }
+
+        $variables['observatory'] = $observatory;
+        $variables['observatory_current'] = [
+            'area' => $area,
+            'view' => $view,
+            'iframe' => [
+                'src' => $observatory['views'][$view]['embeds'][$area - 1],
+                'aspectRatio' => $observatory['views'][$view]['aspectRatio'],
+            ],
+        ];
         $variables['get'] = [
             'area' => $area,
-            'view' => $view
+            'view' => $view,
         ];
 
         // Invalidate cache when query string changes
