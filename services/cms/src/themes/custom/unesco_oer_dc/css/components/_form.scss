@@ -287,6 +287,36 @@ $page-width: size('page-width');
     }
 }
 
+.c-form__fields--observatory {
+    display: flex;
+    flex-wrap: wrap;
+    gap: size(2) size(3);
+    margin-bottom: size(2);
+
+    .c-form__field {
+        flex: 1 1 12rem;
+        min-width: min(100%, 12rem);
+        margin-bottom: 0;
+    }
+
+    .c-form__field--name_view {
+        flex: 0 1 10rem;
+    }
+
+    .c-form__field--name_area {
+        flex: 1 1 20rem;
+    }
+
+    .c-form__label {
+        display: block;
+        margin-bottom: size(0.5);
+    }
+
+    .c-form__select {
+        width: 100%;
+    }
+}
+
 // ## Form Header
 
 .c-form__header {

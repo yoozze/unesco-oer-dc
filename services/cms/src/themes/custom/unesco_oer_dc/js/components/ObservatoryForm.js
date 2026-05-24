@@ -4,14 +4,14 @@ import Form from './Form';
 
 class ObservatoryForm extends Form {
     /**
-     * @type {HTMLInputElement | null} Area of action radios.
+     * @type {HTMLSelectElement | null} View select.
      */
-    areaRadios = null;
+    viewSelect = null;
 
     /**
-     * @type {HTMLInputElement | null} View radios.
+     * @type {HTMLSelectElement | null} Area of action select.
      */
-    viewRadios = null;
+    areaSelect = null;
 
     /**
      * @type {HTMLIFrameElement | null} Observatory iframe.
@@ -47,16 +47,16 @@ class ObservatoryForm extends Form {
     constructor(element, options = {}) {
         super(element, options);
 
-        this.areaRadios = this.element.querySelector(`.${Form.bem('radios', 'area')}`);
-        this.areaRadios.addEventListener('change', this.handleAreaChange.bind(this));
+        this.viewSelect = this.element.querySelector('[name="view"]');
+        this.areaSelect = this.element.querySelector('[name="area"]');
 
-        this.viewRadios = this.element.querySelector(`.${Form.bem('radios', 'view')}`);
-        this.viewRadios.addEventListener('change', this.handleViewChange.bind(this));
+        this.viewSelect.addEventListener('change', this.handleViewChange.bind(this));
+        this.areaSelect.addEventListener('change', this.handleAreaChange.bind(this));
 
         this.iframe = document.querySelector('#observatory-iframe');
 
-        this.view = this.viewRadios.querySelector('input:checked').value;
-        this.area = Number(this.areaRadios.querySelector('input:checked').value);
+        this.view = this.viewSelect.value;
+        this.area = Number(this.areaSelect.value);
 
         this.updateBrowserHistory();
 

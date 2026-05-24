@@ -8,51 +8,39 @@
         'metrics': 'Metrics'|t,
     } %}
     <div class="o-region">
-        <article{{attributes.addClass(['c-article', 'c-article--observatory'])}}>
+        <article{{attributes.addClass(['c-article','c-article--observatory'])}}>
             <div class="c-article__header">
                 <div class="o-container">
                     <div class="c-article__content">
                         <h1 class="c-article__title">{{ page['#title'] }}</h1>
                         <form id="observatory-form" class="c-form c-form--observatory" method="get" action="" data-options="{{ observatory|json_encode|e('html_attr') }}">
-                            <fieldset class="c-form__fieldset">
-                                <legend class="c-form__legend">
-                                    <span>{{ areas_of_action.vocabulary.label }}</span>
-                                </legend>
-                                <div class="c-form__fieldset-wrapper">
-                                    <div class="c-form__radios c-form__radios--area">
-                                        {% for idx, term in areas_of_action.terms %}
-                                            {% set checked = (idx == observatory_current.area - 1) ? 'checked' : '' %}
-                                            <div class="c-form__field c-form__field--type_radio">
-                                                <div class="c-form__control c-form__control--type_radio">
-                                                    <input class="c-form__radio" id="area-of-action-{{ term.tid }}" name="area" type="radio" value="{{ idx + 1 }}" {{ checked }}>
-                                                    <label class="c-form__label" for="area-of-action-{{ term.tid }}">
-                                                        <span>{{ term.name }}</span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        {% endfor %}
+                            <div class="c-form__fields c-form__fields--observatory">
+                                <div class="c-form__field c-form__field--type_select c-form__field--name_view">
+                                    <div class="c-form__control c-form__control--type_select">
+                                        <select class="c-form__select" id="observatory-view" name="view">
+                                            {% for view_id, view_config in observatory.views %}
+                                                <option value="{{ view_id }}" {{ observatory_current.view == view_id ? 'selected' : '' }}>{{ view_labels[view_id] }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <label class="c-form__label" for="observatory-view">
+                                            <span>{{ 'View'|t }}</span>
+                                        </label>
+                                    </div>
+
+                                </div>
+                                <div class="c-form__field c-form__field--type_select c-form__field--name_area">
+                                    <div class="c-form__control c-form__control--type_select">
+                                        <select class="c-form__select" id="observatory-area" name="area">
+                                            {% for idx, term in areas_of_action.terms %}
+                                                <option value="{{ idx + 1 }}" {{ observatory_current.area == idx + 1 ? 'selected' : '' }}>{{ term.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <label class="c-form__label" for="observatory-area">
+                                            <span>{{ areas_of_action.vocabulary.label }}</span>
+                                        </label>
                                     </div>
                                 </div>
-                            </fieldset>
-                            <fieldset class="c-form__fieldset">
-                                <legend class="c-form__legend">
-                                    <span>{{ 'View'|t }}</span>
-                                </legend>
-                                <div class="c-form__fieldset-wrapper">
-                                    <div class="c-form__radios c-form__radios--view c-form__radios--inline">
-                                        {% for view_id, view_config in observatory.views %}
-                                            <div class="c-form__field c-form__field--type_radio">
-                                                <div class="c-form__control c-form__control--type_radio">
-                                                    <input class="c-form__radio" id="view-{{ view_id }}" name="view" type="radio" value="{{ view_id }}" {{ observatory_current.view == view_id ? 'checked' : '' }}>
-                                                    <label class="c-form__label" for="view-{{ view_id }}">
-                                                        <span>{{ view_labels[view_id] }}</span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                            </fieldset>
+                            </div>
                             <div class="c-form__actions">
                                 <button class="c-button c-button--filled" type="submit">
                                     <span class="c-button__label">
@@ -61,15 +49,15 @@
                                 </button>
                             </div>
                         </form>
-                        <div class="c-article__description c-text-box" data-observatory-view="news"{% if observatory_current.view != 'news' %} hidden{% endif %}>
+                        <div class="c-article__description c-text-box" data-observatory-view="news" {% if observatory_current.view != 'news' %} hidden {% endif %}>
                             <h3>{{ 'News'|t }}</h3>
                             <p>{{ 'This view provides a multilingual coverage of the worldwide news published during the last month on OER-related topics – it is providing a media stream capturing news articles published worldwide on these topics in 60+ languages. It includes on: (i) the right hand side the main topics present in the news articles captured on the daily basis presented as a word cloud; (ii) below the word cloud, the overall news sentiment is calculated (from negative (0) to very positive (1) for a chosen date) and shown in the map and the moving gauge; and (iii) on the left hand side a list of daily news which you can scroll down and select to be redirected to the news source. For your convenience, a word cloud is shown to summarise the main concepts being discussed, captured as wikidata concepts agnostic to the language the news are written in. The sentiment analysis helps to understand emotional tone in daily news around the globe and thus we can gain insight into general public perceptions of landslide risks expressed by journalists and/or individuals.'|t }}</p>
                         </div>
-                        <div class="c-article__description c-text-box" data-observatory-view="dashboard"{% if observatory_current.view != 'dashboard' %} hidden{% endif %}>
+                        <div class="c-article__description c-text-box" data-observatory-view="dashboard" {% if observatory_current.view != 'dashboard' %} hidden {% endif %}>
                             <h3>{{ 'Dashboard'|t }}</h3>
                             <p>{{ 'This dashboard is focusing on issues related to OERs and is fed by data from a variety of sources: worldwide news, published science articles, AI policies, education resources, and innovation ecosystems. The dashboard is configurable and can explore other related issues and comparative data-driven scenarios in landslide research. The initial interactive visualisation modules show the main concepts in, e.g., OER-related research and their worldwide coverage (below on the left side), the SDG coverage on related policies and the evolution of research publications in these topics. Using mouse over the visualization graphs helps to get more information on these plots.'|t }}</p>
                         </div>
-                        <div class="c-article__description c-text-box" data-observatory-view="metrics"{% if observatory_current.view != 'metrics' %} hidden{% endif %}>
+                        <div class="c-article__description c-text-box" data-observatory-view="metrics" {% if observatory_current.view != 'metrics' %} hidden {% endif %}>
                             <h3>{{ 'Metrics'|t }}</h3>
                             <p>{{ 'This view allows you to explore the diverse OER-related topics automatically identified in available open educational resources and their distribution across the 5 OER priority areas. The data is sourced from this portal, and from Videolectures.net, a UNESCO award-winning platform that offers recorded and preprocessed lectures covering a wide variety of OER-related topics. These resources are designed to support in-depth learning and understanding of sustainable development issues, offering valuable educational content for policymakers, educators, and researchers. By engaging with this tool, you can gain a clearer perspective on the OER topics most covered in the available resources, facilitating the discovery of relevant courses and lectures to deepen your knowledge of OER challenges and solutions.'|t }}</p>
                         </div>
@@ -79,13 +67,7 @@
             <div class="c-article__body">
                 <div class="o-container">
                     <div class="c-article__content">
-                        <iframe
-                            id="observatory-iframe"
-                            width="100%"
-                            frameborder="0"
-                            style="aspect-ratio: {{ observatory_current.iframe.aspectRatio }}"
-                            src="{{ observatory_current.iframe.src }}"
-                        ></iframe>
+                        <iframe id="observatory-iframe" width="100%" frameborder="0" style="aspect-ratio: {{ observatory_current.iframe.aspectRatio }}" src="{{ observatory_current.iframe.src }}"></iframe>
                     </div>
                 </div>
             </div>
