@@ -78,7 +78,7 @@ function unesco_oer_dc_preprocess_page(&$variables) {
     $variables['slug'] = $slug;
 
     // Get additional data for specific pages
-    if ($slug === 'observatory') {
+    if ($slug === 'oer-observatory') {
         // Get name of areas_of_action vocabulary
         $vocabulary = \Drupal::entityTypeManager()->getStorage('taxonomy_vocabulary')->load('areas_of_action');
 
@@ -92,7 +92,7 @@ function unesco_oer_dc_preprocess_page(&$variables) {
         // Get area and view from query string
         $area = max(1, min(5, intval(\Drupal::request()->query->get('area') ?? '1')));
         $view = \Drupal::request()->query->get('view');
-        if (!in_array($view, ['news', 'dashboard'])) {
+        if (!in_array($view, ['news', 'dashboard', 'metrics'])) {
             $view = 'news';
         }
         $variables['get'] = [

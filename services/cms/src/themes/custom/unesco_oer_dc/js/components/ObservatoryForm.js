@@ -8,7 +8,26 @@ import $ from 'jquery';
 const VIEWS = {
     news: 'news',
     dashboard: 'dashboard',
+    metrics: 'metrics',
 };
+
+const NEWS_KEYS = [
+    'f23b14f7-60d1-4786-9ca4-f8fdd56682ec',
+    '9365e3e0-4914-41b5-822a-9e373e2fd3fa',
+    '1ebf4034-deab-452e-a0e4-edf356eb2139',
+    '50c9b223-8eec-49ee-b6cb-46631ed37dcf',
+    'f9d34ef5-0d04-4e2e-8fc7-ade59aef9801',
+];
+
+const DASHBOARD_KEYS = [
+    'c0f2ee30-a7da-11ef-bb8e-094d83929987',
+    '0dbc27c0-a46d-11ef-bb8e-094d83929987',
+    '37487260-a46d-11ef-bb8e-094d83929987',
+    '5dab4270-a46d-11ef-bb8e-094d83929987',
+    '7f6bb390-a46d-11ef-bb8e-094d83929987',
+];
+
+const METRICS_PILOTS = ['OER1', 'OER2', 'OER3', 'OER4', 'OER5'];
 
 const DEFAULT_VIEW = VIEWS.news;
 const DEFAULT_AREA = 1;
@@ -74,10 +93,6 @@ class ObservatoryForm extends Form {
         // Set the initial area from selected radio button.
         this.area = Number(this.areaRadios.querySelector('input:checked').value);
 
-        // const url = new URL(window.location.href);
-        // const area = Math.min(1, Math.max(5, Number(url.searchParams.get('area')))) || DEFAULT_AREA;
-        // const view = VIEWS[url.searchParams.get('view')] || DEFAULT_VIEW;
-
         // Update browser history with initial area and view.
         this.updateBrowserHistory();
 
@@ -98,29 +113,38 @@ class ObservatoryForm extends Form {
     }
 
     /**
+     * Get iframe URL and aspect ratio for the current view and area.
+     *
+     * @returns {{ url: string, aspectRatio: string }}
+     */
+    getIframeConfig() {
+        const index = this.area - 1;
+
+        switch (this.view) {
+            case VIEWS.dashboard:
+                return {
+                    url: `https://public.midas.ijs.si/kibana-sgd/app/dashboards#/view/${DASHBOARD_KEYS[index]}?embed=true&_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-150y,to:now))&_a=()`,
+                    aspectRatio: '1440 / 900',
+                };
+            case VIEWS.metrics:
+                return {
+                    url: `https://news-widget.pages.dev/education/radial?pilot=${METRICS_PILOTS[index]}`,
+                    aspectRatio: '1440 / 900',
+                };
+            default:
+                return {
+                    url: `https://news-widget.pages.dev/news?sdg=4&topicKey=${NEWS_KEYS[index]}`,
+                    aspectRatio: '1440 / 1280',
+                };
+        }
+    }
+
+    /**
      * Update iframe with new area and view
      * @returns {void}
      */
     updateIframe() {
-        const keys = this.view === VIEWS.news ? [
-            'f23b14f7-60d1-4786-9ca4-f8fdd56682ec',
-            '9365e3e0-4914-41b5-822a-9e373e2fd3fa',
-            '1ebf4034-deab-452e-a0e4-edf356eb2139',
-            '50c9b223-8eec-49ee-b6cb-46631ed37dcf',
-            'f9d34ef5-0d04-4e2e-8fc7-ade59aef9801',,
-        ] : [
-            'c0f2ee30-a7da-11ef-bb8e-094d83929987',
-            '0dbc27c0-a46d-11ef-bb8e-094d83929987',
-            '37487260-a46d-11ef-bb8e-094d83929987',
-            '5dab4270-a46d-11ef-bb8e-094d83929987',
-            '7f6bb390-a46d-11ef-bb8e-094d83929987',
-        ];
-
-        const url = this.view === VIEWS.news
-            ? `https://news-widget.pages.dev/news?sdg=4&topicKey=${keys[this.area - 1]}`
-            : `https://public.midas.ijs.si/kibana-sgd/app/dashboards#/view/${keys[this.area - 1]}?embed=true&_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-150y,to:now))&_a=()`;
-
-        const aspectRatio = this.view === VIEWS.news ? '1440 / 1280' : '1440 / 900';
+        const { url, aspectRatio } = this.getIframeConfig();
 
         // create new iframe element
         const iframe = document.createElement('iframe');
@@ -134,10 +158,20 @@ class ObservatoryForm extends Form {
         this.iframe.replaceWith(iframe);
         this.iframe = iframe;
 
+        this.updateViewDescription();
+
         // update browser history with new area and view
         this.updateBrowserHistory();
     }
 
+    /**
+     * Show the description for the active view.
+     */
+    updateViewDescription() {
+        document.querySelectorAll('[data-observatory-view]').forEach((element) => {
+            element.hidden = element.dataset.observatoryView !== this.view;
+        });
+    }
 
     /**
      * Handle area change event.
