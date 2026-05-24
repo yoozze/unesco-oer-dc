@@ -79,39 +79,35 @@ function unesco_oer_dc_preprocess_page(&$variables) {
 
     // Get additional data for specific pages
     if ($slug === 'oer-observatory') {
-        // Get name of areas_of_action vocabulary
         $vocabulary = \Drupal::entityTypeManager()->getStorage('taxonomy_vocabulary')->load('areas_of_action');
-
-        // Get all items of areas_of_action taxonomy
-        $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('areas_of_action');
         $variables['areas_of_action'] = [
             'vocabulary' => $vocabulary,
-            'terms' => $terms
         ];
 
         $observatory = unesco_oer_dc_observatory_config();
-        $area_count = count($observatory['views'][$observatory['defaultView']]['embeds']);
-
-        // Get area and view from query string
-        $area = max(1, min($area_count, intval(\Drupal::request()->query->get('area') ?? (string) $observatory['defaultArea'])));
-        $view = \Drupal::request()->query->get('view');
-        if (!isset($observatory['views'][$view])) {
-            $view = $observatory['defaultView'];
-        }
+        $selection = unesco_oer_dc_observatory_resolve_selection($observatory);
 
         $variables['observatory'] = $observatory;
+        $variables['observatory_js'] = unesco_oer_dc_observatory_js_config($observatory);
         $variables['observatory_current'] = [
-            'area' => $area,
-            'view' => $view,
-            'iframe' => [
-                'src' => $observatory['views'][$view]['embeds'][$area - 1],
-                'aspectRatio' => $observatory['views'][$view]['aspectRatio'],
-            ],
+            'view' => $selection['view'],
+            'area' => $selection['area'],
+            'areas' => $observatory['views'][$selection['view']]['areas'] ?? [],
+            'iframe' => unesco_oer_dc_observatory_iframe_for_selection(
+                $observatory,
+                $selection['view'],
+                $selection['area']
+            ),
         ];
         $variables['get'] = [
-            'area' => $area,
-            'view' => $view,
+            'area' => $selection['area'],
+            'view' => $selection['view'],
         ];
+
+        $node = unesco_oer_dc_observatory_get_node();
+        if ($node) {
+            $variables['page']['#cache']['tags'][] = 'node:' . $node->id();
+        }
 
         // Invalidate cache when query string changes
         $variables['page']['#cache']['contexts'][] = 'url.query_args';

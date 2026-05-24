@@ -1,61 +1,218 @@
 <?php
 
+use Drupal\node\NodeInterface;
+
 /**
- * OER Observatory page configuration.
+ * OER Observatory configuration from CMS content.
  */
 
 /**
- * Returns embed configuration for the OER Observatory page.
+ * Loads the OER Observatory node by URL alias.
+ *
+ * @return \Drupal\node\NodeInterface|null
+ */
+function unesco_oer_dc_observatory_get_node(): ?NodeInterface {
+    static $cached = NULL;
+
+    if ($cached !== NULL) {
+        return $cached ?: NULL;
+    }
+
+    $path = \Drupal::service('path_alias.manager')->getPathByAlias('/oer-observatory');
+    if (!preg_match('#^/node/(\d+)$#', $path, $matches)) {
+        $cached = FALSE;
+        return NULL;
+    }
+
+    $node = \Drupal::entityTypeManager()->getStorage('node')->load($matches[1]);
+    if (!$node instanceof NodeInterface || $node->bundle() !== 'oer_observatory') {
+        $cached = FALSE;
+        return NULL;
+    }
+
+    $cached = $node;
+    return $node;
+}
+
+/**
+ * Builds observatory config from a node for Twig and JavaScript.
+ *
+ * @param \Drupal\node\NodeInterface $node
+ *   OER Observatory node.
  *
  * @return array
- *   Observatory config passed to Twig and JavaScript via data-options.
+ *   Observatory configuration.
  */
-function unesco_oer_dc_observatory_config(): array {
-    $news_keys = [
-        'f23b14f7-60d1-4786-9ca4-f8fdd56682ec',
-        '9365e3e0-4914-41b5-822a-9e373e2fd3fa',
-        '1ebf4034-deab-452e-a0e4-edf356eb2139',
-        '50c9b223-8eec-49ee-b6cb-46631ed37dcf',
-        'f9d34ef5-0d04-4e2e-8fc7-ade59aef9801',
-    ];
+function unesco_oer_dc_observatory_build_config(NodeInterface $node): array {
+    $views = [];
+    $view_paragraphs = $node->get('field_observatory_views')->referencedEntities();
 
-    $dashboard_keys = [
-        'c0f2ee30-a7da-11ef-bb8e-094d83929987',
-        '0dbc27c0-a46d-11ef-bb8e-094d83929987',
-        '37487260-a46d-11ef-bb8e-094d83929987',
-        '5dab4270-a46d-11ef-bb8e-094d83929987',
-        '7f6bb390-a46d-11ef-bb8e-094d83929987',
-    ];
+    foreach ($view_paragraphs as $view_paragraph) {
+        $view_id = trim($view_paragraph->get('field_view_id')->value ?? '');
+        if ($view_id === '') {
+            continue;
+        }
 
-    $metrics_pilots = ['OER1', 'OER2', 'OER3', 'OER4', 'OER5'];
+        $areas = [];
+        $embed_paragraphs = $view_paragraph->get('field_area_embeds')->referencedEntities();
 
-    $dashboard_embed_suffix = '?embed=true&_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-150y,to:now))&_a=()';
+        foreach ($embed_paragraphs as $embed_paragraph) {
+            $url = trim($embed_paragraph->get('field_iframe_url')->value ?? '');
+            if ($url === '') {
+                continue;
+            }
+
+            $term = $embed_paragraph->get('field_area')->entity;
+            if (!$term) {
+                continue;
+            }
+
+            $areas[] = [
+                'tid' => (int) $term->id(),
+                'name' => $term->getName(),
+                'url' => $url,
+                'weight' => (int) $term->getWeight(),
+            ];
+        }
+
+        usort($areas, static function (array $a, array $b): int {
+            return $a['weight'] <=> $b['weight'];
+        });
+
+        $description_item = $view_paragraph->get('field_description')->first();
+        $description = $description_item ? $description_item->processed : '';
+
+        $views[$view_id] = [
+            'label' => $view_paragraph->get('field_view_label')->value ?? $view_id,
+            'aspectRatio' => $view_paragraph->get('field_aspect_ratio')->value ?: '1440/900',
+            'description' => $description,
+            'areas' => $areas,
+        ];
+    }
+
+    if ($views === []) {
+        return [
+            'defaultView' => '',
+            'defaultArea' => 0,
+            'views' => [],
+        ];
+    }
+
+    $default_view = array_key_first($views);
+    $default_area = $views[$default_view]['areas'][0]['tid'] ?? 0;
 
     return [
-        'defaultView' => 'news',
-        'defaultArea' => 1,
-        'views' => [
-            'news' => [
-                'aspectRatio' => '1440/1280',
-                'embeds' => array_map(
-                    static fn(string $key): string => "https://news-widget.pages.dev/news?sdg=4&topicKey={$key}",
-                    $news_keys
-                ),
-            ],
-            'dashboard' => [
-                'aspectRatio' => '1440/900',
-                'embeds' => array_map(
-                    static fn(string $key): string => "https://public.midas.ijs.si/kibana-sgd/app/dashboards#/view/{$key}{$dashboard_embed_suffix}",
-                    $dashboard_keys
-                ),
-            ],
-            'metrics' => [
-                'aspectRatio' => '1440/900',
-                'embeds' => array_map(
-                    static fn(string $pilot): string => "https://news-widget.pages.dev/education/radial?pilot={$pilot}",
-                    $metrics_pilots
-                ),
-            ],
-        ],
+        'defaultView' => $default_view,
+        'defaultArea' => $default_area,
+        'views' => $views,
     ];
+}
+
+/**
+ * Builds observatory config for data-options (JS), without HTML descriptions.
+ *
+ * @param array $observatory
+ *   Full observatory config.
+ *
+ * @return array
+ *   JS-safe observatory config.
+ */
+function unesco_oer_dc_observatory_js_config(array $observatory): array {
+    $views = [];
+
+    foreach ($observatory['views'] as $view_id => $view) {
+        $views[$view_id] = [
+            'label' => $view['label'],
+            'aspectRatio' => $view['aspectRatio'],
+            'areas' => array_map(static function (array $area): array {
+                return [
+                    'tid' => $area['tid'],
+                    'name' => $area['name'],
+                    'url' => $area['url'],
+                ];
+            }, $view['areas']),
+        ];
+    }
+
+    return [
+        'defaultView' => $observatory['defaultView'],
+        'defaultArea' => $observatory['defaultArea'],
+        'views' => $views,
+    ];
+}
+
+/**
+ * Resolves current view and area from the request query string.
+ *
+ * @param array $observatory
+ *   Observatory configuration.
+ *
+ * @return array{view: string, area: int}
+ */
+function unesco_oer_dc_observatory_resolve_selection(array $observatory): array {
+    $view = \Drupal::request()->query->get('view');
+    if (!isset($observatory['views'][$view])) {
+        $view = $observatory['defaultView'];
+    }
+
+    $areas = $observatory['views'][$view]['areas'] ?? [];
+    $area_tids = array_column($areas, 'tid');
+    $area = (int) (\Drupal::request()->query->get('area') ?? $observatory['defaultArea']);
+
+    if (!in_array($area, $area_tids, TRUE)) {
+        $area = $area_tids[0] ?? 0;
+    }
+
+    return [
+        'view' => $view,
+        'area' => $area,
+    ];
+}
+
+/**
+ * Finds iframe settings for the current view and area.
+ *
+ * @param array $observatory
+ *   Observatory configuration.
+ * @param string $view
+ *   View ID.
+ * @param int $area_tid
+ *   Area taxonomy term ID.
+ *
+ * @return array{src: string, aspectRatio: string}
+ */
+function unesco_oer_dc_observatory_iframe_for_selection(array $observatory, string $view, int $area_tid): array {
+    $view_config = $observatory['views'][$view] ?? [];
+    $iframe = [
+        'src' => '',
+        'aspectRatio' => $view_config['aspectRatio'] ?? '1440/900',
+    ];
+
+    foreach ($view_config['areas'] ?? [] as $area) {
+        if ($area['tid'] === $area_tid) {
+            $iframe['src'] = $area['url'];
+            break;
+        }
+    }
+
+    return $iframe;
+}
+
+/**
+ * Returns observatory config for the OER Observatory page.
+ *
+ * @return array
+ *   Observatory config passed to Twig and JavaScript.
+ */
+function unesco_oer_dc_observatory_config(): array {
+    $node = unesco_oer_dc_observatory_get_node();
+    if (!$node) {
+        return [
+            'defaultView' => '',
+            'defaultArea' => 0,
+            'views' => [],
+        ];
+    }
+
+    return unesco_oer_dc_observatory_build_config($node);
 }
