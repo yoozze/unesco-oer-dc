@@ -46,10 +46,10 @@
                         {% if observatory.areasOfActionIntro %}
                             <details class="c-details c-details--observatory-areas">
                                 <summary class="c-details__summary">
-                                    {{ 'About the UNESCO OER Action Areas'|t }}
+                                    {{ observatory.areasOfActionIntro.summary }}
                                 </summary>
                                 <div class="c-details__body c-text-box">
-                                    {{ observatory.areasOfActionIntro }}
+                                    {{ observatory.areasOfActionIntro.body }}
                                 </div>
                             </details>
                         {% endif %}
