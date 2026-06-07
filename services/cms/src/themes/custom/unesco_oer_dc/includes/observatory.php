@@ -44,6 +44,9 @@ function unesco_oer_dc_observatory_get_node(): ?NodeInterface {
  *   Observatory configuration.
  */
 function unesco_oer_dc_observatory_build_config(NodeInterface $node): array {
+    $intro_item = $node->get('field_areas_of_action_intro')->first();
+    $intro = $intro_item ? $intro_item->processed : '';
+
     $views = [];
     $view_paragraphs = $node->get('field_observatory_views')->referencedEntities();
 
@@ -92,6 +95,7 @@ function unesco_oer_dc_observatory_build_config(NodeInterface $node): array {
 
     if ($views === []) {
         return [
+            'areasOfActionIntro' => $intro,
             'defaultView' => '',
             'defaultArea' => 0,
             'views' => [],
@@ -102,6 +106,7 @@ function unesco_oer_dc_observatory_build_config(NodeInterface $node): array {
     $default_area = $views[$default_view]['areas'][0]['tid'] ?? 0;
 
     return [
+        'areasOfActionIntro' => $intro,
         'defaultView' => $default_view,
         'defaultArea' => $default_area,
         'views' => $views,

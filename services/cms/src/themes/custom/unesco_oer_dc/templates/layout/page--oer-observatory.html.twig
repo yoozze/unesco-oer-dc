@@ -43,6 +43,16 @@
                                 </button>
                             </div>
                         </form>
+                        {% if observatory.areasOfActionIntro %}
+                            <details class="c-details c-details--observatory-areas">
+                                <summary class="c-details__summary">
+                                    {{ 'About the UNESCO OER Action Areas'|t }}
+                                </summary>
+                                <div class="c-details__body c-text-box">
+                                    {{ observatory.areasOfActionIntro }}
+                                </div>
+                            </details>
+                        {% endif %}
                         {% for view_id, view_config in observatory.views %}
                             <div class="c-article__description c-text-box" data-observatory-view="{{ view_id }}" {% if observatory_current.view != view_id %} hidden {% endif %}>
                                 <h3>{{ view_config.label }}</h3>
