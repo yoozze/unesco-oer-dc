@@ -301,10 +301,18 @@ $page-width: size('page-width');
 
     .c-form__field--name_view {
         flex: 0 1 10rem;
+
+        @include below('bp-sm') {
+            flex: 1 1 100%;
+        }
     }
 
     .c-form__field--name_area {
-        flex: 1 1 20rem;
+        flex: 1 1 15rem;
+
+        @include below('bp-sm') {
+            flex: 1 1 100%;
+        }
     }
 
     .c-form__label {
