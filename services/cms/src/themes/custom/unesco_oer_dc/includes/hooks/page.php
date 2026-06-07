@@ -106,12 +106,11 @@ function unesco_oer_dc_preprocess_page(&$variables) {
 
         $node = unesco_oer_dc_observatory_get_node();
         if ($node) {
-            $variables['page']['#cache']['tags'][] = 'node:' . $node->id();
+            $variables['#cache']['tags'][] = 'node:' . $node->id();
         }
 
-        // Invalidate cache when query string changes
-        $variables['page']['#cache']['contexts'][] = 'url.query_args';
-        $variables['page']['#cache']['contexts'][] = 'url.query_args:area';
-        $variables['page']['#cache']['contexts'][] = 'url.query_args:view';
+        // Vary page cache by query string (view and area selection).
+        $variables['#cache']['contexts'][] = 'url.query_args:view';
+        $variables['#cache']['contexts'][] = 'url.query_args:area';
     }
 }

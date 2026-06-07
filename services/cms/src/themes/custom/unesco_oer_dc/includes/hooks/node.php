@@ -1,11 +1,24 @@
 <?php
 
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Url;
 use Drupal\image\Entity\ImageStyle;
 
 /**
  * Implements theme hooks for node.
  */
+
+/**
+ * Implements hook_entity_view_alter().
+ */
+function unesco_oer_dc_entity_view_alter(array &$build, EntityInterface $entity, $display) {
+    if ($entity->getEntityTypeId() !== 'node' || $entity->bundle() !== 'oer_observatory') {
+        return;
+    }
+
+    $build['#cache']['contexts'][] = 'url.query_args:view';
+    $build['#cache']['contexts'][] = 'url.query_args:area';
+}
 
 function unesco_oer_dc_theme_suggestions_node_alter(&$suggestions, &$variables) {
     $node_name = get_node_name($variables['elements']['#attributes']['data-history-node-id']);

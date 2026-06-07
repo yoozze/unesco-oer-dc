@@ -55,25 +55,61 @@ class ObservatoryForm extends Form {
 
         this.iframe = document.querySelector('#observatory-iframe');
 
-        this.view = this.viewSelect.value;
-        this.area = Number(this.areaSelect.value);
+        this.syncSelectionFromUrl();
+        this.updateViewDescription();
 
-        this.updateBrowserHistory();
+        const config = this.getIframeConfig();
+        const iframeMismatch =
+            config && (!this.iframe || this.iframe.getAttribute('src') !== config.url);
 
-        const { defaultView, defaultArea } = this.options;
-        if (this.view !== defaultView || this.area !== defaultArea) {
-            this.updateIframe();
+        if (iframeMismatch) {
+            this.updateIframe(false);
+        } else {
+            this.updateBrowserHistory(false);
+        }
+    }
+
+    /**
+     * Resolve view and area from the URL, falling back to the rendered selects.
+     */
+    syncSelectionFromUrl() {
+        const url = new URL(window.location.href);
+        const urlView = url.searchParams.get('view');
+        const urlArea = Number(url.searchParams.get('area'));
+        const views = this.options.views ?? {};
+
+        if (urlView && views[urlView]) {
+            this.view = urlView;
+            this.viewSelect.value = urlView;
+            this.populateAreaSelect();
+        } else {
+            this.view = this.viewSelect.value;
+        }
+
+        const areas = views[this.view]?.areas ?? [];
+        if (urlArea && areas.some(area => area.tid === urlArea)) {
+            this.area = urlArea;
+            this.areaSelect.value = String(urlArea);
+        } else {
+            this.area = Number(this.areaSelect.value);
         }
     }
 
     /**
      * Update browser history with new area and view.
+     *
+     * @param {boolean} push - Use pushState when true, replaceState when false.
      */
-    updateBrowserHistory() {
+    updateBrowserHistory(push = true) {
         const url = new URL(window.location.href);
         url.searchParams.set('area', this.area);
         url.searchParams.set('view', this.view);
-        window.history.pushState({}, '', url);
+
+        if (push) {
+            window.history.pushState({}, '', url);
+        } else {
+            window.history.replaceState({}, '', url);
+        }
     }
 
     /**
@@ -83,7 +119,7 @@ class ObservatoryForm extends Form {
         const areas = this.options.views?.[this.view]?.areas ?? [];
 
         this.areaSelect.innerHTML = '';
-        areas.forEach((area) => {
+        areas.forEach(area => {
             const option = document.createElement('option');
             option.value = area.tid;
             option.textContent = area.name;
@@ -91,7 +127,7 @@ class ObservatoryForm extends Form {
         });
 
         if (areas.length > 0) {
-            const currentStillValid = areas.some((area) => area.tid === this.area);
+            const currentStillValid = areas.some(area => area.tid === this.area);
             this.area = currentStillValid ? this.area : Number(areas[0].tid);
             this.areaSelect.value = String(this.area);
         }
@@ -104,7 +140,7 @@ class ObservatoryForm extends Form {
      */
     getIframeConfig() {
         const viewConfig = this.options.views?.[this.view];
-        const areaConfig = viewConfig?.areas?.find((area) => area.tid === this.area);
+        const areaConfig = viewConfig?.areas?.find(area => area.tid === this.area);
 
         if (!areaConfig?.url) {
             return null;
@@ -118,8 +154,10 @@ class ObservatoryForm extends Form {
 
     /**
      * Update iframe with new area and view.
+     *
+     * @param {boolean} push - Use pushState when true, replaceState when false.
      */
-    updateIframe() {
+    updateIframe(push = true) {
         const config = this.getIframeConfig();
 
         if (!config?.url) {
@@ -131,21 +169,23 @@ class ObservatoryForm extends Form {
             this.iframe.id = 'observatory-iframe';
             this.iframe.setAttribute('width', '100%');
             this.iframe.setAttribute('frameborder', '0');
-            document.querySelector('.c-article--observatory .c-article__body .c-article__content')?.appendChild(this.iframe);
+            document
+                .querySelector('.c-article--observatory .c-article__body .c-article__content')
+                ?.appendChild(this.iframe);
         }
 
         this.iframe.src = config.url;
         this.iframe.style.aspectRatio = config.aspectRatio;
 
         this.updateViewDescription();
-        this.updateBrowserHistory();
+        this.updateBrowserHistory(push);
     }
 
     /**
      * Show the description for the active view.
      */
     updateViewDescription() {
-        document.querySelectorAll('[data-observatory-view]').forEach((element) => {
+        document.querySelectorAll('[data-observatory-view]').forEach(element => {
             element.hidden = element.dataset.observatoryView !== this.view;
         });
     }
