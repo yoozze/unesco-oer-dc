@@ -19,9 +19,9 @@ class ObservatoryForm extends Form {
     iframe = null;
 
     /**
-     * @type {number} Area taxonomy term ID.
+     * @type {string} Area ID (taxonomy term ID or "all").
      */
-    area = 0;
+    area = '';
 
     /**
      * @type {string} View.
@@ -75,7 +75,7 @@ class ObservatoryForm extends Form {
     syncSelectionFromUrl() {
         const url = new URL(window.location.href);
         const urlView = url.searchParams.get('view');
-        const urlArea = Number(url.searchParams.get('area'));
+        const urlArea = url.searchParams.get('area');
         const views = this.options.views ?? {};
 
         if (urlView && views[urlView]) {
@@ -87,11 +87,11 @@ class ObservatoryForm extends Form {
         }
 
         const areas = views[this.view]?.areas ?? [];
-        if (urlArea && areas.some(area => area.tid === urlArea)) {
+        if (urlArea && areas.some(area => area.id === urlArea)) {
             this.area = urlArea;
-            this.areaSelect.value = String(urlArea);
+            this.areaSelect.value = urlArea;
         } else {
-            this.area = Number(this.areaSelect.value);
+            this.area = this.areaSelect.value;
         }
     }
 
@@ -121,15 +121,15 @@ class ObservatoryForm extends Form {
         this.areaSelect.innerHTML = '';
         areas.forEach(area => {
             const option = document.createElement('option');
-            option.value = area.tid;
+            option.value = area.id;
             option.textContent = area.name;
             this.areaSelect.appendChild(option);
         });
 
         if (areas.length > 0) {
-            const currentStillValid = areas.some(area => area.tid === this.area);
-            this.area = currentStillValid ? this.area : Number(areas[0].tid);
-            this.areaSelect.value = String(this.area);
+            const currentStillValid = areas.some(area => area.id === this.area);
+            this.area = currentStillValid ? this.area : areas[0].id;
+            this.areaSelect.value = this.area;
         }
     }
 
@@ -140,7 +140,7 @@ class ObservatoryForm extends Form {
      */
     getIframeConfig() {
         const viewConfig = this.options.views?.[this.view];
-        const areaConfig = viewConfig?.areas?.find(area => area.tid === this.area);
+        const areaConfig = viewConfig?.areas?.find(area => area.id === this.area);
 
         if (!areaConfig?.url) {
             return null;
@@ -195,7 +195,7 @@ class ObservatoryForm extends Form {
      * @param {Event} event - Area change event.
      */
     handleAreaChange(event) {
-        this.area = Number(event.target.value);
+        this.area = event.target.value;
         this.updateIframe();
     }
 

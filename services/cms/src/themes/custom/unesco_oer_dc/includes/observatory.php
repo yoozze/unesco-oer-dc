@@ -68,22 +68,42 @@ function unesco_oer_dc_observatory_build_config(NodeInterface $node): array {
                 continue;
             }
 
-            $term = $embed_paragraph->get('field_area')->entity;
+            $use_custom = $embed_paragraph->hasField('field_use_custom_area')
+                && (bool) $embed_paragraph->get('field_use_custom_area')->value;
+
+            if ($use_custom) {
+                $key = $embed_paragraph->hasField('field_embed_key')
+                    ? trim($embed_paragraph->get('field_embed_key')->value ?? '')
+                    : '';
+                if ($key === '') {
+                    continue;
+                }
+
+                $label = $embed_paragraph->hasField('field_embed_label')
+                    ? trim($embed_paragraph->get('field_embed_label')->value ?? '')
+                    : '';
+
+                $areas[] = [
+                    'id' => $key,
+                    'name' => $label !== '' ? $label : $key,
+                    'url' => $url,
+                ];
+                continue;
+            }
+
+            $term = $embed_paragraph->hasField('field_area')
+                ? $embed_paragraph->get('field_area')->entity
+                : NULL;
             if (!$term) {
                 continue;
             }
 
             $areas[] = [
-                'tid' => (int) $term->id(),
+                'id' => (string) $term->id(),
                 'name' => $term->getName(),
                 'url' => $url,
-                'weight' => (int) $term->getWeight(),
             ];
         }
-
-        usort($areas, static function (array $a, array $b): int {
-            return $a['weight'] <=> $b['weight'];
-        });
 
         $description_item = $view_paragraph->get('field_description')->first();
         $description = $description_item ? $description_item->processed : '';
@@ -100,13 +120,13 @@ function unesco_oer_dc_observatory_build_config(NodeInterface $node): array {
         return [
             'areasOfActionIntro' => ['summary' => '', 'body' => ''],
             'defaultView' => '',
-            'defaultArea' => 0,
+            'defaultArea' => '',
             'views' => [],
         ];
     }
 
     $default_view = array_key_first($views);
-    $default_area = $views[$default_view]['areas'][0]['tid'] ?? 0;
+    $default_area = $views[$default_view]['areas'][0]['id'] ?? '';
 
     return [
         'areasOfActionIntro' => $intro,
@@ -134,7 +154,7 @@ function unesco_oer_dc_observatory_js_config(array $observatory): array {
             'aspectRatio' => $view['aspectRatio'],
             'areas' => array_map(static function (array $area): array {
                 return [
-                    'tid' => $area['tid'],
+                    'id' => $area['id'],
                     'name' => $area['name'],
                     'url' => $area['url'],
                 ];
@@ -155,7 +175,7 @@ function unesco_oer_dc_observatory_js_config(array $observatory): array {
  * @param array $observatory
  *   Observatory configuration.
  *
- * @return array{view: string, area: int}
+ * @return array{view: string, area: string}
  */
 function unesco_oer_dc_observatory_resolve_selection(array $observatory): array {
     $view = \Drupal::request()->query->get('view');
@@ -164,11 +184,14 @@ function unesco_oer_dc_observatory_resolve_selection(array $observatory): array 
     }
 
     $areas = $observatory['views'][$view]['areas'] ?? [];
-    $area_tids = array_column($areas, 'tid');
-    $area = (int) (\Drupal::request()->query->get('area') ?? $observatory['defaultArea']);
+    $area_ids = array_column($areas, 'id');
+    $area_param = \Drupal::request()->query->get('area');
+    $area = ($area_param !== NULL && $area_param !== '')
+        ? (string) $area_param
+        : (string) $observatory['defaultArea'];
 
-    if (!in_array($area, $area_tids, TRUE)) {
-        $area = $area_tids[0] ?? 0;
+    if (!in_array($area, $area_ids, TRUE)) {
+        $area = $area_ids[0] ?? '';
     }
 
     return [
@@ -184,12 +207,12 @@ function unesco_oer_dc_observatory_resolve_selection(array $observatory): array 
  *   Observatory configuration.
  * @param string $view
  *   View ID.
- * @param int $area_tid
- *   Area taxonomy term ID.
+ * @param string $area_id
+ *   Area ID (custom embed key or taxonomy term ID as string).
  *
  * @return array{src: string, aspectRatio: string}
  */
-function unesco_oer_dc_observatory_iframe_for_selection(array $observatory, string $view, int $area_tid): array {
+function unesco_oer_dc_observatory_iframe_for_selection(array $observatory, string $view, string $area_id): array {
     $view_config = $observatory['views'][$view] ?? [];
     $iframe = [
         'src' => '',
@@ -197,7 +220,7 @@ function unesco_oer_dc_observatory_iframe_for_selection(array $observatory, stri
     ];
 
     foreach ($view_config['areas'] ?? [] as $area) {
-        if ($area['tid'] === $area_tid) {
+        if ($area['id'] === $area_id) {
             $iframe['src'] = $area['url'];
             break;
         }
@@ -217,7 +240,7 @@ function unesco_oer_dc_observatory_config(): array {
     if (!$node) {
         return [
             'defaultView' => '',
-            'defaultArea' => 0,
+            'defaultArea' => '',
             'views' => [],
         ];
     }

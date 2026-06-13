@@ -26,7 +26,7 @@
                                     <div class="c-form__control c-form__control--type_select">
                                         <select class="c-form__select" id="observatory-area" name="area">
                                             {% for area in observatory_current.areas %}
-                                                <option value="{{ area.tid }}" {{ observatory_current.area == area.tid ? 'selected' : '' }}>{{ area.name }}</option>
+                                                <option value="{{ area.id }}" {{ observatory_current.area == area.id ? 'selected' : '' }}>{{ area.name }}</option>
                                             {% endfor %}
                                         </select>
                                         <label class="c-form__label" for="observatory-area">
