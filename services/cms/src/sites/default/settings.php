@@ -910,6 +910,16 @@ $config['smtp.settings']['smtp_from'] = getenv('SMTP_FROM');
 $config['smtp.settings']['smtp_fromname'] = getenv('SMTP_FROMNAME');
 
 /**
+ * reCAPTCHA v3 settings.
+ */
+if ($recaptcha_site_key = getenv('RECAPTCHA_SITE_KEY')) {
+  $config['recaptcha_v3.settings']['site_key'] = $recaptcha_site_key;
+}
+if ($recaptcha_secret_key = getenv('RECAPTCHA_SECRET_KEY')) {
+  $config['recaptcha_v3.settings']['secret_key'] = $recaptcha_secret_key;
+}
+
+/**
  * Custom strings override.
  */
 $settings['locale_custom_strings_en'][''] = [

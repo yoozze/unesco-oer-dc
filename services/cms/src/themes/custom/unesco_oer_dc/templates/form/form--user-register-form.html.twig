@@ -25,6 +25,7 @@
     <div class="c-form__body">
         {# {{ children }} #}
         {{ element.form_build_id }}
+        {{ element.form_token }}
         {{ element.form_id }}
         {{ element.field_first_name }}
         {{ element.field_last_name }}
@@ -36,6 +37,9 @@
         {{ element.timezone }}
         {{ element.path }}
         {{ element.footer }}
+        {{ element.captcha }}
+        {{ element.url }}
+        {{ element.honeypot_time }}
         {{ element.actions }}
     </div>
     <div class="c-form__footer">

@@ -35,6 +35,8 @@ services:
             SMTP_PASSWORD: ${SMTP_PASSWORD}
             SMTP_FROM: ${SMTP_FROM}
             SMTP_FROMNAME: ${SMTP_FROMNAME}
+            RECAPTCHA_SITE_KEY: ${RECAPTCHA_SITE_KEY}
+            RECAPTCHA_SECRET_KEY: ${RECAPTCHA_SECRET_KEY}
         depends_on:
             - db
         hostname: oerdynamiccoalition.org

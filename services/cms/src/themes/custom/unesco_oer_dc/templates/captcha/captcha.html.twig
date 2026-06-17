@@ -1,0 +1,52 @@
+{#
+/**
+ * @file
+ * Theme override for a CAPTCHA element.
+ *
+ * Renders visible CAPTCHA challenges using the same fieldset structure as
+ * templates/form/fieldset.html.twig.
+ *
+ * @see template_preprocess_captcha()
+ */
+#}
+{%
+  set classes = [
+    'c-form__fieldset',
+    'captcha',
+    ('captcha-type-challenge--' ~ element['#captcha_type_challenge'])|clean_class,
+  ]
+%}
+{% set attributes = attributes.addClass(classes).setAttribute('data-nosnippet', true) %}
+
+{% block captcha %}
+    {% if is_visible %}
+        {% if title is not empty %}
+            <fieldset{{ attributes }}>
+                {%
+                set legend_classes = [
+                    'c-form__legend',
+                    'c-form__legend--required',
+                ]
+                %}
+                <legend class="{{ legend_classes|join(' ') }}">
+                    <span>{{ title }}</span>
+                </legend>
+                <div class="c-form__fieldset-wrapper">
+                    {{ element }}
+                    {% if description is not empty %}
+                        <p>{{ description }}</p>
+                    {% endif %}
+                </div>
+            </fieldset>
+        {% else %}
+            <div{{ attributes }}>
+                {{ element }}
+                {% if description is not empty %}
+                    <p>{{ description }}</p>
+                {% endif %}
+            </div>
+        {% endif %}
+    {% else %}
+        {{ element }}
+    {% endif %}
+{% endblock %}
