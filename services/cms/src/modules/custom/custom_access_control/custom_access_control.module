@@ -1,26 +1,61 @@
 <?php
 
 use Drupal\Core\Access\AccessResult;
-use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Cache\RefinableCacheableDependencyInterface;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\user\UserInterface;
 
+/**
+ * Implements hook_ENTITY_TYPE_access() for user entities.
+ */
 function custom_access_control_user_access(EntityInterface $entity, $operation, AccountInterface $account) {
     $user = $entity;
 
-    // Bypass check for administrators.
     if ($account->hasPermission('administer users')) {
-        return AccessResult::allowed();
+        return AccessResult::allowed()->cachePerPermissions();
     }
 
-    // Check if this is users own profile.
     if ($account->id() === $user->id()) {
-        return AccessResult::allowed();
+        return AccessResult::allowed()->cachePerUser();
     }
 
-    // Check if the user being viewed has the "Share profile" checkbox enabled.
-    if ($user->get('field_share_profile')->value) {
-        return AccessResult::allowed();
+    if ($operation === 'view' && $user->get('field_share_profile')->value) {
+        return AccessResult::allowed()->cachePerUser()->addCacheableDependency($user);
     }
 
-    return AccessResult::forbidden();
+    return AccessResult::forbidden()->cachePerUser()->addCacheableDependency($user);
+}
+
+/**
+ * Implements hook_menu_local_tasks_alter().
+ */
+function custom_access_control_menu_local_tasks_alter(&$local_tasks, $route_name, RefinableCacheableDependencyInterface &$cacheability) {
+    $account = \Drupal::currentUser();
+
+    if ($account->hasPermission('administer users')) {
+        return;
+    }
+
+    $user_routes = [
+        'entity.user.canonical',
+        'entity.user.edit_form',
+        'entity.user.contact_form',
+    ];
+
+    if (!in_array($route_name, $user_routes, TRUE)) {
+        return;
+    }
+
+    $user = \Drupal::routeMatch()->getParameter('user');
+    if (!$user instanceof UserInterface) {
+        return;
+    }
+
+    if ((int) $account->id() !== (int) $user->id()) {
+        unset($local_tasks['tabs'][0]['entity.user.edit_form']);
+        unset($local_tasks['tabs'][0]['entity.user.cancel_form']);
+    }
+
+    $cacheability->addCacheContexts(['user']);
 }
