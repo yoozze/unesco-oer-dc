@@ -177,12 +177,14 @@ ARCHIVE_NAME="$(date +"%Y%m%dT%H%M%S")"
 if [ $MODE = "--archive-dump" ]; then
     echo "$PREFIX: Archiving... $ARGS"
     docker exec ${PROJECT_NAME}_cms sh -c "
-        mkdir -p /tmp/$ARCHIVE_NAME &&
-        echo $PREFIX: - Database &&
-        php -d memory_limit=2G /opt/drupal/vendor/bin/drush archive:dump --db --destination=/tmp/$ARCHIVE_NAME/db.tar.gz &&
-        echo $PREFIX: - Files &&
-        tar -zcf /tmp/$ARCHIVE_NAME/files.tar.gz web/sites/default/files &&
-        tar -zcf /tmp/$ARCHIVE_NAME.tar.gz -C /tmp/$ARCHIVE_NAME . &&
+        set -e
+        cd /opt/drupal
+        mkdir -p /tmp/$ARCHIVE_NAME
+        echo $PREFIX: - Database
+        DRUSH_PHP_OPTIONS='-d memory_limit=2G' drush sql:dump --gzip --extra-dump=--no-tablespaces --result-file=/tmp/$ARCHIVE_NAME/db.sql
+        echo $PREFIX: - Files
+        tar -zcf /tmp/$ARCHIVE_NAME/files.tar.gz web/sites/default/files
+        tar -zcf /tmp/$ARCHIVE_NAME.tar.gz -C /tmp/$ARCHIVE_NAME .
         rm -rf /tmp/$ARCHIVE_NAME
     "
     mkdir -p $ARCHIVE_PATH
@@ -191,15 +193,26 @@ if [ $MODE = "--archive-dump" ]; then
 fi
 
 if [ $MODE = "--archive-restore" ]; then
-    echo "$PREFIX: Restoring archive... $ARGS"     
+    echo "$PREFIX: Restoring archive... $ARGS"
     docker cp $ARGS ${PROJECT_NAME}_cms:/tmp/archive.tar.gz
     docker exec ${PROJECT_NAME}_cms sh -c "
-        rm -rf /tmp/archive &&
-        mkdir -p /tmp/archive &&
-        tar -zxf /tmp/archive.tar.gz -C /tmp/archive &&
-        echo $PREFIX: - Database &&
-        drush archive:restore /tmp/archive/db.tar.gz --db &&
-        echo $PREFIX: - Files &&
+        set -e
+        cd /opt/drupal
+        rm -rf /tmp/archive
+        mkdir -p /tmp/archive
+        tar -zxf /tmp/archive.tar.gz -C /tmp/archive
+        echo $PREFIX: - Database
+        drush sql:drop -y
+        if [ -f /tmp/archive/db.sql.gz ]; then
+            gunzip -c /tmp/archive/db.sql.gz | drush sql:cli
+        elif [ -f /tmp/archive/db.tar.gz ]; then
+            tar -xzf /tmp/archive/db.tar.gz -C /tmp/archive database/database.sql
+            drush sql:cli < /tmp/archive/database/database.sql
+        else
+            echo 'No database dump found in archive (expected db.sql.gz or db.tar.gz)' >&2
+            exit 1
+        fi
+        echo $PREFIX: - Files
         tar -zxf /tmp/archive/files.tar.gz -C .
     "
     echo "$PREFIX: Archive restored"
