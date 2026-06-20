@@ -1,0 +1,18 @@
+uuid: 571572c5-1485-4da6-af28-338485739c3d
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.areas_of_action
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: taxonomy_term.areas_of_action
+target_entity_type_id: taxonomy_term
+target_bundle: areas_of_action
+default_langcode: site_default
+language_alterable: true

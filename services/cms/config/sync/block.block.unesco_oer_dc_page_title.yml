@@ -1,0 +1,20 @@
+uuid: ecfd26d4-d738-41b0-b6f0-23148a6cce3a
+langcode: en
+status: false
+dependencies:
+  theme:
+    - unesco_oer_dc
+_core:
+  default_config_hash: 6aOgWsNTXjqrDm98TXSAjP6qd2nCijD1xw45MrnbK-Y
+id: unesco_oer_dc_page_title
+theme: unesco_oer_dc
+region: header_top
+weight: -1
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Page title'
+  label_display: '0'
+  provider: core
+visibility: {  }

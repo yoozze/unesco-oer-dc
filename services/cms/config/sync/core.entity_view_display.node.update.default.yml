@@ -1,0 +1,32 @@
+uuid: d72bf89f-ac7e-4f9c-81fc-206dcd67e815
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.update.field_url
+    - node.type.update
+  module:
+    - link
+    - user
+id: node.update.default
+targetEntityType: node
+bundle: update
+mode: default
+content:
+  field_url:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  addtoany: true
+  langcode: true
+  links: true
+  node_read_time: true

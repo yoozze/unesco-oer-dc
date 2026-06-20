@@ -1,0 +1,19 @@
+uuid: bda765ae-38fc-4cd3-aa44-eb4a866f8675
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_embed_label
+    - paragraphs.paragraphs_type.observatory_area_embed
+id: paragraph.observatory_area_embed.field_embed_label
+field_name: field_embed_label
+entity_type: paragraph
+bundle: observatory_area_embed
+label: 'Embed label'
+description: 'Display label in the area dropdown. Used when there is no taxonomy term.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

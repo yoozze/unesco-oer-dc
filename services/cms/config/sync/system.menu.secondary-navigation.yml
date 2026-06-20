@@ -1,0 +1,8 @@
+uuid: 84ebbc72-8b8b-46a3-888e-90e412575b29
+langcode: en
+status: true
+dependencies: {  }
+id: secondary-navigation
+label: 'Secondary navigation'
+description: 'Site pages links'
+locked: false

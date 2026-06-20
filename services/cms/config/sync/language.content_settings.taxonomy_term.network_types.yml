@@ -1,0 +1,18 @@
+uuid: 7e8ac5ea-c095-4bf9-a1a7-b1774e928095
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.network_types
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: taxonomy_term.network_types
+target_entity_type_id: taxonomy_term
+target_bundle: network_types
+default_langcode: site_default
+language_alterable: true

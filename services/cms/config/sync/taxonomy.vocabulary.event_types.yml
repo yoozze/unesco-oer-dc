@@ -1,0 +1,9 @@
+uuid: d61a9b45-884d-4f00-bc15-604dbbe140fa
+langcode: en
+status: true
+dependencies: {  }
+name: 'Event Types'
+vid: event_types
+description: 'Category of the event.'
+weight: 0
+new_revision: false

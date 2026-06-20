@@ -1,0 +1,32 @@
+uuid: 2fc512d1-7795-48a6-ba95-d1a2510656f0
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.basic_html
+    - rest.resource.public_api
+  module:
+    - comment
+    - contact
+    - eu_cookie_compliance
+    - filter
+    - media
+    - rest
+    - search
+    - system
+_core:
+  default_config_hash: 6WavjUYXIegP9AAg2zXGx54MWIVoomC3SZhNiqe-Dyk
+id: anonymous
+label: 'Anonymous user'
+weight: -10
+is_admin: false
+permissions:
+  - 'access content'
+  - 'access site-wide contact form'
+  - 'display eu cookie compliance popup'
+  - 'post comments'
+  - 'restful get public_api'
+  - 'search content'
+  - 'use advanced search'
+  - 'use text format basic_html'
+  - 'view media'

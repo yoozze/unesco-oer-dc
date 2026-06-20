@@ -1,0 +1,9 @@
+uuid: d4d25185-466d-41ce-8b54-d6f9a0f1ae63
+langcode: en
+status: true
+dependencies: {  }
+name: 'Resource Status'
+vid: resource_status
+description: 'The status of the resource.'
+weight: 0
+new_revision: false

@@ -1,0 +1,25 @@
+uuid: 0881f8e9-d889-47c5-84ba-1a74696ece1d
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.categories
+  module:
+    - system
+  theme:
+    - unesco_oer_dc
+id: categories
+theme: unesco_oer_dc
+region: footer_top
+weight: -8
+provider: null
+plugin: 'system_menu_block:categories'
+settings:
+  id: 'system_menu_block:categories'
+  label: Categories
+  label_display: visible
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

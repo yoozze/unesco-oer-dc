@@ -1,0 +1,21 @@
+uuid: 9abcfaef-75f8-41a1-aeb2-344f84e00b5e
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.resource_feedback
+    - field.storage.comment.field_submitting
+  module:
+    - options
+id: comment.resource_feedback.field_submitting
+field_name: field_submitting
+entity_type: comment
+bundle: resource_feedback
+label: Submitting
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

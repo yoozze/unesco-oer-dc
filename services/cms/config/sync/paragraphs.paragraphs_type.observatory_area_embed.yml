@@ -1,0 +1,10 @@
+uuid: 25bcc47a-5348-43d1-8d72-b4e20d00acdf
+langcode: en
+status: true
+dependencies: {  }
+id: observatory_area_embed
+label: 'Observatory area embed'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

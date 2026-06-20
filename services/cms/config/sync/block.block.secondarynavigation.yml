@@ -1,0 +1,25 @@
+uuid: 511f19aa-8c6e-4571-954b-f3c3b4b0f10f
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.secondary-navigation
+  module:
+    - system
+  theme:
+    - unesco_oer_dc
+id: secondarynavigation
+theme: unesco_oer_dc
+region: header_top
+weight: -4
+provider: null
+plugin: 'system_menu_block:secondary-navigation'
+settings:
+  id: 'system_menu_block:secondary-navigation'
+  label: 'Secondary navigation'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

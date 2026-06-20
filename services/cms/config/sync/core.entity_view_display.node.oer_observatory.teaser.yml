@@ -1,0 +1,27 @@
+uuid: 738b49f3-2050-4610-887d-b8fae5e00e94
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.oer_observatory.field_areas_of_action_intro
+    - field.field.node.oer_observatory.field_observatory_views
+    - node.type.oer_observatory
+  module:
+    - user
+id: node.oer_observatory.teaser
+targetEntityType: node
+bundle: oer_observatory
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  addtoany: true
+  field_areas_of_action_intro: true
+  field_observatory_views: true
+  langcode: true
+  node_read_time: true

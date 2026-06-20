@@ -1,0 +1,18 @@
+uuid: 1ec1f4f2-fb22-41a1-8fd4-d00649e294c0
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.resource_feedback
+id: comment.resource_feedback.subject
+field_name: subject
+entity_type: comment
+bundle: resource_feedback
+label: Subject
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

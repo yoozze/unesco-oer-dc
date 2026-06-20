@@ -1,0 +1,21 @@
+uuid: 74aed0ad-bbb6-448c-ac96-a02292e0edff
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_publication_date
+    - node.type.resource
+  module:
+    - datetime
+id: node.resource.field_publication_date
+field_name: field_publication_date
+entity_type: node
+bundle: resource
+label: 'Publication Month and Year'
+description: 'State the year and month of the publication. If you do not know the month, select January, July or December.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

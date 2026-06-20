@@ -1,0 +1,15 @@
+uuid: bf7319c2-adb4-4087-acf3-e4eb002deae3
+langcode: en
+status: true
+dependencies: {  }
+name: list_item
+label: 'List Item (464×280)'
+effects:
+  41f278e9-6b0e-482f-8e51-08cd630f03e6:
+    uuid: 41f278e9-6b0e-482f-8e51-08cd630f03e6
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 464
+      height: 280
+      anchor: center-center

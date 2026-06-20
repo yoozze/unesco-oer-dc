@@ -1,0 +1,8 @@
+uuid: 8e7444dd-5fa8-424d-a46d-cd27176a18fb
+langcode: en
+status: true
+dependencies: {  }
+id: user_registration
+label: 'User registration'
+threshold: 0.5
+challenge: default

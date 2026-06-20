@@ -1,0 +1,76 @@
+uuid: 83e99b59-b4a6-4547-93c6-cf4224b93529
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.basic_html
+    - filter.format.full_html
+    - media.type.audio
+    - media.type.document
+    - media.type.image
+    - media.type.remote_video
+    - media.type.video
+    - node.type.event
+    - node.type.news
+    - node.type.resource
+    - workflows.workflow.editorial
+  module:
+    - contact
+    - content_moderation
+    - content_translation
+    - contextual
+    - eu_cookie_compliance
+    - filter
+    - help
+    - media
+    - node
+    - search
+    - system
+    - toolbar
+id: contributor
+label: Contributor
+weight: -8
+is_admin: null
+permissions:
+  - 'access content overview'
+  - 'access contextual links'
+  - 'access help pages'
+  - 'access media overview'
+  - 'access toolbar'
+  - 'access user contact forms'
+  - 'create audio media'
+  - 'create document media'
+  - 'create event content'
+  - 'create image media'
+  - 'create media'
+  - 'create news content'
+  - 'create remote_video media'
+  - 'create resource content'
+  - 'create video media'
+  - 'delete own audio media'
+  - 'delete own document media'
+  - 'delete own image media'
+  - 'delete own remote_video media'
+  - 'delete own video media'
+  - 'display eu cookie compliance popup'
+  - 'edit own audio media'
+  - 'edit own document media'
+  - 'edit own event content'
+  - 'edit own image media'
+  - 'edit own news content'
+  - 'edit own remote_video media'
+  - 'edit own resource content'
+  - 'edit own video media'
+  - 'translate resource node'
+  - 'update media'
+  - 'use advanced search'
+  - 'use editorial transition create_new_draft'
+  - 'use editorial transition ready_for_review'
+  - 'use text format basic_html'
+  - 'use text format full_html'
+  - 'view event revisions'
+  - 'view news revisions'
+  - 'view own unpublished content'
+  - 'view own unpublished media'
+  - 'view resource revisions'
+  - 'view the administration theme'

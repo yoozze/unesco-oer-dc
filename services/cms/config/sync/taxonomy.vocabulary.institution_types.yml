@@ -1,0 +1,9 @@
+uuid: b70c4950-2165-4b13-9835-40bc67dbf686
+langcode: en
+status: true
+dependencies: {  }
+name: 'Institution Types'
+vid: institution_types
+description: 'Type of institution a member works for.'
+weight: 0
+new_revision: false

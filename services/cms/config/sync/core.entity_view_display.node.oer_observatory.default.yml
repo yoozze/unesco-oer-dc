@@ -1,0 +1,42 @@
+uuid: bbeb83ac-b2a1-48dc-9bd6-9ededeabee08
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.oer_observatory.field_areas_of_action_intro
+    - field.field.node.oer_observatory.field_observatory_views
+    - node.type.oer_observatory
+  module:
+    - entity_reference_revisions
+    - text
+    - user
+id: node.oer_observatory.default
+targetEntityType: node
+bundle: oer_observatory
+mode: default
+content:
+  field_areas_of_action_intro:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  field_observatory_views:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  addtoany: true
+  langcode: true
+  node_read_time: true

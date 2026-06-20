@@ -1,0 +1,21 @@
+uuid: 6d64437f-4c8b-40f4-9555-39b389bb8f30
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.resource_feedback
+    - field.storage.comment.field_region
+  module:
+    - options
+id: comment.resource_feedback.field_region
+field_name: field_region
+entity_type: comment
+bundle: resource_feedback
+label: Region
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

@@ -1,0 +1,20 @@
+uuid: d2f42a96-b858-4665-abb2-d4542ddf173a
+langcode: en
+status: true
+dependencies:
+  module:
+    - comment
+    - taxonomy
+id: comment.field_country
+field_name: field_country
+entity_type: comment
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

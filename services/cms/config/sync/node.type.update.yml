@@ -1,0 +1,17 @@
+uuid: befc06ee-0235-4d84-8729-eca17ab1086c
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: Update
+type: update
+description: null
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true

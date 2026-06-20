@@ -1,0 +1,23 @@
+uuid: 61ae89fb-cb16-4cf1-9887-e53ece307f47
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.link_items
+    - field.storage.block_content.body
+  module:
+    - text
+id: block_content.link_items.body
+field_name: body
+entity_type: block_content
+bundle: link_items
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: false
+  required_summary: false
+field_type: text_with_summary

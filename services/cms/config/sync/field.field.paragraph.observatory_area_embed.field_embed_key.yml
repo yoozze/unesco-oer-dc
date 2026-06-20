@@ -1,0 +1,19 @@
+uuid: adc224d5-4297-431f-9a9b-141f96a5b345
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_embed_key
+    - paragraphs.paragraphs_type.observatory_area_embed
+id: paragraph.observatory_area_embed.field_embed_key
+field_name: field_embed_key
+entity_type: paragraph
+bundle: observatory_area_embed
+label: 'Embed key'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

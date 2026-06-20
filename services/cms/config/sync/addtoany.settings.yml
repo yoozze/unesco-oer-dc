@@ -1,0 +1,24 @@
+_core:
+  default_config_hash: QUZHrnAKd4ixgLLVtD3JrrBMlwbmJ6VU-qKcOMDKatw
+langcode: en
+buttons_size: 24
+additional_html: "<a class=\"a2a_button_facebook c-icon-button c-icon-button--standard c-icon-button--addtoany\"><svg class=\"c-icon c-icon--facebook c-icon-button__icon\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"><use xlink:href=\"#facebook\"></use></svg></a>\r\n<a class=\"a2a_button_twitter c-icon-button c-icon-button--standard c-icon-button--addtoany\"><svg class=\"c-icon c-icon--twitter c-icon-button__icon\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"><use xlink:href=\"#twitter\"></use></svg></a>\r\n<a class=\"a2a_button_linkedin c-icon-button c-icon-button--standard c-icon-button--addtoany\"><svg class=\"c-icon c-icon--linkedin c-icon-button__icon\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"><use xlink:href=\"#linkedin\"></use></svg></a>\r\n<a class=\"a2a_button_email c-icon-button c-icon-button--standard c-icon-button--addtoany\"><svg class=\"c-icon c-icon--mail c-icon-button__icon\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"><use xlink:href=\"#mail\"></use></svg></a>\r\n<a class=\"a2a_dd c-icon-button c-icon-button--standard c-icon-button--addtoany\"><svg class=\"c-icon c-icon--share c-icon-button__icon\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"><use xlink:href=\"#share\"></use></svg></a>\r\n"
+additional_css: ''
+additional_js: ''
+universal_button: none
+custom_universal_button: ''
+universal_button_placement: after
+entities:
+  media: 1
+  node: 1
+  comment: 1
+  block_content: 0
+  contact_message: 0
+  unmanaged_files: 0
+  file: 0
+  menu_link_content: 0
+  path_alias: 0
+  shortcut: 0
+  taxonomy_term: 0
+  user: 0
+  paragraph: 0

@@ -1,0 +1,110 @@
+uuid: 8eaf7e52-1f43-4938-96a6-be18cbd592c6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.activity.field_area_of_action
+    - field.field.node.activity.field_audience
+    - field.field.node.activity.field_country
+    - field.field.node.activity.field_description
+    - field.field.node.activity.field_links
+    - field.field.node.activity.field_logo
+    - field.field.node.activity.field_region
+    - field.field.node.activity.field_tags
+    - field.field.node.activity.field_url
+    - image.style.grid_item
+    - node.type.activity
+  module:
+    - link
+    - media
+    - text
+    - user
+id: node.activity.default
+targetEntityType: node
+bundle: activity
+mode: default
+content:
+  addtoany:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  field_area_of_action:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_audience:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_country:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_description:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_links:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_logo:
+    type: media_thumbnail
+    label: above
+    settings:
+      image_link: ''
+      image_style: grid_item
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_region:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_url:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden:
+  field_tags: true
+  langcode: true
+  links: true
+  node_read_time: true

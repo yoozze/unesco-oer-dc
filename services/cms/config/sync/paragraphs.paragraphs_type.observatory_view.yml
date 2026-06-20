@@ -1,0 +1,10 @@
+uuid: da10296d-9e8f-4b26-84d3-3119fb21b88e
+langcode: en
+status: true
+dependencies: {  }
+id: observatory_view
+label: 'Observatory view'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

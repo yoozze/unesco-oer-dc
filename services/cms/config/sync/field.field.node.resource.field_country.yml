@@ -1,0 +1,29 @@
+uuid: d5e9e93c-043d-472e-b3cb-d87e5b51271d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_country
+    - node.type.resource
+    - taxonomy.vocabulary.countries
+id: node.resource.field_country
+field_name: field_country
+entity_type: node
+bundle: resource
+label: Country
+description: 'State the country the document was written for. If not applicable, leave this field blank. (This may be used to populate the visualization of activities map so suggest more than one country can be added.)'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      countries: countries
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

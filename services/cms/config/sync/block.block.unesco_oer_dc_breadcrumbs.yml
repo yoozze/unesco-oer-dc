@@ -1,0 +1,22 @@
+uuid: 61e01630-8c40-4850-9b4d-365e0c8d2b6c
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - unesco_oer_dc
+_core:
+  default_config_hash: VhBzWb7lMRtIOg9G7VSw_0uopi-7zXeHq4vXqqV1HFE
+id: unesco_oer_dc_breadcrumbs
+theme: unesco_oer_dc
+region: page_navigation
+weight: -8
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: Breadcrumbs
+  label_display: '0'
+  provider: system
+visibility: {  }

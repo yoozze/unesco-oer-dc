@@ -1,0 +1,18 @@
+uuid: 4646d286-e0b7-4c51-9114-b014c66405f0
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.network
+id: node.network.title
+field_name: title
+entity_type: node
+bundle: network
+label: 'Name of Network'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

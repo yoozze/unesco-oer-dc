@@ -1,0 +1,20 @@
+uuid: 0eb80c59-13ae-4315-bb9c-6c994c47e8ea
+langcode: en
+status: true
+dependencies:
+  theme:
+    - unesco_oer_dc
+id: tabs
+theme: unesco_oer_dc
+region: page_navigation
+weight: 0
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: Tabs
+  label_display: '0'
+  provider: core
+  primary: true
+  secondary: false
+visibility: {  }

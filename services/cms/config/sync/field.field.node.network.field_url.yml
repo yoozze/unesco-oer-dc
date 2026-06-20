@@ -1,0 +1,23 @@
+uuid: cb5d4a8f-7ecb-4a6a-b928-2903596f7082
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_url
+    - node.type.network
+  module:
+    - link
+id: node.network.field_url
+field_name: field_url
+entity_type: node
+bundle: network
+label: URL
+description: 'This will direct users to the Network home page for more information, further resources, the source. This can be either a link within the Portal or direct them to an external site. '
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  title: 1
+  link_type: 17
+field_type: link

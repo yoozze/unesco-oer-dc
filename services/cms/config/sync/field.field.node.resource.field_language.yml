@@ -1,0 +1,29 @@
+uuid: 47c47744-ad29-439f-826f-980c7fd1cdf9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_language
+    - node.type.resource
+    - taxonomy.vocabulary.languages
+id: node.resource.field_language
+field_name: field_language
+entity_type: node
+bundle: resource
+label: 'Resource Language'
+description: 'State the language of the document. (If the document is available in more than one language, this will be loaded as a separate entry but the resources will be linked.)'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      languages: languages
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

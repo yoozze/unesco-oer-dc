@@ -1,0 +1,23 @@
+uuid: aa921467-c70f-4a4f-a7d5-65f7631c649a
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.activity
+  module:
+    - node
+id: activities_path
+label: 'Activities path'
+type: 'canonical_entities:node'
+pattern: '/activities/[node:title]'
+selection_criteria:
+  5851d5cc-8a4b-43e4-ad12-9dfbefb98651:
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: node
+    bundles:
+      activity: activity
+selection_logic: and
+weight: -5
+relationships: {  }

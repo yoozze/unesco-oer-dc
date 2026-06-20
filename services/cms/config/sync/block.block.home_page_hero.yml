@@ -1,0 +1,30 @@
+uuid: 3c0a3c63-94c4-44a6-a31d-1828a87d90b8
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:hero:063a9069-be33-420e-986b-a69c43aabf2a'
+  module:
+    - block_content
+    - system
+  theme:
+    - unesco_oer_dc
+id: home_page_hero
+theme: unesco_oer_dc
+region: hero
+weight: -9
+provider: null
+plugin: 'block_content:063a9069-be33-420e-986b-a69c43aabf2a'
+settings:
+  id: 'block_content:063a9069-be33-420e-986b-a69c43aabf2a'
+  label: 'Home page hero'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '<front>'

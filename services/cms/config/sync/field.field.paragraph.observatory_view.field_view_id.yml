@@ -1,0 +1,19 @@
+uuid: 35bcd1a1-1508-4e92-8711-27ea09b7bb66
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_view_id
+    - paragraphs.paragraphs_type.observatory_view
+id: paragraph.observatory_view.field_view_id
+field_name: field_view_id
+entity_type: paragraph
+bundle: observatory_view
+label: 'View ID (machine name)'
+description: 'Lowercase ID used in the URL: `?view=news`. Use only `a-z`, `0-9`, `_`. Must be unique on this page.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

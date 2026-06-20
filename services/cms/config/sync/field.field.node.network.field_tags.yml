@@ -1,0 +1,29 @@
+uuid: 05a033e8-cc62-4e7c-8d9b-fcd0e1eac49b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_tags
+    - node.type.network
+    - taxonomy.vocabulary.tags
+id: node.network.field_tags
+field_name: field_tags
+entity_type: node
+bundle: network
+label: Keywords/Tags
+description: 'This is optional. Enter some keywords (tags) that will be used when other users search for resources.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      tags: tags
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,9 @@
+uuid: 515b35dd-da8d-45f2-9a12-59ff4e3b28d4
+langcode: en
+status: true
+dependencies: {  }
+name: Audiences
+vid: audiences
+description: 'The users for which the document is intended.'
+weight: 0
+new_revision: false

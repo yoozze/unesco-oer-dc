@@ -1,0 +1,9 @@
+uuid: 55168db9-6341-45af-9309-2ef6ca9011b3
+langcode: en
+status: true
+dependencies: {  }
+name: 'Licence Conditions'
+vid: licence_conditions
+description: 'The licence condition under which the resource will be distributed.'
+weight: 0
+new_revision: false

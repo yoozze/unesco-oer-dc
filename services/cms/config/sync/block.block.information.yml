@@ -1,0 +1,25 @@
+uuid: 9a91f8ef-4641-4565-bcb7-e548013f1ebf
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.information
+  module:
+    - system
+  theme:
+    - unesco_oer_dc
+id: information
+theme: unesco_oer_dc
+region: footer_top
+weight: -7
+provider: null
+plugin: 'system_menu_block:information'
+settings:
+  id: 'system_menu_block:information'
+  label: Information
+  label_display: visible
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

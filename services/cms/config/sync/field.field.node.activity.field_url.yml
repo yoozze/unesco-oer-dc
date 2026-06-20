@@ -1,0 +1,23 @@
+uuid: 61c45f0a-73d9-4aa0-880c-6fa208dc2b06
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_url
+    - node.type.activity
+  module:
+    - link
+id: node.activity.field_url
+field_name: field_url
+entity_type: node
+bundle: activity
+label: URL
+description: 'This will direct users to the website of the project or project organizer. This can be either a link within the Portal or direct them to an external site.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  title: 1
+  link_type: 17
+field_type: link

@@ -1,0 +1,18 @@
+uuid: 8cabfe6f-c042-4e20-9895-f726fd90245e
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.observatory_area_embed
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: paragraph.observatory_area_embed
+target_entity_type_id: paragraph
+target_bundle: observatory_area_embed
+default_langcode: site_default
+language_alterable: true

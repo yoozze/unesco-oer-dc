@@ -1,0 +1,8 @@
+uuid: a51ffa5c-91bc-4c10-a0ee-e04e38f5fb02
+langcode: en
+status: true
+dependencies: {  }
+id: hero
+label: Hero
+revision: false
+description: 'Hero block (top banner).'

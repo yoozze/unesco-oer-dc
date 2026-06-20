@@ -1,0 +1,22 @@
+uuid: d5cb0d75-3e76-4aed-ad75-797e8e8b3522
+langcode: en
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - unesco_oer_dc
+_core:
+  default_config_hash: erQSEZF2XUjNmgTl0uNRBzmg18ZGXwUcw2FhApoeuHk
+id: unesco_oer_dc_content
+theme: unesco_oer_dc
+region: content
+weight: -9
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  label_display: '0'
+  provider: system
+visibility: {  }

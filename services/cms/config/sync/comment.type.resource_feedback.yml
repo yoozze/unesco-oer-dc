@@ -1,0 +1,8 @@
+uuid: 4be028a4-d930-46b1-8986-66bb2d33558a
+langcode: en
+status: true
+dependencies: {  }
+id: resource_feedback
+label: 'Resource feedback'
+target_entity_type_id: node
+description: 'Allows giving feedback on resources'

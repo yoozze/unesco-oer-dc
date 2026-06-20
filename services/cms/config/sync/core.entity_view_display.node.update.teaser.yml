@@ -1,0 +1,33 @@
+uuid: 6039c892-c280-4c20-a16e-0e2d70cbf7d0
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.update.field_url
+    - node.type.update
+  module:
+    - link
+    - user
+id: node.update.teaser
+targetEntityType: node
+bundle: update
+mode: teaser
+content:
+  field_url:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  addtoany: true
+  langcode: true
+  links: true
+  node_read_time: true

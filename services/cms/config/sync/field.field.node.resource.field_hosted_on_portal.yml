@@ -1,0 +1,23 @@
+uuid: ebeb1ee3-dcca-4a54-82d4-45e9d97287a4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_hosted_on_portal
+    - node.type.resource
+id: node.resource.field_hosted_on_portal
+field_name: field_hosted_on_portal
+entity_type: node
+bundle: resource
+label: 'Hosted on Portal'
+description: 'Suggested that UNESCO hosts/uploads resources to the portal where possible. If a resource is too complicated or likely to change regularly, this should be linked to an external site.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

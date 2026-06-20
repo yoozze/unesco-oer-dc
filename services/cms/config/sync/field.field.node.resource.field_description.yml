@@ -1,0 +1,24 @@
+uuid: 950a9456-3a4a-4bef-a94d-aa4c02a95e38
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_description
+    - node.type.resource
+  module:
+    - text
+id: node.resource.field_description
+field_name: field_description
+entity_type: node
+bundle: resource
+label: Abstract/Description
+description: 'Enter a description for your resource. This text will appear on the resource page so the user knows what they are downloading/accessing.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+  required_summary: false
+  allowed_formats: {  }
+field_type: text_with_summary

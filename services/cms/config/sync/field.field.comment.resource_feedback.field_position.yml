@@ -1,0 +1,19 @@
+uuid: 9ab482a1-dbf7-49de-9f37-72451763cafe
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.resource_feedback
+    - field.storage.comment.field_position
+id: comment.resource_feedback.field_position
+field_name: field_position
+entity_type: comment
+bundle: resource_feedback
+label: Position
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

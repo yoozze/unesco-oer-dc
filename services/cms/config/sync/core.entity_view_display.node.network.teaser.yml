@@ -1,0 +1,43 @@
+uuid: 0e1ea712-ca87-4aed-a94f-60df4ccb9a1b
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.network.field_area_of_action
+    - field.field.node.network.field_audience
+    - field.field.node.network.field_country
+    - field.field.node.network.field_description
+    - field.field.node.network.field_links
+    - field.field.node.network.field_logo
+    - field.field.node.network.field_network_type
+    - field.field.node.network.field_region
+    - field.field.node.network.field_tags
+    - field.field.node.network.field_url
+    - node.type.network
+  module:
+    - user
+id: node.network.teaser
+targetEntityType: node
+bundle: network
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  addtoany: true
+  field_area_of_action: true
+  field_audience: true
+  field_country: true
+  field_description: true
+  field_links: true
+  field_logo: true
+  field_network_type: true
+  field_region: true
+  field_tags: true
+  field_url: true
+  langcode: true
+  node_read_time: true

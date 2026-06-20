@@ -1,0 +1,8 @@
+display:
+  news_view:
+    display_options:
+      menu:
+        title: Actualités
+  default:
+    display_options:
+      title: Actualités

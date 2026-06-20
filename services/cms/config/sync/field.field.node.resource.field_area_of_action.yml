@@ -1,0 +1,29 @@
+uuid: d22b56af-e9a5-42a4-a37b-bf9fc275831f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_area_of_action
+    - node.type.resource
+    - taxonomy.vocabulary.areas_of_action
+id: node.resource.field_area_of_action
+field_name: field_area_of_action
+entity_type: node
+bundle: resource
+label: 'Area of Action'
+description: 'Please select the relevant Area of Action (topics and subtopics) from the Matrix (to be used as taxonomy list).'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      areas_of_action: areas_of_action
+    sort:
+      field: name
+      direction: asc
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

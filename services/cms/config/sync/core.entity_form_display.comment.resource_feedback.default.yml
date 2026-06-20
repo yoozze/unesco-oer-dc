@@ -1,0 +1,207 @@
+uuid: cd36b172-7c83-459c-89c5-4aa6f481404f
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.resource_feedback
+    - field.field.comment.resource_feedback.comment_body
+    - field.field.comment.resource_feedback.field_comment_action_area_i
+    - field.field.comment.resource_feedback.field_comment_action_area_ii
+    - field.field.comment.resource_feedback.field_comment_action_area_iii
+    - field.field.comment.resource_feedback.field_comment_action_area_iv
+    - field.field.comment.resource_feedback.field_comment_action_area_v
+    - field.field.comment.resource_feedback.field_country
+    - field.field.comment.resource_feedback.field_email_address
+    - field.field.comment.resource_feedback.field_first_name
+    - field.field.comment.resource_feedback.field_gender
+    - field.field.comment.resource_feedback.field_institution
+    - field.field.comment.resource_feedback.field_institution_type
+    - field.field.comment.resource_feedback.field_last_name
+    - field.field.comment.resource_feedback.field_position
+    - field.field.comment.resource_feedback.field_recommendations_i
+    - field.field.comment.resource_feedback.field_recommendations_ii
+    - field.field.comment.resource_feedback.field_recommendations_iii
+    - field.field.comment.resource_feedback.field_recommendations_iv
+    - field.field.comment.resource_feedback.field_recommendations_v
+    - field.field.comment.resource_feedback.field_region
+    - field.field.comment.resource_feedback.field_submitting
+  module:
+    - select2
+    - text
+id: comment.resource_feedback.default
+targetEntityType: comment
+bundle: resource_feedback
+mode: default
+content:
+  comment_body:
+    type: text_textarea
+    weight: 11
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_comment_action_area_i:
+    type: text_textarea
+    weight: 1
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_comment_action_area_ii:
+    type: text_textarea
+    weight: 3
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_comment_action_area_iii:
+    type: text_textarea
+    weight: 5
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_comment_action_area_iv:
+    type: text_textarea
+    weight: 7
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_comment_action_area_v:
+    type: text_textarea
+    weight: 9
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_country:
+    type: select2_entity_reference
+    weight: 19
+    region: content
+    settings:
+      width: 100%
+      autocomplete: false
+      match_operator: CONTAINS
+      match_limit: 10
+    third_party_settings: {  }
+  field_email_address:
+    type: email_default
+    weight: 14
+    region: content
+    settings:
+      placeholder: ''
+      size: 60
+    third_party_settings: {  }
+  field_first_name:
+    type: string_textfield
+    weight: 12
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_gender:
+    type: select2
+    weight: 15
+    region: content
+    settings:
+      width: 100%
+    third_party_settings: {  }
+  field_institution:
+    type: string_textfield
+    weight: 17
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_institution_type:
+    type: select2
+    weight: 18
+    region: content
+    settings:
+      width: 100%
+    third_party_settings: {  }
+  field_last_name:
+    type: string_textfield
+    weight: 13
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_position:
+    type: string_textfield
+    weight: 16
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_recommendations_i:
+    type: options_buttons
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_recommendations_ii:
+    type: options_buttons
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_recommendations_iii:
+    type: options_buttons
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_recommendations_iv:
+    type: options_buttons
+    weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_recommendations_v:
+    type: options_buttons
+    weight: 8
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_region:
+    type: select2
+    weight: 20
+    region: content
+    settings:
+      width: 100%
+    third_party_settings: {  }
+  field_submitting:
+    type: options_buttons
+    weight: 21
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 22
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  subject:
+    type: string_textfield
+    weight: 10
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  author: true

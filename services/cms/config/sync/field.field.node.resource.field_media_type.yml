@@ -1,0 +1,29 @@
+uuid: b2042cc9-e290-4eb7-a3c8-61d1086e4f78
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_media_type
+    - node.type.resource
+    - taxonomy.vocabulary.media_types
+id: node.resource.field_media_type
+field_name: field_media_type
+entity_type: node
+bundle: resource
+label: 'Media Type/Format'
+description: 'This refers to the format of the resource document is. User can select the media type from the list.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      media_types: media_types
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

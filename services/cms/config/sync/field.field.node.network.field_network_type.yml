@@ -1,0 +1,29 @@
+uuid: 5e514185-bc93-4694-b90c-d4b8b919155f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_network_type
+    - node.type.network
+    - taxonomy.vocabulary.network_types
+id: node.network.field_network_type
+field_name: field_network_type
+entity_type: node
+bundle: network
+label: 'Network Type'
+description: 'What does the network offer? Is this a community of practice, a type of organization, etc?'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      network_types: network_types
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

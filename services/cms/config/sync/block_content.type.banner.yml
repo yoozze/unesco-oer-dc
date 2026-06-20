@@ -1,0 +1,8 @@
+uuid: 5c78e272-05db-4b35-a826-3768d8b048f4
+langcode: en
+status: true
+dependencies: {  }
+id: banner
+label: Banner
+revision: false
+description: 'Page banner block (above footer).'

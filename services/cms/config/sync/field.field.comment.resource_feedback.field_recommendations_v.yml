@@ -1,0 +1,21 @@
+uuid: 9f830de0-dc55-41ad-bf21-71fd4b830981
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.resource_feedback
+    - field.storage.comment.field_recommendations_v
+  module:
+    - options
+id: comment.resource_feedback.field_recommendations_v
+field_name: field_recommendations_v
+entity_type: comment
+bundle: resource_feedback
+label: 'V: Facilitating international cooperation'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

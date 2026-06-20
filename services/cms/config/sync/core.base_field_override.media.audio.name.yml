@@ -1,0 +1,20 @@
+uuid: c6da6ef4-9d49-43e8-8c03-87f1a68b4120
+langcode: en
+status: true
+dependencies:
+  config:
+    - media.type.audio
+id: media.audio.name
+field_name: name
+entity_type: media
+bundle: audio
+label: Name
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: ''
+default_value_callback: ''
+settings: {  }
+field_type: string

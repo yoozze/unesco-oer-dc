@@ -1,0 +1,29 @@
+uuid: 74c4ec1d-cd60-4078-b79d-6b7673b0b44b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_region
+    - node.type.resource
+    - taxonomy.vocabulary.regions
+id: node.resource.field_region
+field_name: field_region
+entity_type: node
+bundle: resource
+label: Region
+description: 'State the region the document was written for/about. Will also include option for worldwide.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      regions: regions
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

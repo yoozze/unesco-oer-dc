@@ -1,0 +1,20 @@
+uuid: 99e05e52-71fa-4ff3-8695-9ce95d6bee6c
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.resource_feedback
+id: comment.resource_feedback.name
+field_name: name
+entity_type: comment
+bundle: resource_feedback
+label: Name
+description: "The comment author's name."
+required: false
+translatable: false
+default_value:
+  -
+    value: ''
+default_value_callback: ''
+settings: {  }
+field_type: string

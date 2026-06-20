@@ -1,0 +1,21 @@
+uuid: d96a7978-0de1-486b-a4fd-3042ffd5b299
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs
+id: paragraph.field_iframe_url
+field_name: field_iframe_url
+entity_type: paragraph
+type: string
+settings:
+  max_length: 2048
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,8 @@
+display:
+  activities_view:
+    display_options:
+      menu:
+        title: Activités
+  default:
+    display_options:
+      title: Activités

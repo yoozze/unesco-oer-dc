@@ -1,0 +1,130 @@
+uuid: c765476b-0eb1-455d-8eaf-1972d8f58211
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.network.field_area_of_action
+    - field.field.node.network.field_audience
+    - field.field.node.network.field_country
+    - field.field.node.network.field_description
+    - field.field.node.network.field_links
+    - field.field.node.network.field_logo
+    - field.field.node.network.field_network_type
+    - field.field.node.network.field_region
+    - field.field.node.network.field_tags
+    - field.field.node.network.field_url
+    - image.style.grid_item
+    - node.type.network
+  module:
+    - link
+    - media
+    - text
+    - user
+id: node.network.default
+targetEntityType: node
+bundle: network
+mode: default
+content:
+  addtoany:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 11
+    region: content
+  field_area_of_action:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_audience:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  field_country:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_description:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_links:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 9
+    region: content
+  field_logo:
+    type: media_thumbnail
+    label: above
+    settings:
+      image_link: ''
+      image_style: grid_item
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_network_type:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_region:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_tags:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  field_url:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  langcode: true
+  node_read_time: true

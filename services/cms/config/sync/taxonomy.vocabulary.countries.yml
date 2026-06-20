@@ -1,0 +1,9 @@
+uuid: 5e6775f8-5e54-425f-b213-c1d574831683
+langcode: en
+status: true
+dependencies: {  }
+name: Countries
+vid: countries
+description: 'The country the document was written for.'
+weight: 0
+new_revision: false

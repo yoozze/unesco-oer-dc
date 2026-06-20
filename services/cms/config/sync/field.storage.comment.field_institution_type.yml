@@ -1,0 +1,39 @@
+uuid: 0110c211-9439-4661-b1f1-d4927ff73759
+langcode: en
+status: true
+dependencies:
+  module:
+    - comment
+    - options
+id: comment.field_institution_type
+field_name: field_institution_type
+entity_type: comment
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: government
+      label: Government
+    -
+      value: intergovernmental_organisation_igo
+      label: 'Intergovernmental Organisation (IGO)'
+    -
+      value: non_governmental_organisation_ngo
+      label: 'Non-Governmental Organisation (NGO)'
+    -
+      value: private_sector
+      label: 'Private Sector'
+    -
+      value: university
+      label: University
+    -
+      value: other
+      label: Other
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

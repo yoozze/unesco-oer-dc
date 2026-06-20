@@ -1,0 +1,23 @@
+uuid: 9c423950-7e2b-4c91-a2dd-6b2e54c61b95
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.update
+  module:
+    - node
+id: updates_path
+label: 'Updates path'
+type: 'canonical_entities:node'
+pattern: '/updates/[node:title]'
+selection_criteria:
+  b308f714-b0ac-46f7-a5b5-764f4c03d80c:
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: node
+    bundles:
+      update: update
+selection_logic: and
+weight: -5
+relationships: {  }

@@ -1,0 +1,9 @@
+uuid: 271d7a33-3477-49df-9523-52a99c176ebf
+langcode: en
+status: true
+dependencies: {  }
+name: 'Media Types'
+vid: media_types
+description: 'The format of the resource document.'
+weight: 0
+new_revision: false

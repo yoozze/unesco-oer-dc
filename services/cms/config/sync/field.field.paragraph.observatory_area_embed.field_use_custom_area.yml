@@ -1,0 +1,21 @@
+uuid: 3009aba0-9cd3-40a5-88d4-a0e02267566f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_use_custom_area
+    - paragraphs.paragraphs_type.observatory_area_embed
+id: paragraph.observatory_area_embed.field_use_custom_area
+field_name: field_use_custom_area
+entity_type: paragraph
+bundle: observatory_area_embed
+label: 'Use custom area'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

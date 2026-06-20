@@ -1,0 +1,19 @@
+uuid: 9ae23b00-b705-40c6-a2a6-96441e6b651b
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.resource_feedback
+    - field.storage.comment.field_last_name
+id: comment.resource_feedback.field_last_name
+field_name: field_last_name
+entity_type: comment
+bundle: resource_feedback
+label: 'Last name'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

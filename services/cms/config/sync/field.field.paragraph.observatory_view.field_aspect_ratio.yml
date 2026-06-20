@@ -1,0 +1,19 @@
+uuid: 583c9d74-3720-4e54-9381-f8827bc1334b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_aspect_ratio
+    - paragraphs.paragraphs_type.observatory_view
+id: paragraph.observatory_view.field_aspect_ratio
+field_name: field_aspect_ratio
+entity_type: paragraph
+bundle: observatory_view
+label: 'Aspect ratio'
+description: 'CSS aspect-ratio value, e.g. `1440/1280` or `1440/900`.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

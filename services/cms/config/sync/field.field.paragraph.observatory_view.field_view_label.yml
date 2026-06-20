@@ -1,0 +1,19 @@
+uuid: 9bad76d8-c67c-4d36-a5fe-721623059a2b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_view_label
+    - paragraphs.paragraphs_type.observatory_view
+id: paragraph.observatory_view.field_view_label
+field_name: field_view_label
+entity_type: paragraph
+bundle: observatory_view
+label: 'View label'
+description: 'Label shown in the View dropdown.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

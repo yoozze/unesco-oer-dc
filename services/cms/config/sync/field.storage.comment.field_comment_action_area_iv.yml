@@ -1,0 +1,19 @@
+uuid: f661c7ba-9a4b-4380-b9bc-c4e607bc718b
+langcode: en
+status: true
+dependencies:
+  module:
+    - comment
+    - text
+id: comment.field_comment_action_area_iv
+field_name: field_comment_action_area_iv
+entity_type: comment
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

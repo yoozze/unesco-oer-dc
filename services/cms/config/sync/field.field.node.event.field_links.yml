@@ -1,0 +1,23 @@
+uuid: 6b9a410e-d055-4bfa-88d3-bb64136ca26a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_links
+    - node.type.event
+  module:
+    - link
+id: node.event.field_links
+field_name: field_links
+entity_type: node
+bundle: event
+label: 'Related links'
+description: 'This will list anything else that is captured on the system that these resources should be linked to. This could be later event or meeting notes, reports, or linked to news items or activities. Once the system is running we will use hyperlinks here, but you can also link other content on other UNESCO sites.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  title: 1
+  link_type: 17
+field_type: link

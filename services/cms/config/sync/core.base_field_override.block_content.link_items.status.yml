@@ -1,0 +1,22 @@
+uuid: b6d21e49-ca1a-4459-9416-d46816e7a157
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.link_items
+id: block_content.link_items.status
+field_name: status
+entity_type: block_content
+bundle: link_items
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

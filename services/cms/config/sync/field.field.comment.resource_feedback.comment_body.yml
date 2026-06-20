@@ -1,0 +1,24 @@
+uuid: eaba7dad-1b71-44a7-a8da-1349bd3e53d7
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.resource_feedback
+    - field.storage.comment.comment_body
+    - filter.format.basic_html
+  module:
+    - text
+id: comment.resource_feedback.comment_body
+field_name: comment_body
+entity_type: comment
+bundle: resource_feedback
+label: Comment
+description: "<p><strong>The 3rd World OER Congress will conclude with the Dubai OER Action Plan</strong></p>\r\n<p>The action plan builds on:</p>\r\n<ul>\r\n<li>The outcomes of the six regional consultations that took place from May 2024 to October 2024</li>\r\n<li>Inputs from the global online consultation on the document on the OER DC portal Website from 10 September 2024 to 1 November 2024</li>\r\n<li>Inputs from the debates and discussions at the 3rd World OER Congress (19 and 20 November 2024, Dubai, United Arab Emirates)</li>\r\n</ul>\r\n<p>These inputs will be compiled through the online form you see below. Revised versions will be posted online periodically leading up to the 3rd World OER Congress.</p> \r\n<p>Though the form on this page you are invited to contribute toward drafting the final action plan.</p>\r\n<p>Inclusion of your online inputs may be positively evaluated based on such factors as the number of like-minded comments received, the source of contribution including governmental, IGOs, NGOs, as well as institutions of teaching and learning and a balance of geographical representation.</p>\r\n"
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats:
+    - basic_html
+field_type: text_long

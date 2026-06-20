@@ -1,0 +1,8 @@
+uuid: 9d7309c5-80a4-4dc2-9abb-dc207b0095ab
+langcode: en
+status: true
+dependencies: {  }
+id: contact_form
+label: 'Contact form'
+threshold: 0.5
+challenge: default

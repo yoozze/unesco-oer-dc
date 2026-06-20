@@ -1,0 +1,48 @@
+uuid: 35bf92fb-15ef-454b-a236-adff918a1215
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.basic_html
+    - node.type.event
+    - node.type.news
+    - rest.resource.public_api
+    - workflows.workflow.editorial
+  module:
+    - comment
+    - contact
+    - content_moderation
+    - eu_cookie_compliance
+    - file
+    - filter
+    - google_analytics
+    - media
+    - node
+    - rest
+    - search
+    - shortcut
+    - system
+_core:
+  default_config_hash: I44QAB4es39lNzMQWiJLq2dfjX7VRSOzT_5KzAcUq_M
+id: authenticated
+label: 'Authenticated user'
+weight: -9
+is_admin: false
+permissions:
+  - 'access content'
+  - 'access shortcuts'
+  - 'access site-wide contact form'
+  - 'access user contact forms'
+  - 'access user profiles'
+  - 'create event content'
+  - 'create news content'
+  - 'delete own files'
+  - 'display eu cookie compliance popup'
+  - 'opt-in or out of google analytics tracking'
+  - 'post comments'
+  - 'restful get public_api'
+  - 'search content'
+  - 'use advanced search'
+  - 'use editorial transition create_new_draft'
+  - 'use text format basic_html'
+  - 'view media'

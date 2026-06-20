@@ -1,0 +1,29 @@
+uuid: 59020574-43c9-45f3-92ba-676c1b410a7f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_region
+    - node.type.event
+    - taxonomy.vocabulary.regions
+id: node.event.field_region
+field_name: field_region
+entity_type: node
+bundle: event
+label: Region
+description: 'State the region where the event will take place. Will also include option for worldwide. '
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      regions: regions
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

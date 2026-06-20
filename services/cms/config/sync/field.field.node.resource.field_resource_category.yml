@@ -1,0 +1,29 @@
+uuid: 283be0ba-13ce-4826-bcc4-1a3016b1a043
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_resource_category
+    - node.type.resource
+    - taxonomy.vocabulary.resource_category
+id: node.resource.field_resource_category
+field_name: field_resource_category
+entity_type: node
+bundle: resource
+label: 'Resource Category'
+description: 'Select the category of resource from this list.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      resource_category: resource_category
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

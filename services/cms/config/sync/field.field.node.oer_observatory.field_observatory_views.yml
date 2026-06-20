@@ -1,0 +1,37 @@
+uuid: 9b4e7c58-b7aa-4e1a-a762-3e9a05b2dedd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_observatory_views
+    - node.type.oer_observatory
+    - paragraphs.paragraphs_type.observatory_view
+  module:
+    - entity_reference_revisions
+id: node.oer_observatory.field_observatory_views
+field_name: field_observatory_views
+entity_type: node
+bundle: oer_observatory
+label: 'Observatory views'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      observatory_view: observatory_view
+    negate: 0
+    target_bundles_drag_drop:
+      link_item:
+        weight: 4
+        enabled: false
+      observatory_area_embed:
+        weight: 5
+        enabled: false
+      observatory_view:
+        weight: 6
+        enabled: true
+field_type: entity_reference_revisions

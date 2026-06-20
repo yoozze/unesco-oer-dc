@@ -1,0 +1,23 @@
+uuid: a179a907-d6b7-4a44-90c5-b2e194990f27
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.network
+  module:
+    - node
+id: networks_path
+label: 'Networks path'
+type: 'canonical_entities:node'
+pattern: '/networks/[node:title]'
+selection_criteria:
+  f2a039fc-5786-4e88-9880-b34f261138c2:
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: node
+    bundles:
+      network: network
+selection_logic: and
+weight: -5
+relationships: {  }

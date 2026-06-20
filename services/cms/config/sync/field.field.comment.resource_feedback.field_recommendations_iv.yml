@@ -1,0 +1,21 @@
+uuid: d4e186f3-14dc-4851-a02f-da50293b359a
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.resource_feedback
+    - field.storage.comment.field_recommendations_iv
+  module:
+    - options
+id: comment.resource_feedback.field_recommendations_iv
+field_name: field_recommendations_iv
+entity_type: comment
+bundle: resource_feedback
+label: 'IV: Nurturing the creation of sustainability models for OER'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

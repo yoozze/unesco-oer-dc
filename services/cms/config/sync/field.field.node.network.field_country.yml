@@ -1,0 +1,29 @@
+uuid: 3096e8ed-b4b7-4021-9baf-9682df2abae0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_country
+    - node.type.network
+    - taxonomy.vocabulary.countries
+id: node.network.field_country
+field_name: field_country
+entity_type: node
+bundle: network
+label: Country
+description: 'Do you want to select the countries the Network operate in or from? Or should this be left out?'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      countries: countries
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

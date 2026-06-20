@@ -1,0 +1,4 @@
+display:
+  default:
+    display_options:
+      use_more_text: 'Voir tous les événements'

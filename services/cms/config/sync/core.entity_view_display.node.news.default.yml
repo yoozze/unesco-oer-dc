@@ -1,0 +1,124 @@
+uuid: dbb2bfbd-e16c-43d2-a1b5-01455b0cd1b6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.news.field_area_of_action
+    - field.field.node.news.field_audience
+    - field.field.node.news.field_country
+    - field.field.node.news.field_description
+    - field.field.node.news.field_image
+    - field.field.node.news.field_links
+    - field.field.node.news.field_region
+    - field.field.node.news.field_tags
+    - field.field.node.news.field_url
+    - node.type.news
+  module:
+    - layout_builder
+    - link
+    - taxonomy
+    - text
+    - user
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: node.news.default
+targetEntityType: node
+bundle: news
+mode: default
+content:
+  addtoany:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 9
+    region: content
+  field_area_of_action:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_audience:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_country:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_description:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_image:
+    type: entity_reference_entity_id
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_links:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_region:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_tags:
+    type: entity_reference_rss_category
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  field_url:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  node_read_time:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 8
+    region: content
+hidden:
+  langcode: true
+  links: true
+  reading_time: true

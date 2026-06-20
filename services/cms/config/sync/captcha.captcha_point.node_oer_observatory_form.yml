@@ -1,0 +1,7 @@
+uuid: bf405570-f977-4d64-a6c2-f15e3a3237d3
+langcode: en
+status: false
+dependencies: {  }
+formId: node_oer_observatory_form
+captchaType: default
+label: node_oer_observatory_form

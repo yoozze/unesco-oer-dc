@@ -1,0 +1,8 @@
+uuid: 426a8e0a-b55f-4b73-bcf4-7ef130823669
+langcode: en
+status: true
+dependencies: {  }
+id: follow-us
+label: 'Follow us'
+description: 'Social network links'
+locked: false

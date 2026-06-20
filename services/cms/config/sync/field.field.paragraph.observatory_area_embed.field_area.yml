@@ -1,0 +1,29 @@
+uuid: b2c308ae-b03b-4ab3-b92a-96aa0afd3986
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_area
+    - paragraphs.paragraphs_type.observatory_area_embed
+    - taxonomy.vocabulary.areas_of_action
+id: paragraph.observatory_area_embed.field_area
+field_name: field_area
+entity_type: paragraph
+bundle: observatory_area_embed
+label: 'Area of action'
+description: 'Which OER priority area this embed belongs to.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      areas_of_action: areas_of_action
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

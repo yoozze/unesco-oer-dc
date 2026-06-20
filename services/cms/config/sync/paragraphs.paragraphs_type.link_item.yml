@@ -1,0 +1,12 @@
+uuid: 7a0aa079-928b-45be-8111-7df072ddbb58
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'file:file:eb9baa9c-63ee-4cac-a024-945f7e50a953'
+id: link_item
+label: 'Link Item'
+icon_uuid: eb9baa9c-63ee-4cac-a024-945f7e50a953
+icon_default: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgOTYgOTYwIDk2MCIgd2lkdGg9IjI0Ij48cGF0aCBkPSJNNDQwIDc3NkgyODBxLTgzIDAtMTQxLjUtNTguNVQ4MCA1NzZxMC04MyA1OC41LTE0MS41VDI4MCAzNzZoMTYwdjgwSDI4MHEtNTAgMC04NSAzNXQtMzUgODVxMCA1MCAzNSA4NXQ4NSAzNWgxNjB2ODBaTTMyMCA2MTZ2LTgwaDMyMHY4MEgzMjBabTIwMCAxNjB2LTgwaDE2MHE1MCAwIDg1LTM1dDM1LTg1cTAtNTAtMzUtODV0LTg1LTM1SDUyMHYtODBoMTYwcTgzIDAgMTQxLjUgNTguNVQ4ODAgNTc2cTAgODMtNTguNSAxNDEuNVQ2ODAgNzc2SDUyMFoiLz48L3N2Zz4='
+description: 'Link item with image, html and link'
+behavior_plugins: {  }

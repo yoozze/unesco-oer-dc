@@ -1,0 +1,96 @@
+uuid: d3d5d2f5-dfa3-4b48-bcf5-8ff4220449ec
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.event.field_area_of_action
+    - field.field.node.event.field_audience
+    - field.field.node.event.field_country
+    - field.field.node.event.field_description
+    - field.field.node.event.field_end_date
+    - field.field.node.event.field_event_type
+    - field.field.node.event.field_image
+    - field.field.node.event.field_links
+    - field.field.node.event.field_location
+    - field.field.node.event.field_region
+    - field.field.node.event.field_registration_link
+    - field.field.node.event.field_start_date
+    - field.field.node.event.field_tags
+    - field.field.node.event.field_venue_link
+    - node.type.event
+  module:
+    - datetime
+    - text
+    - user
+id: node.event.teaser
+targetEntityType: node
+bundle: event
+mode: teaser
+content:
+  addtoany:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_description:
+    type: text_trimmed
+    label: above
+    settings:
+      trim_length: 200
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_end_date:
+    type: datetime_custom
+    label: above
+    settings:
+      timezone_override: ''
+      date_format: 'Y-m-d\TH:i:s'
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_event_type:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_image:
+    type: entity_reference_entity_id
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_location:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_start_date:
+    type: datetime_custom
+    label: above
+    settings:
+      timezone_override: ''
+      date_format: 'Y-m-d\TH:i:s'
+    third_party_settings: {  }
+    weight: 3
+    region: content
+hidden:
+  field_area_of_action: true
+  field_audience: true
+  field_country: true
+  field_links: true
+  field_region: true
+  field_registration_link: true
+  field_tags: true
+  field_venue_link: true
+  langcode: true
+  links: true
+  node_read_time: true

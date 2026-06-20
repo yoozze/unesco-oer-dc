@@ -1,0 +1,33 @@
+uuid: c12348f7-1e8e-4943-a13e-51360df76575
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_feedback
+    - node.type.resource
+  module:
+    - comment
+id: node.resource.field_feedback
+field_name: field_feedback
+entity_type: node
+bundle: resource
+label: Feedback
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    status: 0
+    cid: 0
+    last_comment_timestamp: 0
+    last_comment_name: null
+    last_comment_uid: 0
+    comment_count: 0
+default_value_callback: ''
+settings:
+  default_mode: 0
+  per_page: 50
+  anonymous: 0
+  form_location: true
+  preview: 1
+field_type: comment

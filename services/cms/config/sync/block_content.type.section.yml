@@ -1,0 +1,8 @@
+uuid: ab2dd77c-8368-4c59-b632-8e84cb4d4904
+langcode: en
+status: true
+dependencies: {  }
+id: section
+label: Section
+revision: false
+description: 'Common page section block.'

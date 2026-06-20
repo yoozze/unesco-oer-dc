@@ -1,0 +1,15 @@
+uuid: 2791c848-8692-4fb1-8c69-aec36c468aa0
+langcode: en
+status: true
+dependencies: {  }
+name: jumbo
+label: 'Jumbo (1440×720)'
+effects:
+  38d96335-6079-4a3a-a7e3-32ad47a9faf4:
+    uuid: 38d96335-6079-4a3a-a7e3-32ad47a9faf4
+    id: image_scale_and_crop
+    weight: 2
+    data:
+      width: 1440
+      height: 720
+      anchor: center-center

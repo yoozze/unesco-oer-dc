@@ -1,0 +1,9 @@
+uuid: b6fc2963-753a-447e-b55e-44862cc2e10e
+langcode: en
+status: true
+dependencies: {  }
+name: 'Network Types'
+vid: network_types
+description: 'What does the network offer?'
+weight: 0
+new_revision: false

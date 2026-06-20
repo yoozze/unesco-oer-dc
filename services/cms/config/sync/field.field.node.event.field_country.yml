@@ -1,0 +1,29 @@
+uuid: 4bd11f83-a51f-47b1-897c-3b095d8d501b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_country
+    - node.type.event
+    - taxonomy.vocabulary.countries
+id: node.event.field_country
+field_name: field_country
+entity_type: node
+bundle: event
+label: Country
+description: 'Country where the event taking place. (This may be used to populate the visualization of activities map so suggest more than one country can be added, particularly for online events.) '
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      countries: countries
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,29 @@
+uuid: d7b438b8-3059-4d6e-bfdb-49268e0ec1e8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_country
+    - node.type.news
+    - taxonomy.vocabulary.countries
+id: node.news.field_country
+field_name: field_country
+entity_type: node
+bundle: news
+label: Country
+description: 'Country where the news is from. (This may be used to populate the visualization of activities map so suggest more than one country can be added, particularly for online events.)'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      countries: countries
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

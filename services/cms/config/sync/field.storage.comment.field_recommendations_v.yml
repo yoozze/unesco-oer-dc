@@ -1,0 +1,33 @@
+uuid: d71791f1-ad71-4c22-bfa3-981f3b06feae
+langcode: en
+status: true
+dependencies:
+  module:
+    - comment
+    - options
+id: comment.field_recommendations_v
+field_name: field_recommendations_v
+entity_type: comment
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: r1
+      label: R1
+    -
+      value: r2
+      label: R2
+    -
+      value: r3
+      label: R3
+    -
+      value: r4
+      label: R4
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

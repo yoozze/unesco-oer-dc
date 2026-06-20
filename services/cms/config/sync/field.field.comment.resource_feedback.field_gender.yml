@@ -1,0 +1,21 @@
+uuid: 49dee5bd-250e-4808-933d-0a98aa4463a1
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.resource_feedback
+    - field.storage.comment.field_gender
+  module:
+    - options
+id: comment.resource_feedback.field_gender
+field_name: field_gender
+entity_type: comment
+bundle: resource_feedback
+label: Gender
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

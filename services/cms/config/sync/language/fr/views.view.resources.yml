@@ -1,0 +1,8 @@
+display:
+  resources_view:
+    display_options:
+      menu:
+        title: Ressources
+  default:
+    display_options:
+      title: Ressources

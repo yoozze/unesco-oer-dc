@@ -44,6 +44,7 @@ services:
         extra_hosts:
             - "host.docker.internal:host-gateway"
         volumes:
+            - ./services/cms/config:/opt/drupal/config
             - ./services/cms/src/sites:/opt/drupal/web/sites
             - ./services/cms/src/data:/opt/drupal/web/data
             - ./services/cms/src/modules/custom:/opt/drupal/web/modules/custom

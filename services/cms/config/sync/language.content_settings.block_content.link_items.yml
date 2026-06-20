@@ -1,0 +1,18 @@
+uuid: 4704b9a9-b7a2-48b4-bdfc-59e92d7128ed
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.link_items
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: block_content.link_items
+target_entity_type_id: block_content
+target_bundle: link_items
+default_langcode: site_default
+language_alterable: true

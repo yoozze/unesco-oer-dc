@@ -1,0 +1,9 @@
+uuid: 102faf1d-7269-45dc-a78e-f6c0cfbde374
+langcode: en
+status: true
+dependencies: {  }
+name: Regions
+vid: regions
+description: 'The region the document was written for/about.'
+weight: 0
+new_revision: false

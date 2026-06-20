@@ -1,0 +1,23 @@
+uuid: 52f24c1d-5c21-4703-a3e0-f3a6a8debf85
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_description
+    - node.type.activity
+  module:
+    - text
+id: node.activity.field_description
+field_name: field_description
+entity_type: node
+bundle: activity
+label: Description
+description: 'This will include a short description of the activity, project or initiative.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: false
+  required_summary: false
+field_type: text_with_summary

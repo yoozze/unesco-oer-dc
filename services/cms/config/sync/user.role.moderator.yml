@@ -1,0 +1,298 @@
+uuid: 9206bae5-18df-481b-859b-71ffbd6af1ca
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.banner
+    - block_content.type.basic
+    - block_content.type.hero
+    - block_content.type.link_items
+    - block_content.type.section
+    - filter.format.basic_html
+    - filter.format.full_html
+    - media.type.audio
+    - media.type.document
+    - media.type.image
+    - media.type.remote_video
+    - media.type.video
+    - node.type.article
+    - node.type.event
+    - node.type.news
+    - node.type.page
+    - node.type.resource
+    - node.type.update
+    - taxonomy.vocabulary.areas_of_action
+    - taxonomy.vocabulary.audiences
+    - taxonomy.vocabulary.countries
+    - taxonomy.vocabulary.event_types
+    - taxonomy.vocabulary.languages
+    - taxonomy.vocabulary.licence_conditions
+    - taxonomy.vocabulary.media_types
+    - taxonomy.vocabulary.regions
+    - taxonomy.vocabulary.resource_category
+    - taxonomy.vocabulary.resource_status
+    - taxonomy.vocabulary.resource_types
+    - taxonomy.vocabulary.tags
+    - workflows.workflow.editorial
+  module:
+    - block_content
+    - comment
+    - contact
+    - content_moderation
+    - content_translation
+    - contextual
+    - eu_cookie_compliance
+    - file
+    - file_delete
+    - filter
+    - help
+    - media
+    - node
+    - paragraphs
+    - path
+    - search
+    - system
+    - taxonomy
+    - toolbar
+id: moderator
+label: Moderator
+weight: -6
+is_admin: null
+permissions:
+  - 'access administration pages'
+  - 'access block library'
+  - 'access comments'
+  - 'access content overview'
+  - 'access contextual links'
+  - 'access files overview'
+  - 'access help pages'
+  - 'access media overview'
+  - 'access taxonomy overview'
+  - 'access toolbar'
+  - 'access user contact forms'
+  - 'administer comments'
+  - 'administer url aliases'
+  - 'administer users'
+  - 'create article content'
+  - 'create audio media'
+  - 'create content translations'
+  - 'create document media'
+  - 'create event content'
+  - 'create image media'
+  - 'create media'
+  - 'create news content'
+  - 'create page content'
+  - 'create remote_video media'
+  - 'create resource content'
+  - 'create terms in areas_of_action'
+  - 'create terms in audiences'
+  - 'create terms in countries'
+  - 'create terms in event_types'
+  - 'create terms in languages'
+  - 'create terms in licence_conditions'
+  - 'create terms in media_types'
+  - 'create terms in regions'
+  - 'create terms in resource_status'
+  - 'create terms in resource_types'
+  - 'create terms in tags'
+  - 'create update content'
+  - 'create url aliases'
+  - 'create video media'
+  - 'delete all taxonomy revisions'
+  - 'delete any article content'
+  - 'delete any audio media'
+  - 'delete any audio media revisions'
+  - 'delete any document media'
+  - 'delete any document media revisions'
+  - 'delete any event content'
+  - 'delete any image media'
+  - 'delete any image media revisions'
+  - 'delete any media'
+  - 'delete any news content'
+  - 'delete any page content'
+  - 'delete any remote_video media'
+  - 'delete any remote_video media revisions'
+  - 'delete any resource content'
+  - 'delete any update content'
+  - 'delete any video media'
+  - 'delete any video media revisions'
+  - 'delete article revisions'
+  - 'delete content translations'
+  - 'delete event revisions'
+  - 'delete files immediately'
+  - 'delete files override usage'
+  - 'delete media'
+  - 'delete news revisions'
+  - 'delete own article content'
+  - 'delete own audio media'
+  - 'delete own document media'
+  - 'delete own event content'
+  - 'delete own image media'
+  - 'delete own news content'
+  - 'delete own page content'
+  - 'delete own remote_video media'
+  - 'delete own resource content'
+  - 'delete own update content'
+  - 'delete own video media'
+  - 'delete page revisions'
+  - 'delete resource revisions'
+  - 'delete term revisions in areas_of_action'
+  - 'delete term revisions in audiences'
+  - 'delete term revisions in countries'
+  - 'delete term revisions in event_types'
+  - 'delete term revisions in languages'
+  - 'delete term revisions in licence_conditions'
+  - 'delete term revisions in media_types'
+  - 'delete term revisions in regions'
+  - 'delete term revisions in resource_status'
+  - 'delete terms in areas_of_action'
+  - 'delete terms in audiences'
+  - 'delete terms in countries'
+  - 'delete terms in event_types'
+  - 'delete terms in languages'
+  - 'delete terms in licence_conditions'
+  - 'delete terms in media_types'
+  - 'delete terms in regions'
+  - 'delete terms in resource_status'
+  - 'delete terms in resource_types'
+  - 'delete terms in tags'
+  - 'delete update revisions'
+  - 'display eu cookie compliance popup'
+  - 'edit any article content'
+  - 'edit any audio media'
+  - 'edit any banner block content'
+  - 'edit any basic block content'
+  - 'edit any document media'
+  - 'edit any event content'
+  - 'edit any hero block content'
+  - 'edit any image media'
+  - 'edit any link_items block content'
+  - 'edit any news content'
+  - 'edit any page content'
+  - 'edit any remote_video media'
+  - 'edit any resource content'
+  - 'edit any section block content'
+  - 'edit any update content'
+  - 'edit any video media'
+  - 'edit own article content'
+  - 'edit own audio media'
+  - 'edit own comments'
+  - 'edit own document media'
+  - 'edit own event content'
+  - 'edit own image media'
+  - 'edit own news content'
+  - 'edit own page content'
+  - 'edit own remote_video media'
+  - 'edit own resource content'
+  - 'edit own update content'
+  - 'edit own video media'
+  - 'edit terms in areas_of_action'
+  - 'edit terms in audiences'
+  - 'edit terms in countries'
+  - 'edit terms in event_types'
+  - 'edit terms in languages'
+  - 'edit terms in licence_conditions'
+  - 'edit terms in media_types'
+  - 'edit terms in regions'
+  - 'edit terms in resource_category'
+  - 'edit terms in resource_status'
+  - 'edit terms in resource_types'
+  - 'edit terms in tags'
+  - 'revert all revisions'
+  - 'revert all taxonomy revisions'
+  - 'revert any audio media revisions'
+  - 'revert any banner block content revisions'
+  - 'revert any basic block content revisions'
+  - 'revert any document media revisions'
+  - 'revert any hero block content revisions'
+  - 'revert any image media revisions'
+  - 'revert any link_items block content revisions'
+  - 'revert any remote_video media revisions'
+  - 'revert any section block content revisions'
+  - 'revert any video media revisions'
+  - 'revert article revisions'
+  - 'revert event revisions'
+  - 'revert news revisions'
+  - 'revert page revisions'
+  - 'revert resource revisions'
+  - 'revert term revisions in areas_of_action'
+  - 'revert term revisions in audiences'
+  - 'revert term revisions in countries'
+  - 'revert term revisions in event_types'
+  - 'revert term revisions in languages'
+  - 'revert term revisions in licence_conditions'
+  - 'revert term revisions in media_types'
+  - 'revert term revisions in regions'
+  - 'revert term revisions in resource_status'
+  - 'revert term revisions in resource_types'
+  - 'revert term revisions in tags'
+  - 'revert update revisions'
+  - 'skip comment approval'
+  - 'translate any entity'
+  - 'translate areas_of_action taxonomy_term'
+  - 'translate article node'
+  - 'translate audiences taxonomy_term'
+  - 'translate block_content'
+  - 'translate countries taxonomy_term'
+  - 'translate editable entities'
+  - 'translate event node'
+  - 'translate event_types taxonomy_term'
+  - 'translate image media'
+  - 'translate languages taxonomy_term'
+  - 'translate licence_conditions taxonomy_term'
+  - 'translate media_types taxonomy_term'
+  - 'translate news node'
+  - 'translate paragraph'
+  - 'translate regions taxonomy_term'
+  - 'translate resource node'
+  - 'translate resource_status taxonomy_term'
+  - 'translate resource_types taxonomy_term'
+  - 'translate tags taxonomy_term'
+  - 'update any media'
+  - 'update content translations'
+  - 'update media'
+  - 'use advanced search'
+  - 'use editorial transition archive'
+  - 'use editorial transition archived_draft'
+  - 'use editorial transition archived_published'
+  - 'use editorial transition create_new_draft'
+  - 'use editorial transition publish'
+  - 'use editorial transition ready_for_review'
+  - 'use text format basic_html'
+  - 'use text format full_html'
+  - 'view all media revisions'
+  - 'view all revisions'
+  - 'view all taxonomy revisions'
+  - 'view any audio media revisions'
+  - 'view any banner block content history'
+  - 'view any basic block content history'
+  - 'view any document media revisions'
+  - 'view any hero block content history'
+  - 'view any image media revisions'
+  - 'view any link_items block content history'
+  - 'view any remote_video media revisions'
+  - 'view any section block content history'
+  - 'view any unpublished content'
+  - 'view any video media revisions'
+  - 'view article revisions'
+  - 'view event revisions'
+  - 'view latest version'
+  - 'view news revisions'
+  - 'view own unpublished content'
+  - 'view own unpublished media'
+  - 'view page revisions'
+  - 'view resource revisions'
+  - 'view term revisions in areas_of_action'
+  - 'view term revisions in audiences'
+  - 'view term revisions in countries'
+  - 'view term revisions in event_types'
+  - 'view term revisions in languages'
+  - 'view term revisions in licence_conditions'
+  - 'view term revisions in media_types'
+  - 'view term revisions in regions'
+  - 'view term revisions in resource_status'
+  - 'view term revisions in resource_types'
+  - 'view term revisions in tags'
+  - 'view the administration theme'
+  - 'view update revisions'
+  - 'view vocabulary labels'

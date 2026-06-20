@@ -1,0 +1,25 @@
+uuid: b5d2ec95-86b5-43b9-813a-5bf04a1c6711
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.contact
+  module:
+    - system
+  theme:
+    - unesco_oer_dc
+id: contact
+theme: unesco_oer_dc
+region: footer_top
+weight: -5
+provider: null
+plugin: 'system_menu_block:contact'
+settings:
+  id: 'system_menu_block:contact'
+  label: Contact
+  label_display: visible
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

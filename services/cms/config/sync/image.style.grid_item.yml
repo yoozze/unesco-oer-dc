@@ -1,0 +1,15 @@
+uuid: 3b331290-b98c-45cb-ade8-54bf9b455a9d
+langcode: en
+status: true
+dependencies: {  }
+name: grid_item
+label: 'Grid Item (342×208)'
+effects:
+  55e6d5d5-611b-47f7-bc07-90dbb4962cee:
+    uuid: 55e6d5d5-611b-47f7-bc07-90dbb4962cee
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 342
+      height: 208
+      anchor: center-center

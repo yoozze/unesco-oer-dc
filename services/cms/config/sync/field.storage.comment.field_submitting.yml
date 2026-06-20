@@ -1,0 +1,27 @@
+uuid: 4b9fb0d7-0ea5-446d-b353-592185c23277
+langcode: en
+status: true
+dependencies:
+  module:
+    - comment
+    - options
+id: comment.field_submitting
+field_name: field_submitting
+entity_type: comment
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: as_individual
+      label: 'as individual'
+    -
+      value: on_behalf_of_my_organization
+      label: 'on behalf of my organization'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

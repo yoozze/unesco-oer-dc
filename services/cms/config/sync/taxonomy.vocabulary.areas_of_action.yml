@@ -1,0 +1,9 @@
+uuid: 6b32f199-efb9-43d6-8ef9-4304f30be167
+langcode: en
+status: true
+dependencies: {  }
+name: 'Areas of Action'
+vid: areas_of_action
+description: 'The relevant Area of Action (topics and subtopics).'
+weight: 0
+new_revision: false

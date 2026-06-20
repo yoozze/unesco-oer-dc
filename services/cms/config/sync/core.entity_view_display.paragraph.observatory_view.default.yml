@@ -1,0 +1,60 @@
+uuid: ef0381b9-de87-40b7-917e-9035a4126f02
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.observatory_view.field_area_embeds
+    - field.field.paragraph.observatory_view.field_aspect_ratio
+    - field.field.paragraph.observatory_view.field_description
+    - field.field.paragraph.observatory_view.field_view_id
+    - field.field.paragraph.observatory_view.field_view_label
+    - paragraphs.paragraphs_type.observatory_view
+  module:
+    - entity_reference_revisions
+    - text
+id: paragraph.observatory_view.default
+targetEntityType: paragraph
+bundle: observatory_view
+mode: default
+content:
+  field_area_embeds:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_aspect_ratio:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_description:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_view_id:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_view_label:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden: {  }

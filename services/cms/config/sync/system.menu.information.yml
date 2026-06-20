@@ -1,0 +1,8 @@
+uuid: 5c02bff0-32a3-4f46-8f56-cf968e20c744
+langcode: en
+status: true
+dependencies: {  }
+id: information
+label: Information
+description: 'Website information pages links'
+locked: false

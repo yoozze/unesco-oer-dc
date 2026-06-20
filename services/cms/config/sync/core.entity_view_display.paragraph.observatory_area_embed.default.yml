@@ -1,0 +1,59 @@
+uuid: 4fdc993d-7ef2-4ec6-9456-fd79b70729b9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.observatory_area_embed.field_area
+    - field.field.paragraph.observatory_area_embed.field_embed_key
+    - field.field.paragraph.observatory_area_embed.field_embed_label
+    - field.field.paragraph.observatory_area_embed.field_iframe_url
+    - field.field.paragraph.observatory_area_embed.field_use_custom_area
+    - paragraphs.paragraphs_type.observatory_area_embed
+id: paragraph.observatory_area_embed.default
+targetEntityType: paragraph
+bundle: observatory_area_embed
+mode: default
+content:
+  field_area:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_embed_key:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_embed_label:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_iframe_url:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_use_custom_area:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden: {  }

@@ -1,0 +1,23 @@
+uuid: a706e62a-eb7a-48fd-9323-c2f2b895b6f4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_links
+    - node.type.news
+  module:
+    - link
+id: node.news.field_links
+field_name: field_links
+entity_type: node
+bundle: news
+label: Related
+description: 'This will direct users to more information, further resources, the source of the news piece, or to sign up for an event, either through the Portal or direct them to an external site. Once the system is running we will use hyperlinks here, but you can also link other content on other UNESCO sites. '
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  title: 1
+  link_type: 17
+field_type: link

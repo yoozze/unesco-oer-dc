@@ -1,0 +1,9 @@
+uuid: a790dbb6-9a27-469a-b2cf-8d8bfb812c0b
+langcode: en
+status: true
+dependencies: {  }
+name: Languages
+vid: languages
+description: 'The language of the document.'
+weight: 0
+new_revision: false

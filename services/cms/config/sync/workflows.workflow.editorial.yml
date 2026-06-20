@@ -1,0 +1,86 @@
+uuid: 06c0529a-4046-4947-9d84-40170a2926f5
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.event
+    - node.type.network
+    - node.type.news
+    - node.type.resource
+  module:
+    - content_moderation
+_core:
+  default_config_hash: T7gMMyFbTYLalxpIOnzJebvek2OW0b1RgLVE9I2y228
+id: editorial
+label: Editorial
+type: content_moderation
+type_settings:
+  states:
+    archived:
+      label: Archived
+      weight: 1
+      published: false
+      default_revision: true
+    draft:
+      label: Draft
+      weight: -2
+      published: false
+      default_revision: false
+    published:
+      label: Published
+      weight: 0
+      published: true
+      default_revision: true
+    review:
+      label: Review
+      weight: -1
+      published: false
+      default_revision: false
+  transitions:
+    archive:
+      label: Archive
+      from:
+        - published
+      to: archived
+      weight: 0
+    archived_draft:
+      label: 'Restore to Draft'
+      from:
+        - archived
+      to: draft
+      weight: 1
+    archived_published:
+      label: Restore
+      from:
+        - archived
+      to: published
+      weight: 2
+    create_new_draft:
+      label: 'Create New Draft'
+      from:
+        - draft
+        - published
+        - review
+      to: draft
+      weight: -3
+    publish:
+      label: Publish
+      from:
+        - draft
+        - published
+        - review
+      to: published
+      weight: -1
+    ready_for_review:
+      label: 'Ready for review'
+      from:
+        - draft
+      to: review
+      weight: -2
+  entity_types:
+    node:
+      - event
+      - network
+      - news
+      - resource
+  default_moderation_state: draft

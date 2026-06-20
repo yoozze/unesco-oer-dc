@@ -1,0 +1,20 @@
+uuid: 6ee42db2-1251-4abf-bbc4-1d7100859d6b
+langcode: en
+status: true
+dependencies:
+  module:
+    - basic_auth
+    - public_api
+    - serialization
+    - user
+id: public_api
+plugin_id: public_api
+granularity: resource
+configuration:
+  methods:
+    - GET
+  formats:
+    - json
+  authentication:
+    - basic_auth
+    - cookie

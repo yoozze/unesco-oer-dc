@@ -1,0 +1,19 @@
+uuid: 6b4da85e-e891-4ee4-8dee-dfe5dd518f1e
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.resource_feedback
+    - field.storage.comment.field_first_name
+id: comment.resource_feedback.field_first_name
+field_name: field_first_name
+entity_type: comment
+bundle: resource_feedback
+label: 'First name'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

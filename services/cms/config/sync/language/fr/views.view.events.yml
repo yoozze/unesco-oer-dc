@@ -1,0 +1,8 @@
+display:
+  events_view:
+    display_options:
+      menu:
+        title: Événements
+  default:
+    display_options:
+      title: Événements

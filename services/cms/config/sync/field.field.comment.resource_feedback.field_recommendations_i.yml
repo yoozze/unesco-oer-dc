@@ -1,0 +1,21 @@
+uuid: ad97ebd0-800c-4ebb-b55d-2553acd4a04d
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.resource_feedback
+    - field.storage.comment.field_recommendations_i
+  module:
+    - options
+id: comment.resource_feedback.field_recommendations_i
+field_name: field_recommendations_i
+entity_type: comment
+bundle: resource_feedback
+label: 'I: Building capacity of stakeholders to create, access, re-use, adapt, and redistribute OER'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

@@ -1,0 +1,23 @@
+uuid: 8baedbe6-b638-40be-bedb-d59e678c17b1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_url
+    - node.type.news
+  module:
+    - link
+id: node.news.field_url
+field_name: field_url
+entity_type: node
+bundle: news
+label: 'Link to more information'
+description: 'This will direct users to more information, further resources, the source of the news piece, or to sign up for an event, either through the Portal or direct them to an external site. '
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  title: 1
+  link_type: 17
+field_type: link

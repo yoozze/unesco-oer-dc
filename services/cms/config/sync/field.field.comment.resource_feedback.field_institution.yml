@@ -1,0 +1,19 @@
+uuid: b3a43997-1ca5-46c2-b1f4-f87f5607362b
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.resource_feedback
+    - field.storage.comment.field_institution
+id: comment.resource_feedback.field_institution
+field_name: field_institution
+entity_type: comment
+bundle: resource_feedback
+label: Institution
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

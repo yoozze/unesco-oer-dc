@@ -1,0 +1,25 @@
+uuid: aea1bbb0-37c5-4f80-a734-a095a9e567ad
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.follow-us
+  module:
+    - system
+  theme:
+    - unesco_oer_dc
+id: followus
+theme: unesco_oer_dc
+region: footer_top
+weight: -6
+provider: null
+plugin: 'system_menu_block:follow-us'
+settings:
+  id: 'system_menu_block:follow-us'
+  label: 'Follow us'
+  label_display: visible
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

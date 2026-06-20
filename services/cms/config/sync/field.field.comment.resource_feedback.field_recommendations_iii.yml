@@ -1,0 +1,21 @@
+uuid: bc230c34-085d-4a05-9fc6-8401b464081c
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.resource_feedback
+    - field.storage.comment.field_recommendations_iii
+  module:
+    - options
+id: comment.resource_feedback.field_recommendations_iii
+field_name: field_recommendations_iii
+entity_type: comment
+bundle: resource_feedback
+label: 'III: Encouraging inclusive and equitable quality OER'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

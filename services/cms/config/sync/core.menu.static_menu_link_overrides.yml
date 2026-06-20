@@ -1,0 +1,27 @@
+_core:
+  default_config_hash: CXhei_vpaZk-3f_Mj2cH0YmpK-ZpKHoSzVA3yZrDq0g
+definitions:
+  contact__site_page:
+    weight: -49
+    menu_name: secondary-navigation
+    parent: ''
+    enabled: true
+    expanded: false
+  standard__front_page:
+    weight: -50
+    enabled: false
+    menu_name: main
+    parent: ''
+    expanded: false
+  'admin_toolbar_tools__extra_links:node__add__activity':
+    enabled: false
+    menu_name: admin
+    parent: 'admin_toolbar_tools.extra_links:node.add'
+    expanded: false
+    weight: 0
+  'admin_toolbar_tools__extra_links:node__add__network':
+    enabled: false
+    menu_name: admin
+    parent: 'admin_toolbar_tools.extra_links:node.add'
+    weight: 0
+    expanded: false

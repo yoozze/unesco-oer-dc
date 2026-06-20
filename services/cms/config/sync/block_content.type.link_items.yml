@@ -1,0 +1,8 @@
+uuid: 5ae0a786-de00-4e93-b744-6a40b2dce60f
+langcode: en
+status: true
+dependencies: {  }
+id: link_items
+label: 'Link Items'
+revision: false
+description: 'Link items block.'

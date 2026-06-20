@@ -1,0 +1,24 @@
+uuid: 38adc637-072e-4a44-8031-abf4db867fc4
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.resource_feedback
+    - field.storage.comment.field_comment_action_area_iii
+    - filter.format.basic_html
+  module:
+    - text
+id: comment.resource_feedback.field_comment_action_area_iii
+field_name: field_comment_action_area_iii
+entity_type: comment
+bundle: resource_feedback
+label: 'Comment (action area iii)'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats:
+    - basic_html
+field_type: text_long

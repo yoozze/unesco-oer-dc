@@ -1,0 +1,15 @@
+_core:
+  default_config_hash: VDJxTZtQR21qB4lvOq8zszJZLvLKrSPQpdn2E3T71Ww
+langcode: en
+uuid: fe920af8-30ed-4a8f-ac56-e7dadadb3981
+name: 'UNESCO OER Dynamic Coalition Portal'
+mail: info@oerdynamiccoalition.org
+slogan: ''
+page:
+  403: ''
+  404: ''
+  front: /node/223
+admin_compact_mode: false
+weight_select_max: 100
+default_langcode: en
+mail_notification: ''

@@ -1,0 +1,24 @@
+uuid: f9f4b99d-c3a1-4510-9073-faadd3e09e34
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_description
+    - node.type.news
+  module:
+    - text
+id: node.news.field_description
+field_name: field_description
+entity_type: node
+bundle: news
+label: Description
+description: 'This will include the news content that will be displayed. Note that it can be short and link to something else or an external site.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+  required_summary: false
+  allowed_formats: {  }
+field_type: text_with_summary

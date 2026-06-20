@@ -1,0 +1,33 @@
+uuid: 0d49a5ef-16ac-4a07-91f7-7dd0f31ed61a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_audience
+    - node.type.event
+    - taxonomy.vocabulary.audiences
+  content:
+    - 'taxonomy_term:audiences:88069439-bc32-41e9-a946-f6652b1cb17f'
+id: node.event.field_audience
+field_name: field_audience
+entity_type: node
+bundle: event
+label: Audience
+description: 'Tagging event resources with this metadata will help audience types search content specifically aimed at them. These could be from the identified stakeholder list, but does not have to be limited to this list. '
+required: true
+translatable: true
+default_value:
+  -
+    target_uuid: 88069439-bc32-41e9-a946-f6652b1cb17f
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      audiences: audiences
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

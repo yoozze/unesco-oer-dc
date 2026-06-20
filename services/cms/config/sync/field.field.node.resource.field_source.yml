@@ -1,0 +1,19 @@
+uuid: 71e08cdc-0543-4aba-bb34-eb7290afc20e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_source
+    - node.type.resource
+id: node.resource.field_source
+field_name: field_source
+entity_type: node
+bundle: resource
+label: Source/Publisher
+description: 'Enter the source of the document or name of the organization that has published the resource. This will be the original publisher or document source.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,20 @@
+_core:
+  default_config_hash: zmm-fQ8G89G2R7Se5kE4s6A5astPdyWlH_omoGrBkJs
+reading_time:
+  container:
+    activity:
+      is_activated: 0
+    article:
+      is_activated: 0
+    event:
+      is_activated: 0
+    network:
+      is_activated: 0
+    news:
+      is_activated: 1
+    page:
+      is_activated: 0
+    resource:
+      is_activated: 0
+  words_per_minute: 225
+  unit_of_time: minute

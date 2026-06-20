@@ -1,0 +1,30 @@
+uuid: 5785ff2a-697c-4a3c-9285-98f121b316d3
+langcode: en
+status: true
+dependencies:
+  module:
+    - comment
+    - options
+id: comment.field_gender
+field_name: field_gender
+entity_type: comment
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: female
+      label: Female
+    -
+      value: male
+      label: Male
+    -
+      value: other
+      label: Other
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

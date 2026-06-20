@@ -273,7 +273,7 @@ $databases['default']['default'] = [
  */
 # $settings['config_sync_directory'] = '/directory/outside/webroot';
 
-$settings['config_sync_directory'] = 'sites/default/files/config_' . getenv('DRUPAL_HASH_SALT') . '/sync';
+$settings['config_sync_directory'] = '../config/sync';
 
 /**
  * Settings:

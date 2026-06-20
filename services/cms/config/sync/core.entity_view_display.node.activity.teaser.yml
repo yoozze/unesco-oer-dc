@@ -1,0 +1,56 @@
+uuid: 879e1239-2a3a-4a3c-8c4f-1f23f04e4006
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.activity.field_area_of_action
+    - field.field.node.activity.field_audience
+    - field.field.node.activity.field_country
+    - field.field.node.activity.field_description
+    - field.field.node.activity.field_links
+    - field.field.node.activity.field_logo
+    - field.field.node.activity.field_region
+    - field.field.node.activity.field_tags
+    - field.field.node.activity.field_url
+    - node.type.activity
+  module:
+    - text
+    - user
+id: node.activity.teaser
+targetEntityType: node
+bundle: activity
+mode: teaser
+content:
+  addtoany:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_description:
+    type: text_trimmed
+    label: above
+    settings:
+      trim_length: 200
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_logo:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  field_area_of_action: true
+  field_audience: true
+  field_country: true
+  field_links: true
+  field_region: true
+  field_tags: true
+  field_url: true
+  langcode: true
+  links: true
+  node_read_time: true

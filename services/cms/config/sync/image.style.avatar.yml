@@ -1,0 +1,15 @@
+uuid: 58823187-41b9-441a-b9d2-cc14e32a0a8d
+langcode: en
+status: true
+dependencies: {  }
+name: avatar
+label: 'Avatar (320x320)'
+effects:
+  f0b7b623-f0c3-40ae-9a03-e32ff44b9f24:
+    uuid: f0b7b623-f0c3-40ae-9a03-e32ff44b9f24
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 320
+      height: 320
+      anchor: center-center

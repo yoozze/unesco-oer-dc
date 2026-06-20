@@ -1,0 +1,21 @@
+uuid: 9443eb5d-5517-4932-9da0-448f82c99f41
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.resource_feedback
+    - field.storage.comment.field_recommendations_ii
+  module:
+    - options
+id: comment.resource_feedback.field_recommendations_ii
+field_name: field_recommendations_ii
+entity_type: comment
+bundle: resource_feedback
+label: 'II: Developing supportive policy'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

@@ -1,0 +1,18 @@
+uuid: 361e6050-dffe-4d45-a083-7a59e3993708
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.link_items
+id: block_content.link_items.info
+field_name: info
+entity_type: block_content
+bundle: link_items
+label: 'Block description'
+description: 'A brief description of your block.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

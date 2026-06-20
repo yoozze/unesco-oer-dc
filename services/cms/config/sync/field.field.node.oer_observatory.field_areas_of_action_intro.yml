@@ -1,0 +1,26 @@
+uuid: 694a450f-6a2b-4e3c-8b61-5d335bb0ec5f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_areas_of_action_intro
+    - filter.format.full_html
+    - node.type.oer_observatory
+  module:
+    - text
+id: node.oer_observatory.field_areas_of_action_intro
+field_name: field_areas_of_action_intro
+entity_type: node
+bundle: oer_observatory
+label: 'Areas of action introduction'
+description: 'Shown in a collapsible section below the area selector. Describes the five UNESCO OER Action Areas.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+  required_summary: true
+  allowed_formats:
+    - full_html
+field_type: text_with_summary

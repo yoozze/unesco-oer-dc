@@ -1,0 +1,23 @@
+uuid: 817c5a18-7201-4f40-bee0-18814ce94a6b
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.resource_category
+  module:
+    - taxonomy
+id: resource_category_path
+label: 'Resource Category path'
+type: 'canonical_entities:taxonomy_term'
+pattern: '/[term:parents:join-path]/[term:name]'
+selection_criteria:
+  15618885-e19b-4780-b50e-39f80f95bc94:
+    id: 'entity_bundle:taxonomy_term'
+    negate: false
+    context_mapping:
+      taxonomy_term: taxonomy_term
+    bundles:
+      resource_category: resource_category
+selection_logic: and
+weight: -5
+relationships: {  }
