@@ -89,10 +89,15 @@ if [ $MODE = "--setup" ]; then
             npm run build
         "
     fi
+    PROD_SETUP=""
+    if [ $ENV = "production" ]; then
+        PROD_SETUP="drush pm:uninstall devel devel_generate -y 2>/dev/null || true &&"
+    fi
     docker exec ${PROJECT_NAME}_cms sh -c "
         bash drupal.sh --fix-permissions &&
         drush updatedb -y &&
         drush config:import -y &&
+        ${PROD_SETUP}
         drush cache:rebuild
     "
 fi
