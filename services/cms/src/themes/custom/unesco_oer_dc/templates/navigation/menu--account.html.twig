@@ -45,9 +45,9 @@
     <a class="c-navigation__button c-button c-button--tonal" href="{{ path(item.url.routeName) }}">
         {# {{ svg_icon('login', 'c-button__leading-icon') }} #} <span class="c-button__label">{{ item.title }}</span>
     </a>
-    {% if join_link %}
-        <a class="c-navigation__button c-button c-button--outlined" href="{{ join_link }}" target="_blank">
-            <span class="c-button__label">{{ 'Join'|t }}</span> {{ svg_icon('open-in-new', 'c-button__trailing-icon') }}
+    {% if show_register_link %}
+        <a class="c-navigation__button c-button c-button--outlined" href="{{ path('user.register') }}">
+            <span class="c-button__label">{{ 'Sign up'|t }}</span>
         </a>
     {% endif %}
 {% endif %}

@@ -43,7 +43,7 @@
         {{ element.actions }}
     </div>
     <div class="c-form__footer">
-        <a class="c-form__button c-button c-button--text" href="/user/login">
+        <a class="c-form__button c-button c-button--text" href="{{ path('user.login') }}">
             {{ svg_icon('lock-open', 'c-button__leading-icon') }}
             <span class="c-button__label">{{ 'Log in'|t }}</span>
         </a>

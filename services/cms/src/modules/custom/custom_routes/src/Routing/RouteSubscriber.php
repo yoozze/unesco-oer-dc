@@ -8,8 +8,6 @@ use Symfony\Component\Routing\RouteCollection;
 
 class RouteSubscriber extends RouteSubscriberBase /* implements ContainerInjectionInterface */ {
     protected function alterRoutes(RouteCollection $collection) {
-        if ($route = $collection->get('user.register')) {
-            $route->setPath('/signup/unescooerdynamiccoalitionportal'); // Change the path
-        }
+        // Reserved for future route alterations.
     }
 }
