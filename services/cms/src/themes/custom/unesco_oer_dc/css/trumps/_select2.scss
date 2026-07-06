@@ -87,8 +87,10 @@
 .select2-container--default .select2-selection__clear {
     @include transition('background-color');
 
+    height: auto !important;
     margin-left: auto;
-    padding: size(0.625);
+    margin-right: 0 !important;
+    padding: size(0.625) !important;
     font-size: 0;
     line-height: 0;
     transform: scale(0.825);
@@ -99,8 +101,12 @@
     }
 
     // &:hover {
-    //     background-color: rgba(color('red'), size('opacity' 5));
+    //     background-color: rgba(color('red'), size('opacity' 5)) !important;
     // }
+    
+    span {
+        display: none;
+    }
 }
 
 .select2-selection__arrow {
