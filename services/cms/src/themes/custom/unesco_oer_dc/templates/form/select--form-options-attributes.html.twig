@@ -1,0 +1,27 @@
+{#
+/**
+ * @file
+ * Theme override for a select element from the form_options_attributes module.
+ * Original template: services/cms/src/modules/contrib/form_options_attributes/templates/select--form-options-attributes.html.twig
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the <select> tag.
+ * - options: The <option> element children.
+ * - options_attributes: The <option> element attributes.
+ */
+ #}
+{% apply spaceless %}
+    <select{{ attributes.addClass('c-form__select') }}>
+        {% for option in options %}
+            {% if option.type == 'optgroup' %}
+                <optgroup label="{{ option.label }}">
+                    {% for sub_option in option.options %}
+                        <option value="{{ sub_option.value }}"{{ sub_option.selected ? ' selected="selected"' }} {{ options_attributes[option.label][sub_option.value] }}>{{ sub_option.label }}</option>
+                    {% endfor %}
+                </optgroup>
+            {% elseif option.type == 'option' %}
+                <option value="{{ option.value }}"{{ option.selected ? ' selected="selected"' }} {{ options_attributes[option.value] }}>{{ option.label }}</option>
+            {% endif %}
+        {% endfor %}
+    </select>
+{% endapply %}
