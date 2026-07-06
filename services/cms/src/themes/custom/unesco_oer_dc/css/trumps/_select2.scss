@@ -43,16 +43,13 @@
         @include font('label-large');
 
         margin: size(0.5) !important;
-        padding: size(0.75) size(1.5) size(0.75) size(0.75) !important;
+        padding: size(0.75) size(1.5) size(0.75) size(4.25) !important;
         background-color: rgba(color('menu-link-bg'), size('opacity' 3)) !important;
         border-width: 0 !important;
         border-radius: size('radius' 4) !important;
 
         span {
             display: inline-block;
-            margin-top: negative(2px);
-            margin-bottom: negative(1px);
-            vertical-align: middle;
         }
     }
 }
@@ -61,15 +58,13 @@
     .select2-selection--multiple & {
         @include transition('background-color');
 
-        position: relative !important;
+        top: 50% !important;
+        left: size(0.75) !important;
+        transform: translateY(-50%) scale(0.825) !important;
+        display: flex;
         padding: size(0.625) !important;
-        margin-top: negative(4px);
-        margin-right: size(1) !important;
-        margin-bottom: negative(2px);
-        margin-left: negative(1px);
         line-height: 0;
         font-size: 0;
-        vertical-align: middle;
         transform: scale(0.825);
         border: none !important;
         border-radius: 50% !important;
