@@ -82,6 +82,7 @@ pre.sf-dump .sf-dump-default {
 }
 
 // ## Password Strength
+// --------------------
 
 .password-strength {}
 
@@ -113,4 +114,18 @@ pre.sf-dump .sf-dump-default {
 .password-strength__title {
     @include font('body-small');
     color: color('font-muted');
+}
+
+// ## Media library widget
+// -----------------------
+
+.js-media-library-widget {
+    .c-form__container--js-media-library-selection {
+        margin-bottom: size(2);
+    }
+}
+
+.js-media-library-open-button {
+    margin-right: size(1);
+    margin-bottom: size(2);
 }
