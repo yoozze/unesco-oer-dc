@@ -68,3 +68,10 @@ $button-size: size(5);
     padding-right: size(1.25);
     padding-left: size(1.25);
 }
+
+// ## Mini pager (e.g. media library modal)
+// ----------------------------------------
+
+.c-pager--mini {
+    justify-content: center;
+}

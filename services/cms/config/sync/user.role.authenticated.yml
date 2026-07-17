@@ -4,6 +4,8 @@ status: true
 dependencies:
   config:
     - filter.format.basic_html
+    - media.type.image
+    - media.type.remote_video
     - node.type.event
     - node.type.news
     - rest.resource.public_api
@@ -35,9 +37,15 @@ permissions:
   - 'access user contact forms'
   - 'access user profiles'
   - 'create event content'
+  - 'create image media'
   - 'create news content'
+  - 'create remote_video media'
   - 'delete own files'
+  - 'delete own image media'
+  - 'delete own remote_video media'
   - 'display eu cookie compliance popup'
+  - 'edit own image media'
+  - 'edit own remote_video media'
   - 'opt-in or out of google analytics tracking'
   - 'post comments'
   - 'restful get public_api'

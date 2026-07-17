@@ -20,13 +20,19 @@
  */
 #}
 {% set base_class = has_parent ? 'c-form__container' : 'c-container' %}
+{% set preserved_classes = [] %}
+{% for class in attributes.class ?? [] %}
+    {% if class[:3] == 'js-' or class in ['views-element-container', 'media-library-content', 'media-library-wrapper', 'form-actions', 'field-actions'] %}
+        {% set preserved_classes = preserved_classes|merge([class]) %}
+    {% endif %}
+{% endfor %}
 {% set classes = [
     has_parent ? 'js-form-wrapper',
     has_parent ? 'form-wrapper',
     base_class,
     element['#type'] ? base_class ~ '--' ~ element['#type']|clean_class,
     element['#name'] ? base_class ~ '--' ~ element['#name']|clean_class,
-]|merge((attributes.class ?? [])|map(c => base_class ~ '--' ~ c|replace({'container-' : ''}))) %}
+]|merge((attributes.class ?? [])|map(c => base_class ~ '--' ~ c|replace({'container-' : ''})))|merge(preserved_classes) %}
 <div{{attributes.setAttribute('class',classes)}}>
     {{ children }}
     {# {{ dump() }} #}

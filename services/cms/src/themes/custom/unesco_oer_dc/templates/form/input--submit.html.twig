@@ -13,11 +13,12 @@
 {% set icon = element['#icon'] %}
 {% set leading_icon = element['#leading_icon'] %}
 {% set trailing_icon = element['#trailing_icon'] %}
+{% set button_variant = element['#button_variant']|default('filled') %}
 {% set classes = [
     'c-form__button',
     'c-form__button--submit',
     icon ? 'c-icon-button' : 'c-button',
-    icon ? 'c-icon-button--standard' : 'c-button--filled',
+    icon ? 'c-icon-button--standard' : 'c-button--' ~ button_variant,
 ] %}
 <button{{attributes.addClass(classes)}}>
     {% if leading_icon %}

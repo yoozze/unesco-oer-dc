@@ -1,0 +1,17 @@
+{#
+/**
+ * @file
+ * Theme override for selected media items in the media library widget.
+ */
+#}
+{%
+  set classes = [
+    has_parent ? 'js-form-wrapper',
+    has_parent ? 'form-wrapper',
+    'media-library-selection',
+    'js-media-library-selection',
+  ]
+%}
+<div{{ attributes.addClass(classes) }}>
+    {{ children }}
+</div>

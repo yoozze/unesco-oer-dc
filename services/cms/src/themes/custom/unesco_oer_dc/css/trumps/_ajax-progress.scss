@@ -22,3 +22,22 @@ $progress-size: size(6);
     background-size: contain;
     opacity: 1;
 }
+
+.ajax-progress-throbber {
+    display: flex;
+    align-items: center;
+    gap: size(1);
+    margin: size(0.5) 0;
+
+    .throbber {
+        width: size(2.5);
+        height: size(2.5);
+        background-image: url(image-data('progress'));
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+
+    // .message {
+    //     @include hide-visually();
+    // }
+}

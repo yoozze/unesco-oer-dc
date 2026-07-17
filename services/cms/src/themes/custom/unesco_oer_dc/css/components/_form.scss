@@ -359,8 +359,7 @@ $page-width: size('page-width');
 .c-form__fieldset {
     box-sizing: border-box;
     padding: size(1) size(3);
-    margin-left: 0;
-    margin-bottom: size(3);
+    margin: 0 0 size(3);
     border: 1px solid color('border');
     border-radius: size('radius' 3);
 }

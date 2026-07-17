@@ -20,6 +20,10 @@ function unesco_oer_dc_theme_suggestions_views_view_alter(&$suggestions, &$varia
     if (in_array($current_display, $content_type_views)) {
         $suggestions[] = 'views_view__content_listing';
     }
+
+    if ($variables['view']->id() === 'media_library' && in_array($current_display, ['widget', 'widget_table'], TRUE)) {
+        $suggestions[] = 'views_view__media_library';
+    }
 }
 
 function unesco_oer_dc_preprocess_views_view(&$variables) {

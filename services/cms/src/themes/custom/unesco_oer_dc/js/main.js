@@ -6,6 +6,7 @@ import ObservatoryForm from './components/ObservatoryForm';
 import SearchFormBlock from './components/SearchFormBlock';
 import MainNavigation from './components/MainNavigation';
 import ViewsExposedForm from './components/ViewsExposedForm';
+import './components/MediaLibraryDialog';
 
 // import './misc/debug';
 

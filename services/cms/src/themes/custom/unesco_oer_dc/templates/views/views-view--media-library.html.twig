@@ -1,0 +1,45 @@
+{#
+/**
+ * @file
+ * Theme override for the media library view.
+ *
+ * Renders filters before the grid/table display switcher.
+ */
+#}
+{%
+  set classes = [
+    dom_id ? 'js-view-dom-id-' ~ dom_id,
+  ]
+%}
+<div{{ attributes.addClass(classes) }}>
+    {{ title_prefix }}
+    {{ title }}
+    {{ title_suffix }}
+
+    {{ exposed }}
+    {{ attachment_before }}
+
+    {% if header %}
+        <header class="media-library-view__header">
+            {{ header }}
+        </header>
+    {% endif %}
+
+    {% if rows -%}
+        {{ rows }}
+    {% elseif empty -%}
+        {{ empty }}
+    {% endif %}
+
+    {{ pager }}
+    {{ attachment_after }}
+    {{ more }}
+
+    {% if footer %}
+        <footer>
+            {{ footer }}
+        </footer>
+    {% endif %}
+
+    {{ feed_icons }}
+</div>

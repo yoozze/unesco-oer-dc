@@ -16,6 +16,14 @@ function unesco_oer_dc_theme_suggestions_container_alter(&$suggestions, &$variab
     if (!empty($variables['element']['#block_name'])) {
         $suggestions[] = 'container__' . clean_suggetion($variables['element']['#block_name']);
     }
+
+    if (
+        !empty($variables['element']['#attributes']['class'])
+        && is_array($variables['element']['#attributes']['class'])
+        && in_array('js-media-library-selection', $variables['element']['#attributes']['class'], TRUE)
+    ) {
+        $suggestions[] = 'container__media_library_widget_selection';
+    }
 }
 
 // function unesco_oer_dc_preprocess_container(&$variables) {

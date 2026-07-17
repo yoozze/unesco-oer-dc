@@ -1,0 +1,567 @@
+// # Media library dialog
+// ======================
+// Styles for the Drupal media library modal (jQuery UI dialog).
+
+$media-library-checkbox-size: size(3);
+$media-library-dialog-bg: color('background-alt');
+
+// ## Overlay / z-index
+// --------------------
+
+body:has(.media-library-widget-modal) > .ui-widget-overlay {
+    z-index: z-index('overlay') !important;
+    opacity: 1 !important;
+    background-color: rgba(color('abbey-10'), size('opacity' 8)) !important;
+    backdrop-filter: blur(size(4px));
+}
+
+.js-media-library-widget-toggle-weight {
+    display: none !important;
+}
+
+.ui-dialog.media-library-widget-modal {
+    @include elevation(5, $important: true);
+
+    top: 50% !important;
+    left: 50% !important;
+    z-index: z-index('dialog');
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 2 * size('gutter')) !important;
+    max-width: size('grid-size-8');
+    padding: 0;
+    background-color: $media-library-dialog-bg;
+    border: 0;
+    border-radius: size('radius' 7);
+    overflow: hidden;
+    transform: translate(-50%, -50%) !important;
+
+    // ## Buttons
+    // ----------
+
+    .c-button {
+        .c-button__label {
+            @include font('label-large', $important: true);
+        }
+    }
+
+    // ## Title bar
+    // ------------
+
+    .ui-dialog-titlebar {
+        display: flex;
+        flex-shrink: 0;
+        align-items: center;
+        justify-content: flex-start;
+        gap: size(2);
+        padding: size(3);
+        background-color: $media-library-dialog-bg;
+        border: 0;
+        border-bottom: 1px solid color('border');
+
+        @include before(none);
+        @include after(none);
+    }
+
+    .ui-dialog-title {
+        @include font('title-large');
+        // @include font('headline-small');
+
+        flex: 1 1 auto;
+        float: none;
+        width: auto;
+        min-width: 0;
+        margin: 0;
+        color: color('font');
+    }
+
+    .ui-dialog-titlebar-close {
+        @extend .c-icon-button;
+        @extend .c-icon-button--standard;
+
+        top: auto;
+        right: auto;
+        margin: negative(6px) negative(6px) negative(6px) 0;
+
+        .ui-button-icon {
+            position: relative;
+            top: auto;
+            left: auto;
+            width: size(3);
+            height: size(3);
+            margin: 0;
+            padding: 0;
+            border: 0;
+            background-image: url(image-data('close'));
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .ui-button-icon-space {
+            display: none;
+        }
+    }
+
+    // ## Content
+    // ----------
+
+    .ui-dialog-content {
+        max-height: calc(100vh - 2 * size('gutter') - size(180px)) !important;
+        padding: size(3);
+        color: color('font');
+        background-color: $media-library-dialog-bg;
+    }
+
+    .media-library-content,
+    .c-container--media-library-content {
+        width: 100%;
+    }
+
+    // ## Add files form
+    // -----------------
+
+    .js-media-library-add-form {
+        margin-bottom: size(3);
+
+        &:has(.js-media-library-add-form-added-media) {
+            margin-bottom: 0;
+        }
+
+        .c-form__control--type_managed-file .form-managed-file ~ .c-form__label {
+            @include input-label();
+            @include input-label-minimized();
+        }
+    }
+
+    .js-media-library-add-form-added-media {
+        display: flex;
+        flex-direction: column;
+        gap: size(3);
+        padding: 0;
+        margin: 0;
+        list-style: none;
+
+        li {
+            display: grid;
+            grid-template-columns: size(20) 1fr; // or size(20) 1fr
+            grid-template-areas:
+                'thumbnail form'
+                'actions   form';
+            gap: size(2);
+            align-items: start; // keeps Remove under the preview, not stretched
+            border-bottom: 1px solid color('border');
+
+            &:last-child {
+                border-bottom-width: 0;
+                margin-bottom: negative(3);
+            }
+
+            [data-drupal-selector='edit-preview'] {
+                grid-area: thumbnail;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+
+                img {
+                    max-height: size(170px);
+                }
+            }
+
+            [data-drupal-selector='edit-remove-button'] {
+                grid-area: actions;
+            }
+
+            [data-drupal-selector^='edit-media-'][data-drupal-selector$='-fields'] {
+                grid-area: form;
+                max-width: 100%;
+                min-width: 0; // allow shrinking inside the 1fr track
+            }
+
+            .c-form__control--type_managed-file {
+                .form-managed-file {
+                    .c-form__field {
+                        margin-bottom: 0;
+                    }
+
+                    ~ .c-form__label {
+                        display: none;
+                    }
+                }
+            }
+
+            .c-form__input[readonly] {
+                @include truncate-text();
+            }
+
+            @include below('bp-sm') {
+                display: flex;
+                flex-direction: column;
+                gap: 0;
+
+                [data-drupal-selector='edit-preview'] {
+                    margin-bottom: size(3);
+
+                    img {
+                        max-height: none;
+                    }
+                }
+
+                [data-drupal-selector='edit-remove-button'] {
+                    margin-bottom: size(3);
+                }
+
+                .form-submit {
+                    width: 100%;
+                }
+            }
+        }
+
+        & + details {
+            margin-top: size(3);
+            margin-bottom: 0;
+
+            .c-details__body {
+                display: flex;
+                flex-direction: column;
+                gap: size(1);
+            }
+
+            .js-media-library-item-preview {
+                flex-grow: 0 !important;
+                flex-shrink: 1 !important;
+                aspect-ratio: unset !important;
+
+                & + div {
+                    flex-grow: 1 !important;
+                    margin-top: 0 !important;
+                }
+            }
+
+            article {
+                display: flex;
+                gap: size(2);
+                width: 100%;
+                padding: size(2);
+
+                img {
+                    position: static !important;
+                }
+            }
+        }
+    }
+
+    .c-status-messages__item {
+        margin: negative(3) negative(3) size(3);
+    }
+
+    // ## Filters
+    // ----------
+
+    .c-form--views-exposed-form {
+        @include elevation(1);
+
+        padding: size(4) size(3);
+        margin-bottom: size(3);
+        background-color: color('background');
+        border-radius: size('radius' 4);
+
+        .c-form__actions {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: size(1);
+            margin: 0;
+
+            & > * {
+                margin: 0;
+
+                @include below('bp-sm') {
+                    width: 100%;
+
+                    .c-button {
+                        width: 100%;
+                    }
+                }
+            }
+
+            .form-actions,
+            .c-form__container--form-actions {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                gap: size(1);
+                margin: 0;
+            }
+        }
+    }
+
+    // ## View switcher (Grid / Table)
+    // -------------------------------
+
+    .media-library-view__header {
+        display: flex;
+        gap: size(1);
+        margin-bottom: size(2);
+    }
+
+    .views-display-link {
+        @extend .c-button;
+        @extend .c-button--outlined;
+        @extend .c-pager__link;
+
+        margin: 0;
+    }
+
+    // ## Media grid
+    // -------------
+
+    .js-media-library-views-form {
+        &:not(:has(.media-library-item--table)) {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(size(180px), 1fr));
+            gap: size(2);
+        }
+
+        &:has(.media-library-item--table) {
+            display: block;
+            border: 1px solid color('border');
+            border-radius: size('radius' 4);
+            background-color: color('light');
+            overflow: auto;
+        }
+
+        & > .form-wrapper {
+            display: none;
+        }
+
+        // ## Media table
+        // --------------
+
+        > table {
+            width: 100%;
+            border-collapse: collapse;
+
+            thead {
+                th {
+                    @include font('label-large');
+
+                    padding: size(2);
+                    text-align: left;
+                    border-bottom: 1px solid color('border');
+                }
+            }
+
+            tbody {
+                tr {
+                    &:last-child {
+                        td {
+                            border-bottom-width: 0;
+                        }
+                    }
+                }
+
+                td {
+                    @include font('body-medium');
+
+                    min-width: 0;
+                    padding: size(2);
+                    border-bottom: 1px solid color('border');
+                }
+
+                .views-field-thumbnail__target-id {
+                    img {
+                        display: block;
+                        width: size(10);
+                        height: size(10);
+                        object-fit: cover;
+                        border-radius: size('radius' 2);
+                    }
+                }
+
+                .views-field-uid,
+                .views-field-changed {
+                    color: color('font-muted');
+                }
+            }
+        }
+    }
+
+    // ## Media item
+    // -------------
+
+    .js-media-library-item {
+        position: relative;
+        margin: 0;
+        outline: none;
+    }
+
+    .js-media-library-item:not(.media-library-item--table) {
+        display: flex;
+        flex-direction: column;
+
+        .views-field-rendered-entity {
+            flex-grow: 1;
+            cursor: pointer;
+        }
+
+        article {
+            height: 100%;
+
+            > div:last-child {
+                @include font('body-medium');
+
+                margin-top: size(1);
+                word-break: break-all;
+            }
+        }
+
+        .js-media-library-item-preview {
+            @include transition('box-shadow', 0.25s);
+
+            position: relative;
+            display: flex;
+            flex-grow: 1;
+            justify-content: center;
+            align-items: center;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            background-color: color('light');
+            border: 1px solid color('border-light');
+            border-radius: size('radius' 3);
+
+            img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+        }
+
+        &.is-hover {
+            .js-media-library-item-preview {
+                @include elevation(3);
+            }
+        }
+
+        .c-field--field-media-caption {
+            @include hide-visually();
+        }
+    }
+
+    // ## Selection checkbox
+    // --------------------
+
+    .js-click-to-select-checkbox {
+        position: absolute;
+        top: size(1.375);
+        left: size(1.75);
+        z-index: 2;
+
+        .c-form__label {
+            position: static !important;
+            clip: auto !important;
+            width: auto;
+            height: auto;
+
+            @include before(null) {
+                background-color: color('light');
+            }
+
+            span {
+                @include hide-visually();
+            }
+        }
+
+        :checked {
+            ~ .c-form__label {
+                @include before(null) {
+                    background-color: color('active');
+                }
+            }
+        }
+    }
+
+    .media-library-item--table .c-form__field--type_checkbox {
+        margin-bottom: 0;
+        margin-left: size(1.5);
+
+        .c-form__label {
+            position: static !important;
+            clip: auto !important;
+            width: auto;
+            height: auto;
+
+            span {
+                @include hide-visually();
+            }
+        }
+    }
+
+    // ## Pager
+    // --------
+
+    .c-pager--mini {
+        grid-column: 1 / -1;
+        justify-content: center;
+        margin-top: size(2);
+
+        .c-pager__item--next,
+        .c-pager__item--previous {
+            .c-pager__link {
+                padding: size(11px);
+            }
+
+            svg {
+                margin: 0;
+            }
+        }
+
+        .c-pager__link--number {
+            padding: size(9px) size(18px);
+        }
+    }
+
+    // ## Dialog footer
+    // ----------------
+
+    .ui-dialog-buttonpane {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        gap: size(2);
+        padding: size(3);
+        margin: 0;
+        background-color: $media-library-dialog-bg;
+        border-top: 1px solid color('border');
+
+        @include after(none);
+        @include before(none);
+
+        .button {
+            margin: 0;
+        }
+    }
+
+    .ui-dialog-buttonset {
+        display: flex;
+        flex: 1 1 auto;
+        align-items: center;
+        justify-content: flex-end;
+        gap: size(1);
+
+        .form-actions {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: flex-end;
+            gap: size(1);
+        }
+    }
+
+    .media-library-selected-count {
+        color: color('font-muted');
+    }
+}

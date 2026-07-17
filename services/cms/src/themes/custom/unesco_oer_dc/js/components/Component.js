@@ -130,7 +130,13 @@ class Component {
             ...options,
             ...JSON.parse(this.element.dataset.options || '{}'),
         };
-        this.element.dataset.id = uniqueId(`${this.constructor.bem()}#`);
+        // Persist component identity across repeated init() calls.
+        // Many pages re-run init logic (AJAX, behaviors, polling) and we must not
+        // overwrite an existing id, otherwise init() can't find the old instance
+        // and will continuously create new ones.
+        if (!this.element.dataset.id) {
+            this.element.dataset.id = uniqueId(`${this.constructor.bem()}#`);
+        }
     }
 }
 
