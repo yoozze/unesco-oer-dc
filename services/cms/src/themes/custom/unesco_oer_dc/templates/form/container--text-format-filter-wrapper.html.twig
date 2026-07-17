@@ -26,8 +26,8 @@
         'c-form__container'
     ]|merge((attributes.class ?? [])|map(c => 'c-form__container--' ~ c|replace({'container-' : ''}))) %}
 	<div{{attributes.addClass(classes)}}>
-		{# {{ children }} #}
+		{# Hidden editor input (data-editor-for) is required for CKEditor when only one text format is available. #}
+		{{ element.editor }}
 		{{ element.format }}
 	</div>
-    {# {{ dump()}} #}
 {% endif %}
