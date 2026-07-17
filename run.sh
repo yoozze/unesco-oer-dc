@@ -11,6 +11,7 @@ OPTIONS_ARRAY=(
     "--start"
     "--stop"
     "--recreate"
+    "--deploy"
     "--watch"
     "--log"
     "--enter"
@@ -49,6 +50,7 @@ if [ $MODE = "--help" ]; then
     echo "bash run.sh --start [args]            | Start services"
     echo "bash run.sh --stop [args]             | Stop services"
     echo "bash run.sh --recreate [args]         | Recreate services (stop, build, start and setup)"
+    echo "bash run.sh --deploy [args]           | Deploy services (sync-git, build, start and setup)"
     echo "bash run.sh --watch [args]            | Watch files"
     echo "bash run.sh --log [args]              | Display log"
     echo "bash run.sh --enter [args]            | Enter into container"
@@ -115,6 +117,16 @@ fi
 if [ $MODE = "--recreate" ]; then
     ## run --stop, --build, --start and --setup
     bash run.sh --stop
+    bash run.sh --build
+    bash run.sh --start
+    # wait for services to start
+    sleep 10
+    bash run.sh --setup
+fi
+
+if [ $MODE = "--deploy" ]; then
+    ## run --sync-git, --build, --start and --setup (without stopping)
+    bash run.sh --sync-git
     bash run.sh --build
     bash run.sh --start
     # wait for services to start
