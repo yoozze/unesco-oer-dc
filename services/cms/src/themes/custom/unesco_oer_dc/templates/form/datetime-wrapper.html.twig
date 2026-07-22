@@ -15,21 +15,32 @@
 #}
 {%
   set title_classes = [
-    required ? 'js-form-required',
-    required ? 'form-required',
+    'c-form__label',
+    required ? 'c-form__label--required',
   ]
 %}
-{% if title %}
-  <h4{{ title_attributes.addClass(title_classes) }}>{{ title }}</h4>
-{% endif %}
-{{ content }}
-{% if errors %}
-  <div>
-    {{ errors }}
-  </div>
-{% endif %}
-{% if description %}
-  <div{{ description_attributes }}>
-    {{ description }}
-  </div>
-{% endif %}
+{%
+  set description_classes = [
+    'c-form__field-description',
+  ]
+%}
+<div class="c-form__field c-form__field--type_datetime">
+	<div class="c-form__control c-form__control--type_datetime">
+		{{ content }}
+		{% if title %}
+			<label{{title_attributes.addClass(title_classes)}}>
+				<span>{{ title }}</span>
+			</label>
+		{% endif %}
+	</div>
+	{% if errors %}
+		<div class="c-form__field-error">
+			{{ errors }}
+		</div>
+	{% endif %}
+	{% if description %}
+		<div{{description_attributes.addClass(description_classes)}}>
+			{{ description }}
+		</div>
+	{% endif %}
+</div>

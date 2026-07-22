@@ -4,10 +4,12 @@ status: true
 dependencies:
   config:
     - filter.format.basic_html
+    - media.type.document
     - media.type.image
     - media.type.remote_video
     - node.type.event
     - node.type.news
+    - node.type.resource
     - rest.resource.public_api
     - workflows.workflow.editorial
   module:
@@ -36,14 +38,18 @@ permissions:
   - 'access site-wide contact form'
   - 'access user contact forms'
   - 'access user profiles'
+  - 'create document media'
   - 'create event content'
   - 'create image media'
   - 'create news content'
   - 'create remote_video media'
+  - 'create resource content'
+  - 'delete own document media'
   - 'delete own files'
   - 'delete own image media'
   - 'delete own remote_video media'
   - 'display eu cookie compliance popup'
+  - 'edit own document media'
   - 'edit own image media'
   - 'edit own remote_video media'
   - 'opt-in or out of google analytics tracking'

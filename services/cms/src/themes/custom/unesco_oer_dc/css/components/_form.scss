@@ -901,6 +901,22 @@ $radio-bg-size: size('radio-bg-size');
     background-position: right size(2) center;
 }
 
+// ## Form Datetime
+// ----------------
+
+.c-form__field--type_datetime {
+    .c-form__group--datetime .c-form__field {
+        margin-bottom: 0;
+    }
+}
+
+.c-form__control--type_datetime {
+    > .c-form__label {
+        @include input-label;
+        @include input-label-minimized;
+    }
+}
+
 // ## Form Field Description
 // -------------------------
 

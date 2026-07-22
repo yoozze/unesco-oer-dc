@@ -77,3 +77,19 @@ function unesco_oer_dc_theme_suggestions_form_alter(&$suggestions, &$variables) 
 function unesco_oer_dc_preprocess_form(&$variables) {
     // $variables['test'] = 'test';
 }
+
+/**
+ * Prepares variables for datetime wrapper templates.
+ */
+function unesco_oer_dc_preprocess_datetime_wrapper(&$variables) {
+    $element = $variables['element'];
+
+    if (!empty($element['date']['#id'])) {
+        if ($variables['title_attributes'] instanceof \Drupal\Core\Template\Attribute) {
+            $variables['title_attributes']->setAttribute('for', $element['date']['#id']);
+        }
+        else {
+            $variables['title_attributes']['for'] = $element['date']['#id'];
+        }
+    }
+}

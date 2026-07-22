@@ -77,7 +77,7 @@ function custom_routes_menu_local_tasks_alter(&$local_tasks, $route_name, Refina
 
         $is_resource_view = $route_name === 'view.resources.resources_view';
         $is_add_resource = $route_name === 'node.add' && $node_type_id === 'resource';
-        if (($is_contributor || $is_moderator || $is_administrator) && ($is_resource_view || $is_add_resource)) {
+        if ($is_resource_view || $is_add_resource) {
             $local_tasks['tabs'][0]['view'] = [
                 '#theme' => 'menu_local_task',
                 '#link' => [
@@ -90,7 +90,7 @@ function custom_routes_menu_local_tasks_alter(&$local_tasks, $route_name, Refina
             $local_tasks['tabs'][0]['add'] = [
                 '#theme' => 'menu_local_task',
                 '#link' => [
-                    'title' => t('Add resource'),
+                    'title' => $is_authenticated ? t('Submit resource') : t('Add resource'),
                     'url' => Url::fromRoute('node.add', ['node_type' => 'resource']),
                 ],
                 '#active' => $is_add_resource,
