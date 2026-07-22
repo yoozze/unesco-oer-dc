@@ -1,0 +1,58 @@
+// # Autocomplete
+// ==============
+
+$autocomplete-icon-size: size(2.5);
+$autocomplete-icon-offset: size(1.5);
+
+// ## Input icon / spinner
+// -----------------------
+
+.js input.form-autocomplete {
+    padding-right: $autocomplete-icon-offset * 2 + $autocomplete-icon-size;
+    background-image: url(image-data('search'));
+    background-repeat: no-repeat;
+    background-position: right $autocomplete-icon-offset center;
+    background-size: $autocomplete-icon-size;
+
+    &.ui-autocomplete-loading {
+        background-image: url(image-data('progress'));
+        background-position: right $autocomplete-icon-offset center;
+    }
+}
+
+.js[dir='rtl'] input.form-autocomplete {
+    padding-right: size('input-padding-x');
+    padding-left: $autocomplete-icon-offset * 2 + $autocomplete-icon-size;
+    background-position: left $autocomplete-icon-offset center;
+}
+
+// ## Dropdown
+// -----------
+
+.ui-autocomplete {
+    @extend .c-menu;
+    @include elevation(3, true);
+
+    z-index: z-index('popup');
+    max-width: size('grid-size-8');
+    padding: size(1) 0 !important;
+    overflow: auto;
+    background-color: color('light') !important;
+    border: 0 !important;
+    border-radius: size('menu-radius') !important;
+
+    .ui-menu-item-wrapper {
+        @extend .c-menu__link;
+        @include transition('color' 'background-color');
+        @include font('body-large');
+
+        &:hover,
+        &.ui-state-active,
+        &.ui-state-focus {
+            color: color('font') !important;
+            background-color: rgba(color('menu-link-bg'), size('opacity' 1)) !important;
+            border: 0 !important;
+            margin: 0 !important;
+        }
+    }
+}

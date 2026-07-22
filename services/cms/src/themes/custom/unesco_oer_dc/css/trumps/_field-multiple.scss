@@ -1,0 +1,140 @@
+// # Multi-value field widgets
+// ===========================
+
+.tabledrag-toggle-weight-wrapper {
+    display: none;
+}
+
+.field-multiple-table {
+    width: 100%;
+    margin: 0 0 size(2);
+    border-collapse: separate;
+    border-spacing: 0;
+
+    thead {
+        th {
+            padding: 0 0 size(2);
+            text-align: left;
+            vertical-align: middle;
+            border: 0;
+        }
+    }
+
+    tbody {
+        tr {
+            &.draggable {
+                td {
+                    border-bottom: 1px solid color('border');
+                }
+            }
+
+            &.drag,
+            &.drag-previous {
+                background-color: transparent;
+                background-color: color('background-alt');
+
+                .field-multiple-drag {
+                    border-left-color: color('orange-70');
+                }
+                
+            }
+
+            & + tr {
+                td {
+                    padding-top: size(2);
+                }
+            }
+        }
+
+        td {
+            padding: size(2);
+            border: 0;
+
+            &:first-child {
+                ~ td {
+                    padding-left: 0;
+                }
+            }
+        }
+    }
+
+    .field-label {
+        .label {
+            @include font('title-medium');
+
+            margin: 0;
+            text-align: left;
+        }
+    }
+
+    .field-multiple-drag {
+        width: size(4);
+        padding-right: size(1);
+        padding-left: size(1);
+        white-space: nowrap;
+        border-left: size(0.5) solid transparent;
+    }
+
+    .tabledrag-handle {
+        float: none !important;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: size(3);
+        height: size(3) !important;
+        margin: 0 !important;
+        overflow: visible !important;
+        text-decoration: none;
+
+        .handle {
+            width: size(2);
+            height: size(2);
+            margin: 0;
+            padding: 0;
+            background-position: center;
+            background-size: contain;
+        }
+    }
+
+    .tabledrag-changed {
+        margin-left: size(0.5);
+        border-bottom: 0;
+    }
+
+    td:has(.c-form__button) {
+        white-space: nowrap;
+    }
+
+    .c-form__field {
+        margin-bottom: size(2);
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.tabledrag-changed-warning.messages {
+    margin: 0 0 size(2);
+    padding: size(1.5) size(2);
+    border-width: 1px;
+    border-radius: size('radius' 1);
+}
+
+.form-item:has(.field-multiple-table) {
+    > .description {
+        @include font('body-small');
+
+        margin: 0 0 size(2);
+        padding: 0;
+        color: color('font-muted');
+    }
+
+    > .clearfix {
+        margin-bottom: size(3);
+
+        .field-add-more-submit {
+            margin: 0;
+        }
+    }
+}
