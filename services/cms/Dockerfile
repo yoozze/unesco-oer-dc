@@ -6,9 +6,10 @@ ARG DB_NAME
 ARG DB_USER
 ARG DB_PASSWORD
 ARG DB_PORT
+ARG DRUPAL_HASH_SALT
 ARG PROJECT_BASE_URL
 
-# Set env variables
+# Set env variables (runtime Compose env overrides these)
 ENV DB_NAME=${DB_NAME}
 ENV DB_USER=${DB_USER}
 ENV DB_PASSWORD=${DB_PASSWORD}
@@ -35,7 +36,6 @@ RUN apt-get update && apt-get install -y \
     jq \
     npm \
     cron \
-    gettext \
     && rm -rf /var/lib/apt/lists/*
 
 # Install modules
@@ -51,7 +51,7 @@ RUN composer require \
 RUN bash drupal.sh --get-modules
 
 # Prepare scripts
-RUN envsubst < ./scripts/cron_env.sh > /tmp/cron_env.sh && cp /tmp/cron_env.sh ./scripts/cron_env.sh
+RUN chmod +x ./scripts/docker-entrypoint.sh ./scripts/write_cron_env.sh ./scripts/cron_drupal.sh ./scripts/cron_env.sh
 
 # Apply patches
 RUN bash patches/patch.sh
@@ -63,5 +63,6 @@ RUN pecl install apcu
 RUN jq '.workspaces=["web/modules/custom/*","web/themes/custom/*"]' package.json | sponge package.json
 # RUN npm install && npm run build
 
-# Start the cron service and Drupal
-CMD cron && docker-php-entrypoint apache2-foreground
+# Write cron env from runtime, start cron, then Apache
+ENTRYPOINT ["./scripts/docker-entrypoint.sh"]
+CMD ["apache2-foreground"]
