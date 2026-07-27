@@ -14,6 +14,7 @@ vars=(
     DB_USER
     DB_PASSWORD
     DB_PORT
+    ACCOUNT_MAIL
     SMTP_HOST
     SMTP_PORT
     SMTP_PROTOCOL

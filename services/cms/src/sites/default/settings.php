@@ -910,6 +910,14 @@ $config['smtp.settings']['smtp_from'] = getenv('SMTP_FROM');
 $config['smtp.settings']['smtp_fromname'] = getenv('SMTP_FROMNAME');
 
 /**
+ * Personal notification addresses (kept out of config sync via .env).
+ */
+if ($account_mail = getenv('ACCOUNT_MAIL')) {
+  $config['update.settings']['notification']['emails'] = [$account_mail];
+  $config['smtp.settings']['smtp_test_address'] = $account_mail;
+}
+
+/**
  * reCAPTCHA v3 settings.
  */
 if ($recaptcha_site_key = getenv('RECAPTCHA_SITE_KEY')) {
