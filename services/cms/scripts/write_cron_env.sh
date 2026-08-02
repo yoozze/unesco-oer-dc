@@ -1,5 +1,6 @@
 #! /bin/bash
 # Generate cron_env.sh from the current container environment.
+# Used by the CMS container crontab (services/cms/config/crontab), not host backups.
 # Cron does not inherit Docker Compose env vars, so this must run at container start.
 
 set -euo pipefail

@@ -1,4 +1,7 @@
 #! /bin/bash
+# Run Drupal/drush cron inside the CMS container (see services/cms/config/crontab).
+# Not used for host website backups (those are configs/crontab + install_crontab.sh).
+
 set -euo pipefail
 
 # Ensure Drupal env vars exist even when invoked outside crontab.

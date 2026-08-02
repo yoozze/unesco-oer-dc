@@ -1,6 +1,9 @@
 #!/bin/bash
 # backup_retention.sh
 #
+# Host-side retention for archives created by: run.sh --archive-dump
+# Scheduled from the HOST crontab (configs/crontab), not the CMS container crontab.
+#
 # Retention policy:
 # - Keep all daily backups from the last 7 days
 # - For older backups, keep one weekly backup per week (Sunday)

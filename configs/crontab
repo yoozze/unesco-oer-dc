@@ -1,29 +1,20 @@
-# Edit this file to introduce tasks to be run by cron.
+# Host crontab template — website backups (NOT Drupal cron).
 #
-# Each task to run has to be defined through a single line
-# indicating with different fields when the task will be run
-# and what command to run for the task
+# This file is for the HOST user's crontab (installed by scripts/install_crontab.sh).
+# It schedules full-site archive dumps and backup retention on the server filesystem.
 #
-# To define the time you can provide concrete values for
-# minute (m), hour (h), day of month (dom), month (mon),
-# and day of week (dow) or use '*' in these fields (for 'any').
+# Do NOT confuse with services/cms/config/crontab, which runs INSIDE the CMS
+# Docker container and only triggers Drupal/drush cron (queue, updates, etc.).
 #
-# Notice that tasks will be started based on the cron's system
-# daemon's notion of time and timezones.
-#
-# Output of the crontab jobs (including errors) is sent through
-# email to the user the crontab file belongs to (unless redirected).
-#
-# For example, you can run a backup of all your user accounts
-# at 5 a.m every week with:
-# 0 5 * * 1 tar -zcf /var/backups/home.tgz /home/
-#
-# For more information see the manual pages of crontab(5) and cron(8)
+# Placeholders /path/to/app and /path/to/log are replaced by install_crontab.sh.
+# Managed block markers must stay intact so reinstalls update only this section.
 #
 # m h  dom mon dow   command
 
-# Daily backup creation at 2:00 AM.
+# BEGIN unesco-oer-dc
+# Daily full website backup at 2:00 AM.
 0 2 * * * /bin/bash /path/to/app/run.sh --archive-dump >> /path/to/log/backup.log 2>&1
 
-# Daily backup retention check at 3:00 AM.
+# Daily backup retention at 3:00 AM (7 days daily + Sunday weekly long-term).
 0 3 * * * /bin/bash /path/to/app/scripts/backup_retention.sh >> /path/to/log/retention.log 2>&1
+# END unesco-oer-dc
