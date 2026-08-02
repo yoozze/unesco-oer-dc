@@ -2,6 +2,13 @@
 set -e
 set -o pipefail
 
+# Always run from the project root so relative paths (e.g. .env) work under cron.
+SCRIPT_DIR=$(cd "$(dirname "$(readlink -f "$0")")" && pwd)
+cd "$SCRIPT_DIR"
+
+# Cron uses a minimal PATH; ensure docker and common tools are available.
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:${PATH:-}"
+
 MODE="$1"
 ARGS="${@:2:$#}"
 
@@ -60,6 +67,11 @@ if [ $MODE = "--help" ]; then
     echo "bash run.sh --archive-restore [args]  | Restore archive from given file"
     echo "bash run.sh --setup [args]            | Setup services"
     exit 0
+fi
+
+if [ ! -f .env ]; then
+    echo "Missing .env in $SCRIPT_DIR" >&2
+    exit 1
 fi
 
 source .env
