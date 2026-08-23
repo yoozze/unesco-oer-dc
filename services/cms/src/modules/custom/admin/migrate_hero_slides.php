@@ -93,6 +93,7 @@ $build_links = static function ($entity): array {
 $paragraph = Paragraph::create([
     'type' => 'hero_slide',
     'langcode' => 'en',
+    'field_enabled' => 1,
     'field_title' => $block->get('field_title')->value,
     'field_text' => [
         'value' => $block->get('body')->value,

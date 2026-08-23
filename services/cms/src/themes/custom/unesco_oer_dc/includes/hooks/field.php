@@ -32,6 +32,25 @@ function unesco_oer_dc_preprocess_field(&$variables) {
         $variables['is_first_slide'] = FALSE;
     }
 
+    // Omit disabled hero slides from the front-end slider markup.
+    if (
+        ($variables['element']['#field_name'] ?? '') === 'field_slides'
+        && ($variables['element']['#bundle'] ?? '') === 'hero'
+        && !empty($variables['items'])
+    ) {
+        $field_items = $variables['element']['#items'] ?? NULL;
+        $filtered = [];
+        foreach ($variables['items'] as $delta => $item) {
+            $paragraph = $field_items[$delta]->entity ?? NULL;
+            if ($paragraph && !unesco_oer_dc_hero_slide_is_enabled($paragraph)) {
+                continue;
+            }
+
+            $filtered[] = $item;
+        }
+        $variables['items'] = $filtered;
+    }
+
     if ($variables['element']['#entity_type'] === 'node' && in_array($variables['element']['#field_name'], ['field_image', 'field_logo'])) {
         if ($variables['element']['#view_mode'] === 'full') {
             foreach ($variables['element']['#items'] as $i => &$item) {

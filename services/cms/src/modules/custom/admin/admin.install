@@ -14,3 +14,25 @@ function admin_update_10001() {
         include $script;
     }
 }
+
+/**
+ * Set field_enabled = 1 on existing hero_slide paragraphs.
+ */
+function admin_update_10002() {
+    $storage = \Drupal::entityTypeManager()->getStorage('paragraph');
+    $ids = $storage->getQuery()
+        ->accessCheck(FALSE)
+        ->condition('type', 'hero_slide')
+        ->execute();
+
+    foreach ($storage->loadMultiple($ids) as $paragraph) {
+        if (!$paragraph->hasField('field_enabled')) {
+            continue;
+        }
+
+        if ($paragraph->get('field_enabled')->isEmpty()) {
+            $paragraph->set('field_enabled', 1);
+            $paragraph->save();
+        }
+    }
+}

@@ -54,11 +54,36 @@ function unesco_oer_dc_preprocess_paragraph(&$variables) {
 }
 
 /**
+ * Whether a hero slide paragraph should render on the front end.
+ *
+ * Missing / empty field_enabled counts as enabled (backward compatible).
+ *
+ * @param \Drupal\paragraphs\ParagraphInterface $paragraph
+ *   Hero slide paragraph.
+ *
+ * @return bool
+ *   TRUE if the slide should be shown.
+ */
+function unesco_oer_dc_hero_slide_is_enabled($paragraph) {
+    if (!$paragraph->hasField('field_enabled') || $paragraph->get('field_enabled')->isEmpty()) {
+        return TRUE;
+    }
+
+    return (bool) $paragraph->get('field_enabled')->value;
+}
+
+/**
  * Implements hook_preprocess_HOOK() for paragraph--hero-slide.html.twig.
  */
 function unesco_oer_dc_preprocess_paragraph__hero_slide(&$variables) {
     /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
     $paragraph = $variables['paragraph'];
+
+    // Disabled slides are filtered in preprocess_field; skip work if accessed alone.
+    if (!unesco_oer_dc_hero_slide_is_enabled($paragraph)) {
+        $variables['attributes']['hidden'] = TRUE;
+        return;
+    }
 
     $variables['aside'] = $paragraph->get('field_aside')->value ?: 'none';
     $variables['background'] = get_hero_media_data($paragraph->get('field_background')->entity);
@@ -79,8 +104,14 @@ function unesco_oer_dc_preprocess_paragraph__hero_slide(&$variables) {
     $variables['is_first_slide'] = FALSE;
     $parent = $paragraph->getParentEntity();
     if ($parent && $parent->hasField('field_slides') && !$parent->get('field_slides')->isEmpty()) {
-        $first_id = (int) $parent->get('field_slides')->target_id;
-        $variables['is_first_slide'] = $first_id === (int) $paragraph->id();
+        foreach ($parent->get('field_slides')->referencedEntities() as $slide) {
+            if (!unesco_oer_dc_hero_slide_is_enabled($slide)) {
+                continue;
+            }
+
+            $variables['is_first_slide'] = ((int) $slide->id() === (int) $paragraph->id());
+            break;
+        }
     }
 
     $variables['has_featured_media'] = !$paragraph->get('field_media')->isEmpty();

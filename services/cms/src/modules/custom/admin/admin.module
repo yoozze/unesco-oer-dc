@@ -1,5 +1,82 @@
 <?php
 
+/**
+ * @file
+ * Admin theme improvements and hero content helpers.
+ */
+
+use Drupal\Core\Entity\EntityFormInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\paragraphs\ParagraphInterface;
+
+/**
+ * Implements hook_preprocess_page().
+ */
 function admin_preprocess_page(&$variables) {
     $variables['#attached']['library'][] = 'admin/admin';
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function admin_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+    $form_object = $form_state->getFormObject();
+    if (!$form_object instanceof EntityFormInterface) {
+        return;
+    }
+
+    $entity = $form_object->getEntity();
+    if ($entity->getEntityTypeId() === 'block_content' && $entity->bundle() === 'hero') {
+        $form['#validate'][] = 'admin_hero_block_validate_enabled_slides';
+    }
+}
+
+/**
+ * Ensures at least one hero slide remains enabled.
+ */
+function admin_hero_block_validate_enabled_slides(array &$form, FormStateInterface $form_state) {
+    /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
+    $form_object = $form_state->getFormObject();
+    /** @var \Drupal\block_content\BlockContentInterface $entity */
+    $entity = $form_object->buildEntity($form, $form_state);
+
+    if (!$entity->hasField('field_slides')) {
+        return;
+    }
+
+    $enabled_count = 0;
+    foreach ($entity->get('field_slides') as $item) {
+        $paragraph = $item->entity;
+        if (!$paragraph instanceof ParagraphInterface) {
+            continue;
+        }
+
+        if (admin_hero_slide_is_enabled($paragraph)) {
+            $enabled_count++;
+        }
+    }
+
+    if ($enabled_count < 1) {
+        $form_state->setErrorByName(
+            'field_slides',
+            t('At least one hero slide must be enabled.')
+        );
+    }
+}
+
+/**
+ * Whether a hero slide is enabled (missing/empty = enabled).
+ *
+ * @param \Drupal\paragraphs\ParagraphInterface $paragraph
+ *   Slide paragraph.
+ *
+ * @return bool
+ *   TRUE if enabled.
+ */
+function admin_hero_slide_is_enabled(ParagraphInterface $paragraph) {
+    if (!$paragraph->hasField('field_enabled') || $paragraph->get('field_enabled')->isEmpty()) {
+        return TRUE;
+    }
+
+    return (bool) $paragraph->get('field_enabled')->value;
 }

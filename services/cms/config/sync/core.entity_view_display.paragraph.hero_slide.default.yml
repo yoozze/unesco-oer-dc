@@ -6,6 +6,7 @@ dependencies:
     - field.field.paragraph.hero_slide.field_aside
     - field.field.paragraph.hero_slide.field_aside_media
     - field.field.paragraph.hero_slide.field_background
+    - field.field.paragraph.hero_slide.field_enabled
     - field.field.paragraph.hero_slide.field_links
     - field.field.paragraph.hero_slide.field_media
     - field.field.paragraph.hero_slide.field_text
@@ -60,4 +61,5 @@ hidden:
   field_aside: true
   field_aside_media: true
   field_background: true
+  field_enabled: true
   uid: true

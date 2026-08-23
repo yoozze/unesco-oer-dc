@@ -1,0 +1,23 @@
+uuid: 6f2fd08f-2cc9-4565-9b9d-f08d82b902ce
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_enabled
+    - paragraphs.paragraphs_type.hero_slide
+id: paragraph.hero_slide.field_enabled
+field_name: field_enabled
+entity_type: paragraph
+bundle: hero_slide
+label: Enabled
+description: 'When unchecked, this slide is hidden on the site but kept in the hero for later use.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: Enabled
+  off_label: Disabled
+field_type: boolean

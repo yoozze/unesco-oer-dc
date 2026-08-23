@@ -6,6 +6,7 @@ dependencies:
     - field.field.paragraph.hero_slide.field_aside
     - field.field.paragraph.hero_slide.field_aside_media
     - field.field.paragraph.hero_slide.field_background
+    - field.field.paragraph.hero_slide.field_enabled
     - field.field.paragraph.hero_slide.field_links
     - field.field.paragraph.hero_slide.field_media
     - field.field.paragraph.hero_slide.field_text
@@ -22,13 +23,13 @@ mode: default
 content:
   field_aside:
     type: options_select
-    weight: 6
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
   field_aside_media:
     type: media_library_widget
-    weight: 7
+    weight: 8
     region: content
     settings:
       media_types: {  }
@@ -55,14 +56,21 @@ content:
             selector: ''
   field_background:
     type: media_library_widget
-    weight: 4
+    weight: 5
     region: content
     settings:
       media_types: {  }
     third_party_settings: {  }
+  field_enabled:
+    type: boolean_checkbox
+    weight: 0
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
   field_links:
     type: link_default
-    weight: 3
+    weight: 4
     region: content
     settings:
       placeholder_url: ''
@@ -70,14 +78,14 @@ content:
     third_party_settings: {  }
   field_media:
     type: media_library_widget
-    weight: 2
+    weight: 3
     region: content
     settings:
       media_types: {  }
     third_party_settings: {  }
   field_text:
     type: text_textarea
-    weight: 1
+    weight: 2
     region: content
     settings:
       rows: 5
@@ -85,14 +93,14 @@ content:
     third_party_settings: {  }
   field_title:
     type: string_textfield
-    weight: 0
+    weight: 1
     region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
   translation:
-    weight: 8
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
