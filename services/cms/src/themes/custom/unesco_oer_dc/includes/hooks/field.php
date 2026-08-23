@@ -26,6 +26,12 @@ function unesco_oer_dc_theme_suggestions_field_alter(&$suggestions, &$variables)
 }
 
 function unesco_oer_dc_preprocess_field(&$variables) {
+    if (!empty($variables['element']['#is_first_slide'])) {
+        $variables['is_first_slide'] = TRUE;
+    } else {
+        $variables['is_first_slide'] = FALSE;
+    }
+
     if ($variables['element']['#entity_type'] === 'node' && in_array($variables['element']['#field_name'], ['field_image', 'field_logo'])) {
         if ($variables['element']['#view_mode'] === 'full') {
             foreach ($variables['element']['#items'] as $i => &$item) {

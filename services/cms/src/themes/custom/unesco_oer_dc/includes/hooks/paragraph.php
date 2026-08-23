@@ -52,3 +52,40 @@ function unesco_oer_dc_preprocess_paragraph(&$variables) {
         }
     }
 }
+
+/**
+ * Implements hook_preprocess_HOOK() for paragraph--hero-slide.html.twig.
+ */
+function unesco_oer_dc_preprocess_paragraph__hero_slide(&$variables) {
+    /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
+    $paragraph = $variables['paragraph'];
+
+    $variables['aside'] = $paragraph->get('field_aside')->value ?: 'none';
+    $variables['background'] = get_hero_media_data($paragraph->get('field_background')->entity);
+    $variables['aside_media'] = NULL;
+    $variables['aside_media_render'] = NULL;
+
+    $aside_media_entity = $paragraph->get('field_aside_media')->entity;
+    if ($aside_media_entity) {
+        if ($aside_media_entity->bundle() === 'remote_video') {
+            $variables['aside_media_render'] = \Drupal::entityTypeManager()
+                ->getViewBuilder('media')
+                ->view($aside_media_entity, 'default');
+        } else {
+            $variables['aside_media'] = get_hero_media_data($aside_media_entity);
+        }
+    }
+
+    $variables['is_first_slide'] = FALSE;
+    $parent = $paragraph->getParentEntity();
+    if ($parent && $parent->hasField('field_slides') && !$parent->get('field_slides')->isEmpty()) {
+        $first_id = (int) $parent->get('field_slides')->target_id;
+        $variables['is_first_slide'] = $first_id === (int) $paragraph->id();
+    }
+
+    $variables['has_featured_media'] = !$paragraph->get('field_media')->isEmpty();
+
+    if (!empty($variables['content']['field_title']) && is_array($variables['content']['field_title'])) {
+        $variables['content']['field_title']['#is_first_slide'] = $variables['is_first_slide'];
+    }
+}

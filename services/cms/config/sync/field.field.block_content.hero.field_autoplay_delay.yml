@@ -1,0 +1,25 @@
+uuid: c84792e6-4388-4c3b-8094-e78e54eb0bf0
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.hero
+    - field.storage.block_content.field_autoplay_delay
+id: block_content.hero.field_autoplay_delay
+field_name: field_autoplay_delay
+entity_type: block_content
+bundle: hero
+label: 'Autoplay delay (ms)'
+description: 'Milliseconds between automatic slide changes. Set to 0 to disable autoplay. Default 5000.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 5000
+default_value_callback: ''
+settings:
+  min: 0
+  max: 60000
+  prefix: ''
+  suffix: ms
+field_type: integer

@@ -3,29 +3,9 @@
  * @file
  * Theme override to display a hero region.
  *
- * Available variables:
- * - content: The content for this region, typically blocks.
- * - attributes: HTML attributes for the region <div>.
- * - region: The name of the region variable as defined in the theme's
- *   .info.yml file.
- *
- * @see template_preprocess_region()
+ * Hero chrome (background, aside, slider) lives on the Hero block / slides.
  */
 #}
 {% if content %}
-    <div{{attributes.addClass('c-hero')}}>
-        <div class="o-container c-hero__container">
-            <div class="o-row">
-                {{ content }}
-                <div class="c-hero__media o-col">
-                    <div class="c-hero__graphic">
-                        <svg viewbox="0 0 728 580" fill="none" xmlns="http://www.w3.org/2000/svg" preserveaspectratio="none">
-                            <path d="M107.543 0H729V580H107.984L0 286.825L107.543 0Z" fill="#001B59"/>
-                        </svg>
-                    </div>
-                    <img src="/themes/custom/unesco_oer_dc/images/oer-logo-vertical-light.svg" />
-                </div>
-            </div>
-        </div>
-    </div>
+	{{ content }}
 {% endif %}

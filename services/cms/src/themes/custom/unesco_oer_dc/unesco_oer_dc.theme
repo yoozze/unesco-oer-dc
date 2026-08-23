@@ -50,6 +50,48 @@ function clean_suggetion($suggestion) {
     return str_replace('-', '_', $suggestion);
 }
 
+/**
+ * Normalize a media entity into data usable by hero Twig templates.
+ *
+ * @param \Drupal\media\MediaInterface|null $media
+ *   Media entity or NULL.
+ *
+ * @return array|null
+ *   Bundle-specific media data, or NULL.
+ */
+function get_hero_media_data($media) {
+    if (empty($media)) {
+        return NULL;
+    }
+
+    $bundle = $media->bundle();
+    $data = [
+        'bundle' => $bundle,
+        'name' => $media->label(),
+    ];
+
+    if ($bundle === 'image' && $media->hasField('field_media_image') && !$media->get('field_media_image')->isEmpty()) {
+        $file = $media->get('field_media_image')->entity;
+        if ($file) {
+            $data['url'] = $file->createFileUrl();
+            $data['alt'] = $media->get('field_media_image')->alt ?: '';
+            $data['title'] = $media->get('field_media_image')->title ?: '';
+        }
+    }
+    elseif ($bundle === 'video' && $media->hasField('field_media_video_file') && !$media->get('field_media_video_file')->isEmpty()) {
+        $file = $media->get('field_media_video_file')->entity;
+        if ($file) {
+            $data['url'] = $file->createFileUrl();
+            $data['mime'] = $file->getMimeType();
+        }
+    }
+    elseif ($bundle === 'remote_video' && $media->hasField('field_media_oembed_video') && !$media->get('field_media_oembed_video')->isEmpty()) {
+        $data['url'] = $media->get('field_media_oembed_video')->value;
+    }
+
+    return !empty($data['url']) ? $data : NULL;
+}
+
 function get_media_image($id, $image_style = '') {
     $media = Media::load($id);
     $file = File::load($media->get('field_media_image')->target_id);

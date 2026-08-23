@@ -1,0 +1,30 @@
+uuid: 96e0a6f9-0539-4ac5-848d-3c6aa0e1c0a3
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_aside
+field_name: field_aside
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: none
+      label: None
+    -
+      value: oer_branding
+      label: 'OER branding'
+    -
+      value: media
+      label: 'Custom media'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

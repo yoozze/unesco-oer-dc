@@ -1,0 +1,23 @@
+uuid: 028473d9-7622-471c-9ee9-eb169e35b25e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_aside
+    - paragraphs.paragraphs_type.hero_slide
+  module:
+    - options
+id: paragraph.hero_slide.field_aside
+field_name: field_aside
+entity_type: paragraph
+bundle: hero_slide
+label: Aside
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: oer_branding
+default_value_callback: ''
+settings: {  }
+field_type: list_string

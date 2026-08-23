@@ -1,0 +1,12 @@
+{#
+/**
+ * @file
+ * Hero slide title field.
+ */
+#}
+{% set item = items|first %}
+{% if is_first_slide %}
+	<h1 class="c-hero__title">{{ item.content }}</h1>
+{% else %}
+	<h2 class="c-hero__title">{{ item.content }}</h2>
+{% endif %}

@@ -1,0 +1,31 @@
+uuid: 7e16adc8-a118-47e7-8aaf-6ee36b68d43e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_background
+    - media.type.image
+    - media.type.video
+    - paragraphs.paragraphs_type.hero_slide
+id: paragraph.hero_slide.field_background
+field_name: field_background
+entity_type: paragraph
+bundle: hero_slide
+label: Background
+description: 'Full-bleed background image or local video. Prefer a poster image when using video.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+      video: video
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: image
+field_type: entity_reference

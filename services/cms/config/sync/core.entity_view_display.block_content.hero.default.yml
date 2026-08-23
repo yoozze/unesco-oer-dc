@@ -4,43 +4,26 @@ status: true
 dependencies:
   config:
     - block_content.type.hero
-    - field.field.block_content.hero.body
-    - field.field.block_content.hero.field_link
-    - field.field.block_content.hero.field_title
+    - field.field.block_content.hero.field_autoplay_delay
+    - field.field.block_content.hero.field_pause_on_hover
+    - field.field.block_content.hero.field_slides
   module:
-    - link
-    - text
+    - entity_reference_revisions
 id: block_content.hero.default
 targetEntityType: block_content
 bundle: hero
 mode: default
 content:
-  body:
-    type: text_default
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 1
-    region: content
-  field_link:
-    type: link
+  field_slides:
+    type: entity_reference_revisions_entity_view
     label: hidden
     settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: '0'
-      target: '0'
-    third_party_settings: {  }
-    weight: 2
-    region: content
-  field_title:
-    type: string
-    label: hidden
-    settings:
-      link_to_entity: false
+      view_mode: default
+      link: ''
     third_party_settings: {  }
     weight: 0
     region: content
 hidden:
+  field_autoplay_delay: true
+  field_pause_on_hover: true
   langcode: true

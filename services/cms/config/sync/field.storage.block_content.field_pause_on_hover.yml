@@ -1,0 +1,18 @@
+uuid: a0f10f57-aea2-4b12-b0bd-bf5afe4e4205
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_content
+id: block_content.field_pause_on_hover
+field_name: field_pause_on_hover
+entity_type: block_content
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

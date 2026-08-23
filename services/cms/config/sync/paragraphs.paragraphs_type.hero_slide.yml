@@ -1,0 +1,10 @@
+uuid: c732f7bd-8b4a-4dd1-ae89-07b5b653e3a0
+langcode: en
+status: true
+dependencies: {  }
+id: hero_slide
+label: 'Hero slide'
+icon_uuid: null
+icon_default: null
+description: 'A single homepage hero slide with content, background, and optional aside.'
+behavior_plugins: {  }

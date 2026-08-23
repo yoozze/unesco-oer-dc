@@ -1,0 +1,20 @@
+uuid: 77148292-817d-41c2-8aa3-8582515b9cfe
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_content
+id: block_content.field_autoplay_delay
+field_name: field_autoplay_delay
+entity_type: block_content
+type: integer
+settings:
+  unsigned: true
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

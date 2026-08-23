@@ -1,0 +1,23 @@
+uuid: e4c1c306-1e4f-45a1-a7fb-069c1f403c56
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.hero
+    - field.storage.block_content.field_pause_on_hover
+id: block_content.hero.field_pause_on_hover
+field_name: field_pause_on_hover
+entity_type: block_content
+bundle: hero
+label: 'Pause on hover'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

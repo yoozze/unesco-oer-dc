@@ -1,6 +1,7 @@
 import Article from './components/Article';
 import Dropdown from './components/Dropdown';
 import Slider from './components/Slider';
+import HeroSlider from './components/HeroSlider';
 import SearchForm from './components/SearchForm';
 import ObservatoryForm from './components/ObservatoryForm';
 import SearchFormBlock from './components/SearchFormBlock';
@@ -18,6 +19,7 @@ function initComponents() {
     Dropdown.init();
     Article.init();
     Slider.init();
+    HeroSlider.init();
     // SearchForm.init();
     ObservatoryForm.init();
     SearchFormBlock.init();

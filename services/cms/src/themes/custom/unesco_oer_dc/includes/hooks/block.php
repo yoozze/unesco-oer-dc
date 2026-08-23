@@ -92,4 +92,30 @@ function unesco_oer_dc_preprocess_block(&$variables) {
     if (!empty($block_name)) {
         $variables['block_name'] = $block_name;
     }
+
+    // Hero slider options from block fields.
+    $uuid = $variables['derivative_plugin_id'] ?? NULL;
+    if (!empty($uuid)) {
+        $block = \Drupal::service('entity.repository')->loadEntityByUuid('block_content', $uuid);
+        if ($block && $block->bundle() === 'hero') {
+            $delay = 5000;
+            if ($block->hasField('field_autoplay_delay') && !$block->get('field_autoplay_delay')->isEmpty()) {
+                $delay = (int) $block->get('field_autoplay_delay')->value;
+            }
+
+            $pause_on_hover = TRUE;
+            if ($block->hasField('field_pause_on_hover') && !$block->get('field_pause_on_hover')->isEmpty()) {
+                $pause_on_hover = (bool) $block->get('field_pause_on_hover')->value;
+            }
+
+            $arrow = '<button type="button" class="c-icon-button c-icon-button--standard c-hero__arrow"><svg class="c-icon c-icon-button__icon" xmlns:xlink="http://www.w3.org/1999/xlink"><use xlink:href="#arrow-forward"></use></svg></button>';
+            $variables['slider_options'] = [
+                'autoplay' => $delay > 0,
+                'autoplaySpeed' => $delay > 0 ? $delay : 5000,
+                'pauseOnHover' => $pause_on_hover,
+                'nextArrow' => str_replace('c-hero__arrow', 'c-hero__arrow c-hero__arrow--next', $arrow),
+                'prevArrow' => str_replace('c-hero__arrow', 'c-hero__arrow c-hero__arrow--prev', $arrow),
+            ];
+        }
+    }
 }

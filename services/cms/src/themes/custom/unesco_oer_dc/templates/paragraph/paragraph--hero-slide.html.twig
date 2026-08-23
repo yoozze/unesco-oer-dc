@@ -1,0 +1,72 @@
+{#
+/**
+ * @file
+ * Hero slide paragraph.
+ */
+#}
+{%
+  set slide_classes = [
+    'c-hero__slide',
+    aside != 'none' ? 'c-hero__slide--with-aside' : 'c-hero__slide--no-aside',
+    background ? 'c-hero__slide--has-background' : '',
+    background and background.bundle == 'video' ? 'c-hero__slide--bg-video' : '',
+  ]
+%}
+<article{{attributes.addClass(slide_classes)}}>
+	{% if background %}
+		<div class="c-hero__background" aria-hidden="true">
+			{% if background.bundle == 'video' %}
+				<video class="c-hero__background-media" autoplay muted loop playsinline>
+					<source src="{{ background.url }}" {% if background.mime %} type="{{ background.mime }}" {% endif %}/>
+				</video>
+			{% else %}
+				<img class="c-hero__background-media" src="{{ background.url }}" alt="" loading="{{ is_first_slide ? 'eager' : 'lazy' }}" {% if is_first_slide %} fetchpriority="high" {% endif %}/>
+			{% endif %}
+		</div>
+	{% endif %}
+
+	<div class="o-container c-hero__container">
+		<div class="o-row">
+			<div class="c-hero__content o-col">
+				{{ content.field_title }}
+				{{ content.field_text }}
+				{% if has_featured_media %}
+					<div class="c-hero__featured-media">
+						{{ content.field_media }}
+					</div>
+				{% endif %}
+				{{ content.field_links }}
+			</div>
+
+			{% if aside == 'oer_branding' %}
+				<div class="c-hero__media o-col">
+					<div class="c-hero__graphic">
+						<svg viewbox="0 0 728 580" fill="none" xmlns="http://www.w3.org/2000/svg" preserveaspectratio="none">
+							<path d="M107.543 0H729V580H107.984L0 286.825L107.543 0Z" fill="#001B59"/>
+						</svg>
+					</div>
+					<img src="/themes/custom/unesco_oer_dc/images/oer-logo-vertical-light.svg" alt="{{ 'Open Educational Resources'|t }}"/>
+				</div>
+			{% elseif aside == 'media' and (aside_media or aside_media_render) %}
+				<div class="c-hero__media c-hero__media--custom o-col">
+					<div class="c-hero__graphic">
+						<svg viewbox="0 0 728 580" fill="none" xmlns="http://www.w3.org/2000/svg" preserveaspectratio="none">
+							<path d="M107.543 0H729V580H107.984L0 286.825L107.543 0Z" fill="#001B59"/>
+						</svg>
+					</div>
+					<div class="c-hero__aside-media">
+						{% if aside_media_render %}
+							{{ aside_media_render }}
+						{% elseif aside_media.bundle == 'image' %}
+							<img src="{{ aside_media.url }}" alt="{{ aside_media.alt }}" loading="lazy"/>
+						{% elseif aside_media.bundle == 'video' %}
+							<video controls playsinline>
+								<source src="{{ aside_media.url }}" {% if aside_media.mime %} type="{{ aside_media.mime }}" {% endif %}/>
+							</video>
+						{% endif %}
+					</div>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+</article>

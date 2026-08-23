@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Admin module.
+ */
+
+/**
+ * Migrate homepage hero block content into hero_slide paragraphs.
+ */
+function admin_update_10001() {
+    $script = dirname(__FILE__) . '/migrate_hero_slides.php';
+    if (is_readable($script)) {
+        include $script;
+    }
+}

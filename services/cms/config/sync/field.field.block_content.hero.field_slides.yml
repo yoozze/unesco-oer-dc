@@ -1,0 +1,40 @@
+uuid: 4c0a3eaa-ac4b-4442-925e-29a9f53f4662
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.hero
+    - field.storage.block_content.field_slides
+    - paragraphs.paragraphs_type.hero_slide
+  module:
+    - entity_reference_revisions
+id: block_content.hero.field_slides
+field_name: field_slides
+entity_type: block_content
+bundle: hero
+label: Slides
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      hero_slide: hero_slide
+    negate: 0
+    target_bundles_drag_drop:
+      hero_slide:
+        weight: 0
+        enabled: true
+      link_item:
+        weight: 1
+        enabled: false
+      observatory_area_embed:
+        weight: 2
+        enabled: false
+      observatory_view:
+        weight: 3
+        enabled: false
+field_type: entity_reference_revisions

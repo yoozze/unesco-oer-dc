@@ -5,28 +5,225 @@ $hero-padding: size('section-padding');
 
 .c-hero {
     position: relative;
-    display: flex;
-    justify-content: center;
-    padding-top: $hero-padding;
-    padding-bottom: $hero-padding;
     color: color('font-light');
     background-color: color('background-dark');
     border-bottom: size(1) solid color('orange');
     overflow: hidden;
+}
 
-    @include before('') {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        z-index: 0;
-        background-image: url('/themes/custom/unesco_oer_dc/images/background.jpg');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        opacity: size('opacity' 4);
+// Progress track is the bottom edge (border would sit below absolute bottom: 0).
+.c-hero--autoplay {
+    border-bottom-width: 0;
+}
+
+// ## Hero Autoplay Progress
+// -------------------------
+
+.c-hero__autoplay-progress {
+    @include z-index('local2');
+
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: size(1);
+    overflow: hidden;
+    pointer-events: none;
+    background-color: rgba(color('orange'), size('opacity' 5));
+}
+
+.c-hero__autoplay-progress-bar {
+    width: 100%;
+    height: 100%;
+    background-color: color('orange');
+    transform: scaleX(0);
+    transform-origin: left center;
+
+    &.is-running {
+        animation-name: c-hero-autoplay-progress;
+        animation-timing-function: linear;
+        animation-fill-mode: forwards;
+        animation-duration: var(--c-hero-autoplay-ms, 5000ms);
     }
+
+    &.is-collapsing {
+        @include transition('transform');
+    }
+}
+
+@keyframes c-hero-autoplay-progress {
+    from {
+        transform: scaleX(0);
+    }
+
+    to {
+        transform: scaleX(1);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .c-hero__autoplay-progress {
+        display: none;
+    }
+}
+
+// ## Hero Slider
+// --------------
+
+.c-hero__slider {
+    position: relative;
+
+    // Pre-init only: CSS Grid stack so first paint already matches tallest slide.
+    &:not(.slick-initialized) {
+        display: grid;
+
+        > .c-hero__slide {
+            grid-area: 1 / 1;
+            align-self: stretch;
+            height: 100%;
+        }
+
+        > .c-hero__slide:not(:first-child) {
+            visibility: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        > .c-hero__slide:first-child {
+            visibility: visible;
+            z-index: 1;
+        }
+    }
+
+    // Post-init: override Slick fade absolute positioning with a grid stack
+    &.slick-initialized {
+        .slick-track {
+            display: grid;
+            width: 100% !important;
+            transform: none !important;
+        }
+
+        .slick-slide {
+            left: 0 !important;
+            grid-area: 1 / 1;
+            align-self: stretch;
+
+            > *,
+            .c-hero__slide {
+                height: 100%;
+            }
+        }
+    }
+
+    .slick-arrow {
+        @include z-index('local2');
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .slick-dots {
+        @include z-index('local2');
+        position: absolute;
+        right: 0;
+        bottom: size(2);
+        left: 0;
+        display: flex;
+        justify-content: center;
+        gap: size(1);
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        li {
+            margin: 0;
+            line-height: 0;
+
+            button {
+                @include transition('background');
+
+                width: size('slider-dot-size');
+                height: size('slider-dot-size');
+                padding: 0;
+                border: 0;
+                font-size: 0;
+                color: transparent;
+                background: rgba(color('light'), size('opacity' 6));
+                border-radius: 50%;
+                cursor: pointer;
+            }
+
+            &.slick-active button {
+                background: color('orange');
+            }
+        }
+    }
+}
+
+// ## Hero Arrow
+// -------------
+
+.c-hero__arrow {
+    opacity: size('opacity' 5);
+    background-color: rgba(color('light'), 0.9) !important;
+    @include transition('opacity');
+
+    &:hover,
+    &:focus-visible {
+        opacity: 1;
+    }
+
+    // Aside is hidden below bp-xl; side arrows would cover full-width copy.
+    // Rely on dots (+ swipe) instead of extra hero padding (keeps page alignment).
+    @include below('bp-xl') {
+        display: none !important;
+    }
+}
+
+.c-hero__arrow--prev {
+    left: size(1);
+
+    svg {
+        transform: rotate(180deg);
+    }
+}
+
+.c-hero__arrow--next {
+    right: size(1);
+}
+
+// ## Hero Slide
+// -------------
+
+.c-hero__slide {
+    position: relative;
+    display: flex !important;
+    align-items: stretch;
+    justify-content: center;
+    padding-top: $hero-padding;
+    padding-bottom: $hero-padding;
+    overflow: hidden;
+    background-color: color('background-dark');
+}
+
+// ## Hero Background
+// ------------------
+
+.c-hero__background {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.c-hero__background-media {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    // Match original: translucent image/video over dark blue base.
+    opacity: size('opacity' 4);
 }
 
 // ## Hero Container
@@ -34,16 +231,36 @@ $hero-padding: size('section-padding');
 
 .c-hero__container {
     position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: stretch;
+    align-self: stretch;
+}
+
+.c-hero__container > .o-row {
+    // Fill the flex parent without width: 100% so .o-row negative gutters still apply.
+    flex: 1 1 auto;
+    min-width: 0;
+    align-items: stretch;
 }
 
 // ## Hero Content
 // ---------------
 
 .c-hero__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     width: 8 / 12 * 100%;
 
-    @include below('bp-lg') {
-        width: auto;
+    .c-hero__slide--no-aside & {
+        width: 100%;
+    }
+
+    @include below('bp-xl') {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
     }
 }
 
@@ -52,7 +269,6 @@ $hero-padding: size('section-padding');
 
 .c-hero__title {
     margin-top: 0;
-    // margin-bottom: 0;
 }
 
 // ## Hero Body
@@ -61,22 +277,62 @@ $hero-padding: size('section-padding');
 .c-hero__body {
     @include font('title-large');
     margin-bottom: size(3);
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    & > :last-child {
+        margin-bottom: 0;
+    }
+}
+
+// ## Hero Featured Media
+// ----------------------
+
+.c-hero__featured-media {
+    margin-bottom: size(3);
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    iframe,
+    video,
+    img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: unset !important;
+        border-radius: size('radius' 4);
+    }
 }
 
 // ## Hero Links
 // -------------
 
-// .c-hero__links {}
+.c-hero__links {
+    display: flex;
+    gap: size(1);
+    flex-wrap: wrap;
+    width: 100%;
+    min-width: 0;
+}
 
 // ## Hero Link
 // ------------
 
 .c-hero__link {
     background-color: color('orange');
+    min-width: 0;
+
+    @include below('bp-sm') {
+        width: 100%;
+    }
 }
 
-// ## Hero Media
-// -------------
+// ## Hero Media (aside)
+// ---------------------
 
 .c-hero__media {
     position: relative;
@@ -94,13 +350,27 @@ $hero-padding: size('section-padding');
         background-color: color('background-dark');
     }
 
-    img {
+    > img {
         position: relative;
         width: 70%;
     }
 
-    @include below('bp-lg') {
+    @include below('bp-xl') {
         display: none;
+    }
+}
+
+.c-hero__aside-media {
+    position: relative;
+    z-index: 1;
+    width: 70%;
+
+    img,
+    video,
+    iframe {
+        display: block;
+        width: 100%;
+        height: auto;
     }
 }
 

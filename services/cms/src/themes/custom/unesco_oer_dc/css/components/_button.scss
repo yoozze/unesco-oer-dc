@@ -44,6 +44,8 @@ $border-radius: size('radius' 5);
 .c-button__label {
     @include truncate-text();
     position: relative;
+    flex: 0 1 auto;
+    min-width: 0;
 }
 
 // ## Button Leading Icon
