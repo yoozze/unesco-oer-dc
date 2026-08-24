@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Admin theme improvements and hero content helpers.
+ * Admin theme improvements, hero helpers, and update script runner.
  */
 
 use Drupal\Core\Entity\EntityFormInterface;
@@ -14,6 +14,32 @@ use Drupal\paragraphs\ParagraphInterface;
  */
 function admin_preprocess_page(&$variables) {
     $variables['#attached']['library'][] = 'admin/admin';
+}
+
+/**
+ * Run an idempotent update script under modules/custom/admin/updates/.
+ *
+ * @param string $relative
+ *   Path relative to the updates/ directory, e.g. "hero/migrate_slides.php".
+ *
+ * @return string
+ *   Status message for Drush / update UI.
+ *
+ * @throws \RuntimeException
+ *   When the script is missing.
+ */
+function admin_run_update_script(string $relative): string {
+    $path = dirname(__FILE__) . '/updates/' . ltrim($relative, '/');
+    if (!is_readable($path)) {
+        throw new \RuntimeException("Update script not readable: $path");
+    }
+
+    $result = include $path;
+    if (!is_string($result) || $result === '') {
+        return t('Update @script completed.', ['@script' => $relative]);
+    }
+
+    return $result;
 }
 
 /**

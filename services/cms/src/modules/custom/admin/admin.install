@@ -2,37 +2,22 @@
 
 /**
  * @file
- * Install, update and uninstall functions for the Admin module.
+ * Install / schema update hooks for the Admin module.
+ *
+ * Use hook_update_N here ONLY for schema changes that must run in strict
+ * numeric order (rare). For content / entity data migrations, use
+ * admin.post_update.php + updates/*.php instead.
+ *
+ * Deploy order: config:import, then updatedb (see run.sh --setup).
+ *
+ * @code
+ * function admin_update_10001() {
+ *   // Schema-only work, or:
+ *   return admin_run_update_script('feature/schema_fix.php');
+ * }
+ * @endcode
+ *
+ * @see admin.post_update.php
+ * @see updates/README.md
+ * @see admin_run_update_script()
  */
-
-/**
- * Migrate homepage hero block content into hero_slide paragraphs.
- */
-function admin_update_10001() {
-    $script = dirname(__FILE__) . '/migrate_hero_slides.php';
-    if (is_readable($script)) {
-        include $script;
-    }
-}
-
-/**
- * Set field_enabled = 1 on existing hero_slide paragraphs.
- */
-function admin_update_10002() {
-    $storage = \Drupal::entityTypeManager()->getStorage('paragraph');
-    $ids = $storage->getQuery()
-        ->accessCheck(FALSE)
-        ->condition('type', 'hero_slide')
-        ->execute();
-
-    foreach ($storage->loadMultiple($ids) as $paragraph) {
-        if (!$paragraph->hasField('field_enabled')) {
-            continue;
-        }
-
-        if ($paragraph->get('field_enabled')->isEmpty()) {
-            $paragraph->set('field_enabled', 1);
-            $paragraph->save();
-        }
-    }
-}

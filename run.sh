@@ -109,8 +109,8 @@ if [ $MODE = "--setup" ]; then
     fi
     docker exec ${PROJECT_NAME}_cms sh -c "
         bash drupal.sh --fix-permissions &&
-        drush updatedb -y &&
         drush config:import -y &&
+        drush updatedb -y &&
         ${PROD_SETUP}
         drush cache:rebuild
     "
