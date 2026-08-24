@@ -928,6 +928,11 @@ if ($recaptcha_secret_key = getenv('RECAPTCHA_SECRET_KEY')) {
 }
 
 /**
+ * EventRegistry API key (server-side only — never expose to Twig/JS).
+ */
+$settings['eventregistry_api_key'] = getenv('EVENTREGISTRY_API_KEY') ?: '';
+
+/**
  * Custom strings override.
  */
 $settings['locale_custom_strings_en'][''] = [

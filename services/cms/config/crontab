@@ -2,7 +2,8 @@
 #
 # This file is copied into the CMS Docker image (see Dockerfile) as root's crontab
 # and runs inside the container via the `cron` daemon started in docker-entrypoint.sh.
-# It only runs Drupal maintenance cron (drush cron), using env from cron_env.sh.
+# It only runs Drupal maintenance cron (drush cron), using env from
+# /opt/drupal/cron_env.sh (generated at container start; not in the git tree).
 #
 # Do NOT confuse with configs/crontab on the HOST, which schedules website archive
 # dumps and backup retention via scripts/install_crontab.sh.
@@ -10,7 +11,7 @@
 # m h  dom mon dow   command
 
 # Test cron environment
-# * * * * * . /opt/drupal/scripts/cron_env.sh; printenv > /var/log/cron_env.log 2>&1
+# * * * * * . /opt/drupal/cron_env.sh; printenv > /var/log/cron_env.log 2>&1
 
 # Drupal cron every hour
-0 * * * * . /opt/drupal/scripts/cron_env.sh; bash /opt/drupal/scripts/cron_drupal.sh > /var/log/cron_drupal.log 2>&1
+0 * * * * . /opt/drupal/cron_env.sh; bash /opt/drupal/scripts/cron_drupal.sh > /var/log/cron_drupal.log 2>&1

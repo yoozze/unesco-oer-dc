@@ -1,11 +1,13 @@
 #! /bin/bash
-# Generate cron_env.sh from the current container environment.
+# Generate cron env from the current container environment.
 # Used by the CMS container crontab (services/cms/config/crontab), not host backups.
 # Cron does not inherit Docker Compose env vars, so this must run at container start.
+#
+# Writes outside scripts/ so a bind-mount of scripts/ cannot spill secrets into git.
 
 set -euo pipefail
 
-OUT="${1:-/opt/drupal/scripts/cron_env.sh}"
+OUT="${1:-/opt/drupal/cron_env.sh}"
 
 vars=(
     ENV
@@ -24,6 +26,7 @@ vars=(
     SMTP_PASSWORD
     SMTP_FROM
     SMTP_FROMNAME
+    EVENTREGISTRY_API_KEY
 )
 
 {

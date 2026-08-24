@@ -6,7 +6,7 @@
 
 set -euo pipefail
 
-bash /opt/drupal/scripts/write_cron_env.sh /opt/drupal/scripts/cron_env.sh
+bash /opt/drupal/scripts/write_cron_env.sh /opt/drupal/cron_env.sh
 
 cron
 
