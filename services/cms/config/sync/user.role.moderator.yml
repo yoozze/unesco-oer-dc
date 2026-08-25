@@ -26,6 +26,7 @@ dependencies:
     - taxonomy.vocabulary.countries
     - taxonomy.vocabulary.event_types
     - taxonomy.vocabulary.languages
+    - taxonomy.vocabulary.news_sources
     - taxonomy.vocabulary.licence_conditions
     - taxonomy.vocabulary.media_types
     - taxonomy.vocabulary.regions
@@ -91,6 +92,7 @@ permissions:
   - 'create terms in languages'
   - 'create terms in licence_conditions'
   - 'create terms in media_types'
+  - 'create terms in news_sources'
   - 'create terms in regions'
   - 'create terms in resource_status'
   - 'create terms in resource_types'
@@ -152,6 +154,7 @@ permissions:
   - 'delete terms in languages'
   - 'delete terms in licence_conditions'
   - 'delete terms in media_types'
+  - 'delete terms in news_sources'
   - 'delete terms in regions'
   - 'delete terms in resource_status'
   - 'delete terms in resource_types'
@@ -193,6 +196,7 @@ permissions:
   - 'edit terms in languages'
   - 'edit terms in licence_conditions'
   - 'edit terms in media_types'
+  - 'edit terms in news_sources'
   - 'edit terms in regions'
   - 'edit terms in resource_category'
   - 'edit terms in resource_status'
@@ -242,6 +246,7 @@ permissions:
   - 'translate licence_conditions taxonomy_term'
   - 'translate media_types taxonomy_term'
   - 'translate news node'
+  - 'translate news_sources taxonomy_term'
   - 'translate paragraph'
   - 'translate regions taxonomy_term'
   - 'translate resource node'

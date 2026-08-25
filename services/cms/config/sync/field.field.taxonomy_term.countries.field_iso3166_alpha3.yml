@@ -1,0 +1,19 @@
+uuid: 43e0da7b-c72b-4a34-8621-86a42c17a525
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_iso3166_alpha3
+    - taxonomy.vocabulary.countries
+id: taxonomy_term.countries.field_iso3166_alpha3
+field_name: field_iso3166_alpha3
+entity_type: taxonomy_term
+bundle: countries
+label: 'ISO 3166-1 alpha-3'
+description: 'Three-letter country code (e.g. FRA).'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

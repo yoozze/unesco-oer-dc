@@ -5,12 +5,17 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.news.field_area_of_action
+    - field.field.node.news.field_article_uri
+    - field.field.node.news.field_author
     - field.field.node.news.field_audience
     - field.field.node.news.field_country
     - field.field.node.news.field_description
     - field.field.node.news.field_image
+    - field.field.node.news.field_language
     - field.field.node.news.field_links
+    - field.field.node.news.field_news_source
     - field.field.node.news.field_region
+    - field.field.node.news.field_source
     - field.field.node.news.field_tags
     - field.field.node.news.field_url
     - node.type.news
@@ -26,6 +31,11 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 0
+    region: content
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: -20
     region: content
   field_description:
     type: text_trimmed
@@ -52,10 +62,15 @@ content:
     region: content
 hidden:
   field_area_of_action: true
+  field_article_uri: true
   field_audience: true
+  field_author: true
   field_country: true
+  field_language: true
   field_links: true
+  field_news_source: true
   field_region: true
+  field_source: true
   field_tags: true
   field_url: true
   langcode: true

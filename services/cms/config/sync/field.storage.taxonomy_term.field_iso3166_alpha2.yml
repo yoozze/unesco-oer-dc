@@ -1,0 +1,21 @@
+uuid: 561ec397-47fd-48e6-acf5-2d441c826252
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+id: taxonomy_term.field_iso3166_alpha2
+field_name: field_iso3166_alpha2
+entity_type: taxonomy_term
+type: string
+settings:
+  max_length: 2
+  case_sensitive: false
+  is_ascii: true
+module: core
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

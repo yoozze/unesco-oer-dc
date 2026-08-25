@@ -4,12 +4,17 @@ status: true
 dependencies:
   config:
     - field.field.node.news.field_area_of_action
+    - field.field.node.news.field_article_uri
     - field.field.node.news.field_audience
+    - field.field.node.news.field_author
     - field.field.node.news.field_country
     - field.field.node.news.field_description
     - field.field.node.news.field_image
+    - field.field.node.news.field_language
     - field.field.node.news.field_links
+    - field.field.node.news.field_news_source
     - field.field.node.news.field_region
+    - field.field.node.news.field_source
     - field.field.node.news.field_tags
     - field.field.node.news.field_url
     - node.type.news
@@ -31,7 +36,12 @@ content:
   addtoany:
     settings: {  }
     third_party_settings: {  }
-    weight: 9
+    weight: 13
+    region: content
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: -20
     region: content
   field_area_of_action:
     type: entity_reference_label
@@ -39,7 +49,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 2
+    weight: 8
     region: content
   field_audience:
     type: entity_reference_label
@@ -47,7 +57,15 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 6
+    weight: 9
+    region: content
+  field_author:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 3
     region: content
   field_country:
     type: entity_reference_label
@@ -55,7 +73,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 4
+    weight: 6
     region: content
   field_description:
     type: text_default
@@ -69,7 +87,15 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 3
+    weight: 1
+    region: content
+  field_language:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 5
     region: content
   field_links:
     type: link
@@ -81,7 +107,15 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    weight: 7
+    weight: 11
+    region: content
+  field_news_source:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 2
     region: content
   field_region:
     type: entity_reference_label
@@ -89,14 +123,22 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 5
+    weight: 7
+    region: content
+  field_source:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 4
     region: content
   field_tags:
     type: entity_reference_rss_category
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 10
+    weight: 14
     region: content
   field_url:
     type: link
@@ -108,7 +150,7 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    weight: 1
+    weight: 10
     region: content
   node_read_time:
     type: string
@@ -116,9 +158,10 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 8
+    weight: 12
     region: content
 hidden:
+  field_article_uri: true
   langcode: true
   links: true
   reading_time: true

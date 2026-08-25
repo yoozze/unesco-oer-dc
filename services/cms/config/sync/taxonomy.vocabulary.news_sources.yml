@@ -1,0 +1,9 @@
+uuid: 1c83c4ea-4268-4eee-adb4-2ab7ca888f4e
+langcode: en
+status: true
+dependencies: {  }
+name: 'News sources'
+vid: news_sources
+description: 'Origin of a news item (official OER DC vs external feeds).'
+weight: 0
+new_revision: false

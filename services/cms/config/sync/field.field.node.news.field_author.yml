@@ -1,0 +1,19 @@
+uuid: 459a569d-2001-4c17-a23f-917114cc1f93
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_author
+    - node.type.news
+id: node.news.field_author
+field_name: field_author
+entity_type: node
+bundle: news
+label: Author
+description: 'Author name(s). Multiple authors can be separated by semi-colons.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

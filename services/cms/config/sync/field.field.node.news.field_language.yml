@@ -1,0 +1,29 @@
+uuid: c0ec60cf-fcb8-4738-8706-f4cc7bd467b1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_language
+    - node.type.news
+    - taxonomy.vocabulary.languages
+id: node.news.field_language
+field_name: field_language
+entity_type: node
+bundle: news
+label: 'News language'
+description: 'Language of the news article (optional).'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      languages: languages
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

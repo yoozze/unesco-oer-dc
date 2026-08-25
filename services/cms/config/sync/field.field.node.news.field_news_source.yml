@@ -1,0 +1,31 @@
+uuid: 0f5fc9ce-68a4-4e91-bea8-fed180830a1d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_news_source
+    - node.type.news
+    - taxonomy.vocabulary.news_sources
+id: node.news.field_news_source
+field_name: field_news_source
+entity_type: node
+bundle: news
+label: 'News source'
+description: 'Official OER DC news vs external ingested sources.'
+required: true
+translatable: false
+default_value:
+  -
+    target_uuid: 0375530f-1f9d-4606-a9ab-3fba1530eca5
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      news_sources: news_sources
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
