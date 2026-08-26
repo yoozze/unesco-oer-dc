@@ -1,0 +1,25 @@
+services:
+  eventregistry_news.api_client:
+    class: Drupal\eventregistry_news\Client\EventRegistryApiClient
+    arguments:
+      - '@http_client'
+      - '@settings'
+      - '@config.factory'
+      - '@logger.factory'
+
+  eventregistry_news.normalizer:
+    class: Drupal\eventregistry_news\Client\EventRegistryNormalizer
+    arguments:
+      - '@entity.repository'
+
+  eventregistry_news.source:
+    class: Drupal\eventregistry_news\EventRegistryNewsSource
+    arguments:
+      - '@eventregistry_news.api_client'
+      - '@eventregistry_news.normalizer'
+      - '@news_ingestion.source_prerequisites'
+      - '@config.factory'
+      - '@entity.repository'
+      - '@logger.factory'
+    tags:
+      - { name: news_ingestion.source }

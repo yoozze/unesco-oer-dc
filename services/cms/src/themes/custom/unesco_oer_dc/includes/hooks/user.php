@@ -51,7 +51,7 @@ function unesco_oer_dc_preprocess_user(&$variables) {
     $database = \Drupal::database();
     $query = $database->query("SELECT `value` FROM `users_data` WHERE `uid` = :uid and `module` = 'contact' and `name` = 'enabled'", [':uid' => $user->id()]);
     $result = $query->fetchAll();
-    $variables['contact_enabled'] = $result[0]->value === '1';
+    $variables['contact_enabled'] = !empty($result[0]) && $result[0]->value === '1';
 
     // Check if this is current user
     $variables['is_current_user'] = $user->id() === \Drupal::currentUser()->id();

@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * @file
+ * Shared news ingestion helpers.
+ */
+
+declare(strict_types=1);
+
+/**
+ * Implements hook_modules_installed().
+ *
+ * When a source module is enabled after news_ingestion, ask it to ensure
+ * its taxonomy term and author user exist.
+ */
+function news_ingestion_modules_installed(array $modules, bool $is_syncing): void {
+    if ($is_syncing || !\Drupal::hasService('news_ingestion.source_locator')) {
+        return;
+    }
+
+    /** @var \Drupal\news_ingestion\Source\NewsSourceLocator $locator */
+    $locator = \Drupal::service('news_ingestion.source_locator');
+    foreach ($modules as $module) {
+        foreach ($locator->all() as $source) {
+            if ($source->providerModule() === $module) {
+                $source->ensurePrerequisites();
+            }
+        }
+    }
+}

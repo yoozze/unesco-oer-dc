@@ -1,0 +1,9 @@
+name: 'EventRegistry News'
+description: 'Ingests OER topic-page articles from EventRegistry into news nodes.'
+package: 'UNESCO OER DC'
+type: module
+core_version_requirement: ^10 || ^11
+dependencies:
+  - news_ingestion:news_ingestion
+  - drupal:taxonomy
+  - drupal:user

@@ -1,0 +1,57 @@
+eventregistry_news.settings:
+  type: config_object
+  label: 'EventRegistry news settings'
+  mapping:
+    streams:
+      type: sequence
+      label: Streams
+      sequence:
+        type: mapping
+        mapping:
+          id:
+            type: integer
+            label: Stream id
+          label:
+            type: string
+            label: Label
+          topic_uri:
+            type: string
+            label: Topic page URI
+          area_of_action_uuid:
+            type: string
+            label: Area of action term UUID
+    source:
+      type: mapping
+      label: Source term / user
+      mapping:
+        key:
+          type: string
+          label: Source key
+        name:
+          type: string
+          label: Display name
+        description:
+          type: string
+          label: Description
+        uuid:
+          type: string
+          label: Term UUID
+        username:
+          type: string
+          label: Author username
+        first_name:
+          type: string
+          label: Author first name (display)
+        last_name:
+          type: string
+          label: Author last name (display)
+    api:
+      type: mapping
+      label: API
+      mapping:
+        endpoint:
+          type: string
+          label: Endpoint URL
+        default_page_size:
+          type: integer
+          label: Default page size

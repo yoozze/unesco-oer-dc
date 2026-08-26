@@ -1,0 +1,46 @@
+services:
+  news_ingestion.source_locator:
+    class: Drupal\news_ingestion\Source\NewsSourceLocator
+    arguments: [!tagged_iterator news_ingestion.source]
+
+  news_ingestion.language_mapper:
+    class: Drupal\news_ingestion\Mapper\LanguageMapper
+    arguments: ['@entity_type.manager']
+
+  news_ingestion.country_mapper:
+    class: Drupal\news_ingestion\Mapper\CountryMapper
+    arguments: ['@entity_type.manager']
+
+  news_ingestion.media_downloader:
+    class: Drupal\news_ingestion\Service\RemoteImageMediaDownloader
+    arguments:
+      - '@http_client'
+      - '@file_system'
+      - '@file.repository'
+      - '@logger.factory'
+
+  news_ingestion.source_prerequisites:
+    class: Drupal\news_ingestion\Service\SourcePrerequisiteService
+    arguments:
+      - '@entity_type.manager'
+      - '@entity.repository'
+      - '@password_generator'
+
+  news_ingestion.upsert:
+    class: Drupal\news_ingestion\Service\NewsUpsertService
+    arguments:
+      - '@entity_type.manager'
+      - '@news_ingestion.language_mapper'
+      - '@news_ingestion.country_mapper'
+      - '@news_ingestion.media_downloader'
+      - '@news_ingestion.source_prerequisites'
+      - '@datetime.time'
+
+  news_ingestion.runner:
+    class: Drupal\news_ingestion\Service\NewsIngestRunner
+    arguments:
+      - '@news_ingestion.source_locator'
+      - '@news_ingestion.upsert'
+      - '@news_ingestion.source_prerequisites'
+      - '@entity_type.manager'
+      - '@logger.factory'

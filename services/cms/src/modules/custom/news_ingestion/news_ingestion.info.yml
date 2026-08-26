@@ -1,0 +1,11 @@
+name: 'News Ingestion'
+description: 'Shared services for ingesting external news into news nodes (DTO, upsert, mappers, Drush).'
+package: 'UNESCO OER DC'
+type: module
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:node
+  - drupal:taxonomy
+  - drupal:media
+  - drupal:file
+  - drupal:content_moderation

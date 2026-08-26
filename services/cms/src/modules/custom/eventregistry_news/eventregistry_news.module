@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * @file
+ * EventRegistry news source module.
+ */
+
+declare(strict_types=1);
+
+/**
+ * Implements hook_install().
+ */
+function eventregistry_news_install(): void {
+    if (\Drupal::hasService('eventregistry_news.source')) {
+        \Drupal::service('eventregistry_news.source')->ensurePrerequisites();
+    }
+}

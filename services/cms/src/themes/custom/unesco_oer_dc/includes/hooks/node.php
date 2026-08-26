@@ -47,9 +47,21 @@ function unesco_oer_dc_preprocess_node(&$variables) {
     if (in_array($node_type, ['event', 'resource', 'news'])) {
         $author = $node->getOwner();
         if ($author) {
+            $variables['#cache']['tags'] = \Drupal\Core\Cache\Cache::mergeTags(
+                $variables['#cache']['tags'] ?? [],
+                $author->getCacheTags()
+            );
             $variables['author_display_name'] = get_user_display_name($author);
-            if (!empty($variables['author_name'])) {
+
+            // Only link when the author opts into a public profile (field_share_profile).
+            // System source accounts (e.g. eventregistry) keep share off and stay unlinked.
+            $share_profile = $author->hasField('field_share_profile')
+                && (bool) $author->get('field_share_profile')->value;
+            if (!empty($variables['author_name']) && $share_profile) {
                 $variables['author_url'] = Url::fromRoute('entity.user.canonical', ['user' => $author->id()])->toString();
+            }
+            else {
+                $variables['author_name'] = NULL;
             }
 
             $picture = $author->get('user_picture')->entity;

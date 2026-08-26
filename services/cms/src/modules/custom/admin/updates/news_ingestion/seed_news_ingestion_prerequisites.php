@@ -169,10 +169,12 @@ while (($row = fgetcsv($fh)) !== FALSE) {
         $term->set('field_iso639_1', $iso1);
         $dirty = TRUE;
     }
+
     if ($term->get('field_iso639_2')->value !== $iso2) {
         $term->set('field_iso639_2', $iso2);
         $dirty = TRUE;
     }
+
     if ($dirty) {
         $term->save();
         $lang_updated++;

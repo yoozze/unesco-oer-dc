@@ -1,0 +1,34 @@
+streams:
+  - id: 1
+    label: 'OER 1'
+    topic_uri: f23b14f7-60d1-4786-9ca4-f8fdd56682ec
+    area_of_action_uuid: 52ad6810-8c45-4e4f-8726-6f05b66e7930
+  - id: 2
+    label: 'OER 2'
+    topic_uri: 9365e3e0-4914-41b5-822a-9e373e2fd3fa
+    area_of_action_uuid: a6bb8dcc-d89c-4f44-9b5b-024f2c23f4fc
+  - id: 3
+    label: 'OER 3'
+    topic_uri: 1ebf4034-deab-452e-a0e4-edf356eb2139
+    area_of_action_uuid: a401c88b-6726-4916-af65-ccd9b9e334f2
+  - id: 4
+    label: 'OER 4'
+    topic_uri: 50c9b223-8eec-49ee-b6cb-46631ed37dcf
+    area_of_action_uuid: 0bffd408-11ba-46fc-aeb7-4d2472d5822e
+  - id: 5
+    label: 'OER 5'
+    topic_uri: f9d34ef5-0d04-4e2e-8fc7-ade59aef9801
+    area_of_action_uuid: ee4350aa-964a-405b-9b57-86bfa34f4f75
+
+source:
+  key: eventregistry
+  name: EventRegistry
+  description: 'OER-related news aggregated from EventRegistry topic pages (OER Observatory).'
+  uuid: 97ad6e11-cfad-447f-b45b-2f60c0dbc843
+  username: eventregistry
+  first_name: EventRegistry
+  last_name: ''
+
+api:
+  endpoint: 'https://eventregistry.org/api/v1/article/getArticlesForTopicPage'
+  default_page_size: 50

@@ -1,0 +1,8 @@
+services:
+  news_ingestion.commands:
+    class: Drupal\news_ingestion\Drush\Commands\NewsIngestionCommands
+    arguments:
+      - '@news_ingestion.runner'
+      - '@news_ingestion.source_locator'
+    tags:
+      - { name: drush.command }
