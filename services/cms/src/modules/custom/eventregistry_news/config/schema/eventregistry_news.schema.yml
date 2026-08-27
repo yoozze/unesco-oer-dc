@@ -55,3 +55,10 @@ eventregistry_news.settings:
         default_page_size:
           type: integer
           label: Default page size
+    cron:
+      type: mapping
+      label: Cron
+      mapping:
+        enabled:
+          type: boolean
+          label: 'Queue EventRegistry streams during Drupal cron'

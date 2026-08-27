@@ -149,4 +149,32 @@ final class EventRegistryNewsSource implements NewsSourceInterface {
             } while ($page <= $pages);
         }
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isCronEnabled(): bool {
+        return (bool) $this->configFactory->get('eventregistry_news.settings')->get('cron.enabled');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCronItems(): array {
+        $streams = $this->configFactory->get('eventregistry_news.settings')->get('streams') ?? [];
+        if (!is_array($streams)) {
+            return [];
+        }
+
+        $items = [];
+        foreach ($streams as $stream) {
+            if (!is_array($stream) || !isset($stream['id'])) {
+                continue;
+            }
+
+            $items[] = ['stream' => $stream['id']];
+        }
+
+        return $items;
+    }
 }

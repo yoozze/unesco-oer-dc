@@ -4,5 +4,7 @@ services:
     arguments:
       - '@news_ingestion.runner'
       - '@news_ingestion.source_locator'
+      - '@news_ingestion.cron_scheduler'
+      - '@news_ingestion.near_dupe_cleanup'
     tags:
       - { name: drush.command }

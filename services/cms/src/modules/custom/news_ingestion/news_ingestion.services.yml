@@ -44,3 +44,20 @@ services:
       - '@news_ingestion.source_prerequisites'
       - '@entity_type.manager'
       - '@logger.factory'
+
+  news_ingestion.cron_scheduler:
+    class: Drupal\news_ingestion\Service\NewsCronScheduler
+    arguments:
+      - '@news_ingestion.source_locator'
+      - '@queue'
+      - '@config.factory'
+      - '@state'
+      - '@datetime.time'
+      - '@logger.factory'
+
+  news_ingestion.near_dupe_cleanup:
+    class: Drupal\news_ingestion\Service\NearDupeCleanupService
+    arguments:
+      - '@entity_type.manager'
+      - '@news_ingestion.source_prerequisites'
+      - '@logger.factory'

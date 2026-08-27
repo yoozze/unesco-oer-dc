@@ -5,6 +5,8 @@ dependencies:
   config:
     - field.field.node.news.field_area_of_action
     - field.field.node.news.field_article_uri
+    - field.field.node.news.field_title_norm
+    - field.field.node.news.field_url_norm
     - field.field.node.news.field_audience
     - field.field.node.news.field_author
     - field.field.node.news.field_country
@@ -201,5 +203,7 @@ content:
     third_party_settings: {  }
 hidden:
   field_article_uri: true
+  field_title_norm: true
+  field_url_norm: true
   field_news_source: true
   field_tags: true

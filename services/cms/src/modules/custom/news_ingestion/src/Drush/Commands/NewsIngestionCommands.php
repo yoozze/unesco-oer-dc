@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\news_ingestion\Drush\Commands;
 
+use Drupal\news_ingestion\Service\NearDupeCleanupService;
+use Drupal\news_ingestion\Service\NewsCronScheduler;
 use Drupal\news_ingestion\Service\NewsIngestRunner;
 use Drupal\news_ingestion\Source\NewsSourceLocator;
 use Drush\Attributes as CLI;
@@ -17,6 +19,8 @@ final class NewsIngestionCommands extends DrushCommands {
     public function __construct(
         private readonly NewsIngestRunner $runner,
         private readonly NewsSourceLocator $sourceLocator,
+        private readonly NewsCronScheduler $cronScheduler,
+        private readonly NearDupeCleanupService $nearDupeCleanup,
     ) {
         parent::__construct();
     }
@@ -114,7 +118,12 @@ final class NewsIngestionCommands extends DrushCommands {
     public function sources(): void {
         $rows = [];
         foreach ($this->sourceLocator->all() as $id => $source) {
-            $rows[] = [$id, $source->label(), $source->providerModule()];
+            $rows[] = [
+                $id,
+                $source->label(),
+                $source->providerModule(),
+                $source->isCronEnabled() ? 'yes' : 'no',
+            ];
         }
 
         if (!$rows) {
@@ -122,6 +131,50 @@ final class NewsIngestionCommands extends DrushCommands {
             return;
         }
 
-        $this->io()->table(['ID', 'Label', 'Module'], $rows);
+        $this->io()->table(['ID', 'Label', 'Module', 'Cron'], $rows);
+    }
+
+    /**
+     * Enqueue cron ingest jobs (same as hook_cron) without running Drupal cron.
+     */
+    #[CLI\Command(name: 'news:cron-enqueue', aliases: ['news-cron-enqueue'])]
+    #[CLI\Usage(name: 'drush news:cron-enqueue', description: 'Queue per-stream ingest jobs for enabled sources.')]
+    public function cronEnqueue(): void {
+        $count = $this->cronScheduler->enqueueDueJobs();
+        $this->io()->success(sprintf('Queued %d ingest job(s). Run: drush queue:run news_ingestion_ingest', $count));
+    }
+
+    /**
+     * Backfill near-dupe keys and delete later near-duplicates (keep first-seen).
+     */
+    #[CLI\Command(name: 'news:dedupe', aliases: ['news-dedupe'])]
+    #[CLI\Option(name: 'source', description: 'Limit to a news source key (default: eventregistry).')]
+    #[CLI\Option(name: 'dry-run', description: 'Report only; do not save or delete.')]
+    #[CLI\Usage(name: 'drush news:dedupe --source=eventregistry', description: 'Collapse EventRegistry near-duplicates.')]
+    public function dedupe(
+        array $options = [
+            'source' => 'eventregistry',
+            'dry-run' => FALSE,
+        ],
+    ): void {
+        $source = $options['source'] !== NULL && $options['source'] !== '' ? (string) $options['source'] : 'eventregistry';
+        $dry = !empty($options['dry-run']);
+        if (!$dry && !$this->io()->confirm(sprintf(
+            'Collapse near-duplicate news for source "%s" (keep first-seen)?',
+            $source
+        ), FALSE)) {
+            $this->io()->warning('Aborted.');
+            return;
+        }
+
+        $stats = $this->nearDupeCleanup->cleanup($source, $dry);
+        $this->io()->success(sprintf(
+            'Dedupe%s: backfilled=%d groups=%d kept=%d deleted=%d',
+            $dry ? ' [dry-run]' : '',
+            $stats['backfilled'],
+            $stats['groups'],
+            $stats['kept'],
+            $stats['deleted']
+        ));
     }
 }

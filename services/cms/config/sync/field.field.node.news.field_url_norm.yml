@@ -1,0 +1,19 @@
+uuid: d7476874-8c01-4379-a326-b8c774e32342
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_url_norm
+    - node.type.news
+id: node.news.field_url_norm
+field_name: field_url_norm
+entity_type: node
+bundle: news
+label: 'URL near-dupe key'
+description: 'Normalized URL path used to collapse syndicated near-duplicates. Set by ingestion; hidden in the UI.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

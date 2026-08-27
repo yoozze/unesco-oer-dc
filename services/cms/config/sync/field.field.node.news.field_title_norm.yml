@@ -1,0 +1,19 @@
+uuid: 8b17c7d8-ceac-41a1-9c07-2026ce44225a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_title_norm
+    - node.type.news
+id: node.news.field_title_norm
+field_name: field_title_norm
+entity_type: node
+bundle: news
+label: 'Title near-dupe key'
+description: 'Normalized title used to collapse near-duplicates across outlets. Set by ingestion; hidden in the UI.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,11 @@
+news_ingestion.settings:
+  type: config_object
+  label: 'News ingestion settings'
+  mapping:
+    cron:
+      type: mapping
+      label: Cron
+      mapping:
+        enabled:
+          type: boolean
+          label: 'Enable cron enqueue for all sources'

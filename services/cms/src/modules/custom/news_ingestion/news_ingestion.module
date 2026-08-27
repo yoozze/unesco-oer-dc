@@ -28,3 +28,16 @@ function news_ingestion_modules_installed(array $modules, bool $is_syncing): voi
         }
     }
 }
+
+/**
+ * Implements hook_cron().
+ *
+ * Enqueues per-source ingest jobs; the queue worker runs during the same cron.
+ */
+function news_ingestion_cron(): void {
+    if (!\Drupal::hasService('news_ingestion.cron_scheduler')) {
+        return;
+    }
+
+    \Drupal::service('news_ingestion.cron_scheduler')->enqueueDueJobs();
+}

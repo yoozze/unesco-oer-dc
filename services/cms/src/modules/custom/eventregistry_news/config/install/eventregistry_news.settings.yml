@@ -32,3 +32,6 @@ source:
 api:
   endpoint: 'https://eventregistry.org/api/v1/article/getArticlesForTopicPage'
   default_page_size: 50
+
+cron:
+  enabled: true

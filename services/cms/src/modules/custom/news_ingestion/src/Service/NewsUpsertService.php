@@ -8,15 +8,20 @@ use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\news_ingestion\Mapper\CountryMapper;
 use Drupal\news_ingestion\Mapper\LanguageMapper;
+use Drupal\news_ingestion\NearDupeKeys;
 use Drupal\news_ingestion\NewsArticleDto;
 use Drupal\node\NodeInterface;
 
 /**
- * Creates or updates news nodes from NewsArticleDto (dedupe by article URI).
+ * Creates or updates news nodes from NewsArticleDto.
+ *
+ * Deduping:
+ * 1. Exact ER article URI (same article) → refresh content + merge AoA.
+ * 2. Near-dupe via normalized URL path or title → keep first-seen content, merge AoA only.
  */
 final class NewsUpsertService {
 
-  private const BODY_FORMAT = 'basic_html';
+    private const BODY_FORMAT = 'basic_html';
 
     public function __construct(
         private readonly EntityTypeManagerInterface $entityTypeManager,
@@ -29,34 +34,70 @@ final class NewsUpsertService {
     }
 
     /**
-     * Upsert a news node. Returns ['node' => NodeInterface, 'action' => created|updated|unchanged].
-     *
      * @return array{node: \Drupal\node\NodeInterface, action: string}
      */
     public function upsert(NewsArticleDto $dto, bool $dry_run = FALSE): array {
         if ($dto->uri === '') {
             throw new \InvalidArgumentException('NewsArticleDto.uri is required.');
         }
-
         if ($dto->sourceMachineName === '') {
             throw new \InvalidArgumentException('NewsArticleDto.sourceMachineName is required.');
         }
 
+        $url_key = NearDupeKeys::urlKey($dto->url);
+        $title_key = NearDupeKeys::titleKey($dto->title);
+
         $existing = $this->loadByArticleUri($dto->uri);
         if ($existing) {
-            return $this->updateExisting($existing, $dto, $dry_run);
+            return $this->updateExisting($existing, $dto, $dry_run, FALSE, $url_key, $title_key);
         }
 
-        return $this->createNew($dto, $dry_run);
+        $near = $this->loadNearDupe($url_key, $title_key);
+        if ($near) {
+            // First-seen wins: only merge AoA (+ backfill keys); do not replace content.
+            return $this->updateExisting($near, $dto, $dry_run, TRUE, $url_key, $title_key);
+        }
+
+        return $this->createNew($dto, $dry_run, $url_key, $title_key);
     }
 
     public function loadByArticleUri(string $uri): ?NodeInterface {
-        $nids = $this->entityTypeManager->getStorage('node')->getQuery()
+        return $this->loadFirstByField('field_article_uri', $uri);
+    }
+
+    /**
+     * Prefer URL-path match, then title match. Earliest created = first-seen.
+     */
+    public function loadNearDupe(string $url_key, string $title_key): ?NodeInterface {
+        if ($url_key !== '') {
+            $node = $this->loadFirstByField('field_url_norm', $url_key, TRUE);
+            if ($node) {
+                return $node;
+            }
+        }
+
+        if ($title_key !== '') {
+            return $this->loadFirstByField('field_title_norm', $title_key, TRUE);
+        }
+
+        return NULL;
+    }
+
+    private function loadFirstByField(string $field, string $value, bool $sort_by_created = FALSE): ?NodeInterface {
+        if ($value === '' || !$this->fieldExists($field)) {
+            return NULL;
+        }
+
+        $query = $this->entityTypeManager->getStorage('node')->getQuery()
             ->accessCheck(FALSE)
             ->condition('type', 'news')
-            ->condition('field_article_uri', $uri)
-            ->range(0, 1)
-            ->execute();
+            ->condition($field, $value)
+            ->range(0, 1);
+        if ($sort_by_created) {
+            $query->sort('created', 'ASC');
+        }
+
+        $nids = $query->execute();
         if (!$nids) {
             return NULL;
         }
@@ -65,10 +106,15 @@ final class NewsUpsertService {
         return $node instanceof NodeInterface ? $node : NULL;
     }
 
+    private function fieldExists(string $field_name): bool {
+        return (bool) $this->entityTypeManager->getStorage('field_storage_config')
+            ->load('node.' . $field_name);
+    }
+
     /**
      * @return array{node: \Drupal\node\NodeInterface, action: string}
      */
-    private function createNew(NewsArticleDto $dto, bool $dry_run): array {
+    private function createNew(NewsArticleDto $dto, bool $dry_run, string $url_key, string $title_key): array {
         $term = $this->prerequisites->loadTermByKey($dto->sourceMachineName);
         $user = $this->prerequisites->loadUserByName($dto->sourceMachineName);
         if (!$term || !$user) {
@@ -96,7 +142,13 @@ final class NewsUpsertService {
             ],
             'field_area_of_action' => $this->refs($dto->areaOfActionIds),
         ];
+        if ($url_key !== '' && $this->fieldExists('field_url_norm')) {
+            $values['field_url_norm'] = $url_key;
+        }
 
+        if ($title_key !== '' && $this->fieldExists('field_title_norm')) {
+            $values['field_title_norm'] = $title_key;
+        }
         if ($dto->publisherTitle) {
             $values['field_source'] = mb_substr($dto->publisherTitle, 0, 255);
         }
@@ -137,10 +189,17 @@ final class NewsUpsertService {
     /**
      * @return array{node: \Drupal\node\NodeInterface, action: string}
      */
-    private function updateExisting(NodeInterface $node, NewsArticleDto $dto, bool $dry_run): array {
+    private function updateExisting(
+        NodeInterface $node,
+        NewsArticleDto $dto,
+        bool $dry_run,
+        bool $near_dupe_only,
+        string $url_key,
+        string $title_key,
+    ): array {
         $dirty = FALSE;
 
-        // Merge Areas of Action without wiping other streams.
+        // Always merge Areas of Action.
         $existing_aoa = [];
         foreach ($node->get('field_area_of_action') as $item) {
             if ($item->target_id) {
@@ -161,10 +220,45 @@ final class NewsUpsertService {
             $node->set('field_area_of_action', $this->refs(array_values($merged)));
         }
 
-        // Refresh content fields when the remote payload has data.
+        // Backfill near-dupe keys when missing.
+        if ($url_key !== '' && $node->hasField('field_url_norm') && $node->get('field_url_norm')->isEmpty()) {
+            $node->set('field_url_norm', $url_key);
+            $dirty = TRUE;
+        }
+
+        if ($title_key !== '' && $node->hasField('field_title_norm') && $node->get('field_title_norm')->isEmpty()) {
+            $node->set('field_title_norm', $title_key);
+            $dirty = TRUE;
+        }
+
+        // Near-dupe of another URI: keep first-seen body/title/url/etc.
+        if ($near_dupe_only) {
+            if (!$dirty) {
+                return ['node' => $node, 'action' => 'unchanged'];
+            }
+
+            if ($dry_run) {
+                return ['node' => $node, 'action' => 'updated'];
+            }
+
+            if ($node->hasField('moderation_state')) {
+                $node->set('moderation_state', 'published');
+            }
+
+            $node->setPublished();
+            $node->save();
+            return ['node' => $node, 'action' => 'updated'];
+        }
+
+        // Same article URI: refresh content.
         $title = mb_substr($dto->title !== '' ? $dto->title : $node->label(), 0, 255);
         if ($node->label() !== $title) {
             $node->setTitle($title);
+            $dirty = TRUE;
+        }
+
+        if ($title_key !== '' && $node->hasField('field_title_norm') && (string) $node->get('field_title_norm')->value !== $title_key) {
+            $node->set('field_title_norm', $title_key);
             $dirty = TRUE;
         }
 
@@ -186,6 +280,11 @@ final class NewsUpsertService {
                     'uri' => $dto->url,
                     'title' => 'View original source',
                 ]);
+                $dirty = TRUE;
+            }
+
+            if ($url_key !== '' && $node->hasField('field_url_norm') && (string) $node->get('field_url_norm')->value !== $url_key) {
+                $node->set('field_url_norm', $url_key);
                 $dirty = TRUE;
             }
         }
@@ -232,7 +331,6 @@ final class NewsUpsertService {
             }
         }
 
-        // Attach image only when the node has none yet.
         if ($dto->imageUrl && $node->get('field_image')->isEmpty() && !$dry_run) {
             $media = $this->mediaDownloader->createFromUrl($dto->imageUrl, $dto->title);
             if ($media) {
@@ -263,9 +361,7 @@ final class NewsUpsertService {
      */
     private function buildDescription(NewsArticleDto $dto): array {
         $body = $dto->body !== '' ? $dto->body : $dto->title;
-        // ER bodies are typically plain text with newlines; keep as basic_html.
         $value = $this->plainToBasicHtml($body);
-        // Only store a summary when the source provided one — never invent it.
         $summary = $dto->summary !== NULL ? trim($dto->summary) : '';
         return [
             'value' => $value,
@@ -275,7 +371,6 @@ final class NewsUpsertService {
     }
 
     private function plainToBasicHtml(string $text): string {
-        // If already looks like HTML, store as-is (still under basic_html filter).
         if (preg_match('/<[a-z][\s\S]*>/i', $text)) {
             return $text;
         }
@@ -289,6 +384,7 @@ final class NewsUpsertService {
                 $html .= '<p>' . $p . '</p>';
             }
         }
+
         return $html !== '' ? $html : '<p></p>';
     }
 
