@@ -6,7 +6,11 @@ namespace Drupal\news_ingestion\Service;
 
 use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Extension\ModuleExtensionList;
+use Drupal\Core\File\FileExists;
+use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Password\PasswordGeneratorInterface;
+use Drupal\file\FileRepositoryInterface;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\taxonomy\TermInterface;
 use Drupal\user\Entity\User;
@@ -17,10 +21,15 @@ use Drupal\user\UserInterface;
  */
 final class SourcePrerequisiteService {
 
+    private const AVATAR_DIRECTORY = 'public://pictures/source-avatars';
+
     public function __construct(
         private readonly EntityTypeManagerInterface $entityTypeManager,
         private readonly EntityRepositoryInterface $entityRepository,
         private readonly PasswordGeneratorInterface $passwordGenerator,
+        private readonly FileSystemInterface $fileSystem,
+        private readonly FileRepositoryInterface $fileRepository,
+        private readonly ModuleExtensionList $moduleExtensionList,
     ) {
     }
 
@@ -33,6 +42,8 @@ final class SourcePrerequisiteService {
      *   username?: string,
      *   first_name?: string,
      *   last_name?: string,
+     *   avatar_module?: string,
+     *   avatar_path?: string,
      * } $definition
      *
      * @return array{term: \Drupal\taxonomy\TermInterface, user: \Drupal\user\UserInterface}
@@ -131,6 +142,8 @@ final class SourcePrerequisiteService {
      *   username?: string,
      *   first_name?: string,
      *   last_name?: string,
+     *   avatar_module?: string,
+     *   avatar_path?: string,
      * } $definition
      */
     private function ensureUser(array $definition): UserInterface {
@@ -162,6 +175,8 @@ final class SourcePrerequisiteService {
                 $user->set('field_share_profile', 0);
             }
 
+            $this->ensureUserAvatar($user, $definition);
+
             $user->save();
             return $user;
         }
@@ -187,10 +202,61 @@ final class SourcePrerequisiteService {
             $dirty = TRUE;
         }
 
+        if ($this->ensureUserAvatar($user, $definition)) {
+            $dirty = TRUE;
+        }
+
         if ($dirty) {
             $user->save();
         }
 
         return $user;
+    }
+
+    /**
+     * Attach a module-bundled avatar when the user has no picture yet.
+     *
+     * @param array{
+     *   key: string,
+     *   avatar_module?: string,
+     *   avatar_path?: string,
+     * } $definition
+     */
+    private function ensureUserAvatar(UserInterface $user, array $definition): bool {
+        if (!$user->hasField('user_picture') || !$user->get('user_picture')->isEmpty()) {
+            return FALSE;
+        }
+
+        $module = trim((string) ($definition['avatar_module'] ?? ''));
+        $relative_path = trim((string) ($definition['avatar_path'] ?? ''));
+        if ($module === '' || $relative_path === '') {
+            return FALSE;
+        }
+
+        $module_path = $this->moduleExtensionList->getPath($module);
+        if ($module_path === '') {
+            return FALSE;
+        }
+
+        $source = DRUPAL_ROOT . '/' . $module_path . '/' . ltrim($relative_path, '/');
+        if (!is_readable($source)) {
+            return FALSE;
+        }
+
+        $contents = file_get_contents($source);
+        if ($contents === FALSE || $contents === '') {
+            return FALSE;
+        }
+
+        $directory = self::AVATAR_DIRECTORY;
+        $this->fileSystem->prepareDirectory(
+            $directory,
+            FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS,
+        );
+
+        $destination = $directory . '/' . $definition['key'] . '-avatar.svg';
+        $file = $this->fileRepository->writeData($contents, $destination, FileExists::Replace);
+        $user->set('user_picture', ['target_id' => $file->id()]);
+        return TRUE;
     }
 }

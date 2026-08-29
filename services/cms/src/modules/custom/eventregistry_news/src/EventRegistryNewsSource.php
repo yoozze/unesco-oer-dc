@@ -51,6 +51,8 @@ final class EventRegistryNewsSource implements NewsSourceInterface {
             'username' => (string) ($source['username'] ?? EventRegistryNormalizer::SOURCE_KEY),
             'first_name' => (string) ($source['first_name'] ?? $source['name'] ?? 'EventRegistry'),
             'last_name' => (string) ($source['last_name'] ?? ''),
+            'avatar_module' => (string) ($source['avatar_module'] ?? 'eventregistry_news'),
+            'avatar_path' => (string) ($source['avatar_path'] ?? 'assets/eventregistry-avatar.svg'),
         ]);
     }
 

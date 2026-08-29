@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 380 380" width="380" height="380" role="img" aria-hidden="true">
+    <defs></defs>
+    <linearGradient id="er-aka">
+        <stop offset="0" stop-color="#a0c3ff"></stop>
+        <stop offset="1" stop-color="#5964ff"></stop>
+    </linearGradient>
+    <linearGradient id="er-akb" x1=".006%" x2="99.998%" y1="49.999%" y2="49.999%" xlink:href="#er-aka"></linearGradient>
+    <linearGradient id="er-akc" x1="0%" x2="100.004%" y1="50.013%" y2="50.013%" xlink:href="#er-aka"></linearGradient>
+    <linearGradient id="er-ake" x1=".002%" x2="99.98%" y1="49.988%" y2="49.988%" xlink:href="#er-aka"></linearGradient>
+    <linearGradient id="er-akg" x1=".011%" x2="99.999%" y1="49.992%" y2="49.992%" xlink:href="#er-aka"></linearGradient>
+    <mask id="er-akd" fill="#fff">
+        <path fill-rule="evenodd"
+            d="M154.86 17.13L26.04 44.52C10.89 47.73.42 60.9 0 75.75v1.92c.06 1.92.3 3.87.69 5.82l.03.09c3.78 17.76 21.24 29.1 38.97 25.32l128.85-27.36c17.73-3.78 29.07-21.24 25.29-38.97v-.12c-3.3-15.42-16.95-26.04-32.13-26.04-2.25 0-4.53.24-6.84.72"></path>
+    </mask>
+    <mask id="er-akf" fill="#fff">
+        <path fill-rule="evenodd"
+            d="M.36 57.39C.36 75.39 14.97 90 32.94 90c18 0 32.64-14.58 32.64-32.58 0-18.03-14.61-32.61-32.61-32.61S.36 39.39.36 57.39"></path>
+    </mask>
+    <mask id="er-akh" fill="#fff">
+        <path fill-rule="evenodd"
+            d="M131.61 13.74L35.97 34.11C18.21 37.86 6.9 55.32 10.62 73.08c3.78 17.73 21.24 29.1 39 25.32l95.64-20.37c17.76-3.75 29.1-21.18 25.32-38.94-3.27-15.45-16.95-26.04-32.13-26.04-2.25 0-4.53.21-6.84.69"></path>
+    </mask>
+    <g transform="translate(54.5 35)">
+        <g fill="none" fill-rule="evenodd">
+            <path fill="url(#er-akb)"
+                d="M222.64 1.72L27.07 43.27C9.31 47.02-2.03 64.48 1.75 82.24l.06.21c3.75 17.76 21.21 29.1 38.97 25.35l195.54-41.58c17.76-3.75 29.1-21.18 25.35-38.94l-.06-.24C258.34 11.62 244.66 1 229.48 1c-2.25 0-4.56.24-6.84.72"></path>
+            <path fill="url(#er-akc)"
+                d="M154.86 17.13L26.04 44.52C10.89 47.73.42 60.9 0 75.75v1.92c.06 1.92.3 3.87.69 5.82l.03.09c3.78 17.76 21.24 29.1 38.97 25.32l128.85-27.36c17.73-3.78 29.07-21.24 25.29-38.97v-.12c-3.3-15.42-16.95-26.04-32.13-26.04-2.25 0-4.53.24-6.84.72"
+                mask="url(#er-akd)" transform="translate(1 99.61)"></path>
+            <path fill="url(#er-ake)"
+                d="M.36 57.39C.36 75.39 14.97 90 32.94 90c18 0 32.64-14.58 32.64-32.58 0-18.03-14.61-32.61-32.61-32.61S.36 39.39.36 57.39"
+                mask="url(#er-akf)" transform="translate(1 219.61)"></path>
+            <path fill="url(#er-akg)"
+                d="M131.61 13.74L35.97 34.11C18.21 37.86 6.9 55.32 10.62 73.08c3.78 17.73 21.24 29.1 39 25.32l95.64-20.37c17.76-3.75 29.1-21.18 25.32-38.94-3.27-15.45-16.95-26.04-32.13-26.04-2.25 0-4.53.21-6.84.69"
+                mask="url(#er-akh)" transform="translate(91 189.61)"></path>
+        </g>
+    </g>
+</svg>

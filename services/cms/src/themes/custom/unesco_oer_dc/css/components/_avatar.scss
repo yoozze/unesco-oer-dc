@@ -48,40 +48,52 @@ $avatar-image-xxs: size(60px);
 
         display: block;
         width: $avatar-image;
+        height: $avatar-image;
         max-width: 100%;
-        height: auto;
+        object-fit: cover;
         padding: size(1);
         background-color: color('background');
         // border: 1px solid color('border-light');
         border-radius: 50%;
+        box-sizing: border-box;
+
+        &.c-user__picture--logo {
+            object-fit: contain;
+        }
 
         .c-avatar--xxs & {
             width: $avatar-image-xxs;
+            height: $avatar-image-xxs;
             padding: size(0.25);
         }
 
         .c-avatar--xs & {
             width: $avatar-image-xs;
+            height: $avatar-image-xs;
             padding: size(0.25);
         }
 
         .c-avatar--sm & {
             width: $avatar-image-sm;
+            height: $avatar-image-sm;
             padding: size(0.5);
         }
 
         .c-avatar--md & {
             width: $avatar-image-md;
+            height: $avatar-image-md;
             padding: size(0.75);
         }
 
         .c-avatar--lg & {
             width: $avatar-image-lg;
+            height: $avatar-image-lg;
         }
 
         .c-avatar--card & {
             @include below('bp-sm') {
                 width: $avatar-image * 1.25;
+                height: $avatar-image * 1.25;
             }
         }
     }

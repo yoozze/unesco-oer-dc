@@ -25,6 +25,9 @@ services:
       - '@entity_type.manager'
       - '@entity.repository'
       - '@password_generator'
+      - '@file_system'
+      - '@file.repository'
+      - '@extension.list.module'
 
   news_ingestion.upsert:
     class: Drupal\news_ingestion\Service\NewsUpsertService

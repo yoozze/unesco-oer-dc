@@ -59,21 +59,32 @@ function unesco_oer_dc_preprocess_node(&$variables) {
                 && (bool) $author->get('field_share_profile')->value;
             if (!empty($variables['author_name']) && $share_profile) {
                 $variables['author_url'] = Url::fromRoute('entity.user.canonical', ['user' => $author->id()])->toString();
-            }
-            else {
+            } else {
                 $variables['author_name'] = NULL;
             }
 
             $picture = $author->get('user_picture')->entity;
-            $uri = $picture
-                ? ImageStyle::load('thumbnail')->buildUrl($picture->getFileUri())
-                : generate_avatar($author, 100);
+            $picture_classes = ['c-user__picture'];
+            if ($picture) {
+                $file_uri = $picture->getFileUri();
+                $is_svg = str_ends_with(strtolower($file_uri), '.svg');
+                if ($is_svg) {
+                    $picture_classes[] = 'c-user__picture--logo';
+                }
+
+                $uri = $is_svg
+                    ? \Drupal::service('file_url_generator')->generateAbsoluteString($file_uri)
+                    : ImageStyle::load('thumbnail')->buildUrl($file_uri);
+            } else {
+                $uri = generate_avatar($author, 100);
+            }
+
             $variables['author_picture'] = [
                 '#theme' => 'image',
                 '#uri' => $uri,
                 '#alt' => $variables['author_display_name'],
                 '#attributes' => [
-                    'class' => ['c-user__picture'],
+                    'class' => $picture_classes,
                 ],
             ];
         }
