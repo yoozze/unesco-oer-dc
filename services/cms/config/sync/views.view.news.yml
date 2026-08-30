@@ -11,12 +11,17 @@ dependencies:
     - taxonomy.vocabulary.audiences
     - taxonomy.vocabulary.countries
     - taxonomy.vocabulary.regions
+    - field.storage.node.field_language
+    - field.storage.node.field_news_source
+    - taxonomy.vocabulary.languages
+    - taxonomy.vocabulary.news_sources
   module:
     - better_exposed_filters
     - node
     - taxonomy
     - text
     - user
+    - news_ingestion
 id: news
 label: News
 module: views
@@ -180,6 +185,8 @@ display:
           bef:
             general:
               autosubmit: true
+              auto_submit_sort_only: false
+              autosubmit_breakpoint: ''
               autosubmit_exclude_textfield: false
               autosubmit_textfield_delay: 500
               autosubmit_textfield_minimum_length: 0
@@ -189,109 +196,135 @@ display:
               secondary_label: 'Advanced search'
               secondary_open: false
               reset_button_always_show: false
-              autosubmit_breakpoint: ''
-              auto_submit_sort_only: false
             filter:
               combine:
                 plugin_id: default
                 advanced:
+                  sort_options_method: alphabetical_asc
+                  sort_options_natural: true
                   placeholder_text: ''
                   collapsible: false
                   collapsible_disable_automatic_open: false
+                  open_by_default: false
                   is_secondary: false
                   hide_label: false
                   field_classes: ''
-                  open_by_default: false
+              official_only:
+                plugin_id: default
+                advanced:
                   sort_options_method: alphabetical_asc
                   sort_options_natural: true
+                  placeholder_text: ''
+                  collapsible: false
+                  collapsible_disable_automatic_open: false
+                  open_by_default: false
+                  is_secondary: false
+                  hide_label: false
+                  field_classes: ''
               field_country_target_id:
                 plugin_id: bef_select2
                 advanced:
                   sort_options: false
+                  sort_options_method: alphabetical_asc
+                  sort_options_natural: true
                   placeholder_text: 'Select Country'
                   rewrite:
                     filter_rewrite_values: ''
                     filter_rewrite_values_key: false
                   collapsible: false
                   collapsible_disable_automatic_open: false
+                  open_by_default: false
                   is_secondary: true
                   hide_label: false
                   field_classes: ''
-                  open_by_default: false
-                  sort_options_method: alphabetical_asc
-                  sort_options_natural: true
               field_region_target_id:
                 plugin_id: bef_select2
                 advanced:
                   sort_options: false
+                  sort_options_method: alphabetical_asc
+                  sort_options_natural: true
                   placeholder_text: 'Select Region'
                   rewrite:
                     filter_rewrite_values: ''
                     filter_rewrite_values_key: false
                   collapsible: false
                   collapsible_disable_automatic_open: false
+                  open_by_default: false
                   is_secondary: true
                   hide_label: false
                   field_classes: ''
-                  open_by_default: false
-                  sort_options_method: alphabetical_asc
-                  sort_options_natural: true
               field_area_of_action_target_id:
                 plugin_id: bef_select2
                 advanced:
                   sort_options: false
+                  sort_options_method: alphabetical_asc
+                  sort_options_natural: true
                   placeholder_text: 'Select Area of Action'
                   rewrite:
                     filter_rewrite_values: ''
                     filter_rewrite_values_key: false
                   collapsible: false
                   collapsible_disable_automatic_open: false
+                  open_by_default: false
                   is_secondary: true
                   hide_label: false
                   field_classes: ''
-                  open_by_default: false
+              field_language_target_id:
+                plugin_id: bef_select2
+                advanced:
+                  sort_options: false
                   sort_options_method: alphabetical_asc
                   sort_options_natural: true
+                  placeholder_text: 'Select Language'
+                  rewrite:
+                    filter_rewrite_values: ''
+                    filter_rewrite_values_key: false
+                  collapsible: false
+                  collapsible_disable_automatic_open: false
+                  open_by_default: false
+                  is_secondary: true
+                  hide_label: false
+                  field_classes: ''
               field_audience_target_id:
                 plugin_id: bef_select2
                 advanced:
                   sort_options: false
+                  sort_options_method: alphabetical_asc
+                  sort_options_natural: true
                   placeholder_text: 'Select Audience'
                   rewrite:
                     filter_rewrite_values: ''
                     filter_rewrite_values_key: false
                   collapsible: false
                   collapsible_disable_automatic_open: false
+                  open_by_default: false
                   is_secondary: true
                   hide_label: false
                   field_classes: ''
-                  open_by_default: false
-                  sort_options_method: alphabetical_asc
-                  sort_options_natural: true
               created:
                 plugin_id: bef_datepicker
                 advanced:
+                  sort_options_method: alphabetical_asc
+                  sort_options_natural: true
                   placeholder_text: 'Select Date'
                   collapsible: false
                   collapsible_disable_automatic_open: false
+                  open_by_default: false
                   is_secondary: true
                   hide_label: false
                   field_classes: ''
-                  open_by_default: false
-                  sort_options_method: alphabetical_asc
-                  sort_options_natural: true
               created_1:
                 plugin_id: bef_datepicker
                 advanced:
+                  sort_options_method: alphabetical_asc
+                  sort_options_natural: true
                   placeholder_text: 'Select Date'
                   collapsible: false
                   collapsible_disable_automatic_open: false
+                  open_by_default: false
                   is_secondary: true
                   hide_label: false
                   field_classes: ''
-                  open_by_default: false
-                  sort_options_method: alphabetical_asc
-                  sort_options_natural: true
       access:
         type: perm
         options:
@@ -390,6 +423,48 @@ display:
           fields:
             title: title
             field_description: field_description
+        official_only:
+          id: official_only
+          table: views
+          field: news_official_only
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: news_official_only
+          operator: '='
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: ''
+            label: 'Official news only'
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: official_only
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              contributor: '0'
+              moderator: '0'
+              administrator: '0'
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
         field_country_target_id:
           id: field_country_target_id
           table: node__field_country
@@ -533,6 +608,55 @@ display:
             group_items: {  }
           reduce_duplicates: false
           vid: areas_of_action
+          type: select
+          hierarchy: false
+          limit: true
+          error_message: true
+        field_language_target_id:
+          id: field_language_target_id
+          table: node__field_language
+          field: field_language_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_language_target_id_op
+            label: Language
+            description: ''
+            use_operator: false
+            operator: field_language_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_language_target_id
+            required: false
+            remember: false
+            multiple: true
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              contributor: '0'
+              moderator: '0'
+              administrator: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: languages
           type: select
           hierarchy: false
           limit: true
@@ -746,7 +870,7 @@ display:
     display_plugin: page
     position: 1
     display_options:
-      exposed_block: true
+      exposed_block: false
       display_extenders:
         ajax_history:
           enable_history: true

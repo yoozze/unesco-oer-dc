@@ -35,16 +35,21 @@
     dom_id ? 'js-view-dom-id-' ~ dom_id,
 ] %}
 <div{{attributes.addClass(classes)}}>
-    {% if title %}
+    {% if title or intro_text %}
         <div class="c-content-listing__header">
             <div class="c-content-listing__container o-container">
                 <div class="o-row">
                     <div class="o-col">
-                        <h1 class="c-content-listing__title">
-                            {{ title_prefix }}
-                            {{ title }}
-                            {{ title_suffix }}
-                        </h1>
+                        {% if title %}
+                            <h1 class="c-content-listing__title">
+                                {{ title_prefix }}
+                                {{ title }}
+                                {{ title_suffix }}
+                            </h1>
+                        {% endif %}
+                        {% if intro_text %}
+                            <p class="c-content-listing__intro">{{ intro_text }}</p>
+                        {% endif %}
                     </div>
                 </div>
             </div>

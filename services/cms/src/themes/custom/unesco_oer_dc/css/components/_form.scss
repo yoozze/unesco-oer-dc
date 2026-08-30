@@ -112,6 +112,33 @@ $page-width: size('page-width');
     }
 }
 
+.c-form--views-exposed-form-news-news-view {
+    .c-form__group-primary {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        flex-basis: 0;
+        margin-right: size(1);
+        margin-left: size(1);
+
+        & > .c-form__field:first-child {
+            margin-bottom: size(1.5);
+        }
+
+        & > .c-form__field:last-child {
+            margin-bottom: size(3);
+        }
+    }
+
+    .c-form__group > details {
+        align-self: flex-start;
+
+        @include below('bp-xl') {
+            align-self: stretch;
+        }
+    }
+}
+
 .c-form--search-block-form {
     display: flex;
     align-items: center;

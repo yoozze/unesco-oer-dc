@@ -4,7 +4,7 @@
  * @file
  * Seed shared prerequisites for external news ingestion.
  *
- * - Ensures the official OER DC news_sources term (stable UUID).
+ * - Ensures the official OER DC news_sources term (stable UUID) + icon.
  * - Backfills field_news_source = oerdc on existing news.
  * - Ensures language terms + ISO 639 codes from languages-iso.csv.
  * - Sets country ISO 3166 codes from countries-iso.csv.
@@ -16,7 +16,7 @@
  */
 
 use Drupal\field\Entity\FieldConfig;
-use Drupal\taxonomy\Entity\Term;
+use Drupal\news_ingestion\Service\SourcePrerequisiteService;
 
 // Stable UUID so field defaults and re-runs resolve the same official term.
 const NEWS_INGESTION_OERDC_UUID = '0375530f-1f9d-4606-a9ab-3fba1530eca5';
@@ -24,6 +24,9 @@ const NEWS_INGESTION_OERDC_UUID = '0375530f-1f9d-4606-a9ab-3fba1530eca5';
 // Seed CSVs live under web/data (mounted from services/cms/src/data).
 $data_dir = DRUPAL_ROOT . '/data/taxonomies';
 $messages = [];
+
+/** @var SourcePrerequisiteService $prerequisites */
+$prerequisites = \Drupal::service('news_ingestion.source_prerequisites');
 
 // ---------------------------------------------------------------------------
 // 1. Official news source term (OER DC). External sources register themselves.
@@ -33,56 +36,21 @@ if (!\Drupal::entityTypeManager()->getStorage('taxonomy_vocabulary')->load('news
     throw new \RuntimeException('Vocabulary news_sources is missing. Run config:import first.');
 }
 
-$oerdc_info = [
-    'name' => 'OER DC',
+$created_oerdc = !\Drupal::service('entity.repository')->loadEntityByUuid('taxonomy_term', NEWS_INGESTION_OERDC_UUID)
+    && !$prerequisites->loadTermByKey('oerdc');
+
+$oerdc = $prerequisites->ensureSourceTerm([
     'key' => 'oerdc',
+    'name' => 'OER DC',
     'description' => 'Official news published on the OER Dynamic Coalition portal.',
-];
+    'uuid' => NEWS_INGESTION_OERDC_UUID,
+    'icon_module' => 'news_ingestion',
+    'icon_path' => 'assets/oerdc-icon.svg',
+]);
 
-// Prefer UUID (stable across environments); fall back to field_source_key.
-$oerdc = \Drupal::service('entity.repository')->loadEntityByUuid('taxonomy_term', NEWS_INGESTION_OERDC_UUID);
-if (!$oerdc) {
-    $existing = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadByProperties([
-        'vid' => 'news_sources',
-        'field_source_key' => $oerdc_info['key'],
-    ]);
-    $oerdc = $existing ? reset($existing) : NULL;
-}
-
-if (!$oerdc) {
-    $oerdc = Term::create([
-        'uuid' => NEWS_INGESTION_OERDC_UUID,
-        'vid' => 'news_sources',
-        'name' => $oerdc_info['name'],
-        'description' => $oerdc_info['description'],
-        'field_source_key' => $oerdc_info['key'],
-        'status' => 1,
-    ]);
-    $oerdc->save();
-    $messages[] = 'Created OER DC news source term.';
-} else {
-    if ($oerdc->bundle() !== 'news_sources') {
-        throw new \RuntimeException('OER DC UUID exists but is not a news_sources term.');
-    }
-    // Keep name/key in sync if someone renamed the term in the UI.
-    $dirty = FALSE;
-    if ($oerdc->get('field_source_key')->value !== $oerdc_info['key']) {
-        $oerdc->set('field_source_key', $oerdc_info['key']);
-        $dirty = TRUE;
-    }
-
-    if ($oerdc->label() !== $oerdc_info['name']) {
-        $oerdc->setName($oerdc_info['name']);
-        $dirty = TRUE;
-    }
-
-    if ($dirty) {
-        $oerdc->save();
-        $messages[] = 'Updated OER DC news source term.';
-    } else {
-        $messages[] = 'OER DC news source term already exists.';
-    }
-}
+$messages[] = $created_oerdc
+    ? 'Created OER DC news source term.'
+    : 'OER DC news source term already exists (icon synced).';
 
 // New manual news nodes should default to official OER DC.
 $field = FieldConfig::loadByName('node', 'news', 'field_news_source');
@@ -153,7 +121,7 @@ while (($row = fgetcsv($fh)) !== FALSE) {
     ]);
     $term = $existing ? reset($existing) : NULL;
     if (!$term) {
-        Term::create([
+        \Drupal\taxonomy\Entity\Term::create([
             'vid' => 'languages',
             'name' => $name,
             'status' => 1,
@@ -201,7 +169,6 @@ while (($row = fgetcsv($fh)) !== FALSE) {
     }
     [$name, $iso2, $iso3] = $row;
     $name = trim($name);
-    // Skip rows with no code; do not create new country terms here.
     if ($name === '' || $iso2 === '') {
         continue;
     }
@@ -211,7 +178,6 @@ while (($row = fgetcsv($fh)) !== FALSE) {
     ]);
     $term = $existing ? reset($existing) : NULL;
     if (!$term) {
-        // CSV name must match an existing countries taxonomy term.
         $country_missing++;
         continue;
     }

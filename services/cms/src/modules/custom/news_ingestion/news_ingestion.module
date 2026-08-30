@@ -41,3 +41,17 @@ function news_ingestion_cron(): void {
 
     \Drupal::service('news_ingestion.cron_scheduler')->enqueueDueJobs();
 }
+
+/**
+ * Implements hook_views_data().
+ */
+function news_ingestion_views_data(): array {
+    $data['views']['news_official_only'] = [
+        'title' => t('Official OER DC news only'),
+        'filter' => [
+            'id' => 'news_official_only',
+        ],
+    ];
+
+    return $data;
+}

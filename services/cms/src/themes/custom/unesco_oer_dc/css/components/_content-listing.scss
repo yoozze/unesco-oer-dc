@@ -37,6 +37,11 @@ $header-padding: size(2);
     margin-bottom: 0;
 }
 
+.c-content-listing__intro {
+    margin-top: size(2);
+    margin-bottom: 0;
+}
+
 // ## Content Listing Filters
 // --------------------------
 
@@ -52,11 +57,7 @@ $filters-padding: size(4);
     .o-container {
         & > .o-row {
             & > .o-col {
-                width: 75%;
-
-                @include below('bp-xl') {
-                    width: auto;
-                }
+                width: 100%;
             }
         }
     }

@@ -3,6 +3,8 @@
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Url;
 use Drupal\image\Entity\ImageStyle;
+use Drupal\node\NodeInterface;
+use Drupal\taxonomy\TermInterface;
 
 /**
  * Implements theme hooks for node.
@@ -28,6 +30,42 @@ function unesco_oer_dc_theme_suggestions_node_alter(&$suggestions, &$variables) 
 }
 
 /**
+ * Builds source badge data for news listing cards.
+ *
+ * @return array{label: string, icon_url: ?string, source_key: ?string}|null
+ */
+function unesco_oer_dc_news_source_badge(NodeInterface $node): ?array {
+    if (!$node->hasField('field_news_source') || $node->get('field_news_source')->isEmpty()) {
+        return NULL;
+    }
+
+    $term = $node->get('field_news_source')->entity;
+    if (!$term instanceof TermInterface) {
+        return NULL;
+    }
+
+    $badge = [
+        'label' => $term->label(),
+        'icon_url' => NULL,
+        'source_key' => $term->hasField('field_source_key')
+            ? (string) $term->get('field_source_key')->value
+            : NULL,
+    ];
+
+    if ($term->hasField('field_icon') && !$term->get('field_icon')->isEmpty()) {
+        $file = $term->get('field_icon')->entity;
+        if ($file) {
+            $uri = $file->getFileUri();
+            $badge['icon_url'] = str_ends_with(strtolower($uri), '.svg')
+                ? \Drupal::service('file_url_generator')->generateAbsoluteString($uri)
+                : ImageStyle::load('thumbnail')->buildUrl($uri);
+        }
+    }
+
+    return $badge;
+}
+
+/**
  * Implements hook_preprocess_HOOK() for node.html.twig.
  */
 function unesco_oer_dc_preprocess_node(&$variables) {
@@ -41,6 +79,20 @@ function unesco_oer_dc_preprocess_node(&$variables) {
         // If url is linking youtube video, prepare embed html
         if (!empty($url) && strpos($url, 'https://www.youtube.com') !== false) {
             $variables['video_embed'] = get_youtube_embed($url, 560 * 2, 315 * 2);
+        }
+    }
+
+    if ($node_type === 'news') {
+        $badge = unesco_oer_dc_news_source_badge($node);
+        if ($badge) {
+            $variables['news_source_badge'] = $badge;
+            $term = $node->get('field_news_source')->entity;
+            if ($term) {
+                $variables['#cache']['tags'] = \Drupal\Core\Cache\Cache::mergeTags(
+                    $variables['#cache']['tags'] ?? [],
+                    $term->getCacheTags()
+                );
+            }
         }
     }
 

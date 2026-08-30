@@ -41,3 +41,10 @@ function admin_post_update_enable_hero_slides(&$sandbox = NULL) {
 function admin_post_update_seed_news_ingestion_prerequisites(&$sandbox = NULL) {
   return admin_run_update_script('news_ingestion/seed_news_ingestion_prerequisites.php');
 }
+
+/**
+ * Sync news_sources term icons for listing badges (oerdc + eventregistry).
+ */
+function admin_post_update_sync_news_source_icons(&$sandbox = NULL) {
+  return admin_run_update_script('news_ingestion/sync_news_source_icons.php');
+}

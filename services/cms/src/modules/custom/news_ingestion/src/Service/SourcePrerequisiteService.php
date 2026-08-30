@@ -11,6 +11,7 @@ use Drupal\Core\File\FileExists;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Password\PasswordGeneratorInterface;
 use Drupal\file\FileRepositoryInterface;
+use Drupal\file\FileInterface;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\taxonomy\TermInterface;
 use Drupal\user\Entity\User;
@@ -22,6 +23,8 @@ use Drupal\user\UserInterface;
 final class SourcePrerequisiteService {
 
     private const AVATAR_DIRECTORY = 'public://pictures/source-avatars';
+
+    private const ICON_DIRECTORY = 'public://news-sources';
 
     public function __construct(
         private readonly EntityTypeManagerInterface $entityTypeManager,
@@ -44,14 +47,32 @@ final class SourcePrerequisiteService {
      *   last_name?: string,
      *   avatar_module?: string,
      *   avatar_path?: string,
+     *   icon_module?: string,
+     *   icon_path?: string,
      * } $definition
      *
      * @return array{term: \Drupal\taxonomy\TermInterface, user: \Drupal\user\UserInterface}
      */
     public function ensure(array $definition): array {
-        $term = $this->ensureTerm($definition);
+        $term = $this->ensureSourceTerm($definition);
         $user = $this->ensureUser($definition);
         return ['term' => $term, 'user' => $user];
+    }
+
+    /**
+     * Ensures the news_sources term (and optional icon) without creating a user.
+     *
+     * @param array{
+     *   key: string,
+     *   name: string,
+     *   description?: string,
+     *   uuid?: string,
+     *   icon_module?: string,
+     *   icon_path?: string,
+     * } $definition
+     */
+    public function ensureSourceTerm(array $definition): TermInterface {
+        return $this->ensureTerm($definition);
     }
 
     /**
@@ -78,7 +99,14 @@ final class SourcePrerequisiteService {
     }
 
     /**
-     * @param array{key: string, name: string, description?: string, uuid?: string} $definition
+     * @param array{
+     *   key: string,
+     *   name: string,
+     *   description?: string,
+     *   uuid?: string,
+     *   icon_module?: string,
+     *   icon_path?: string,
+     * } $definition
      */
     private function ensureTerm(array $definition): TermInterface {
         $key = $definition['key'];
@@ -110,6 +138,7 @@ final class SourcePrerequisiteService {
 
             $term = Term::create($values);
             $term->save();
+            $this->ensureTermIcon($term, $definition);
             return $term;
         }
 
@@ -125,6 +154,10 @@ final class SourcePrerequisiteService {
 
         if ($term->label() !== $definition['name']) {
             $term->setName($definition['name']);
+            $dirty = TRUE;
+        }
+
+        if ($this->ensureTermIcon($term, $definition)) {
             $dirty = TRUE;
         }
 
@@ -148,7 +181,6 @@ final class SourcePrerequisiteService {
      */
     private function ensureUser(array $definition): UserInterface {
         $username = (string) ($definition['username'] ?? $definition['key']);
-        // Prefer explicit first/last; fall back to source display name for first name.
         $first_name = trim((string) ($definition['first_name'] ?? $definition['name'] ?? ''));
         $last_name = trim((string) ($definition['last_name'] ?? ''));
 
@@ -168,8 +200,6 @@ final class SourcePrerequisiteService {
                 $values['field_last_name'] = $last_name;
             }
 
-            // System author account — authenticated only, no elevated roles,
-            // profile not shared (custom_access_control hides /user/{uid}).
             $user = User::create($values);
             if ($user->hasField('field_share_profile')) {
                 $user->set('field_share_profile', 0);
@@ -214,8 +244,41 @@ final class SourcePrerequisiteService {
     }
 
     /**
-     * Attach a module-bundled avatar when the user has no picture yet.
-     *
+     * @param array{
+     *   key: string,
+     *   icon_module?: string,
+     *   icon_path?: string,
+     * } $definition
+     */
+    private function ensureTermIcon(TermInterface $term, array $definition): bool {
+        if (!$term->hasField('field_icon')) {
+            return FALSE;
+        }
+
+        $module = trim((string) ($definition['icon_module'] ?? ''));
+        $relative_path = trim((string) ($definition['icon_path'] ?? ''));
+        if ($module === '' || $relative_path === '') {
+            return FALSE;
+        }
+
+        $file = $this->copyModuleAsset($module, $relative_path, self::ICON_DIRECTORY, $definition['key'] . '-icon.svg');
+        if (!$file) {
+            return FALSE;
+        }
+
+        $current = $term->get('field_icon')->target_id;
+        if ((int) $current === (int) $file->id()) {
+            return FALSE;
+        }
+
+        $term->set('field_icon', [
+            'target_id' => $file->id(),
+            'alt' => $term->label(),
+        ]);
+        return TRUE;
+    }
+
+    /**
      * @param array{
      *   key: string,
      *   avatar_module?: string,
@@ -233,30 +296,38 @@ final class SourcePrerequisiteService {
             return FALSE;
         }
 
+        $file = $this->copyModuleAsset($module, $relative_path, self::AVATAR_DIRECTORY, $definition['key'] . '-avatar.svg');
+        if (!$file) {
+            return FALSE;
+        }
+
+        $user->set('user_picture', ['target_id' => $file->id()]);
+        return TRUE;
+    }
+
+    private function copyModuleAsset(string $module, string $relative_path, string $directory, string $filename): ?FileInterface {
         $module_path = $this->moduleExtensionList->getPath($module);
         if ($module_path === '') {
-            return FALSE;
+            return NULL;
         }
 
         $source = DRUPAL_ROOT . '/' . $module_path . '/' . ltrim($relative_path, '/');
         if (!is_readable($source)) {
-            return FALSE;
+            return NULL;
         }
 
         $contents = file_get_contents($source);
         if ($contents === FALSE || $contents === '') {
-            return FALSE;
+            return NULL;
         }
 
-        $directory = self::AVATAR_DIRECTORY;
         $this->fileSystem->prepareDirectory(
             $directory,
             FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS,
         );
 
-        $destination = $directory . '/' . $definition['key'] . '-avatar.svg';
-        $file = $this->fileRepository->writeData($contents, $destination, FileExists::Replace);
-        $user->set('user_picture', ['target_id' => $file->id()]);
-        return TRUE;
+        $destination = $directory . '/' . $filename;
+        return $this->fileRepository->writeData($contents, $destination, FileExists::Replace);
     }
+
 }

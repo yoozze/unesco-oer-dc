@@ -1,0 +1,34 @@
+{#
+/**
+ * @file
+ * News listing exposed filters: search + official toggle, advanced filters in secondary.
+ */
+#}
+{% set classes = [
+    'c-form',
+    'c-form--views-exposed-form',
+    'c-form--'~attributes.id|clean_class
+] %}
+<form{{attributes.addClass(classes)}}>
+    {{ element.form_id }}
+    {{ element.form_build_id }}
+    {{ element.form_token }}
+
+    <div class="c-form__group">
+        <div class="c-form__group-primary">
+            {{ element.search }}
+            {% if element.official_only %}
+                {{ element.official_only }}
+            {% endif %}
+        </div>
+        {{ element.secondary }}
+    </div>
+
+    <div class="c-form__actions">
+        {{ element.actions.submit }}
+        <button class="c-button c-button--text" type="reset">
+            {{ svg_icon('delete', 'c-button__leading-icon') }}
+            <span class="c-button__label">{{ 'Clear'|t }}</span>
+        </button>
+    </div>
+</form>

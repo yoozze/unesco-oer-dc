@@ -30,6 +30,10 @@ function unesco_oer_dc_preprocess_input__submit(&$variables) {
 }
 
 function unesco_oer_dc_preprocess_input__textfield(&$variables) {
+    if (array_key_exists('#control_size', $variables['element'])) {
+        return;
+    }
+
     $id = $variables['element']['#id'];
     if (in_array($id, ['edit-keys', 'edit-search'])) {
         $variables['element']['#control_size'] = 'small';

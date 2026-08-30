@@ -35,7 +35,7 @@ $card-item-transition-duration: 0.25s;
 
         border-color: $card-item-bg-color-hover;
 
-        img {
+        img:not(.c-content-item__source-icon) {
             transform: scale(1.05);
         }
 
@@ -199,9 +199,19 @@ $category-icon-size: size(2.25);
     border-radius: size('radius' 4);
 
     & > svg {
+        flex-shrink: 0;
         width: $category-icon-size;
         height: $category-icon-size;
         margin-right: size(1);
+    }
+
+    .c-content-item__source-icon {
+        width: size(3);
+        height: size(3);
+        padding: size(0.25);
+        margin: negative(0.25) size(1) negative(0.25) negative(1);
+        background-color: color('light');
+        border-radius: 50%;
     }
 }
 

@@ -82,6 +82,9 @@
         <div class="c-content-item__toolbar">
             <div class="c-content-item__toolbar-group">
                 <span class="c-content-item__category">
+                    {% if news_source_badge is defined and news_source_badge.icon_url %}
+                        <img src="{{ news_source_badge.icon_url }}" alt="" class="c-content-item__source-icon" loading="lazy">
+                    {% endif %}
                     {{ 'News'|t }}
                 </span>
             </div>

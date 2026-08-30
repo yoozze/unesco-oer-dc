@@ -65,8 +65,6 @@ content:
 hidden:
   field_area_of_action: true
   field_article_uri: true
-  field_title_norm: true
-  field_url_norm: true
   field_audience: true
   field_author: true
   field_country: true
@@ -76,7 +74,9 @@ hidden:
   field_region: true
   field_source: true
   field_tags: true
+  field_title_norm: true
   field_url: true
+  field_url_norm: true
   langcode: true
   links: true
   reading_time: true

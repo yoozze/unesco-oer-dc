@@ -30,6 +30,8 @@ source:
   last_name: ''
   avatar_module: eventregistry_news
   avatar_path: assets/eventregistry-avatar.svg
+  icon_module: eventregistry_news
+  icon_path: assets/eventregistry-avatar.svg
 
 api:
   endpoint: 'https://eventregistry.org/api/v1/article/getArticlesForTopicPage'

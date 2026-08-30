@@ -37,6 +37,10 @@ function unesco_oer_dc_form_alter(&$form, &$form_state, $form_id) {
         // $field_area_of_action['widget']['#value'] = ['985'];
     }
 
+    if ($form_id === 'views_exposed_form' && unesco_oer_dc_is_content_listing_exposed_form($form['#id'] ?? '')) {
+        $form['#after_build'][] = 'unesco_oer_dc_content_listing_exposed_form_after_build';
+    }
+
     if ($form_id === 'views_exposed_form' && str_starts_with($form['#id'] ?? '', 'views-exposed-form-media-library')) {
         if (isset($form['name'])) {
             if (empty($form['name']['#title'])) {
@@ -79,6 +83,24 @@ function unesco_oer_dc_preprocess_form(&$variables) {
 }
 
 /**
+ * Whether the exposed form belongs to a content listing page display.
+ */
+function unesco_oer_dc_is_content_listing_exposed_form(string $form_html_id): bool {
+    return (bool) preg_match('/^views-exposed-form-(news|resources|events|activities|updates|users)-/', $form_html_id);
+}
+
+/**
+ * Adjusts exposed forms on content listing pages.
+ */
+function unesco_oer_dc_content_listing_exposed_form_after_build(array $form, \Drupal\Core\Form\FormStateInterface $form_state): array {
+    if (isset($form['search'])) {
+        $form['search']['#control_size'] = NULL;
+    }
+
+    return $form;
+}
+
+/**
  * Prepares variables for datetime wrapper templates.
  */
 function unesco_oer_dc_preprocess_datetime_wrapper(&$variables) {
@@ -87,8 +109,7 @@ function unesco_oer_dc_preprocess_datetime_wrapper(&$variables) {
     if (!empty($element['date']['#id'])) {
         if ($variables['title_attributes'] instanceof \Drupal\Core\Template\Attribute) {
             $variables['title_attributes']->setAttribute('for', $element['date']['#id']);
-        }
-        else {
+        } else {
             $variables['title_attributes']['for'] = $element['date']['#id'];
         }
     }

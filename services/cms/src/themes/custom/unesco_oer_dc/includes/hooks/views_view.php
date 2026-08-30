@@ -30,6 +30,23 @@ function unesco_oer_dc_preprocess_views_view(&$variables) {
     $current_display = $variables['view']->current_display;
     $variables['content_type'] = str_replace('_view', '', $current_display);
 
+    $content_listing_displays = [
+        'news_view',
+        'events_view',
+        'resources_view',
+        'activities_view',
+        'updates_view',
+        'users_view',
+    ];
+
+    if (in_array($current_display, $content_listing_displays, TRUE)) {
+        $variables['title'] = (string) $variables['view']->getTitle();
+    }
+
+    if ($current_display === 'news_view') {
+        $variables['intro_text'] = (string) t('Stay informed about OER developments worldwide. This section brings together news and updates shared by members of the OER Dynamic Coalition, alongside OER-related news identified by the OER Observatory from external sources around the world.');
+    }
+
     if ($current_display === 'dubai_declaration_view') {
         $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('resource_category');
         $active_term = \Drupal::routeMatch()->getParameter('taxonomy_term');
