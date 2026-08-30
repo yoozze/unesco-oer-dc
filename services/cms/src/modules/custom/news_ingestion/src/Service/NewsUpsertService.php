@@ -311,23 +311,11 @@ final class NewsUpsertService {
 
         $country_tids = $this->countryMapper->tidsFromHints($dto->countries);
         if ($country_tids) {
-            $existing_countries = [];
-            foreach ($node->get('field_country') as $item) {
-                if ($item->target_id) {
-                    $existing_countries[(int) $item->target_id] = (int) $item->target_id;
-                }
-            }
-
-            $merged_countries = $existing_countries;
-            foreach ($country_tids as $tid) {
-                if (!isset($merged_countries[$tid])) {
-                    $merged_countries[$tid] = $tid;
-                    $dirty = TRUE;
-                }
-            }
-
-            if (count($merged_countries) !== count($existing_countries)) {
-                $node->set('field_country', $this->refs(array_values($merged_countries)));
+            sort($country_tids);
+            $existing_countries = $this->referencedTids($node, 'field_country');
+            if ($existing_countries !== $country_tids) {
+                $node->set('field_country', $this->refs($country_tids));
+                $dirty = TRUE;
             }
         }
 
@@ -386,6 +374,25 @@ final class NewsUpsertService {
         }
 
         return $html !== '' ? $html : '<p></p>';
+    }
+
+    /**
+     * @return int[]
+     */
+    private function referencedTids(NodeInterface $node, string $field): array {
+        $tids = [];
+        if (!$node->hasField($field)) {
+            return $tids;
+        }
+
+        foreach ($node->get($field) as $item) {
+            if ($item->target_id) {
+                $tids[] = (int) $item->target_id;
+            }
+        }
+
+        sort($tids);
+        return $tids;
     }
 
     /**

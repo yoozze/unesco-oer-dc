@@ -118,7 +118,7 @@ final class EventRegistryNormalizer {
             return [];
         }
 
-        $labels = [];
+        $hints = [];
         foreach ($concepts as $concept) {
             if (!is_array($concept) || ($concept['type'] ?? '') !== 'loc') {
                 continue;
@@ -129,26 +129,48 @@ final class EventRegistryNormalizer {
                 continue;
             }
 
-            $type = (string) ($location['type'] ?? '');
-            if ($type === 'country') {
-                $label = $this->engLabel($concept['label'] ?? NULL) ?? $this->engLabel($location['label'] ?? NULL);
-                if ($label) {
-                    $labels[$label] = $label;
-                }
-
-                continue;
+            foreach ($this->countryHintsFromLocation($location, $concept) as $hint) {
+                $hints[$hint] = $hint;
             }
+        }
 
-            // Places nest the country object.
-            if (isset($location['country']) && is_array($location['country'])) {
-                $label = $this->engLabel($location['country']['label'] ?? NULL)
-                    ?? $this->engLabel($location['country'] ?? NULL);
-                if ($label) {
-                    $labels[$label] = $label;
+        return array_values($hints);
+    }
+
+    /**
+     * @param array<string, mixed> $location
+     * @param array<string, mixed>|null $concept
+     *
+     * @return string[]
+     */
+    private function countryHintsFromLocation(array $location, ?array $concept = NULL): array {
+        $hints = [];
+
+        $type = (string) ($location['type'] ?? '');
+        if ($type === 'country') {
+            $label = $this->engLabel($location['label'] ?? NULL)
+                ?? ($concept ? $this->engLabel($concept['label'] ?? NULL) : NULL);
+            if ($label) {
+                $hints[] = $label;
+            }
+        }
+
+        foreach (['countryCode', 'countrycode', 'iso3166Alpha2', 'iso2'] as $key) {
+            if (!empty($location[$key]) && is_string($location[$key])) {
+                $code = strtolower(trim($location[$key]));
+                if ($code !== '') {
+                    $hints[] = $code;
                 }
             }
         }
-        return array_values($labels);
+
+        if (isset($location['country']) && is_array($location['country'])) {
+            foreach ($this->countryHintsFromLocation($location['country']) as $hint) {
+                $hints[] = $hint;
+            }
+        }
+
+        return array_values(array_unique($hints));
     }
 
     private function engLabel(mixed $label): ?string {

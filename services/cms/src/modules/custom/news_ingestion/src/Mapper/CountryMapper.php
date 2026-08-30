@@ -8,10 +8,29 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 
 /**
  * Maps country labels / ISO codes to countries taxonomy terms.
- *
- * Region derivation is deferred to a later chunk.
  */
 final class CountryMapper {
+
+    /**
+     * Normalizes common ER / English labels to ISO 3166 alpha-3 hints.
+     *
+     * @var array<string, string>
+     */
+    private const HINT_ALIASES = [
+        'united states' => 'usa',
+        'u.s.' => 'usa',
+        'u.s.a.' => 'usa',
+        'uk' => 'gbr',
+        'united kingdom' => 'gbr',
+        'great britain' => 'gbr',
+        'russia' => 'rus',
+        'south korea' => 'kor',
+        'north korea' => 'prk',
+        'viet nam' => 'vnm',
+        'czech republic' => 'cze',
+        'cote d\'ivoire' => 'civ',
+        "cote d'ivoire" => 'civ',
+    ];
 
     /**
      * @var array<string, int>|null
@@ -48,6 +67,8 @@ final class CountryMapper {
             if ($key === '') {
                 continue;
             }
+
+            $key = self::HINT_ALIASES[$key] ?? $key;
 
             $tid = $this->byIso2[$key]
                 ?? $this->byIso3[$key]

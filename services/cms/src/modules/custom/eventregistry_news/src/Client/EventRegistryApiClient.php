@@ -52,6 +52,7 @@ final class EventRegistryApiClient {
             'articlesSortBy' => 'date',
             'articlesSortByAsc' => FALSE,
             'articleBodyLen' => -1,
+            'includeArticleConcepts' => TRUE,
             'apiKey' => $apiKey,
         ];
 

@@ -1,0 +1,20 @@
+{#
+/**
+ * @file
+ * Theme override for the news node country field.
+ */
+#}
+<div>
+    <dt>{{ svg_icon('globe') }} <span>{{ label }}</span></dt>
+    <dd>
+        {% if country_listing_links is defined and country_listing_links %}
+            <ul class="c-article__meta-list">
+                {% for link in country_listing_links %}
+                    <li>
+                        <a href="{{ link.url }}">{{ link.label }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </dd>
+</div>
