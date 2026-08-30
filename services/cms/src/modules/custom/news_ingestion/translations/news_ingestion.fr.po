@@ -1,0 +1,11 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: news_ingestion 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: fr\n"
+
+msgid "Official OER DC news only"
+msgstr "Actualités officielles de la Coalition dynamique REL uniquement"
+
+msgid "Official news only"
+msgstr "Actualités officielles uniquement"

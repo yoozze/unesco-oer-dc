@@ -6,3 +6,63 @@ display:
   default:
     display_options:
       title: Actualités
+      use_more_text: plus
+      exposed_form:
+        options:
+          submit_button: Rechercher
+          reset_button_label: Réinitialiser
+          exposed_sorts_label: 'Trier par'
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+          text_input_required: 'Sélectionnez un filtre et cliquez sur Appliquer pour afficher les résultats'
+          bef:
+            general:
+              secondary_label: 'Recherche avancée'
+            filter:
+              field_country_target_id:
+                advanced:
+                  placeholder_text: 'Sélectionner un pays'
+              field_region_target_id:
+                advanced:
+                  placeholder_text: 'Sélectionner une région'
+              field_area_of_action_target_id:
+                advanced:
+                  placeholder_text: "Sélectionner un domaine d'action"
+              field_language_target_id:
+                advanced:
+                  placeholder_text: 'Sélectionner une langue'
+              field_audience_target_id:
+                advanced:
+                  placeholder_text: 'Sélectionner un public'
+              created:
+                advanced:
+                  placeholder_text: 'Sélectionner une date'
+      filters:
+        combine:
+          expose:
+            label: 'Rechercher des actualités'
+            placeholder: 'Rechercher des actualités'
+        official_only:
+          expose:
+            label: 'Actualités officielles uniquement'
+        field_country_target_id:
+          expose:
+            label: Pays
+        field_region_target_id:
+          expose:
+            label: Région
+        field_area_of_action_target_id:
+          expose:
+            label: "Domaine d'action"
+        field_language_target_id:
+          expose:
+            label: Langue
+        field_audience_target_id:
+          expose:
+            label: Public
+        created:
+          expose:
+            label: Du
+        created_1:
+          expose:
+            label: Au

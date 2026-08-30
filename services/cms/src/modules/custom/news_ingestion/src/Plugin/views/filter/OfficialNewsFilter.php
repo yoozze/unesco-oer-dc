@@ -79,7 +79,9 @@ final class OfficialNewsFilter extends FilterPluginBase {
         $identifier = $this->options['expose']['identifier'] ?? 'official_only';
         $form[$identifier] = [
             '#type' => 'checkbox',
-            '#title' => $this->options['expose']['label'],
+            '#title' => $this->options['expose']['label'] !== ''
+                ? $this->t($this->options['expose']['label'])
+                : $this->t('Official news only'),
             '#default_value' => !empty($this->value),
         ];
     }

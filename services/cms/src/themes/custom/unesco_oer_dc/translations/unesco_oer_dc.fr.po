@@ -1,0 +1,14 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: unesco_oer_dc 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: fr\n"
+
+msgid "Stay informed about OER developments worldwide. This section brings together news and updates shared by members of the OER Dynamic Coalition, alongside OER-related news identified by the OER Observatory from external sources around the world."
+msgstr "Restez informé des développements REL à l'échelle mondiale. Cette section regroupe les actualités et mises à jour partagées par les membres de la Coalition dynamique REL, ainsi que les actualités liées aux REL identifiées par l'Observatoire REL à partir de sources externes dans le monde entier."
+
+msgid "The OER Observatory aggregates and displays OER-related news and content from third-party sources worldwide. This content is not produced by UNESCO or the OER Dynamic Coalition. All rights and responsibility for the original content remain with the respective authors and publishers. The inclusion of third-party content in the Observatory does not imply endorsement by UNESCO or the OER Dynamic Coalition. Users can access the original source through the link provided with each item."
+msgstr "L'Observatoire REL agrège et affiche des actualités et contenus liés aux REL provenant de sources tierces du monde entier. Ce contenu n'est pas produit par l'UNESCO ou la Coalition dynamique REL. Tous les droits et la responsabilité du contenu original restent avec leurs auteurs et éditeurs respectifs. L'inclusion de contenu tiers dans l'Observatoire n'implique pas l'approbation par l'UNESCO ou la Coalition dynamique REL. Les utilisateurs peuvent accéder à la source originale via le lien fourni avec chaque élément."
+
+msgid "View original source"
+msgstr "Voir la source originale"

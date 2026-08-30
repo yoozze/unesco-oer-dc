@@ -1,0 +1,15 @@
+{#
+/**
+ * @file
+ * Theme override for the news node external URL button.
+ */
+#}
+<div{{ attributes.addClass('c-buttons') }}>
+    {% for item in items %}
+        {% set url = item.content['#url'] %}
+        <a class="c-button c-button--{{ loop.first ? 'filled' : 'outlined' }}" href="{{ url.external ? url.uri : url }}" target="{{ url.external ? '_blank' : '_self' }}">
+            <span class="c-button__label">{{ 'View original source'|t }}</span>
+            {{ svg_icon(url.external ? 'open-in-new' : 'arrow-right-alt', 'c-button__trailing-icon') }}
+        </a>
+    {% endfor %}
+</div>
