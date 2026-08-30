@@ -75,5 +75,27 @@ function unesco_oer_dc_preprocess_field(&$variables) {
                 }
             }
         }
+    } elseif (
+        ($variables['element']['#entity_type'] ?? '') === 'node'
+        && ($variables['element']['#bundle'] ?? '') === 'news'
+        && ($variables['element']['#field_name'] ?? '') === 'field_area_of_action'
+        && !empty($variables['element']['#items'])
+    ) {
+        $links = [];
+        foreach ($variables['element']['#items'] as $item) {
+            $term = $item->entity;
+            if (!$term) {
+                continue;
+            }
+
+            $links[] = [
+                'label' => $term->label(),
+                'url' => \Drupal\Core\Url::fromUserInput('/news', [
+                    'query' => ['field_area_of_action_target_id' => [$term->id()]],
+                ])->toString(),
+            ];
+        }
+
+        $variables['area_of_action_listing_links'] = $links;
     }
 }

@@ -1,0 +1,16 @@
+{#
+/**
+ * @file
+ * Theme override for the node area of action field.
+ */
+#}
+<div>
+    <dt>{{ svg_icon('category') }} <span>{{ label }}</span></dt>
+    <dd>
+        <ul class="c-article__meta-list">
+            {% for item in items %}
+                <li>{{ item.content }}</li>
+            {% endfor %}
+        </ul>
+    </dd>
+</div>

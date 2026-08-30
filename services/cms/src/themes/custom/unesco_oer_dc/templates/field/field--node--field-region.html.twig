@@ -1,0 +1,14 @@
+{#
+/**
+ * @file
+ * Theme override for the node region field.
+ */
+#}
+<div>
+    <dt>{{ svg_icon('public') }} <span>{{ label }}</span></dt>
+    <dd>
+        {% for item in items %}
+            <span>{{ item.content }}</span>{% if not loop.last %}, {% endif %}
+        {% endfor %}
+    </dd>
+</div>

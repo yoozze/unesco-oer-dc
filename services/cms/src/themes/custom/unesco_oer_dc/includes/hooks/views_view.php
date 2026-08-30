@@ -4,6 +4,7 @@
  * Implements theme hooks for views_view.
  */
 
+use Drupal\node\NodeInterface;
 use Drupal\taxonomy\Entity\Term;
 
 function unesco_oer_dc_theme_suggestions_views_view_alter(&$suggestions, &$variables) {
@@ -182,6 +183,25 @@ function unesco_oer_dc_theme_suggestions_views_view_fields_alter(&$suggestions, 
 
 function unesco_oer_dc_preprocess_views_view_fields(&$variables) {
     $view_id = $variables['view']->id();
+    $current_display = $variables['view']->current_display;
+
+    if (in_array($current_display, ['latest_news_view', 'news_view'], TRUE)) {
+        $node = $variables['row']->_entity ?? NULL;
+        if ($node instanceof NodeInterface && $node->bundle() === 'news') {
+            $badge = unesco_oer_dc_news_source_badge($node);
+            if ($badge) {
+                $variables['news_source_badge'] = $badge;
+                $term = $node->get('field_news_source')->entity;
+                if ($term) {
+                    $variables['#cache']['tags'] = \Drupal\Core\Cache\Cache::mergeTags(
+                        $variables['#cache']['tags'] ?? [],
+                        $term->getCacheTags()
+                    );
+                }
+            }
+        }
+    }
+
     if ($view_id === 'dubai_declaration') {
         $url = $variables['row']->_entity->get('field_url')->uri;
         $variables['url'] = $url;

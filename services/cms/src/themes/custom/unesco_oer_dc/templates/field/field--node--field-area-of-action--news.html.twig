@@ -1,0 +1,20 @@
+{#
+/**
+ * @file
+ * Theme override for the news node area of action field.
+ */
+#}
+<div>
+    <dt>{{ svg_icon('category') }} <span>{{ label }}</span></dt>
+    <dd>
+        {% if area_of_action_listing_links is defined and area_of_action_listing_links %}
+            <ul class="c-article__meta-list">
+                {% for link in area_of_action_listing_links %}
+                    <li>
+                        <a href="{{ link.url }}">{{ link.label }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </dd>
+</div>

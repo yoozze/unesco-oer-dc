@@ -78,7 +78,12 @@
         <div class="o-container">
             <div class="c-article__content">
                 <div class="c-article__toolbar">
-                    <span class="c-article__category">{{ 'News'|t }}</span>
+                    <span class="c-article__category">
+                        {% if news_source_badge is defined and news_source_badge.icon_url %}
+                            <img src="{{ news_source_badge.icon_url }}" alt="" class="c-article__source-icon" loading="lazy">
+                        {% endif %}
+                        {{ 'News'|t }}
+                    </span>
                     <span class="c-article__share">
                         {{ content.addtoany }}
                     </span>
@@ -121,6 +126,11 @@
                             {{ content.field_image }}
                         </div>
                     {% endif %}
+                    {% if news_source_badge is defined and news_source_badge.source_key != 'oerdc' %}
+                        <div class="c-article__disclaimer">
+                            <p>{{ 'The OER Observatory aggregates and displays OER-related news and content from third-party sources worldwide. This content is not produced by UNESCO or the OER Dynamic Coalition. All rights and responsibility for the original content remain with the respective authors and publishers. The inclusion of third-party content in the Observatory does not imply endorsement by UNESCO or the OER Dynamic Coalition. Users can access the original source through the link provided with each item.'|t }}</p>
+                        </div>
+                    {% endif %}
                     <div class="c-article__description">
                         {{ content.field_description }}
                     </div>
@@ -136,7 +146,45 @@
                         </div>
                     {% endif %}
                 </div>
-                <aside class="c-article__sidebar"></aside>
+                <aside class="c-article__sidebar">
+                    <dl class="c-article__meta c-article__meta--sidebar">
+                        {% if content.field_author[0] %}
+                            <div class="c-article__meta-item">
+                                {{ content.field_author }}
+                            </div>
+                        {% endif %}
+                        {% if content.field_source[0] %}
+                            <div class="c-article__meta-item">
+                                {{ content.field_source }}
+                            </div>
+                        {% endif %}
+                        {# {% if content.field_news_source[0] %}
+                            <div class="c-article__meta-item">
+                                {{ content.field_news_source }}
+                            </div>
+                        {% endif %} #}
+                        {% if content.field_language[0] %}
+                            <div class="c-article__meta-item">
+                                {{ content.field_language }}
+                            </div>
+                        {% endif %}
+                        {% if content.field_country[0] %}
+                            <div class="c-article__meta-item">
+                                {{ content.field_country }}
+                            </div>
+                        {% endif %}
+                        {% if content.field_region[0] %}
+                            <div class="c-article__meta-item">
+                                {{ content.field_region }}
+                            </div>
+                        {% endif %}
+                        {% if content.field_area_of_action[0] %}
+                            <div class="c-article__meta-item">
+                                {{ content.field_area_of_action }}
+                            </div>
+                        {% endif %}
+                    </dl>
+                </aside>
             </div>
         </div>
     </div>

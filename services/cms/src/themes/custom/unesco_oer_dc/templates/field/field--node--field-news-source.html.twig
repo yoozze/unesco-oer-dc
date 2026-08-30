@@ -1,0 +1,11 @@
+{#
+/**
+ * @file
+ * Theme override for the node news source field.
+ */
+#}
+{% set item = items|first %}
+<div>
+    <dt>{{ svg_icon('newspapper') }} <span>{{ label }}</span></dt>
+    <dd><span>{{ item.content }}</span></dd>
+</div>
