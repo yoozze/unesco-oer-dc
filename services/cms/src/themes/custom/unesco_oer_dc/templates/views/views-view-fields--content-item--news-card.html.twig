@@ -55,6 +55,9 @@
 <div class="c-content-item__body">
     <ul class="c-content-item__meta">
         {{ meta_item(fields.created) }}
+        {% if fields.field_author %}
+            {{ meta_item(fields.field_author) }}
+        {% endif %}
         {{ meta_item(fields.node_read_time) }}
     </ul>
     {{ field(fields.title) }}

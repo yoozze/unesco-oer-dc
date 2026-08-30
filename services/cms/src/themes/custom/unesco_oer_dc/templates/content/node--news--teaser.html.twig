@@ -101,6 +101,11 @@
             <div class="c-content-item__meta-item">
                 {{ date }}
             </div>
+            {% if content.field_author[0] %}
+                <div class="c-content-item__meta-item">
+                    {{ content.field_author }}
+                </div>
+            {% endif %}
             <div class="c-content-item__meta-item">
                 {{ content.node_read_time }}
             </div>

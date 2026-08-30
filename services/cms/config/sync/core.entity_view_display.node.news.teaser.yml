@@ -39,6 +39,14 @@ content:
     third_party_settings: {  }
     weight: -20
     region: content
+  field_author:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
   field_description:
     type: text_trimmed
     label: hidden
@@ -60,13 +68,12 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 2
+    weight: 4
     region: content
 hidden:
   field_area_of_action: true
   field_article_uri: true
   field_audience: true
-  field_author: true
   field_country: true
   field_language: true
   field_links: true
