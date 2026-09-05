@@ -9,9 +9,18 @@ declare(strict_types=1);
 
 /**
  * Implements hook_install().
+ *
+ * Intentionally does not call ensurePrerequisites() here.
+ *
+ * During `drush config:import`, modules are enabled from core.extension before
+ * dependent field storages (e.g. field_source_key) are imported. Calling
+ * ensurePrerequisites() in hook_install aborts config sync with
+ * "'field_source_key' not found".
+ *
+ * Prerequisites are created after fields exist by:
+ * - admin_post_update_sync_news_source_icons
+ * - news_ingestion_modules_installed() (skipped while $is_syncing)
+ * - NewsIngestRunner / Drush ingest (ensurePrerequisites on each run)
  */
 function eventregistry_news_install(): void {
-    if (\Drupal::hasService('eventregistry_news.source')) {
-        \Drupal::service('eventregistry_news.source')->ensurePrerequisites();
-    }
 }

@@ -9,3 +9,5 @@ dependencies:
   - drupal:media
   - drupal:file
   - drupal:content_moderation
+'interface translation project': news_ingestion
+'interface translation server pattern': modules/custom/news_ingestion/translations/%project.%language.po

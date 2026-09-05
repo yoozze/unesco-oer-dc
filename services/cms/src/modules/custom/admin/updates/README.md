@@ -7,6 +7,11 @@ Idempotent data migrations for the `admin` module.
 `drush config:import` then `drush updatedb` (see repo `run.sh --setup`).
 Scripts assume required fields/bundles already exist from config.
 
+`run.sh --setup` fails the deploy if `config:status` still reports differences
+after import (incomplete sync). Do not call `ensurePrerequisites()` from
+source-module `hook_install()` during config sync (fields are not imported
+yet); use post-updates or ingest instead.
+
 ## Which hook file?
 
 | File                                  | Use when                                                                                 |

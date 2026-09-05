@@ -105,13 +105,23 @@ if [ $MODE = "--setup" ]; then
     fi
     PROD_SETUP=""
     if [ $ENV = "production" ]; then
+        # devel is in config sync for local; uninstall on production after import.
         PROD_SETUP="drush pm:uninstall devel devel_generate -y 2>/dev/null || true &&"
     fi
     docker exec ${PROJECT_NAME}_cms sh -c "
+        set -e &&
         bash drupal.sh --fix-permissions &&
         drush config:import -y &&
+        if ! drush config:status 2>&1 | grep -q 'No differences'; then
+            echo 'ERROR: config sync incomplete after import (active DB still differs from sync dir).' >&2
+            echo 'Re-run: drush config:import -y && drush updatedb -y' >&2
+            drush config:status >&2 || true
+            exit 1
+        fi &&
         drush updatedb -y &&
         ${PROD_SETUP}
+        drush locale:check &&
+        drush locale:update -y &&
         drush cache:rebuild
     "
 fi

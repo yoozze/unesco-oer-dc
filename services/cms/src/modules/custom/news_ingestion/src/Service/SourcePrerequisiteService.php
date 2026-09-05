@@ -10,6 +10,7 @@ use Drupal\Core\Extension\ModuleExtensionList;
 use Drupal\Core\File\FileExists;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Password\PasswordGeneratorInterface;
+use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\file\FileRepositoryInterface;
 use Drupal\file\FileInterface;
 use Drupal\taxonomy\Entity\Term;
@@ -77,14 +78,28 @@ final class SourcePrerequisiteService {
 
     /**
      * Load news_sources term by field_source_key.
+     *
+     * Returns NULL when field storage is not installed yet (e.g. mid config
+     * import) so callers do not fatal with "'field_source_key' not found".
      */
     public function loadTermByKey(string $key): ?TermInterface {
+        if (!$this->sourceKeyFieldIsReady()) {
+            return NULL;
+        }
+
         $existing = $this->entityTypeManager->getStorage('taxonomy_term')->loadByProperties([
             'vid' => 'news_sources',
             'field_source_key' => $key,
         ]);
         $term = $existing ? reset($existing) : NULL;
         return $term instanceof TermInterface ? $term : NULL;
+    }
+
+    /**
+     * Whether taxonomy_term.field_source_key storage exists and is usable.
+     */
+    public function sourceKeyFieldIsReady(): bool {
+        return FieldStorageConfig::loadByName('taxonomy_term', 'field_source_key') !== NULL;
     }
 
     /**
@@ -111,6 +126,12 @@ final class SourcePrerequisiteService {
     private function ensureTerm(array $definition): TermInterface {
         $key = $definition['key'];
         $uuid = $definition['uuid'] ?? NULL;
+
+        if (!$this->sourceKeyFieldIsReady()) {
+            throw new \RuntimeException(
+                'taxonomy_term.field_source_key is not installed yet. Run `drush config:import` first, then `drush updatedb`.'
+            );
+        }
 
         $term = NULL;
         if ($uuid) {
