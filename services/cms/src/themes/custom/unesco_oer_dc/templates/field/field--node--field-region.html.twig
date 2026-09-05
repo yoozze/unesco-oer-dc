@@ -7,8 +7,10 @@
 <div>
     <dt>{{ svg_icon('public') }} <span>{{ label }}</span></dt>
     <dd>
-        {% for item in items %}
-            <span>{{ item.content }}</span>{% if not loop.last %}, {% endif %}
-        {% endfor %}
+        <ul class="c-article__meta-list">
+            {% for item in items %}
+                <li>{{ item.content }}</li>
+            {% endfor %}
+        </ul>
     </dd>
 </div>

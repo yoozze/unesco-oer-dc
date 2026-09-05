@@ -119,5 +119,27 @@ function unesco_oer_dc_preprocess_field(&$variables) {
         }
 
         $variables['country_listing_links'] = $links;
+    } elseif (
+        ($variables['element']['#entity_type'] ?? '') === 'node'
+        && ($variables['element']['#bundle'] ?? '') === 'news'
+        && ($variables['element']['#field_name'] ?? '') === 'field_region'
+        && !empty($variables['element']['#items'])
+    ) {
+        $links = [];
+        foreach ($variables['element']['#items'] as $item) {
+            $term = $item->entity;
+            if (!$term) {
+                continue;
+            }
+
+            $links[] = [
+                'label' => $term->label(),
+                'url' => \Drupal\Core\Url::fromUserInput('/news', [
+                    'query' => ['field_region_target_id' => [$term->id()]],
+                ])->toString(),
+            ];
+        }
+
+        $variables['region_listing_links'] = $links;
     }
 }
