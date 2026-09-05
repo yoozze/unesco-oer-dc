@@ -30,6 +30,8 @@ updates/
     enable_slides.php
   news_ingestion/
     seed_news_ingestion_prerequisites.php
+  update_content/
+    migrate_update_dates.php
 ```
 
 One concern per file. Group by feature (`hero/`, …).

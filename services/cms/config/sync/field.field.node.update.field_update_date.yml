@@ -1,0 +1,21 @@
+uuid: 66ed87fc-44cf-4845-8bcf-dae5f666a6e4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_update_date
+    - node.type.update
+  module:
+    - datetime
+id: node.update.field_update_date
+field_name: field_update_date
+entity_type: node
+bundle: update
+label: 'Update month'
+description: 'Year and month shown on the Updates page. The day is not displayed; use the first of the month if unsure.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

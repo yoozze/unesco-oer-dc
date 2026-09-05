@@ -131,26 +131,33 @@ function unesco_oer_dc_preprocess_views_view_unformatted(&$variables) {
         $groups = [];
         foreach ($rows as $row) {
             $node = $row['content']['#node'];
-            $values = $node->toArray();
-            $created = $values['created'][0]['value'];
-            $year = date('Y', $created);
+            // Prefer editorial Update month; fall back to authored-on for safety.
+            if ($node->hasField('field_update_date') && !$node->get('field_update_date')->isEmpty()) {
+                $date_value = $node->get('field_update_date')->value;
+                $sort_key = $date_value;
+                $year = (int) substr($date_value, 0, 4);
+            } else {
+                $sort_key = (int) $node->getCreatedTime();
+                $year = (int) date('Y', $sort_key);
+            }
+
             if (empty($groups[$year])) {
                 $groups[$year] = [];
             }
 
             $groups[$year][] = [
-                'created' => $created,
-                'row' => $row
+                'sort_key' => $sort_key,
+                'row' => $row,
             ];
         }
 
         // Sort the groups by year descending
         krsort($groups);
 
-        // Sort the items by created date ascending
+        // Sort the items by update month ascending
         foreach ($groups as $year => &$items) {
             usort($items, function ($a, $b) {
-                return $a['created'] - $b['created'];
+                return $a['sort_key'] <=> $b['sort_key'];
             });
         }
 

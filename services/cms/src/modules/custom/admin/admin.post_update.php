@@ -48,3 +48,10 @@ function admin_post_update_seed_news_ingestion_prerequisites(&$sandbox = NULL) {
 function admin_post_update_sync_news_source_icons(&$sandbox = NULL) {
   return admin_run_update_script('news_ingestion/sync_news_source_icons.php');
 }
+
+/**
+ * Backfill Update month (field_update_date) from Authored on (created).
+ */
+function admin_post_update_migrate_update_dates(&$sandbox = NULL) {
+  return admin_run_update_script('update_content/migrate_update_dates.php');
+}

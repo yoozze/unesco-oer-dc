@@ -3,10 +3,12 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.update.field_update_date
     - field.field.node.update.field_url
     - node.type.update
   module:
     - content_moderation
+    - datetime
     - link
     - path
 id: node.update.default
@@ -17,6 +19,12 @@ content:
   created:
     type: datetime_timestamp
     weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_update_date:
+    type: datetime_default
+    weight: 1
     region: content
     settings: {  }
     third_party_settings: {  }

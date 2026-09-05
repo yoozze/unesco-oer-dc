@@ -26,11 +26,12 @@
                 <ul>
                     {% for update in updates %}
                         <li>
-                            {% set url = update.row.content['#node'].field_url.uri %}
-                            {% set created = update.row.content['#node'].created.value %}
+                            {% set node = update.row.content['#node'] %}
+                            {% set url = node.field_url.uri %}
+                            {% set update_date = node.field_update_date.value ?: node.created.value %}
                             <a class="c-button c-button--outlined" href="{{ url }}" target="_blank">
                                 <span class="c-button__label">
-                                    {{ created|date('F') }}
+                                    {{ update_date|date('F') }}
                                 </span>
                                 {{ svg_icon('open-in-new', 'c-button__trailing-icon') }}
                             </a>

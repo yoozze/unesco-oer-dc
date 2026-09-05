@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.update.field_update_date
     - field.field.node.update.field_url
     - node.type.update
   module:
@@ -28,6 +29,7 @@ content:
     region: content
 hidden:
   addtoany: true
+  field_update_date: true
   langcode: true
   links: true
   node_read_time: true
