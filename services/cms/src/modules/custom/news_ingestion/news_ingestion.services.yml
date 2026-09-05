@@ -11,6 +11,12 @@ services:
     class: Drupal\news_ingestion\Mapper\CountryMapper
     arguments: ['@entity_type.manager']
 
+  news_ingestion.region_mapper:
+    class: Drupal\news_ingestion\Mapper\RegionMapper
+    arguments:
+      - '@entity_type.manager'
+      - '%app.root%/data/geo/UNESCO-world-regions-sdg.csv'
+
   news_ingestion.media_downloader:
     class: Drupal\news_ingestion\Service\RemoteImageMediaDownloader
     arguments:
@@ -35,6 +41,7 @@ services:
       - '@entity_type.manager'
       - '@news_ingestion.language_mapper'
       - '@news_ingestion.country_mapper'
+      - '@news_ingestion.region_mapper'
       - '@news_ingestion.media_downloader'
       - '@news_ingestion.source_prerequisites'
       - '@datetime.time'

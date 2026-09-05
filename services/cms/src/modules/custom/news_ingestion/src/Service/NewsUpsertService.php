@@ -8,6 +8,7 @@ use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\news_ingestion\Mapper\CountryMapper;
 use Drupal\news_ingestion\Mapper\LanguageMapper;
+use Drupal\news_ingestion\Mapper\RegionMapper;
 use Drupal\news_ingestion\NearDupeKeys;
 use Drupal\news_ingestion\NewsArticleDto;
 use Drupal\node\NodeInterface;
@@ -27,6 +28,7 @@ final class NewsUpsertService {
         private readonly EntityTypeManagerInterface $entityTypeManager,
         private readonly LanguageMapper $languageMapper,
         private readonly CountryMapper $countryMapper,
+        private readonly RegionMapper $regionMapper,
         private readonly RemoteImageMediaDownloader $mediaDownloader,
         private readonly SourcePrerequisiteService $prerequisites,
         private readonly TimeInterface $time,
@@ -164,9 +166,7 @@ final class NewsUpsertService {
         }
 
         $country_tids = $this->countryMapper->tidsFromHints($dto->countries);
-        if ($country_tids) {
-            $values['field_country'] = $this->refs($country_tids);
-        }
+        $this->applyGeoFields($values, $country_tids);
 
         if ($dry_run) {
             $node = $this->entityTypeManager->getStorage('node')->create($values);
@@ -317,6 +317,16 @@ final class NewsUpsertService {
                 $node->set('field_country', $this->refs($country_tids));
                 $dirty = TRUE;
             }
+
+            $region_tids = $this->regionMapper->tidsFromCountryTids($country_tids);
+            if ($region_tids) {
+                sort($region_tids);
+                $existing_regions = $this->referencedTids($node, 'field_region');
+                if ($existing_regions !== $region_tids) {
+                    $node->set('field_region', $this->refs($region_tids));
+                    $dirty = TRUE;
+                }
+            }
         }
 
         if ($dto->imageUrl && $node->get('field_image')->isEmpty() && !$dry_run) {
@@ -377,6 +387,22 @@ final class NewsUpsertService {
     }
 
     /**
+     * @param int[] $country_tids
+     * @param array<string, mixed> $values
+     */
+    private function applyGeoFields(array &$values, array $country_tids): void {
+        if (!$country_tids) {
+            return;
+        }
+
+        $values['field_country'] = $this->refs($country_tids);
+        $region_tids = $this->regionMapper->tidsFromCountryTids($country_tids);
+        if ($region_tids) {
+            $values['field_region'] = $this->refs($region_tids);
+        }
+    }
+
+    /**
      * @return int[]
      */
     private function referencedTids(NodeInterface $node, string $field): array {
@@ -423,6 +449,7 @@ final class NewsUpsertService {
                 $refs[] = ['target_id' => $id];
             }
         }
+
         return $refs;
     }
 }
