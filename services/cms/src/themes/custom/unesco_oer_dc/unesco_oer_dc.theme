@@ -174,22 +174,34 @@ function get_user_display_name($user) {
 }
 
 /**
+ * Get initials from a display name string.
+ */
+function get_initials_from_name(string $display_name): string {
+    // Prefer the first author when multiple are comma-separated.
+    $primary = trim(explode(',', $display_name, 2)[0]);
+    $words = array_values(array_filter(explode(' ', preg_replace('/\s+|\./', ' ', $primary) ?? '')));
+    $initials = '';
+    foreach ($words as $word) {
+        if ($word === '') {
+            continue;
+        }
+
+        $initials .= mb_strtoupper(mb_substr($word, 0, 1));
+    }
+
+    if (mb_strlen($initials) > 2) {
+        $initials = mb_substr($initials, 0, 1) . mb_substr($initials, -1);
+    }
+
+    return $initials !== '' ? $initials : '?';
+}
+
+/**
  * Get initials for user.
  * @param Drupal\user\Entity\User $user
  */
 function get_user_initials($user) {
-    $display_name = get_user_display_name($user);
-    $words = explode(' ', preg_replace('/\s+|\./', ' ', $display_name));
-    $initials = '';
-    foreach ($words as $word) {
-        $initials .= strtoupper($word[0]);
-    }
-
-    if (strlen($initials) > 2) {
-        $initials = $initials[0] . $initials[strlen($initials) - 1];
-    }
-
-    return $initials;
+    return get_initials_from_name(get_user_display_name($user));
 }
 
 /**
@@ -226,18 +238,24 @@ function generate_background_color($id) {
 }
 
 /**
+ * Generate an initials avatar from a display name.
+ */
+function generate_avatar_from_name(string $display_name, $size = 100) {
+    $initials = get_initials_from_name($display_name);
+    $color = generate_background_color($display_name);
+    $svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' . $size . ' ' . $size . '" width="' . $size . '" height="' . $size . '">';
+    $svg .= '<rect x="0" y="0" width="' . $size . '" height="' . $size . '" fill="' . $color . '"/>';
+    $svg .= '<text x="' . ($size / 2) .  '" y="' . ($size / 2) . '" text-anchor="middle" dy="0.35em" fill="#fff" font-size="' . ($size / 2) . '" font-family="\'Montserrat\', sans-serif">' . htmlspecialchars($initials, ENT_QUOTES | ENT_XML1, 'UTF-8') . '</text>';
+    $svg .= '</svg>';
+    return 'data:image/svg+xml;base64,' . base64_encode($svg);
+}
+
+/**
  * Generate avatar for user.
  * @param Drupal\user\Entity\User $user
  */
 function generate_avatar($user, $size = 100) {
-    $initials = get_user_initials($user);
-    $color = generate_background_color($user->getDisplayName());
-    $svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' . $size . ' ' . $size . '" width="' . $size . '" height="' . $size . '">';
-    $svg .= '<rect x="0" y="0" width="' . $size . '" height="' . $size . '" fill="' . $color . '"/>';
-    $svg .= '<text x="' . ($size / 2) .  '" y="' . ($size / 2) . '" text-anchor="middle" dy="0.35em" fill="#fff" font-size="' . ($size / 2) . '" font-family="\'Montserrat\', sans-serif">' . $initials . '</text>';
-    $svg .= '</svg>';
-    $avatar = 'data:image/svg+xml;base64,' . base64_encode($svg);
-    return $avatar;
+    return generate_avatar_from_name(get_user_display_name($user), $size);
 }
 
 include_once __DIR__ . '/includes/observatory.php';

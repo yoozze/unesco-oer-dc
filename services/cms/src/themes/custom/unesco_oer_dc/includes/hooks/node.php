@@ -141,4 +141,28 @@ function unesco_oer_dc_preprocess_node(&$variables) {
             ];
         }
     }
+
+    // External news: prefer field_author in the header (with initials avatar), not the system user.
+    if (
+        $node_type === 'news'
+        && !empty($variables['news_source_badge']['source_key'])
+        && $variables['news_source_badge']['source_key'] !== 'oerdc'
+        && $node->hasField('field_author')
+        && !$node->get('field_author')->isEmpty()
+    ) {
+        $field_author = trim((string) $node->get('field_author')->value);
+        if ($field_author !== '') {
+            $variables['author_display_name'] = $field_author;
+            $variables['author_name'] = NULL;
+            unset($variables['author_url']);
+            $variables['author_picture'] = [
+                '#theme' => 'image',
+                '#uri' => generate_avatar_from_name($field_author, 100),
+                '#alt' => $field_author,
+                '#attributes' => [
+                    'class' => ['c-user__picture'],
+                ],
+            ];
+        }
+    }
 }
