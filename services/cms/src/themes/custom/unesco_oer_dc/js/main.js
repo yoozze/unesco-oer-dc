@@ -8,6 +8,7 @@ import SearchFormBlock from './components/SearchFormBlock';
 import MainNavigation from './components/MainNavigation';
 import ViewsExposedForm from './components/ViewsExposedForm';
 import './components/MediaLibraryDialog';
+import './components/Select2';
 
 // import './misc/debug';
 
