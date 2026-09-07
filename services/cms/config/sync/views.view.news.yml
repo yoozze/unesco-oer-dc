@@ -250,7 +250,7 @@ display:
                   collapsible: false
                   collapsible_disable_automatic_open: false
                   open_by_default: false
-                  is_secondary: true
+                  is_secondary: false
                   hide_label: false
                   field_classes: ''
               field_area_of_action_target_id:
@@ -266,7 +266,7 @@ display:
                   collapsible: false
                   collapsible_disable_automatic_open: false
                   open_by_default: false
-                  is_secondary: true
+                  is_secondary: false
                   hide_label: false
                   field_classes: ''
               field_language_target_id:
@@ -282,7 +282,7 @@ display:
                   collapsible: false
                   collapsible_disable_automatic_open: false
                   open_by_default: false
-                  is_secondary: true
+                  is_secondary: false
                   hide_label: false
                   field_classes: ''
               field_audience_target_id:

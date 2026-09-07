@@ -113,11 +113,53 @@ $page-width: size('page-width');
 }
 
 .c-form--views-exposed-form-news-news-view {
+    .c-form__group {
+        // Override shared grow-swap: primary filters + chips must not crush Advanced search.
+        & > .c-form__group-primary {
+            // @include transition('flex-grow', size('duration' 1));
+
+            flex: 1 1 0;
+            min-width: 0;
+        }
+
+        & > details {
+            // @include transition('flex-grow', size('duration' 1));
+
+            flex: 0 0 auto; // size to summary label; never shrink (any language)
+            align-self: flex-start;
+            overflow: visible;
+        }
+
+        & > .c-form__group-primary:has(+ details[open]) {
+            flex: 1 1 0;
+            min-width: 0;
+        }
+
+        & > details[open] {
+            flex: 1 1 0;
+            min-width: 0;
+            overflow: auto;
+        }
+
+        @include below('bp-xl') {
+            & > .c-form__group-primary,
+            & > details,
+            & > .c-form__group-primary:has(+ details[open]),
+            & > details[open] {
+                flex: 1 1 auto;
+                width: 100%;
+                min-width: 0;
+            }
+
+            & > details {
+                align-self: stretch;
+            }
+        }
+    }
+
     .c-form__group-primary {
         display: flex;
         flex-direction: column;
-        flex-grow: 1;
-        flex-basis: 0;
         margin-right: size(1);
         margin-left: size(1);
 
@@ -125,16 +167,30 @@ $page-width: size('page-width');
             margin-bottom: size(1.5);
         }
 
-        & > .c-form__field:last-child {
-            margin-bottom: size(3);
+        & > .c-form__field--name-official-only {
+            margin-bottom: size(2);
         }
     }
 
-    .c-form__group > details {
-        align-self: flex-start;
+    .c-form__group-primary-filters {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: size(2) size(2);
+        margin-bottom: size(3);
+
+        & > .c-form__field {
+            margin-right: 0;
+            margin-bottom: 0;
+            margin-left: 0;
+            min-width: 0;
+        }
 
         @include below('bp-xl') {
-            align-self: stretch;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        @include below('bp-sm') {
+            grid-template-columns: minmax(0, 1fr);
         }
     }
 }

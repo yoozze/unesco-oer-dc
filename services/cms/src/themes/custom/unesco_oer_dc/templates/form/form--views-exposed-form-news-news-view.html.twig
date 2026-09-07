@@ -1,7 +1,7 @@
 {#
 /**
  * @file
- * News listing exposed filters: search + official toggle, advanced filters in secondary.
+ * News listing exposed filters: primary search + key filters; rest in advanced.
  */
 #}
 {% set classes = [
@@ -20,6 +20,17 @@
             {% if element.official_only %}
                 {{ element.official_only }}
             {% endif %}
+            <div class="c-form__group-primary-filters">
+                {% if element.field_area_of_action_target_id %}
+                    {{ element.field_area_of_action_target_id }}
+                {% endif %}
+                {% if element.field_region_target_id %}
+                    {{ element.field_region_target_id }}
+                {% endif %}
+                {% if element.field_language_target_id %}
+                    {{ element.field_language_target_id }}
+                {% endif %}
+            </div>
         </div>
         {{ element.secondary }}
     </div>
