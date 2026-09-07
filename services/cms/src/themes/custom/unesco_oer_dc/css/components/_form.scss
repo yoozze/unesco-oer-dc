@@ -75,12 +75,12 @@ $page-width: size('page-width');
             flex-basis: auto;
 
             &:has(+ details) {
-                @include transition('flex-grow', size('duration' 1));
+                // @include transition('flex-grow', size('duration' 1));
 
                 flex-grow: 1;
 
                 & + details {
-                    @include transition('flex-grow', size('duration' 1));
+                    // @include transition('flex-grow', size('duration' 1));
 
                     flex-grow: 0;
                 }
