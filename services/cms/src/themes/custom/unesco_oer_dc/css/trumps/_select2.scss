@@ -198,6 +198,12 @@
             }
         }
     }
+
+    .select2-selection--multiple
+        .select2-selection__rendered:not(:has(.select2-selection__choice))
+        + & {
+        display: block !important;
+    }
 }
 
 // .select2-search--dropdown {}
