@@ -107,6 +107,19 @@ class ViewsExposedForm extends Form {
     }
 
     /**
+     * Sync layout class used when Advanced search is expanded.
+     *
+     * News listing CSS uses this (with `:has` fallback) for the open-state
+     * ~50/50 split against shared flex grow-swap rules.
+     *
+     * @param {HTMLFormElement} form - Exposed form element.
+     */
+    static syncAdvancedOpenClass(form) {
+        const details = form.querySelector('details');
+        form.classList.toggle('is-advanced-open', Boolean(details?.open));
+    }
+
+    /**
      * Remember whether BEF "Advanced search" was expanded.
      *
      * @param {HTMLFormElement} form - Exposed form element.
@@ -118,6 +131,7 @@ class ViewsExposedForm extends Form {
         }
 
         sessionStorage.setItem(this.storageKey(form), details.open ? '1' : '0');
+        this.syncAdvancedOpenClass(form);
     }
 
     /**
@@ -139,6 +153,8 @@ class ViewsExposedForm extends Form {
         if (sessionStorage.getItem(this.storageKey(form)) === '1') {
             details.open = true;
         }
+
+        this.syncAdvancedOpenClass(form);
     }
 
     /**
@@ -190,6 +206,7 @@ class ViewsExposedForm extends Form {
         this.details = this.element.querySelector('details');
 
         this.constructor.restoreAdvancedSearchState(this.element);
+        this.constructor.syncAdvancedOpenClass(this.element);
 
         if (this.details) {
             this.details.addEventListener('toggle', () => {

@@ -114,45 +114,73 @@ $page-width: size('page-width');
 
 .c-form--views-exposed-form-news-news-view {
     .c-form__group {
-        // Override shared grow-swap: primary filters + chips must not crush Advanced search.
-        & > .c-form__group-primary {
-            // @include transition('flex-grow', size('duration' 1));
+        align-items: flex-start;
 
+        // Closed: primary takes remaining space; Advanced sizes to label and never shrinks.
+        & > .c-form__group-primary {
             flex: 1 1 0;
             min-width: 0;
         }
 
         & > details {
-            // @include transition('flex-grow', size('duration' 1));
-
-            flex: 0 0 auto; // size to summary label; never shrink (any language)
+            flex: 0 0 auto;
             align-self: flex-start;
             overflow: visible;
         }
 
-        & > .c-form__group-primary:has(+ details[open]) {
-            flex: 1 1 0;
+        // Open (xl+): ~50/50 split — override shared grow-swap that collapses primary.
+        & > .c-form__group-primary:has(+ details[open]),
+        & > details[open] {
+            flex: 1 1 0 !important;
             min-width: 0;
         }
 
         & > details[open] {
-            flex: 1 1 0;
+            align-self: stretch;
+            overflow: auto;
+        }
+
+        @include below('bp-xl') {
+            flex-direction: column;
+            align-items: stretch;
+
+            & > .c-form__group-primary,
+            & > details,
+            & > .c-form__group-primary:has(+ details[open]),
+            & > details[open] {
+                flex: 1 1 auto !important;
+                min-width: 0;
+            }
+
+            & > details,
+            & > details[open] {
+                align-self: stretch;
+                overflow: visible;
+            }
+        }
+    }
+
+    // Class mirror of :has(details[open]) for the same 50/50 open layout.
+    &.is-advanced-open .c-form__group {
+        & > .c-form__group-primary,
+        & > details {
+            flex: 1 1 0 !important;
             min-width: 0;
+        }
+
+        & > details {
+            align-self: stretch;
             overflow: auto;
         }
 
         @include below('bp-xl') {
             & > .c-form__group-primary,
-            & > details,
-            & > .c-form__group-primary:has(+ details[open]),
-            & > details[open] {
-                flex: 1 1 auto;
-                width: 100%;
-                min-width: 0;
+            & > details {
+                flex: 1 1 auto !important;
             }
 
             & > details {
-                align-self: stretch;
+                overflow: visible;
             }
         }
     }
@@ -186,10 +214,15 @@ $page-width: size('page-width');
         }
 
         @include below('bp-xl') {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
+            grid-template-columns: minmax(0, 1fr);
         }
+    }
 
-        @include below('bp-sm') {
+    // xl+ with Advanced open: left column is ~50% wide — stack primary filters
+    // full-width instead of three squeezed columns.
+    &.is-advanced-open .c-form__group-primary-filters,
+    .c-form__group:has(> details[open]) .c-form__group-primary-filters {
+        @include above('bp-xl') {
             grid-template-columns: minmax(0, 1fr);
         }
     }

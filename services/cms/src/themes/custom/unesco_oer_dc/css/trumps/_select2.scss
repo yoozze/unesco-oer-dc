@@ -33,8 +33,11 @@
     line-height: 1.5 !important;
 
     .select2-selection--multiple & {
-        width: auto !important;
+        // Bound chips to the field width so long labels can ellipsis.
+        flex-wrap: wrap;
+        max-width: 100%;
         margin: 0 !important;
+        box-sizing: border-box;
     }
 }
 
@@ -42,15 +45,30 @@
     .select2-selection--multiple & {
         @include font('label-large');
 
+        // Flex so the label can shrink; remove button stays fixed.
+        // position: relative;
+        display: inline-flex !important;
+        align-items: center;
+        box-sizing: border-box;
+        max-width: calc(100% - #{size(1)}) !important;
         margin: size(0.5) !important;
         padding: size(0.75) size(1.5) size(0.75) size(4.25) !important;
         background-color: rgba(color('menu-link-bg'), size('opacity' 3)) !important;
         border-width: 0 !important;
         border-radius: size('radius' 4) !important;
+        vertical-align: middle;
+        overflow: hidden;
+    }
+}
 
-        span {
-            display: inline-block;
-        }
+// Select2 v4 puts the label in this span — ellipsis must be here, not only on the <li>.
+.select2-selection__choice__display {
+    .select2-selection--multiple & {
+        @include truncate-text(100%, true);
+
+        display: block;
+        min-width: 0;
+        flex: 1 1 auto;
     }
 }
 
@@ -58,14 +76,15 @@
     .select2-selection--multiple & {
         @include transition('background-color');
 
+        // position: absolute !important;
         top: 50% !important;
         left: size(0.75) !important;
         transform: translateY(-50%) scale(0.825) !important;
         display: flex;
+        flex-shrink: 0;
         padding: size(0.625) !important;
         line-height: 0;
         font-size: 0;
-        transform: scale(0.825);
         border: none !important;
         border-radius: 50% !important;
         background-color: color('light') !important;
@@ -103,7 +122,7 @@
     // &:hover {
     //     background-color: rgba(color('red'), size('opacity' 5)) !important;
     // }
-    
+
     span {
         display: none;
     }
