@@ -84,6 +84,35 @@ fi
 PREFIX="${ENV^^}"
 echo "$PREFIX: $COMPOSE_FILE"
 
+if git -C "$SCRIPT_DIR" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    export DEPLOYMENT_IDENTIFIER="$(git -C "$SCRIPT_DIR" rev-parse HEAD)"
+else
+    export DEPLOYMENT_IDENTIFIER="$(date -u +%Y%m%dT%H%M%SZ)"
+fi
+
+echo "$PREFIX: deployment identifier $DEPLOYMENT_IDENTIFIER"
+
+# Drop the compiled Drupal container before Drush bootstraps. Constructor
+# changes in custom modules otherwise reuse cache_container and TypeError.
+invalidate_drupal_container_cache() {
+    echo "$PREFIX: Invalidating Drupal container cache..."
+    local tables
+    tables=$(docker exec -e MYSQL_PWD="$DB_PASSWORD" "${PROJECT_NAME}_db" \
+        mysql --user="$DB_USER" --database="$DB_NAME" -N -e "SHOW TABLES LIKE 'cache_container';") || {
+        echo "$PREFIX: ERROR: could not reach database to truncate cache_container" >&2
+        return 1
+    }
+
+    if [ -z "$tables" ]; then
+        echo "$PREFIX: cache_container not present yet, skipping truncate"
+        return 0
+    fi
+
+    docker exec -e MYSQL_PWD="$DB_PASSWORD" "${PROJECT_NAME}_db" \
+        mysql --user="$DB_USER" --database="$DB_NAME" -e "TRUNCATE TABLE cache_container;"
+    echo "$PREFIX: Truncated cache_container"
+}
+
 if [ $MODE = "--build" ]; then
     echo "$PREFIX: Building... $ARGS"
     docker compose -f $COMPOSE_FILE build $ARGS
@@ -108,6 +137,7 @@ if [ $MODE = "--setup" ]; then
         # devel is in config sync for local; uninstall on production after import.
         PROD_SETUP="drush pm:uninstall devel devel_generate -y 2>/dev/null || true &&"
     fi
+    invalidate_drupal_container_cache
     docker exec ${PROJECT_NAME}_cms sh -c "
         set -e &&
         bash drupal.sh --fix-permissions &&

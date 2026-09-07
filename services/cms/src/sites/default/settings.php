@@ -312,8 +312,10 @@ $settings['hash_salt'] = getenv('DRUPAL_HASH_SALT');
  * rebuilt when the Drupal core version changes. When updating contributed or
  * custom code that changes the container, changing this identifier will also
  * allow the container to be invalidated as soon as code is deployed.
+ *
+ * run.sh exports DEPLOYMENT_IDENTIFIER (git SHA) into the CMS container.
  */
-# $settings['deployment_identifier'] = \Drupal::VERSION;
+$settings['deployment_identifier'] = getenv('DEPLOYMENT_IDENTIFIER') ?: \Drupal::VERSION;
 
 /**
  * Access control for update.php script.

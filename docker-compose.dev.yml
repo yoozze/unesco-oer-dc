@@ -38,6 +38,7 @@ services:
             RECAPTCHA_SITE_KEY: ${RECAPTCHA_SITE_KEY}
             RECAPTCHA_SECRET_KEY: ${RECAPTCHA_SECRET_KEY}
             EVENTREGISTRY_API_KEY: ${EVENTREGISTRY_API_KEY}
+            DEPLOYMENT_IDENTIFIER: ${DEPLOYMENT_IDENTIFIER:-}
         depends_on:
             - db
         ports:
