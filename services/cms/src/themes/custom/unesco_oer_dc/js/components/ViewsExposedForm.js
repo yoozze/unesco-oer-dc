@@ -158,6 +158,48 @@ class ViewsExposedForm extends Form {
     }
 
     /**
+     * Clear filters for an exposed form via Views AJAX (no full page reload).
+     *
+     * Native `form.reset()` restores render-time defaults (still filtered), so
+     * fields are emptied explicitly before submitting.
+     *
+     * @param {HTMLFormElement} form - Exposed form element.
+     * @param {Event} [event] - Optional originating event.
+     */
+    static clearExposedForm(form, event = null) {
+        event?.preventDefault();
+        sessionStorage.setItem(this.storageKey(form), '0');
+        this.closeSelect2(form);
+        this.clearFormFields(form);
+
+        const details = form.querySelector('details');
+        if (details) {
+            details.open = false;
+            this.syncAdvancedOpenClass(form);
+        }
+
+        setTimeout(() => {
+            // Sync Select2 UI from cleared <select>s; block BEF autosubmit per field
+            // so we only trigger one Views AJAX submit below.
+            $(form)
+                .find('select.select2-widget')
+                .each((_, select) => {
+                    const $select = $(select);
+                    $select.one('change', e => {
+                        e.stopPropagation();
+                    });
+                    if ($select.data('select2')) {
+                        $select.val(null).trigger('change');
+                    } else {
+                        $select.trigger('change');
+                    }
+                });
+
+            form.querySelector('button[type="submit"]')?.click();
+        }, 0);
+    }
+
+    /**
      * Register one-time AJAX hooks for all listing exposed forms.
      */
     static bindDocumentListeners() {
@@ -166,6 +208,21 @@ class ViewsExposedForm extends Form {
         }
 
         this.documentListenersBound = true;
+
+        // Views AJAX replaces the form node; keep Clear working without relying
+        // on per-instance listeners that die with the old element.
+        $(document).on(
+            'click.unescoViewsExposedFormReset',
+            'form.c-form--views-exposed-form button[type="reset"]',
+            event => {
+                const form = event.currentTarget.closest('form');
+                if (!form) {
+                    return;
+                }
+
+                this.clearExposedForm(form, event);
+            },
+        );
 
         $(document).on('ajaxSend.unescoViewsExposedForm', (event, xhr, settings) => {
             if (!this.isViewsExposedFormAjax(settings)) {
@@ -187,6 +244,12 @@ class ViewsExposedForm extends Form {
             }
 
             this.cleanupOrphanedSelect2Dropdowns();
+            // Re-bind Advanced open state / instance helpers on the new form.
+            this.init();
+            const form = this.findFormFromAjaxSettings(settings);
+            if (form) {
+                this.restoreAdvancedSearchState(form);
+            }
         });
     }
 
@@ -218,34 +281,64 @@ class ViewsExposedForm extends Form {
             this.constructor.persistAdvancedSearchState(this.element);
             this.constructor.closeSelect2(this.element);
         });
-
-        if (this.reset) {
-            this.reset.addEventListener('click', this.handleResetButtonClick.bind(this));
-        }
     }
 
     /**
-     * Handle reset button click event.
+     * Empty exposed filter controls.
      *
-     * @param {Event} event - Click event.
+     * Native `form.reset()` only restores values from page render, which still
+     * include the currently applied filters — so Clear appeared to do nothing.
+     *
+     * @param {HTMLFormElement} form - Exposed form element.
      */
-    handleResetButtonClick(event) {
-        event.preventDefault();
-        sessionStorage.setItem(this.constructor.storageKey(this.element), '0');
-        this.constructor.closeSelect2(this.element);
-        this.element.reset();
-        setTimeout(() => {
-            // Reset all select2 elements
-            $(this.element)
-                .find('select.select2-widget')
-                .one('change', e => {
-                    e.stopPropagation();
-                })
-                .trigger('change');
+    static clearFormFields(form) {
+        const preserveHidden = new Set([
+            'form_build_id',
+            'form_id',
+            'form_token',
+            'view_name',
+            'view_display_id',
+            'view_args',
+            'view_path',
+            'view_base_path',
+            'view_dom_id',
+        ]);
 
-            // Submit the form
-            this.submit.click();
-        }, 0);
+        form.querySelectorAll('input, select, textarea').forEach(element => {
+            const { name, type, tagName } = element;
+
+            if (type === 'submit' || type === 'button' || type === 'reset' || type === 'image') {
+                return;
+            }
+
+            if (type === 'hidden') {
+                if (!name || preserveHidden.has(name) || name.startsWith('ajax_')) {
+                    return;
+                }
+
+                element.value = '';
+                return;
+            }
+
+            if (type === 'checkbox' || type === 'radio') {
+                element.checked = false;
+                return;
+            }
+
+            if (tagName === 'SELECT') {
+                if (element.multiple) {
+                    Array.from(element.options).forEach(option => {
+                        option.selected = false;
+                    });
+                } else {
+                    element.value = '';
+                }
+
+                return;
+            }
+
+            element.value = '';
+        });
     }
 }
 
