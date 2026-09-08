@@ -39,6 +39,12 @@
             '.js-hero-background-opacity',
             'js-hero-background-opacity--visible',
         );
+        syncMediaDependent(
+            slide,
+            '.js-hero-background-media',
+            '.js-hero-background-fit',
+            'js-hero-background-fit--visible',
+        );
     }
 
     Drupal.behaviors.adminHeroFeaturedAutoplay = {

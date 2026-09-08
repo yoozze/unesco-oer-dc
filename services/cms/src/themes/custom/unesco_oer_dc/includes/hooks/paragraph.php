@@ -98,6 +98,15 @@ function unesco_oer_dc_preprocess_paragraph__hero_slide(&$variables) {
 
         $variables['background_opacity'] = $opacity;
     }
+
+    $variables['background_fit'] = 'cover';
+    if ($paragraph->hasField('field_background_fit') && !$paragraph->get('field_background_fit')->isEmpty()) {
+        $fit = $paragraph->get('field_background_fit')->value;
+        if (in_array($fit, ['cover', 'contain'], TRUE)) {
+            $variables['background_fit'] = $fit;
+        }
+    }
+
     $variables['aside_media'] = NULL;
     $variables['aside_media_render'] = NULL;
     $variables['featured_media'] = NULL;

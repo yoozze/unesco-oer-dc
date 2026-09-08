@@ -93,6 +93,15 @@ function admin_hero_slides_featured_autoplay_after_build(array $element, FormSta
             'js-hero-background-opacity',
             'js-hero-background-opacity--visible'
         );
+
+        admin_hero_slide_mark_media_dependent(
+            $subform,
+            'field_background',
+            'field_background_fit',
+            'js-hero-background-media',
+            'js-hero-background-fit',
+            'js-hero-background-fit--visible'
+        );
     }
 
     $element['#attached']['library'][] = 'admin/hero_featured_autoplay';

@@ -2,6 +2,7 @@
  * Hide media-dependent hero slide fields until media is selected (JS toggles).
  */
 .js-hero-featured-autoplay:not(.js-hero-featured-autoplay--visible),
-.js-hero-background-opacity:not(.js-hero-background-opacity--visible) {
+.js-hero-background-opacity:not(.js-hero-background-opacity--visible),
+.js-hero-background-fit:not(.js-hero-background-fit--visible) {
     display: none;
 }

@@ -220,7 +220,7 @@ $hero-padding: size('section-padding');
     display: block;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: var(--hero-bg-fit, cover);
     object-position: center;
     // Per-slide override via --hero-bg-opacity; default matches size('opacity' 4) ≈ 0.24.
     opacity: var(--hero-bg-opacity, #{size('opacity' 4)});

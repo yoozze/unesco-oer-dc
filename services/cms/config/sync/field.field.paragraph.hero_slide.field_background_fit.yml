@@ -1,0 +1,23 @@
+uuid: 42af3e6d-b431-472f-a1d8-88c706d84ef9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_background_fit
+    - paragraphs.paragraphs_type.hero_slide
+  module:
+    - options
+id: paragraph.hero_slide.field_background_fit
+field_name: field_background_fit
+entity_type: paragraph
+bundle: hero_slide
+label: 'Background fit'
+description: 'How the background image or video fills the slide. Cover crops to fill; Contain shows the full media (letterboxing on the dark base).'
+required: false
+translatable: false
+default_value:
+  -
+    value: cover
+default_value_callback: ''
+settings: {  }
+field_type: list_string

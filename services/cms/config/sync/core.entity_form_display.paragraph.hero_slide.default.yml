@@ -6,6 +6,7 @@ dependencies:
     - field.field.paragraph.hero_slide.field_aside
     - field.field.paragraph.hero_slide.field_aside_media
     - field.field.paragraph.hero_slide.field_background
+    - field.field.paragraph.hero_slide.field_background_fit
     - field.field.paragraph.hero_slide.field_background_opacity
     - field.field.paragraph.hero_slide.field_enabled
     - field.field.paragraph.hero_slide.field_featured_autoplay
@@ -18,6 +19,7 @@ dependencies:
     - conditional_fields
     - link
     - media_library
+    - options
     - text
 id: paragraph.hero_slide.default
 targetEntityType: paragraph
@@ -26,13 +28,13 @@ mode: default
 content:
   field_aside:
     type: options_select
-    weight: 8
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
   field_aside_media:
     type: media_library_widget
-    weight: 9
+    weight: 10
     region: content
     settings:
       media_types: {  }
@@ -63,6 +65,12 @@ content:
     region: content
     settings:
       media_types: {  }
+    third_party_settings: {  }
+  field_background_fit:
+    type: options_select
+    weight: 8
+    region: content
+    settings: {  }
     third_party_settings: {  }
   field_background_opacity:
     type: number
@@ -117,7 +125,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   translation:
-    weight: 10
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }

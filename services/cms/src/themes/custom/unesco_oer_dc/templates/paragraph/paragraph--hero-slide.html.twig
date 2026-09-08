@@ -14,7 +14,7 @@
 %}
 <article{{attributes.addClass(slide_classes)}}>
 	{% if background %}
-		<div class="c-hero__background" aria-hidden="true" style="--hero-bg-opacity: {{ background_opacity }};">
+		<div class="c-hero__background" aria-hidden="true" style="--hero-bg-opacity: {{ background_opacity }}; --hero-bg-fit: {{ background_fit }};">
 			{% if background.bundle == 'video' %}
 				<video class="c-hero__background-media" autoplay muted loop playsinline>
 					<source src="{{ background.url }}" {% if background.mime %} type="{{ background.mime }}" {% endif %}/>

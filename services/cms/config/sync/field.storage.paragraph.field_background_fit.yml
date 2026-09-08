@@ -1,0 +1,27 @@
+uuid: d0cd956d-a1d3-40d9-8aea-f43ba27ed7a3
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_background_fit
+field_name: field_background_fit
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: cover
+      label: Cover
+    -
+      value: contain
+      label: Contain
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
