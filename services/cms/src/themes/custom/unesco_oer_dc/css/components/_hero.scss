@@ -200,6 +200,7 @@ $hero-padding: size('section-padding');
     display: flex !important;
     align-items: stretch;
     justify-content: center;
+    min-height: size(560px);
     padding-top: $hero-padding;
     padding-bottom: $hero-padding;
     overflow: hidden;
@@ -303,6 +304,7 @@ $hero-padding: size('section-padding');
         display: block;
         width: 100%;
         height: auto;
+        max-height: size(500px);
         aspect-ratio: unset !important;
         border-radius: size('radius' 4);
     }
