@@ -1,0 +1,23 @@
+uuid: 4e798fa9-bc20-43cf-82f5-a8f6df7be89d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_featured_autoplay
+    - paragraphs.paragraphs_type.hero_slide
+id: paragraph.hero_slide.field_featured_autoplay
+field_name: field_featured_autoplay
+entity_type: paragraph
+bundle: hero_slide
+label: Autoplay
+description: 'Muted autoplay when this slide is active. Applies to local (uploaded) video only.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

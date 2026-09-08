@@ -7,12 +7,14 @@ dependencies:
     - field.field.paragraph.hero_slide.field_aside_media
     - field.field.paragraph.hero_slide.field_background
     - field.field.paragraph.hero_slide.field_enabled
+    - field.field.paragraph.hero_slide.field_featured_autoplay
     - field.field.paragraph.hero_slide.field_links
     - field.field.paragraph.hero_slide.field_media
     - field.field.paragraph.hero_slide.field_text
     - field.field.paragraph.hero_slide.field_title
     - paragraphs.paragraphs_type.hero_slide
   module:
+    - conditional_fields
     - link
     - media_library
     - text
@@ -56,7 +58,7 @@ content:
             selector: ''
   field_background:
     type: media_library_widget
-    weight: 5
+    weight: 6
     region: content
     settings:
       media_types: {  }
@@ -68,9 +70,16 @@ content:
     settings:
       display_label: true
     third_party_settings: {  }
+  field_featured_autoplay:
+    type: boolean_checkbox
+    weight: 4
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
   field_links:
     type: link_default
-    weight: 4
+    weight: 5
     region: content
     settings:
       placeholder_url: ''

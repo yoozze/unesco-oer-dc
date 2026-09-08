@@ -26,7 +26,7 @@ class HeroSlider extends Component {
     pauseOnHover = true;
 
     /**
-     * Featured / aside video currently holding autoplay.
+     * Featured video currently holding carousel autoplay.
      */
     videoHoldingAutoplay = false;
 
@@ -65,6 +65,7 @@ class HeroSlider extends Component {
         if (items.length < 2) {
             this.syncBackgroundVideos(0);
             this.syncAsideVideos(0);
+            this.syncFeaturedVideos(0);
             return;
         }
 
@@ -101,6 +102,7 @@ class HeroSlider extends Component {
 
         this.syncBackgroundVideos(0);
         this.syncAsideVideos(0);
+        this.syncFeaturedVideos(0);
         this.bindVideoPause();
         this.bindAutoplayInteraction();
         this.initAutoplayProgress(autoplaySpeed);
@@ -113,6 +115,7 @@ class HeroSlider extends Component {
         $(this.slider).on('afterChange', (_event, _slick, currentSlide) => {
             this.syncBackgroundVideos(currentSlide);
             this.syncAsideVideos(currentSlide);
+            this.syncFeaturedVideos(currentSlide);
         });
     }
 
@@ -358,7 +361,42 @@ class HeroSlider extends Component {
     }
 
     /**
-     * Pause carousel autoplay while featured (user-controlled) videos play.
+     * Featured video: muted autoplay when data-autoplay=1; pause on leave, resume on return.
+     *
+     * @param {number} index
+     */
+    syncFeaturedVideos(index) {
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const slides = this.slider.querySelectorAll(`.${HeroSlider.bem('slide')}`);
+        slides.forEach((slide, i) => {
+            const video = slide.querySelector(`.${HeroSlider.bem('featured-media-video')}`);
+            if (!(video instanceof HTMLVideoElement)) {
+                return;
+            }
+
+            const shouldAutoplay = video.dataset.autoplay === '1';
+            if (i === index && shouldAutoplay && !reduceMotion) {
+                if (video.ended) {
+                    try {
+                        video.currentTime = 0;
+                    } catch (e) {
+                        // Ignore seek errors on unloaded media.
+                    }
+                }
+
+                video.play().catch(() => {
+                    // Unmuted resume may be blocked; fall back to muted autoplay.
+                    video.muted = true;
+                    video.play().catch(() => {});
+                });
+            } else {
+                video.pause();
+            }
+        });
+    }
+
+    /**
+     * Pause carousel autoplay while featured videos play.
      * Aside branding clips are excluded so they do not hold the slider.
      */
     bindVideoPause() {
@@ -366,7 +404,7 @@ class HeroSlider extends Component {
             return;
         }
 
-        const media = this.slider.querySelectorAll(`.${HeroSlider.bem('featured-media')} video`);
+        const media = this.slider.querySelectorAll(`.${HeroSlider.bem('featured-media-video')}`);
         media.forEach(el => {
             el.addEventListener('play', () => {
                 this.videoHoldingAutoplay = true;
@@ -384,11 +422,10 @@ class HeroSlider extends Component {
     }
 
     /**
-     * Pause featured HTML5 videos when changing slides.
-     * Aside branding is reset via syncAsideVideos on afterChange.
+     * Pause featured HTML5 videos when changing slides (position kept for resume).
      */
     pauseFeaturedMedia() {
-        const media = this.slider.querySelectorAll(`.${HeroSlider.bem('featured-media')} video`);
+        const media = this.slider.querySelectorAll(`.${HeroSlider.bem('featured-media-video')}`);
         media.forEach(el => {
             if (el instanceof HTMLVideoElement && !el.paused) {
                 el.pause();

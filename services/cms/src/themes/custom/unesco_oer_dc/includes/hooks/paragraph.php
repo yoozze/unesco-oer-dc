@@ -89,6 +89,8 @@ function unesco_oer_dc_preprocess_paragraph__hero_slide(&$variables) {
     $variables['background'] = get_hero_media_data($paragraph->get('field_background')->entity);
     $variables['aside_media'] = NULL;
     $variables['aside_media_render'] = NULL;
+    $variables['featured_media'] = NULL;
+    $variables['featured_media_render'] = NULL;
 
     $aside_media_entity = $paragraph->get('field_aside_media')->entity;
     if ($aside_media_entity) {
@@ -98,6 +100,17 @@ function unesco_oer_dc_preprocess_paragraph__hero_slide(&$variables) {
                 ->view($aside_media_entity, 'default');
         } else {
             $variables['aside_media'] = get_hero_media_data($aside_media_entity);
+        }
+    }
+
+    $featured_media_entity = $paragraph->get('field_media')->entity;
+    if ($featured_media_entity) {
+        if ($featured_media_entity->bundle() === 'remote_video') {
+            $variables['featured_media_render'] = \Drupal::entityTypeManager()
+                ->getViewBuilder('media')
+                ->view($featured_media_entity, 'default');
+        } else {
+            $variables['featured_media'] = get_hero_media_data($featured_media_entity);
         }
     }
 
@@ -115,6 +128,10 @@ function unesco_oer_dc_preprocess_paragraph__hero_slide(&$variables) {
     }
 
     $variables['has_featured_media'] = !$paragraph->get('field_media')->isEmpty();
+    $variables['featured_autoplay'] = FALSE;
+    if ($paragraph->hasField('field_featured_autoplay') && !$paragraph->get('field_featured_autoplay')->isEmpty()) {
+        $variables['featured_autoplay'] = (bool) $paragraph->get('field_featured_autoplay')->value;
+    }
 
     if (!empty($variables['content']['field_title']) && is_array($variables['content']['field_title'])) {
         $variables['content']['field_title']['#is_first_slide'] = $variables['is_first_slide'];

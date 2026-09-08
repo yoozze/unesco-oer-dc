@@ -4,9 +4,13 @@ admin:
         theme:
             css/admin.css: {}
 
-    # js:
-    #     js/admin.js: {}
-
-    # dependencies:
-    #     - core/jquery
-    #     - core/drupal
+hero_featured_autoplay:
+    version: 1.0.0
+    js:
+        js/hero-featured-autoplay.js: {}
+    css:
+        theme:
+            css/hero-featured-autoplay.css: {}
+    dependencies:
+        - core/drupal
+        - core/once

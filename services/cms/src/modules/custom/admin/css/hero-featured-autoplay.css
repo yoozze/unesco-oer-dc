@@ -1,0 +1,6 @@
+/**
+ * Hide Autoplay until featured media is selected (JS toggles visibility).
+ */
+.js-hero-featured-autoplay:not(.js-hero-featured-autoplay--visible) {
+    display: none;
+}

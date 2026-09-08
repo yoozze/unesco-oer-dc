@@ -32,7 +32,16 @@
 				{{ content.field_text }}
 				{% if has_featured_media %}
 					<div class="c-hero__featured-media">
-						{{ content.field_media }}
+						{% if featured_media_render %}
+							{{ featured_media_render }}
+						{% elseif featured_media.bundle == 'image' %}
+							<img src="{{ featured_media.url }}" alt="{{ featured_media.alt }}" loading="{{ is_first_slide ? 'eager' : 'lazy' }}"/>
+						{% elseif featured_media.bundle == 'video' %}
+							{# Controls always. Muted autoplay only when field_featured_autoplay is on (HeroSlider.js). #}
+							<video class="c-hero__featured-media-video" controls playsinline{% if featured_autoplay %} muted data-autoplay="1"{% endif %}>
+								<source src="{{ featured_media.url }}" {% if featured_media.mime %} type="{{ featured_media.mime }}" {% endif %}/>
+							</video>
+						{% endif %}
 					</div>
 				{% endif %}
 				{{ content.field_links }}

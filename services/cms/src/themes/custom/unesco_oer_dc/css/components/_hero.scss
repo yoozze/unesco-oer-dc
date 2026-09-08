@@ -385,9 +385,8 @@ $hero-padding: size('section-padding');
     position: absolute;
     top: negative('section-padding');
     bottom: negative('section-padding');
-    left: 0;
+    left: size('gutter') * 0.5;
     width: calc(100% + 5 * size('section-padding'));
-    overflow: hidden;
 
     > svg {
         position: absolute;

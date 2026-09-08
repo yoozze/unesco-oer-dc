@@ -7,6 +7,7 @@
 
 use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Element;
 use Drupal\paragraphs\ParagraphInterface;
 
 /**
@@ -54,7 +55,71 @@ function admin_form_alter(&$form, FormStateInterface $form_state, $form_id) {
     $entity = $form_object->getEntity();
     if ($entity->getEntityTypeId() === 'block_content' && $entity->bundle() === 'hero') {
         $form['#validate'][] = 'admin_hero_block_validate_enabled_slides';
+        if (isset($form['field_slides']['widget'])) {
+            $form['field_slides']['widget']['#after_build'][] = 'admin_hero_slides_featured_autoplay_after_build';
+        }
     }
+}
+
+/**
+ * Mark hero slide media/autoplay fields for admin visibility JS.
+ *
+ * Conditional Fields cannot evaluate media_library "!empty", so visibility is
+ * handled in admin/js/hero-featured-autoplay.js instead.
+ */
+function admin_hero_slides_featured_autoplay_after_build(array $element, FormStateInterface $form_state) {
+    foreach (Element::children($element) as $delta) {
+        if (!is_numeric($delta) || empty($element[$delta]['subform'])) {
+            continue;
+        }
+
+        $subform = &$element[$delta]['subform'];
+        if (!isset($subform['field_featured_autoplay'], $subform['field_media'])) {
+            continue;
+        }
+
+        $subform['#attributes']['class'][] = 'js-hero-slide-subform';
+        $subform['field_media']['#attributes']['class'][] = 'js-hero-featured-media';
+        $subform['field_featured_autoplay']['#attributes']['class'][] = 'js-hero-featured-autoplay';
+
+        // Widget roots are what Media Library AJAX tends to replace under.
+        if (isset($subform['field_media']['widget']) && is_array($subform['field_media']['widget'])) {
+            $subform['field_media']['widget']['#attributes']['class'][] = 'js-hero-featured-media';
+        }
+
+        if (isset($subform['field_featured_autoplay']['widget']) && is_array($subform['field_featured_autoplay']['widget'])) {
+            $subform['field_featured_autoplay']['widget']['#attributes']['class'][] = 'js-hero-featured-autoplay';
+        }
+
+        $has_media = admin_hero_slide_subform_has_featured_media($subform['field_media']);
+        if ($has_media) {
+            $subform['field_featured_autoplay']['#attributes']['class'][] = 'js-hero-featured-autoplay--visible';
+            if (isset($subform['field_featured_autoplay']['widget']) && is_array($subform['field_featured_autoplay']['widget'])) {
+                $subform['field_featured_autoplay']['widget']['#attributes']['class'][] = 'js-hero-featured-autoplay--visible';
+            }
+        }
+    }
+
+    $element['#attached']['library'][] = 'admin/hero_featured_autoplay';
+    return $element;
+}
+
+/**
+ * Whether the featured media widget currently has a selection.
+ */
+function admin_hero_slide_subform_has_featured_media(array $field_media): bool {
+    $widget = $field_media['widget'] ?? $field_media;
+    if (empty($widget['selection']) || !is_array($widget['selection'])) {
+        return FALSE;
+    }
+
+    foreach (Element::children($widget['selection']) as $delta) {
+        if (isset($widget['selection'][$delta]['target_id'])) {
+            return TRUE;
+        }
+    }
+
+    return FALSE;
 }
 
 /**
