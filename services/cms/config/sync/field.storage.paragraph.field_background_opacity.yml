@@ -1,0 +1,20 @@
+uuid: 4c645b3b-8daf-4788-887c-4f6aa1b3edb5
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs
+id: paragraph.field_background_opacity
+field_name: field_background_opacity
+entity_type: paragraph
+type: decimal
+settings:
+  precision: 3
+  scale: 2
+module: core
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

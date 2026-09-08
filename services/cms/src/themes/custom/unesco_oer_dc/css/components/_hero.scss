@@ -222,8 +222,8 @@ $hero-padding: size('section-padding');
     height: 100%;
     object-fit: cover;
     object-position: center;
-    // Match original: translucent image/video over dark blue base.
-    opacity: size('opacity' 4);
+    // Per-slide override via --hero-bg-opacity; default matches size('opacity' 4) ≈ 0.24.
+    opacity: var(--hero-bg-opacity, #{size('opacity' 4)});
 }
 
 // ## Hero Container

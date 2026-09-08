@@ -6,6 +6,7 @@ dependencies:
     - field.field.paragraph.hero_slide.field_aside
     - field.field.paragraph.hero_slide.field_aside_media
     - field.field.paragraph.hero_slide.field_background
+    - field.field.paragraph.hero_slide.field_background_opacity
     - field.field.paragraph.hero_slide.field_enabled
     - field.field.paragraph.hero_slide.field_featured_autoplay
     - field.field.paragraph.hero_slide.field_links
@@ -25,13 +26,13 @@ mode: default
 content:
   field_aside:
     type: options_select
-    weight: 7
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
   field_aside_media:
     type: media_library_widget
-    weight: 8
+    weight: 9
     region: content
     settings:
       media_types: {  }
@@ -62,6 +63,13 @@ content:
     region: content
     settings:
       media_types: {  }
+    third_party_settings: {  }
+  field_background_opacity:
+    type: number
+    weight: 7
+    region: content
+    settings:
+      placeholder: '0.25'
     third_party_settings: {  }
   field_enabled:
     type: boolean_checkbox
@@ -109,7 +117,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   translation:
-    weight: 9
+    weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }

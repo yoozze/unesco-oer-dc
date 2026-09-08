@@ -62,7 +62,7 @@ function admin_form_alter(&$form, FormStateInterface $form_state, $form_id) {
 }
 
 /**
- * Mark hero slide media/autoplay fields for admin visibility JS.
+ * Mark hero slide media-dependent fields for admin visibility JS.
  *
  * Conditional Fields cannot evaluate media_library "!empty", so visibility is
  * handled in admin/js/hero-featured-autoplay.js instead.
@@ -74,30 +74,25 @@ function admin_hero_slides_featured_autoplay_after_build(array $element, FormSta
         }
 
         $subform = &$element[$delta]['subform'];
-        if (!isset($subform['field_featured_autoplay'], $subform['field_media'])) {
-            continue;
-        }
-
         $subform['#attributes']['class'][] = 'js-hero-slide-subform';
-        $subform['field_media']['#attributes']['class'][] = 'js-hero-featured-media';
-        $subform['field_featured_autoplay']['#attributes']['class'][] = 'js-hero-featured-autoplay';
 
-        // Widget roots are what Media Library AJAX tends to replace under.
-        if (isset($subform['field_media']['widget']) && is_array($subform['field_media']['widget'])) {
-            $subform['field_media']['widget']['#attributes']['class'][] = 'js-hero-featured-media';
-        }
+        admin_hero_slide_mark_media_dependent(
+            $subform,
+            'field_media',
+            'field_featured_autoplay',
+            'js-hero-featured-media',
+            'js-hero-featured-autoplay',
+            'js-hero-featured-autoplay--visible'
+        );
 
-        if (isset($subform['field_featured_autoplay']['widget']) && is_array($subform['field_featured_autoplay']['widget'])) {
-            $subform['field_featured_autoplay']['widget']['#attributes']['class'][] = 'js-hero-featured-autoplay';
-        }
-
-        $has_media = admin_hero_slide_subform_has_featured_media($subform['field_media']);
-        if ($has_media) {
-            $subform['field_featured_autoplay']['#attributes']['class'][] = 'js-hero-featured-autoplay--visible';
-            if (isset($subform['field_featured_autoplay']['widget']) && is_array($subform['field_featured_autoplay']['widget'])) {
-                $subform['field_featured_autoplay']['widget']['#attributes']['class'][] = 'js-hero-featured-autoplay--visible';
-            }
-        }
+        admin_hero_slide_mark_media_dependent(
+            $subform,
+            'field_background',
+            'field_background_opacity',
+            'js-hero-background-media',
+            'js-hero-background-opacity',
+            'js-hero-background-opacity--visible'
+        );
     }
 
     $element['#attached']['library'][] = 'admin/hero_featured_autoplay';
@@ -105,9 +100,45 @@ function admin_hero_slides_featured_autoplay_after_build(array $element, FormSta
 }
 
 /**
- * Whether the featured media widget currently has a selection.
+ * Attach JS classes for a media library field and a dependent form field.
  */
-function admin_hero_slide_subform_has_featured_media(array $field_media): bool {
+function admin_hero_slide_mark_media_dependent(
+    array &$subform,
+    string $media_field,
+    string $dependent_field,
+    string $media_class,
+    string $dependent_class,
+    string $visible_class
+): void {
+    if (!isset($subform[$media_field], $subform[$dependent_field])) {
+        return;
+    }
+
+    $subform[$media_field]['#attributes']['class'][] = $media_class;
+    $subform[$dependent_field]['#attributes']['class'][] = $dependent_class;
+
+    if (isset($subform[$media_field]['widget']) && is_array($subform[$media_field]['widget'])) {
+        $subform[$media_field]['widget']['#attributes']['class'][] = $media_class;
+    }
+
+    if (isset($subform[$dependent_field]['widget']) && is_array($subform[$dependent_field]['widget'])) {
+        $subform[$dependent_field]['widget']['#attributes']['class'][] = $dependent_class;
+    }
+
+    if (!admin_hero_slide_subform_has_media_selection($subform[$media_field])) {
+        return;
+    }
+
+    $subform[$dependent_field]['#attributes']['class'][] = $visible_class;
+    if (isset($subform[$dependent_field]['widget']) && is_array($subform[$dependent_field]['widget'])) {
+        $subform[$dependent_field]['widget']['#attributes']['class'][] = $visible_class;
+    }
+}
+
+/**
+ * Whether a media library widget currently has a selection.
+ */
+function admin_hero_slide_subform_has_media_selection(array $field_media): bool {
     $widget = $field_media['widget'] ?? $field_media;
     if (empty($widget['selection']) || !is_array($widget['selection'])) {
         return FALSE;

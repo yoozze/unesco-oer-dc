@@ -1,0 +1,25 @@
+uuid: 9d905231-f7c7-4a96-ab30-c1aa80947624
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_background_opacity
+    - paragraphs.paragraphs_type.hero_slide
+id: paragraph.hero_slide.field_background_opacity
+field_name: field_background_opacity
+entity_type: paragraph
+bundle: hero_slide
+label: 'Background opacity'
+description: 'Opacity of the background image or video over the dark base. 0 = invisible, 1 = full strength. Default 0.25.'
+required: false
+translatable: false
+default_value:
+  -
+    value: '0.25'
+default_value_callback: ''
+settings:
+  min: !!float 0
+  max: !!float 1
+  prefix: ''
+  suffix: ''
+field_type: decimal
