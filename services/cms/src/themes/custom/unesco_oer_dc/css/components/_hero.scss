@@ -374,6 +374,10 @@ $hero-padding: size('section-padding');
     }
 }
 
+.c-hero__aside-media-video {
+    pointer-events: none;
+}
+
 // ## Hero Graphic
 // ---------------
 

@@ -60,7 +60,8 @@
 						{% elseif aside_media.bundle == 'image' %}
 							<img src="{{ aside_media.url }}" alt="{{ aside_media.alt }}" loading="lazy"/>
 						{% elseif aside_media.bundle == 'video' %}
-							<video controls playsinline>
+							{# Branding clip: muted, no controls, play-once per slide activation (HeroSlider.js). #}
+							<video class="c-hero__aside-media-video" muted playsinline aria-hidden="true">
 								<source src="{{ aside_media.url }}" {% if aside_media.mime %} type="{{ aside_media.mime }}" {% endif %}/>
 							</video>
 						{% endif %}
