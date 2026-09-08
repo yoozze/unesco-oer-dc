@@ -21,6 +21,8 @@ display:
             items_per_page_options_all_label: '- Tout -'
             offset_label: Décalage
       fields:
+        views_bulk_operations_bulk_form:
+          action_title: Action
         unfid:
           label: 'Identifiant (ID)'
           separator: ', '

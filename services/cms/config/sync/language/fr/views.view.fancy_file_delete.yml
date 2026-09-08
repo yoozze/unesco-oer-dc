@@ -22,6 +22,7 @@ display:
             offset_label: Décalage
       fields:
         filename:
+          label: 'File Name'
           separator: ', '
         fid:
           label: 'Identifiant (ID) de fichier'
@@ -33,7 +34,10 @@ display:
       menu:
         title: Lister
       fields:
+        views_bulk_operations_bulk_form:
+          action_title: Action
         filename:
+          label: 'File Name'
           separator: ', '
         fid:
           label: 'Identifiant (ID) de fichier'
@@ -44,7 +48,10 @@ display:
   page_2:
     display_options:
       fields:
+        views_bulk_operations_bulk_form:
+          action_title: Action
         filename:
+          label: 'File Name'
           separator: ', '
         fid:
           label: 'Identifiant (ID) de fichier'
