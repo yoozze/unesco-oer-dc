@@ -153,6 +153,29 @@ function unesco_oer_dc_preprocess_paragraph__hero_slide(&$variables) {
         $variables['featured_autoplay'] = (bool) $paragraph->get('field_featured_autoplay')->value;
     }
 
+    // Video-only slide (no aside, title, body, or links): cinematic layout.
+    $featured_is_video = FALSE;
+    if ($featured_media_entity) {
+        $featured_is_video = in_array($featured_media_entity->bundle(), ['video', 'remote_video'], TRUE);
+    }
+
+    $has_title = !$paragraph->get('field_title')->isEmpty();
+    $has_text = FALSE;
+    if (!$paragraph->get('field_text')->isEmpty()) {
+        $text = $paragraph->get('field_text')->value ?? '';
+        $has_text = trim(strip_tags($text)) !== '';
+    }
+
+    $has_links = !$paragraph->get('field_links')->isEmpty();
+
+    $variables['featured_video_focus'] = (
+        $variables['aside'] === 'none'
+        && $featured_is_video
+        && !$has_title
+        && !$has_text
+        && !$has_links
+    );
+
     if (!empty($variables['content']['field_title']) && is_array($variables['content']['field_title'])) {
         $variables['content']['field_title']['#is_first_slide'] = $variables['is_first_slide'];
     }

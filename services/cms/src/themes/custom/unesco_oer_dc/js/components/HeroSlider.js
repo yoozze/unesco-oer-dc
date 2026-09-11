@@ -103,6 +103,7 @@ class HeroSlider extends Component {
         this.syncBackgroundVideos(0);
         this.syncAsideVideos(0);
         this.syncFeaturedVideos(0);
+        this.syncDotsVisibility(0);
         this.bindVideoPause();
         this.bindAutoplayInteraction();
         this.initAutoplayProgress(autoplaySpeed);
@@ -116,6 +117,7 @@ class HeroSlider extends Component {
             this.syncBackgroundVideos(currentSlide);
             this.syncAsideVideos(currentSlide);
             this.syncFeaturedVideos(currentSlide);
+            this.syncDotsVisibility(currentSlide);
         });
     }
 
@@ -393,6 +395,20 @@ class HeroSlider extends Component {
                 video.pause();
             }
         });
+    }
+
+    /**
+     * Hide pagination dots while a video-focus slide is active (controls need the bottom edge).
+     *
+     * @param {number} index
+     */
+    syncDotsVisibility(index) {
+        const slides = this.slider.querySelectorAll(`.${HeroSlider.bem('slide')}`);
+        const slide = slides[index];
+        const hideDots = Boolean(
+            slide?.classList.contains(`${HeroSlider.bem('slide')}--featured-video-focus`),
+        );
+        this.element.classList.toggle(`${HeroSlider.bem()}--hide-dots`, hideDots);
     }
 
     /**

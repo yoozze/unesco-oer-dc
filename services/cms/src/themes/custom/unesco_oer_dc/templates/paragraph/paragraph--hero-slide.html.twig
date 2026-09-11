@@ -10,6 +10,7 @@
     aside != 'none' ? 'c-hero__slide--with-aside' : 'c-hero__slide--no-aside',
     background ? 'c-hero__slide--has-background' : '',
     background and background.bundle == 'video' ? 'c-hero__slide--bg-video' : '',
+    featured_video_focus ? 'c-hero__slide--featured-video-focus' : '',
   ]
 %}
 <article{{attributes.addClass(slide_classes)}}>
