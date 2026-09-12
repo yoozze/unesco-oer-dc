@@ -167,13 +167,19 @@ function unesco_oer_dc_preprocess_paragraph__hero_slide(&$variables) {
     }
 
     $has_links = !$paragraph->get('field_links')->isEmpty();
+    $has_copy = $has_title || $has_text || $has_links;
 
     $variables['featured_video_focus'] = (
         $variables['aside'] === 'none'
         && $featured_is_video
-        && !$has_title
-        && !$has_text
-        && !$has_links
+        && !$has_copy
+    );
+
+    // No aside + featured video + copy: side-by-side on wide screens.
+    $variables['featured_split'] = (
+        $variables['aside'] === 'none'
+        && $featured_is_video
+        && $has_copy
     );
 
     if (!empty($variables['content']['field_title']) && is_array($variables['content']['field_title'])) {

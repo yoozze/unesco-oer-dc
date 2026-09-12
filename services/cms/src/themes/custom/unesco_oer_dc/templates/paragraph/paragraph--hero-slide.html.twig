@@ -11,6 +11,7 @@
     background ? 'c-hero__slide--has-background' : '',
     background and background.bundle == 'video' ? 'c-hero__slide--bg-video' : '',
     featured_video_focus ? 'c-hero__slide--featured-video-focus' : '',
+    featured_split ? 'c-hero__slide--split-featured' : '',
   ]
 %}
 <article{{attributes.addClass(slide_classes)}}>
@@ -29,8 +30,16 @@
 	<div class="o-container c-hero__container">
 		<div class="o-row">
 			<div class="c-hero__content o-col">
-				{{ content.field_title }}
-				{{ content.field_text }}
+				{% if featured_split %}
+					<div class="c-hero__copy">
+						{{ content.field_title }}
+						{{ content.field_text }}
+					</div>
+				{% else %}
+					{{ content.field_title }}
+					{{ content.field_text }}
+				{% endif %}
+
 				{% if has_featured_media %}
 					<div class="c-hero__featured-media">
 						{% if featured_media_render %}
@@ -45,6 +54,7 @@
 						{% endif %}
 					</div>
 				{% endif %}
+
 				{{ content.field_links }}
 			</div>
 

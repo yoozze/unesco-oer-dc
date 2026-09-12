@@ -268,10 +268,41 @@ $hero-padding: size('section-padding');
         width: 100%;
     }
 
+    .c-hero__slide--split-featured & {
+        @include above('bp-xl') {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1.41638fr);
+            grid-template-rows: 1fr auto auto 1fr;
+            column-gap: size(3);
+            row-gap: size(3);
+            align-items: start;
+        }
+    }
+
     @include below('bp-xl') {
         width: 100%;
         max-width: 100%;
         min-width: 0;
+    }
+}
+
+// ## Hero Copy
+// ------------
+
+.c-hero__copy {
+    min-width: 0;
+
+    .c-hero__slide--split-featured & {
+        @include above('bp-xl') {
+            grid-column: 1;
+            grid-row: 2;
+            align-self: start;
+        }
+
+        // Stacked: space between copy and video.
+        @include below('bp-xl') {
+            margin-bottom: size(3);
+        }
     }
 }
 
@@ -291,6 +322,14 @@ $hero-padding: size('section-padding');
 
     &:last-child {
         margin-bottom: 0;
+    }
+
+    .c-hero__slide--split-featured & {
+        margin-bottom: size(3);
+
+        &:last-child {
+            margin-bottom: 0;
+        }
     }
 
     & > :last-child {
@@ -315,6 +354,17 @@ $hero-padding: size('section-padding');
         margin-bottom: 0;
     }
 
+    .c-hero__slide--split-featured & {
+        min-width: 0;
+
+        @include above('bp-xl') {
+            margin-bottom: 0;
+            grid-column: 2;
+            grid-row: 1 / -1;
+            align-self: center;
+        }
+    }
+
     iframe,
     video,
     img {
@@ -331,6 +381,10 @@ $hero-padding: size('section-padding');
             object-fit: contain;
             background-color: transparent;
         }
+
+        .c-hero__slide--split-featured & {
+            max-height: min(50vh, size(480px));
+        }
     }
 }
 
@@ -343,6 +397,14 @@ $hero-padding: size('section-padding');
     flex-wrap: wrap;
     width: 100%;
     min-width: 0;
+
+    .c-hero__slide--split-featured & {
+        @include above('bp-xl') {
+            grid-column: 1;
+            grid-row: 3;
+            align-self: start;
+        }
+    }
 }
 
 // ## Hero Link
