@@ -382,8 +382,13 @@ $hero-padding: size('section-padding');
             background-color: transparent;
         }
 
+        // Preserve intrinsic ratio inside the media column (esp. images).
         .c-hero__slide--split-featured & {
+            width: auto;
+            max-width: 100%;
+            height: auto;
             max-height: min(50vh, size(480px));
+            object-fit: contain;
         }
     }
 }

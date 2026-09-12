@@ -155,8 +155,11 @@ function unesco_oer_dc_preprocess_paragraph__hero_slide(&$variables) {
 
     // Video-only slide (no aside, title, body, or links): cinematic layout.
     $featured_is_video = FALSE;
+    $featured_is_split_media = FALSE;
     if ($featured_media_entity) {
-        $featured_is_video = in_array($featured_media_entity->bundle(), ['video', 'remote_video'], TRUE);
+        $bundle = $featured_media_entity->bundle();
+        $featured_is_video = in_array($bundle, ['video', 'remote_video'], TRUE);
+        $featured_is_split_media = $featured_is_video || $bundle === 'image';
     }
 
     $has_title = !$paragraph->get('field_title')->isEmpty();
@@ -175,10 +178,10 @@ function unesco_oer_dc_preprocess_paragraph__hero_slide(&$variables) {
         && !$has_copy
     );
 
-    // No aside + featured video + copy: side-by-side on wide screens.
+    // No aside + featured image/video + copy: side-by-side on wide screens.
     $variables['featured_split'] = (
         $variables['aside'] === 'none'
-        && $featured_is_video
+        && $featured_is_split_media
         && $has_copy
     );
 
