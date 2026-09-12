@@ -1,0 +1,15 @@
+uuid: fd024e05-bfe6-476b-acd6-09524501c950
+langcode: en
+status: true
+dependencies: {  }
+name: hero_featured
+label: 'Hero featured (1440)'
+effects:
+  7d5023f4-784c-470b-a17e-64365dbe89bb:
+    uuid: 7d5023f4-784c-470b-a17e-64365dbe89bb
+    id: image_scale
+    weight: 1
+    data:
+      width: 1440
+      height: null
+      upscale: false

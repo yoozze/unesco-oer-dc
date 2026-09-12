@@ -86,7 +86,7 @@ function unesco_oer_dc_preprocess_paragraph__hero_slide(&$variables) {
     }
 
     $variables['aside'] = $paragraph->get('field_aside')->value ?: 'none';
-    $variables['background'] = get_hero_media_data($paragraph->get('field_background')->entity);
+    $variables['background'] = get_hero_media_data($paragraph->get('field_background')->entity, 'hero_background');
     $variables['background_opacity'] = 0.25;
     if ($paragraph->hasField('field_background_opacity') && !$paragraph->get('field_background_opacity')->isEmpty()) {
         $opacity = (float) $paragraph->get('field_background_opacity')->value;
@@ -130,7 +130,7 @@ function unesco_oer_dc_preprocess_paragraph__hero_slide(&$variables) {
                 ->getViewBuilder('media')
                 ->view($featured_media_entity, 'default');
         } else {
-            $variables['featured_media'] = get_hero_media_data($featured_media_entity);
+            $variables['featured_media'] = get_hero_media_data($featured_media_entity, 'hero_featured');
         }
     }
 

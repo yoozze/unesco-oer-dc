@@ -1,0 +1,15 @@
+uuid: df9a57f6-d37d-4d87-9cdd-68089febc726
+langcode: en
+status: true
+dependencies: {  }
+name: hero_background
+label: 'Hero background (2560)'
+effects:
+  09c8b556-e8c9-4884-86c7-b91ac0c50a7c:
+    uuid: 09c8b556-e8c9-4884-86c7-b91ac0c50a7c
+    id: image_scale
+    weight: 1
+    data:
+      width: 2560
+      height: null
+      upscale: false

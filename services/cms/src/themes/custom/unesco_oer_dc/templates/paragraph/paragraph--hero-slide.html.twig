@@ -22,7 +22,7 @@
 					<source src="{{ background.url }}" {% if background.mime %} type="{{ background.mime }}" {% endif %}/>
 				</video>
 			{% else %}
-				<img class="c-hero__background-media" src="{{ background.url }}" alt="" loading="{{ is_first_slide ? 'eager' : 'lazy' }}" {% if is_first_slide %} fetchpriority="high" {% endif %}/>
+				<img class="c-hero__background-media" src="{{ background.url }}" alt=""{% if background.width %} width="{{ background.width }}"{% endif %}{% if background.height %} height="{{ background.height }}"{% endif %} loading="{{ is_first_slide ? 'eager' : 'lazy' }}" {% if is_first_slide %} fetchpriority="high" {% endif %}/>
 			{% endif %}
 		</div>
 	{% endif %}
@@ -45,7 +45,7 @@
 						{% if featured_media_render %}
 							{{ featured_media_render }}
 						{% elseif featured_media.bundle == 'image' %}
-							<img src="{{ featured_media.url }}" alt="{{ featured_media.alt }}" loading="{{ is_first_slide ? 'eager' : 'lazy' }}"/>
+							<img src="{{ featured_media.url }}" alt="{{ featured_media.alt }}"{% if featured_media.width %} width="{{ featured_media.width }}"{% endif %}{% if featured_media.height %} height="{{ featured_media.height }}"{% endif %} loading="{{ is_first_slide ? 'eager' : 'lazy' }}"/>
 						{% elseif featured_media.bundle == 'video' %}
 							{# Controls always. Muted autoplay only when field_featured_autoplay is on (HeroSlider.js). #}
 							<video class="c-hero__featured-media-video" controls playsinline{% if featured_autoplay %} muted data-autoplay="1"{% endif %}>

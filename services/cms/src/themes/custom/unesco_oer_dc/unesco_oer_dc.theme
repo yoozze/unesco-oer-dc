@@ -7,6 +7,7 @@
 
 use Drupal\Core\Template\Attribute;
 use Drupal\file\Entity\File;
+use Drupal\image\Entity\ImageStyle;
 use Drupal\media\Entity\Media;
 
 function get_node_name($key) {
@@ -59,7 +60,18 @@ function clean_suggetion($suggestion) {
  * @return array|null
  *   Bundle-specific media data, or NULL.
  */
-function get_hero_media_data($media) {
+/**
+ * Build render data for a hero media entity.
+ *
+ * @param \Drupal\media\MediaInterface|null $media
+ *   Media entity.
+ * @param string $image_style
+ *   Optional image style machine name for image bundles.
+ *
+ * @return array|null
+ *   Bundle-specific media data, or NULL.
+ */
+function get_hero_media_data($media, $image_style = '') {
     if (empty($media)) {
         return NULL;
     }
@@ -76,16 +88,31 @@ function get_hero_media_data($media) {
             $data['url'] = $file->createFileUrl();
             $data['alt'] = $media->get('field_media_image')->alt ?: '';
             $data['title'] = $media->get('field_media_image')->title ?: '';
+            $data['width'] = (int) $media->get('field_media_image')->width;
+            $data['height'] = (int) $media->get('field_media_image')->height;
+
+            if ($image_style !== '') {
+                $style = ImageStyle::load($image_style);
+                if ($style) {
+                    $uri = $file->getFileUri();
+                    $data['url'] = $style->buildUrl($uri);
+                    $dimensions = [
+                        'width' => $data['width'],
+                        'height' => $data['height'],
+                    ];
+                    $style->transformDimensions($dimensions, $uri);
+                    $data['width'] = (int) ($dimensions['width'] ?? 0);
+                    $data['height'] = (int) ($dimensions['height'] ?? 0);
+                }
+            }
         }
-    }
-    elseif ($bundle === 'video' && $media->hasField('field_media_video_file') && !$media->get('field_media_video_file')->isEmpty()) {
+    } elseif ($bundle === 'video' && $media->hasField('field_media_video_file') && !$media->get('field_media_video_file')->isEmpty()) {
         $file = $media->get('field_media_video_file')->entity;
         if ($file) {
             $data['url'] = $file->createFileUrl();
             $data['mime'] = $file->getMimeType();
         }
-    }
-    elseif ($bundle === 'remote_video' && $media->hasField('field_media_oembed_video') && !$media->get('field_media_oembed_video')->isEmpty()) {
+    } elseif ($bundle === 'remote_video' && $media->hasField('field_media_oembed_video') && !$media->get('field_media_oembed_video')->isEmpty()) {
         $data['url'] = $media->get('field_media_oembed_video')->value;
     }
 
