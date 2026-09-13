@@ -4,6 +4,9 @@
  * Implements theme hooks for paragraph.
  */
 
+use Drupal\node\NodeInterface;
+use Drupal\paragraphs\ParagraphInterface;
+
 function unesco_oer_dc_theme_suggestions_paragraph_alter(&$suggestions, &$variables) {
     $elements = &$variables['elements'];
     $paragraph = &$elements['#paragraph'];
@@ -73,6 +76,113 @@ function unesco_oer_dc_hero_slide_is_enabled($paragraph) {
 }
 
 /**
+ * Build a portal CTA for a featured news/event/resource node.
+ *
+ * Always links to the node page with "Read more" so the slider keeps
+ * engagement on-site rather than jumping to external resources.
+ *
+ * @return array{url: string, title: string, external: bool}|null
+ */
+function unesco_oer_dc_hero_node_cta(NodeInterface $node): ?array {
+    try {
+        $url = $node->toUrl('canonical');
+    } catch (\Exception $e) {
+        return NULL;
+    }
+
+    return [
+        'url' => $url->toString(),
+        'title' => (string) t('Read more'),
+        'external' => $url->isExternal(),
+    ];
+}
+
+/**
+ * Resolve hero slide title, text, links, and featured media (node + overrides).
+ *
+ * @return array{
+ *   title: ?string,
+ *   text: array|null,
+ *   links: array<int, array{url: string, title: string, external: bool}>,
+ *   featured_media_entity: mixed
+ * }
+ */
+function unesco_oer_dc_hero_slide_resolve_content(ParagraphInterface $paragraph): array {
+    $node = NULL;
+    if ($paragraph->hasField('field_featured_content') && !$paragraph->get('field_featured_content')->isEmpty()) {
+        $entity = $paragraph->get('field_featured_content')->entity;
+        if ($entity instanceof NodeInterface && $entity->access('view')) {
+            $node = $entity;
+        }
+    }
+
+    $title = NULL;
+    if (!$paragraph->get('field_title')->isEmpty()) {
+        $title = $paragraph->get('field_title')->value;
+    } elseif ($node) {
+        $title = $node->label();
+    }
+
+    $text = NULL;
+    if (!$paragraph->get('field_text')->isEmpty()) {
+        $text = [
+            '#type' => 'processed_text',
+            '#text' => $paragraph->get('field_text')->value,
+            '#format' => $paragraph->get('field_text')->format,
+        ];
+    } elseif ($node && $node->hasField('field_description') && !$node->get('field_description')->isEmpty()) {
+        $item = $node->get('field_description')->first();
+        $summary = trim((string) ($item->summary ?? ''));
+        if ($summary !== '') {
+            $text = [
+                '#type' => 'processed_text',
+                '#text' => $summary,
+                '#format' => 'plain_text',
+            ];
+        } else {
+            $value = (string) $item->value;
+            $format = $item->format ?: 'basic_html';
+            $trimmed = function_exists('text_summary') ? text_summary($value, $format) : $value;
+            $text = [
+                '#type' => 'processed_text',
+                '#text' => $trimmed,
+                '#format' => $format,
+            ];
+        }
+    }
+
+    $links = [];
+    if (!$paragraph->get('field_links')->isEmpty()) {
+        foreach ($paragraph->get('field_links') as $link_item) {
+            /** @var \Drupal\link\LinkItemInterface $link_item */
+            $url = $link_item->getUrl();
+            $links[] = [
+                'url' => $url->toString(),
+                'title' => $link_item->title ?: $url->toString(),
+                'external' => $url->isExternal(),
+            ];
+        }
+    } elseif ($node) {
+        $cta = unesco_oer_dc_hero_node_cta($node);
+        if ($cta) {
+            $links[] = $cta;
+        }
+    }
+
+    $featured_media_entity = $paragraph->get('field_media')->entity;
+    if (!$featured_media_entity && $node && $node->hasField('field_image') && !$node->get('field_image')->isEmpty()) {
+        $featured_media_entity = $node->get('field_image')->entity;
+    }
+
+    return [
+        'title' => $title,
+        'text' => $text,
+        'links' => $links,
+        'featured_media_entity' => $featured_media_entity,
+    ];
+}
+
+/**
  * Implements hook_preprocess_HOOK() for paragraph--hero-slide.html.twig.
  */
 function unesco_oer_dc_preprocess_paragraph__hero_slide(&$variables) {
@@ -123,7 +233,12 @@ function unesco_oer_dc_preprocess_paragraph__hero_slide(&$variables) {
         }
     }
 
-    $featured_media_entity = $paragraph->get('field_media')->entity;
+    $resolved = unesco_oer_dc_hero_slide_resolve_content($paragraph);
+    $variables['slide_title'] = $resolved['title'];
+    $variables['slide_text'] = $resolved['text'];
+    $variables['slide_links'] = $resolved['links'];
+
+    $featured_media_entity = $resolved['featured_media_entity'];
     if ($featured_media_entity) {
         if ($featured_media_entity->bundle() === 'remote_video') {
             $variables['featured_media_render'] = \Drupal::entityTypeManager()
@@ -147,7 +262,7 @@ function unesco_oer_dc_preprocess_paragraph__hero_slide(&$variables) {
         }
     }
 
-    $variables['has_featured_media'] = !$paragraph->get('field_media')->isEmpty();
+    $variables['has_featured_media'] = (bool) $featured_media_entity;
     $variables['featured_autoplay'] = FALSE;
     if ($paragraph->hasField('field_featured_autoplay') && !$paragraph->get('field_featured_autoplay')->isEmpty()) {
         $variables['featured_autoplay'] = (bool) $paragraph->get('field_featured_autoplay')->value;
@@ -162,14 +277,12 @@ function unesco_oer_dc_preprocess_paragraph__hero_slide(&$variables) {
         $featured_is_split_media = $featured_is_video || $bundle === 'image';
     }
 
-    $has_title = !$paragraph->get('field_title')->isEmpty();
+    $has_title = $variables['slide_title'] !== NULL && trim((string) $variables['slide_title']) !== '';
     $has_text = FALSE;
-    if (!$paragraph->get('field_text')->isEmpty()) {
-        $text = $paragraph->get('field_text')->value ?? '';
-        $has_text = trim(strip_tags($text)) !== '';
+    if (!empty($variables['slide_text']['#text'])) {
+        $has_text = trim(strip_tags((string) $variables['slide_text']['#text'])) !== '';
     }
-
-    $has_links = !$paragraph->get('field_links')->isEmpty();
+    $has_links = !empty($variables['slide_links']);
     $has_copy = $has_title || $has_text || $has_links;
 
     $variables['featured_video_focus'] = (
@@ -184,8 +297,4 @@ function unesco_oer_dc_preprocess_paragraph__hero_slide(&$variables) {
         && $featured_is_split_media
         && $has_copy
     );
-
-    if (!empty($variables['content']['field_title']) && is_array($variables['content']['field_title'])) {
-        $variables['content']['field_title']['#is_first_slide'] = $variables['is_first_slide'];
-    }
 }

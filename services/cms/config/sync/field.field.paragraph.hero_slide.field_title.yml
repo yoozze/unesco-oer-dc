@@ -10,7 +10,7 @@ field_name: field_title
 entity_type: paragraph
 bundle: hero_slide
 label: Title
-description: ''
+description: 'Leave empty to use the featured content title.'
 required: false
 translatable: true
 default_value: {  }

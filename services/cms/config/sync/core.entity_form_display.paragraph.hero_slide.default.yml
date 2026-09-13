@@ -10,6 +10,7 @@ dependencies:
     - field.field.paragraph.hero_slide.field_background_opacity
     - field.field.paragraph.hero_slide.field_enabled
     - field.field.paragraph.hero_slide.field_featured_autoplay
+    - field.field.paragraph.hero_slide.field_featured_content
     - field.field.paragraph.hero_slide.field_links
     - field.field.paragraph.hero_slide.field_media
     - field.field.paragraph.hero_slide.field_text
@@ -28,13 +29,13 @@ mode: default
 content:
   field_aside:
     type: options_select
-    weight: 9
+    weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
   field_aside_media:
     type: media_library_widget
-    weight: 10
+    weight: 11
     region: content
     settings:
       media_types: {  }
@@ -61,20 +62,20 @@ content:
             selector: ''
   field_background:
     type: media_library_widget
-    weight: 6
+    weight: 7
     region: content
     settings:
       media_types: {  }
     third_party_settings: {  }
   field_background_fit:
     type: options_select
-    weight: 8
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
   field_background_opacity:
     type: number
-    weight: 7
+    weight: 8
     region: content
     settings:
       placeholder: '0.25'
@@ -88,14 +89,24 @@ content:
     third_party_settings: {  }
   field_featured_autoplay:
     type: boolean_checkbox
-    weight: 4
+    weight: 5
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
+  field_featured_content:
+    type: entity_reference_autocomplete
+    weight: 1
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_links:
     type: link_default
-    weight: 5
+    weight: 6
     region: content
     settings:
       placeholder_url: ''
@@ -103,14 +114,14 @@ content:
     third_party_settings: {  }
   field_media:
     type: media_library_widget
-    weight: 3
+    weight: 4
     region: content
     settings:
       media_types: {  }
     third_party_settings: {  }
   field_text:
     type: text_textarea
-    weight: 2
+    weight: 3
     region: content
     settings:
       rows: 5
@@ -118,14 +129,14 @@ content:
     third_party_settings: {  }
   field_title:
     type: string_textfield
-    weight: 1
+    weight: 2
     region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
   translation:
-    weight: 11
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }

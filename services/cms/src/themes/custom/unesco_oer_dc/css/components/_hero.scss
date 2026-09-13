@@ -271,7 +271,8 @@ $hero-padding: size('section-padding');
     .c-hero__slide--split-featured & {
         @include above('bp-xl') {
             display: grid;
-            grid-template-columns: minmax(0, 1fr) minmax(0, 1.41638fr);
+            // Copy grows when media is narrow; media sized to content up to 58%.
+            grid-template-columns: minmax(0, 1fr) fit-content(50%);
             grid-template-rows: 1fr auto auto 1fr;
             column-gap: size(3);
             row-gap: size(3);
@@ -362,6 +363,8 @@ $hero-padding: size('section-padding');
             grid-column: 2;
             grid-row: 1 / -1;
             align-self: center;
+            justify-self: end;
+            max-width: 100%;
         }
     }
 

@@ -13,7 +13,7 @@ field_name: field_media
 entity_type: paragraph
 bundle: hero_slide
 label: 'Featured media'
-description: 'Optional image or video shown in the slide content area.'
+description: 'Optional image or video in the slide content area. Leave empty to use the featured content image.'
 required: false
 translatable: false
 default_value: {  }

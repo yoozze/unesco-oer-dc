@@ -1,0 +1,33 @@
+uuid: 4b115733-7c38-4e03-af8b-b93a4042e180
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_featured_content
+    - node.type.event
+    - node.type.news
+    - node.type.resource
+    - paragraphs.paragraphs_type.hero_slide
+id: paragraph.hero_slide.field_featured_content
+field_name: field_featured_content
+entity_type: paragraph
+bundle: hero_slide
+label: 'Featured content'
+description: 'Optional news, event, or resource. Title, description, link, and image are filled from that item when the slide fields below are left empty.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      news: news
+      event: event
+      resource: resource
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: news
+field_type: entity_reference

@@ -14,6 +14,7 @@
     featured_split ? 'c-hero__slide--split-featured' : '',
   ]
 %}
+{% set title_tag = is_first_slide ? 'h1' : 'h2' %}
 <article{{attributes.addClass(slide_classes)}}>
 	{% if background %}
 		<div class="c-hero__background" aria-hidden="true" style="--hero-bg-opacity: {{ background_opacity }}; --hero-bg-fit: {{ background_fit }};">
@@ -32,12 +33,20 @@
 			<div class="c-hero__content o-col">
 				{% if featured_split %}
 					<div class="c-hero__copy">
-						{{ content.field_title }}
-						{{ content.field_text }}
+						{% if slide_title %}
+							<{{ title_tag }} class="c-hero__title">{{ slide_title }}</{{ title_tag }}>
+						{% endif %}
+						{% if slide_text %}
+							<div class="c-hero__body">{{ slide_text }}</div>
+						{% endif %}
 					</div>
 				{% else %}
-					{{ content.field_title }}
-					{{ content.field_text }}
+					{% if slide_title %}
+						<{{ title_tag }} class="c-hero__title">{{ slide_title }}</{{ title_tag }}>
+					{% endif %}
+					{% if slide_text %}
+						<div class="c-hero__body">{{ slide_text }}</div>
+					{% endif %}
 				{% endif %}
 
 				{% if has_featured_media %}
@@ -55,7 +64,16 @@
 					</div>
 				{% endif %}
 
-				{{ content.field_links }}
+				{% if slide_links %}
+					<div class="c-hero__links">
+						{% for link in slide_links %}
+							<a class="c-hero__link c-button c-button--filled" href="{{ link.url }}" target="{{ link.external ? '_blank' : '_self' }}"{% if link.external %} rel="noopener noreferrer"{% endif %}>
+								<span class="c-button__label">{{ link.title }}</span>
+								{{ svg_icon(link.external ? 'open-in-new' : 'arrow-right-alt', 'c-button__trailing-icon') }}
+							</a>
+						{% endfor %}
+					</div>
+				{% endif %}
 			</div>
 
 			{% if aside == 'oer_branding' %}

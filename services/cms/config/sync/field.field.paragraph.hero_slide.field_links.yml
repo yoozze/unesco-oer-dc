@@ -12,7 +12,7 @@ field_name: field_links
 entity_type: paragraph
 bundle: hero_slide
 label: Links
-description: ''
+description: 'Leave empty to use a CTA from the featured content (external URL, registration link, or the content page).'
 required: false
 translatable: true
 default_value: {  }
