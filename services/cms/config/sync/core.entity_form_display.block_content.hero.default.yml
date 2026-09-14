@@ -35,9 +35,9 @@ content:
     settings:
       title: Slide
       title_plural: Slides
-      edit_mode: open
+      edit_mode: closed
       closed_mode: summary
-      autocollapse: none
+      autocollapse: all
       closed_mode_threshold: 0
       add_mode: dropdown
       form_display_mode: default
