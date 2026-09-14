@@ -349,12 +349,14 @@ $hero-padding: size('section-padding');
     }
 
     .c-hero__slide--featured-video-focus & {
+        position: relative;
         display: flex;
         flex: 1 1 auto;
         align-items: center;
         justify-content: center;
         width: 100%;
         min-width: 0;
+        min-height: size(600px);
         margin-bottom: 0;
     }
 
@@ -382,7 +384,10 @@ $hero-padding: size('section-padding');
         border-radius: size('radius' 4);
 
         .c-hero__slide--featured-video-focus & {
-            max-height: min(70vh, size(720px));
+            position: absolute;
+            inset: 0;
+            height: 100%;
+            max-height: none;
             border-radius: 0;
             object-fit: contain;
             background-color: transparent;
