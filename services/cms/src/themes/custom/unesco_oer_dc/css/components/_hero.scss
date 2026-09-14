@@ -349,7 +349,10 @@ $hero-padding: size('section-padding');
     }
 
     .c-hero__slide--featured-video-focus & {
+        display: flex;
         flex: 1 1 auto;
+        align-items: center;
+        justify-content: center;
         width: 100%;
         min-width: 0;
         margin-bottom: 0;
