@@ -56,18 +56,19 @@ function admin_form_alter(&$form, FormStateInterface $form_state, $form_id) {
     if ($entity->getEntityTypeId() === 'block_content' && $entity->bundle() === 'hero') {
         $form['#validate'][] = 'admin_hero_block_validate_enabled_slides';
         if (isset($form['field_slides']['widget'])) {
-            $form['field_slides']['widget']['#after_build'][] = 'admin_hero_slides_featured_autoplay_after_build';
+            $form['field_slides']['widget']['#after_build'][] = 'admin_hero_slides_conditional_fields_after_build';
         }
     }
 }
 
 /**
- * Mark hero slide media-dependent fields for admin visibility JS.
+ * Mark hero slide fields for admin visibility JS.
  *
- * Conditional Fields cannot evaluate media_library "!empty", so visibility is
- * handled in admin/js/hero-featured-autoplay.js instead.
+ * Conditional Fields cannot evaluate media_library "!empty", so media-dependent
+ * visibility is handled in admin/js/hero-slide-conditional-fields.js. Featured
+ * content media placement is toggled the same way against the autocomplete value.
  */
-function admin_hero_slides_featured_autoplay_after_build(array $element, FormStateInterface $form_state) {
+function admin_hero_slides_conditional_fields_after_build(array $element, FormStateInterface $form_state) {
     foreach (Element::children($element) as $delta) {
         if (!is_numeric($delta) || empty($element[$delta]['subform'])) {
             continue;
@@ -102,10 +103,80 @@ function admin_hero_slides_featured_autoplay_after_build(array $element, FormSta
             'js-hero-background-fit',
             'js-hero-background-fit--visible'
         );
+
+        admin_hero_slide_mark_featured_content_media($subform);
     }
 
-    $element['#attached']['library'][] = 'admin/hero_featured_autoplay';
+    $element['#attached']['library'][] = 'admin/hero_slide_conditional_fields';
     return $element;
+}
+
+/**
+ * Attach JS classes for Featured content → Featured content media visibility.
+ */
+function admin_hero_slide_mark_featured_content_media(array &$subform): void {
+    if (!isset($subform['field_featured_content'], $subform['field_featured_content_media'])) {
+        return;
+    }
+
+    // Use the existing field wrappers (#attributes), not extra prefix/suffix divs.
+    $subform['field_featured_content']['#attributes']['class'][] = 'js-hero-featured-content';
+    $subform['field_featured_content_media']['#attributes']['class'][] = 'js-hero-featured-content-media';
+
+    if (!admin_hero_slide_subform_has_featured_content($subform['field_featured_content'])) {
+        return;
+    }
+
+    $subform['field_featured_content_media']['#attributes']['class'][] = 'js-hero-featured-content-media--visible';
+}
+
+/**
+ * Whether the featured content autocomplete currently has a selection.
+ */
+function admin_hero_slide_subform_has_featured_content(array $field): bool {
+    $widget = $field['widget'] ?? $field;
+    foreach (Element::children($widget) as $delta) {
+        if (!is_numeric($delta)) {
+            continue;
+        }
+
+        $target = $widget[$delta]['target_id'] ?? NULL;
+        if (is_array($target)) {
+            $value = $target['#default_value'] ?? $target['#value'] ?? NULL;
+            if (admin_hero_slide_featured_content_value_is_set($value)) {
+                return TRUE;
+            }
+        } elseif (admin_hero_slide_featured_content_value_is_set($target)) {
+            return TRUE;
+        } elseif (admin_hero_slide_featured_content_value_is_set($widget[$delta]['#default_value'] ?? NULL)) {
+            return TRUE;
+        }
+    }
+
+    return FALSE;
+}
+
+/**
+ * Whether an entity-reference autocomplete value represents a selection.
+ *
+ * @param mixed $value
+ *   Entity, id, autocomplete label string, or empty.
+ */
+function admin_hero_slide_featured_content_value_is_set($value): bool {
+    if ($value instanceof \Drupal\Core\Entity\EntityInterface) {
+        return TRUE;
+    }
+
+    if (is_int($value) || (is_string($value) && ctype_digit($value))) {
+        return (int) $value > 0;
+    }
+
+    if (is_string($value)) {
+        $value = trim($value);
+        return $value !== '' && preg_match('/\(\d+\)\s*$/', $value);
+    }
+
+    return FALSE;
 }
 
 /**

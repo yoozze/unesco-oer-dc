@@ -98,13 +98,14 @@ function unesco_oer_dc_hero_node_cta(NodeInterface $node): ?array {
 }
 
 /**
- * Resolve hero slide title, text, links, and featured media (node + overrides).
+ * Resolve hero slide title, text, links, and media (node + overrides).
  *
  * @return array{
  *   title: ?string,
  *   text: array|null,
  *   links: array<int, array{url: string, title: string, external: bool}>,
- *   featured_media_entity: mixed
+ *   featured_media_entity: mixed,
+ *   background_media_entity: mixed
  * }
  */
 function unesco_oer_dc_hero_slide_resolve_content(ParagraphInterface $paragraph): array {
@@ -169,9 +170,27 @@ function unesco_oer_dc_hero_slide_resolve_content(ParagraphInterface $paragraph)
         }
     }
 
+    $media_mode = 'featured';
+    if ($paragraph->hasField('field_featured_content_media') && !$paragraph->get('field_featured_content_media')->isEmpty()) {
+        $mode = $paragraph->get('field_featured_content_media')->value;
+        if (in_array($mode, ['none', 'featured', 'background'], TRUE)) {
+            $media_mode = $mode;
+        }
+    }
+
+    $node_image = NULL;
+    if ($node && $node->hasField('field_image') && !$node->get('field_image')->isEmpty()) {
+        $node_image = $node->get('field_image')->entity;
+    }
+
     $featured_media_entity = $paragraph->get('field_media')->entity;
-    if (!$featured_media_entity && $node && $node->hasField('field_image') && !$node->get('field_image')->isEmpty()) {
-        $featured_media_entity = $node->get('field_image')->entity;
+    if (!$featured_media_entity && $node_image && $media_mode === 'featured') {
+        $featured_media_entity = $node_image;
+    }
+
+    $background_media_entity = $paragraph->get('field_background')->entity;
+    if (!$background_media_entity && $node_image && $media_mode === 'background') {
+        $background_media_entity = $node_image;
     }
 
     return [
@@ -179,6 +198,7 @@ function unesco_oer_dc_hero_slide_resolve_content(ParagraphInterface $paragraph)
         'text' => $text,
         'links' => $links,
         'featured_media_entity' => $featured_media_entity,
+        'background_media_entity' => $background_media_entity,
     ];
 }
 
@@ -196,7 +216,8 @@ function unesco_oer_dc_preprocess_paragraph__hero_slide(&$variables) {
     }
 
     $variables['aside'] = $paragraph->get('field_aside')->value ?: 'none';
-    $variables['background'] = get_hero_media_data($paragraph->get('field_background')->entity, 'hero_background');
+    $resolved = unesco_oer_dc_hero_slide_resolve_content($paragraph);
+    $variables['background'] = get_hero_media_data($resolved['background_media_entity'], 'hero_background');
     $variables['background_opacity'] = 0.25;
     if ($paragraph->hasField('field_background_opacity') && !$paragraph->get('field_background_opacity')->isEmpty()) {
         $opacity = (float) $paragraph->get('field_background_opacity')->value;
@@ -233,7 +254,6 @@ function unesco_oer_dc_preprocess_paragraph__hero_slide(&$variables) {
         }
     }
 
-    $resolved = unesco_oer_dc_hero_slide_resolve_content($paragraph);
     $variables['slide_title'] = $resolved['title'];
     $variables['slide_text'] = $resolved['text'];
     $variables['slide_links'] = $resolved['links'];

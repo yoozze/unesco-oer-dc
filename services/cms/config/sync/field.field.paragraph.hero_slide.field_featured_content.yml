@@ -13,7 +13,7 @@ field_name: field_featured_content
 entity_type: paragraph
 bundle: hero_slide
 label: 'Featured content'
-description: 'Optional news, event, or resource. Title, description, link, and image are filled from that item when the slide fields below are left empty.'
+description: 'Optional news, event, or resource. Title, description, and link are filled from that item when the slide fields below are left empty. Use Featured content media to control how its image is used.'
 required: false
 translatable: false
 default_value: {  }

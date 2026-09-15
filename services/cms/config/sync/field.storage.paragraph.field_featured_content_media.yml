@@ -1,0 +1,30 @@
+uuid: cde36c44-e3f0-4fea-a0a6-4a42a1ce11dc
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_featured_content_media
+field_name: field_featured_content_media
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: none
+      label: 'Not included'
+    -
+      value: featured
+      label: 'As featured media'
+    -
+      value: background
+      label: 'As background'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

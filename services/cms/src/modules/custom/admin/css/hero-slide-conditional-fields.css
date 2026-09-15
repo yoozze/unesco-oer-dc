@@ -1,0 +1,9 @@
+/**
+ * Hide conditional hero slide fields until their dependency is set (JS toggles).
+ */
+.js-hero-featured-autoplay:not(.js-hero-featured-autoplay--visible),
+.js-hero-background-opacity:not(.js-hero-background-opacity--visible),
+.js-hero-background-fit:not(.js-hero-background-fit--visible),
+.js-hero-featured-content-media:not(.js-hero-featured-content-media--visible) {
+    display: none;
+}

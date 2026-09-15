@@ -1,0 +1,23 @@
+uuid: 4c717843-403a-464f-8ff0-f653a4c58358
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_featured_content_media
+    - paragraphs.paragraphs_type.hero_slide
+  module:
+    - options
+id: paragraph.hero_slide.field_featured_content_media
+field_name: field_featured_content_media
+entity_type: paragraph
+bundle: hero_slide
+label: 'Featured content media'
+description: 'How the featured content image is used when Featured media / Background are left empty. Slide media fields always override.'
+required: false
+translatable: false
+default_value:
+  -
+    value: featured
+default_value_callback: ''
+settings: {  }
+field_type: list_string

@@ -11,6 +11,7 @@ dependencies:
     - field.field.paragraph.hero_slide.field_enabled
     - field.field.paragraph.hero_slide.field_featured_autoplay
     - field.field.paragraph.hero_slide.field_featured_content
+    - field.field.paragraph.hero_slide.field_featured_content_media
     - field.field.paragraph.hero_slide.field_links
     - field.field.paragraph.hero_slide.field_media
     - field.field.paragraph.hero_slide.field_text
@@ -70,4 +71,5 @@ hidden:
   field_enabled: true
   field_featured_autoplay: true
   field_featured_content: true
+  field_featured_content_media: true
   uid: true

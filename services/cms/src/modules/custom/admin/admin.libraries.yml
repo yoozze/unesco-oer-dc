@@ -4,13 +4,14 @@ admin:
         theme:
             css/admin.css: {}
 
-hero_featured_autoplay:
+hero_slide_conditional_fields:
     version: 1.0.0
     js:
-        js/hero-featured-autoplay.js: {}
+        js/hero-slide-conditional-fields.js: {}
     css:
         theme:
-            css/hero-featured-autoplay.css: {}
+            css/hero-slide-conditional-fields.css: {}
     dependencies:
         - core/drupal
         - core/once
+        - core/jquery
