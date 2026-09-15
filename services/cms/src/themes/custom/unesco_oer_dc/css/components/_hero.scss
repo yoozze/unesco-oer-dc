@@ -311,6 +311,8 @@ $hero-padding: size('section-padding');
 // -------------
 
 .c-hero__title {
+    @include font('display-medium');
+
     margin-top: 0;
 }
 
