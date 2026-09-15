@@ -12,12 +12,12 @@ field_name: field_featured_content_media
 entity_type: paragraph
 bundle: hero_slide
 label: 'Featured content media'
-description: 'How the featured content image is used when Featured media / Background are left empty. Slide media fields always override.'
+description: 'How the featured content image is used when Featured media / Background are left empty. Slide media fields always override. Background is the default.'
 required: false
 translatable: false
 default_value:
   -
-    value: featured
+    value: background
 default_value_callback: ''
 settings: {  }
 field_type: list_string

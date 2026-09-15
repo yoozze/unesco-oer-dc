@@ -170,7 +170,7 @@ function unesco_oer_dc_hero_slide_resolve_content(ParagraphInterface $paragraph)
         }
     }
 
-    $media_mode = 'featured';
+    $media_mode = 'background';
     if ($paragraph->hasField('field_featured_content_media') && !$paragraph->get('field_featured_content_media')->isEmpty()) {
         $mode = $paragraph->get('field_featured_content_media')->value;
         if (in_array($mode, ['none', 'featured', 'background'], TRUE)) {
