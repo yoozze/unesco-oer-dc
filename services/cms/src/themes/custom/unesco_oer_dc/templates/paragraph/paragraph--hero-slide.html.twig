@@ -33,6 +33,14 @@
 			<div class="c-hero__content o-col">
 				{% if featured_split %}
 					<div class="c-hero__copy">
+						{% if slide_type_label and not featured_video_focus %}
+							<p class="c-hero__type">
+								{% if news_source_badge.icon_url is defined and news_source_badge.icon_url %}
+									<img src="{{ news_source_badge.icon_url }}" alt="" class="c-hero__source-icon" loading="lazy">
+								{% endif %}
+								{{ slide_type_label }}
+							</p>
+						{% endif %}
 						{% if slide_title %}
 							<{{ title_tag }} class="c-hero__title">{{ slide_title }}</{{ title_tag }}>
 						{% endif %}
@@ -41,6 +49,14 @@
 						{% endif %}
 					</div>
 				{% else %}
+					{% if slide_type_label and not featured_video_focus %}
+						<p class="c-hero__type">
+							{% if news_source_badge.icon_url is defined and news_source_badge.icon_url %}
+								<img src="{{ news_source_badge.icon_url }}" alt="" class="c-hero__source-icon" loading="lazy">
+							{% endif %}
+							{{ slide_type_label }}
+						</p>
+					{% endif %}
 					{% if slide_title %}
 						<{{ title_tag }} class="c-hero__title">{{ slide_title }}</{{ title_tag }}>
 					{% endif %}

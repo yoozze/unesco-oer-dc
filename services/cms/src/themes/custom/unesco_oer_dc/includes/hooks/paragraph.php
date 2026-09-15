@@ -105,7 +105,10 @@ function unesco_oer_dc_hero_node_cta(NodeInterface $node): ?array {
  *   text: array|null,
  *   links: array<int, array{url: string, title: string, external: bool}>,
  *   featured_media_entity: mixed,
- *   background_media_entity: mixed
+ *   background_media_entity: mixed,
+ *   type: ?string,
+ *   type_label: ?string,
+ *   news_source_badge: ?array
  * }
  */
 function unesco_oer_dc_hero_slide_resolve_content(ParagraphInterface $paragraph): array {
@@ -114,6 +117,18 @@ function unesco_oer_dc_hero_slide_resolve_content(ParagraphInterface $paragraph)
         $entity = $paragraph->get('field_featured_content')->entity;
         if ($entity instanceof NodeInterface && $entity->access('view')) {
             $node = $entity;
+        }
+    }
+
+    $type = NULL;
+    $type_label = NULL;
+    $news_source_badge = NULL;
+    if ($node) {
+        $type = $node->bundle();
+        $type_entity = $node->type->entity ?? NULL;
+        $type_label = $type_entity ? $type_entity->label() : $type;
+        if ($type === 'news' && function_exists('unesco_oer_dc_news_source_badge')) {
+            $news_source_badge = unesco_oer_dc_news_source_badge($node);
         }
     }
 
@@ -199,6 +214,9 @@ function unesco_oer_dc_hero_slide_resolve_content(ParagraphInterface $paragraph)
         'links' => $links,
         'featured_media_entity' => $featured_media_entity,
         'background_media_entity' => $background_media_entity,
+        'type' => $type,
+        'type_label' => $type_label,
+        'news_source_badge' => $news_source_badge,
     ];
 }
 
@@ -257,6 +275,30 @@ function unesco_oer_dc_preprocess_paragraph__hero_slide(&$variables) {
     $variables['slide_title'] = $resolved['title'];
     $variables['slide_text'] = $resolved['text'];
     $variables['slide_links'] = $resolved['links'];
+    $variables['slide_type'] = $resolved['type'];
+    $variables['slide_type_label'] = $resolved['type_label'];
+    $variables['news_source_badge'] = $resolved['news_source_badge'];
+
+    if (
+        !empty($resolved['news_source_badge'])
+        && $paragraph->hasField('field_featured_content')
+        && !$paragraph->get('field_featured_content')->isEmpty()
+    ) {
+        $featured_node = $paragraph->get('field_featured_content')->entity;
+        if (
+            $featured_node instanceof NodeInterface
+            && $featured_node->hasField('field_news_source')
+            && !$featured_node->get('field_news_source')->isEmpty()
+        ) {
+            $term = $featured_node->get('field_news_source')->entity;
+            if ($term) {
+                $variables['#cache']['tags'] = \Drupal\Core\Cache\Cache::mergeTags(
+                    $variables['#cache']['tags'] ?? [],
+                    $term->getCacheTags()
+                );
+            }
+        }
+    }
 
     $featured_media_entity = $resolved['featured_media_entity'];
     if ($featured_media_entity) {
