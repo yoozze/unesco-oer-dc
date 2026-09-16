@@ -1,0 +1,25 @@
+// # Content Category Badge
+// ========================
+// Shared orange type/category chip used by article, content-item, and hero.
+
+.c-content-category-badge {
+    @include font('label-large');
+
+    display: flex;
+    align-items: center;
+    padding: size(0.75) size(1.5);
+    color: color('light');
+    background-color: color('orange');
+    border-radius: size('radius' 4);
+}
+
+.c-content-category-badge__icon {
+    flex-shrink: 0;
+    width: size(3);
+    height: size(3);
+    padding: size(0.25);
+    margin: negative(0.25) size(1) negative(0.25) negative(1);
+    color: color('orange');
+    background-color: color('light');
+    border-radius: 50%;
+}

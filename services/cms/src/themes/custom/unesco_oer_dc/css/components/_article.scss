@@ -106,26 +106,8 @@ $toolbar-spacing: size(0.5);
 // -------------------
 
 .c-article__category {
-    @include font('label-large');
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: size(0.75) size(1.5);
     margin-right: $toolbar-spacing;
     margin-left: $toolbar-spacing;
-    color: color('light');
-    background-color: color('orange');
-    border-radius: size(2);
-
-    .c-article__source-icon {
-        width: size(3);
-        height: size(3);
-        padding: size(0.25);
-        margin: negative(0.25) size(1) negative(0.25) negative(1);
-        background-color: color('light');
-        border-radius: 50%;
-    }
 }
 
 // ## Article Title

@@ -195,7 +195,7 @@ function unesco_oer_dc_preprocess_views_view_fields(&$variables) {
     if (in_array($current_display, ['latest_news_view', 'news_view'], TRUE)) {
         $node = $variables['row']->_entity ?? NULL;
         if ($node instanceof NodeInterface && $node->bundle() === 'news') {
-            $badge = unesco_oer_dc_news_source_badge($node);
+            $badge = get_news_source_badge($node);
             if ($badge) {
                 $variables['news_source_badge'] = $badge;
                 $term = $node->get('field_news_source')->entity;

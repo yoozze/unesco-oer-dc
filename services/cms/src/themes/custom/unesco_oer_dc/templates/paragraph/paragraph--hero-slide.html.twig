@@ -34,9 +34,11 @@
 				{% if featured_split %}
 					<div class="c-hero__copy">
 						{% if slide_type_label and not featured_video_focus %}
-							<p class="c-hero__type">
+							<p class="c-hero__type c-content-category-badge">
 								{% if news_source_badge.icon_url is defined and news_source_badge.icon_url %}
-									<img src="{{ news_source_badge.icon_url }}" alt="" class="c-hero__source-icon" loading="lazy">
+									<img src="{{ news_source_badge.icon_url }}" alt="" class="c-hero__source-icon c-content-category-badge__icon" loading="lazy">
+								{% elseif news_source_badge.icon is defined and news_source_badge.icon %}
+									{{ svg_icon(news_source_badge.icon, 'c-hero__source-icon c-content-category-badge__icon') }}
 								{% endif %}
 								{{ slide_type_label }}
 							</p>
@@ -50,9 +52,11 @@
 					</div>
 				{% else %}
 					{% if slide_type_label and not featured_video_focus %}
-						<p class="c-hero__type">
+						<p class="c-hero__type c-content-category-badge">
 							{% if news_source_badge.icon_url is defined and news_source_badge.icon_url %}
-								<img src="{{ news_source_badge.icon_url }}" alt="" class="c-hero__source-icon" loading="lazy">
+								<img src="{{ news_source_badge.icon_url }}" alt="" class="c-hero__source-icon c-content-category-badge__icon" loading="lazy">
+							{% elseif news_source_badge.icon is defined and news_source_badge.icon %}
+								{{ svg_icon(news_source_badge.icon, 'c-hero__source-icon c-content-category-badge__icon') }}
 							{% endif %}
 							{{ slide_type_label }}
 						</p>

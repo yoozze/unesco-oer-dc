@@ -81,9 +81,11 @@
         {% endif %}
         <div class="c-content-item__toolbar">
             <div class="c-content-item__toolbar-group">
-                <span class="c-content-item__category">
+                <span class="c-content-item__category c-content-category-badge">
                     {% if news_source_badge is defined and news_source_badge.icon_url %}
-                        <img src="{{ news_source_badge.icon_url }}" alt="" class="c-content-item__source-icon" loading="lazy">
+                        <img src="{{ news_source_badge.icon_url }}" alt="" class="c-content-item__source-icon c-content-category-badge__icon" loading="lazy">
+                    {% elseif news_source_badge.icon is defined and news_source_badge.icon %}
+                        {{ svg_icon(news_source_badge.icon, 'c-content-item__source-icon c-content-category-badge__icon') }}
                     {% endif %}
                     {{ 'News'|t }}
                 </span>

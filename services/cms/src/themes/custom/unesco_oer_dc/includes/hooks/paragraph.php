@@ -127,8 +127,8 @@ function unesco_oer_dc_hero_slide_resolve_content(ParagraphInterface $paragraph)
         $type = $node->bundle();
         $type_entity = $node->type->entity ?? NULL;
         $type_label = $type_entity ? $type_entity->label() : $type;
-        if ($type === 'news' && function_exists('unesco_oer_dc_news_source_badge')) {
-            $news_source_badge = unesco_oer_dc_news_source_badge($node);
+        if ($type === 'news') {
+            $news_source_badge = get_news_source_badge($node);
         }
     }
 
