@@ -84,16 +84,16 @@ function unesco_oer_dc_preprocess_page(&$variables) {
             'vocabulary' => $vocabulary,
         ];
 
-        $observatory = unesco_oer_dc_observatory_config();
-        $selection = unesco_oer_dc_observatory_resolve_selection($observatory);
+        $observatory = observatory_config();
+        $selection = observatory_resolve_selection($observatory);
 
         $variables['observatory'] = $observatory;
-        $variables['observatory_js'] = unesco_oer_dc_observatory_js_config($observatory);
+        $variables['observatory_js'] = observatory_js_config($observatory);
         $variables['observatory_current'] = [
             'view' => $selection['view'],
             'area' => $selection['area'],
             'areas' => $observatory['views'][$selection['view']]['areas'] ?? [],
-            'iframe' => unesco_oer_dc_observatory_iframe_for_selection(
+            'iframe' => observatory_iframe_for_selection(
                 $observatory,
                 $selection['view'],
                 $selection['area']
@@ -104,7 +104,7 @@ function unesco_oer_dc_preprocess_page(&$variables) {
             'view' => $selection['view'],
         ];
 
-        $node = unesco_oer_dc_observatory_get_node();
+        $node = observatory_get_node();
         if ($node) {
             $variables['#cache']['tags'][] = 'node:' . $node->id();
         }

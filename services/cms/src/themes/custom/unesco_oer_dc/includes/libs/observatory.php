@@ -1,17 +1,18 @@
 <?php
 
-use Drupal\node\NodeInterface;
-
 /**
+ * @file
  * OER Observatory configuration from CMS content.
  */
+
+use Drupal\node\NodeInterface;
 
 /**
  * Loads the OER Observatory node by URL alias.
  *
  * @return \Drupal\node\NodeInterface|null
  */
-function unesco_oer_dc_observatory_get_node(): ?NodeInterface {
+function observatory_get_node(): ?NodeInterface {
     static $cached = NULL;
 
     if ($cached !== NULL) {
@@ -43,7 +44,7 @@ function unesco_oer_dc_observatory_get_node(): ?NodeInterface {
  * @return array
  *   Observatory configuration.
  */
-function unesco_oer_dc_observatory_build_config(NodeInterface $node): array {
+function observatory_build_config(NodeInterface $node): array {
     $intro_item = $node->get('field_areas_of_action_intro')->first();
     $intro = [
         'summary' => $intro_item ? trim($intro_item->summary ?? '') : '',
@@ -145,7 +146,7 @@ function unesco_oer_dc_observatory_build_config(NodeInterface $node): array {
  * @return array
  *   JS-safe observatory config.
  */
-function unesco_oer_dc_observatory_js_config(array $observatory): array {
+function observatory_js_config(array $observatory): array {
     $views = [];
 
     foreach ($observatory['views'] as $view_id => $view) {
@@ -177,7 +178,7 @@ function unesco_oer_dc_observatory_js_config(array $observatory): array {
  *
  * @return array{view: string, area: string}
  */
-function unesco_oer_dc_observatory_resolve_selection(array $observatory): array {
+function observatory_resolve_selection(array $observatory): array {
     $view = \Drupal::request()->query->get('view');
     if (!isset($observatory['views'][$view])) {
         $view = $observatory['defaultView'];
@@ -212,7 +213,7 @@ function unesco_oer_dc_observatory_resolve_selection(array $observatory): array 
  *
  * @return array{src: string, aspectRatio: string}
  */
-function unesco_oer_dc_observatory_iframe_for_selection(array $observatory, string $view, string $area_id): array {
+function observatory_iframe_for_selection(array $observatory, string $view, string $area_id): array {
     $view_config = $observatory['views'][$view] ?? [];
     $iframe = [
         'src' => '',
@@ -235,8 +236,8 @@ function unesco_oer_dc_observatory_iframe_for_selection(array $observatory, stri
  * @return array
  *   Observatory config passed to Twig and JavaScript.
  */
-function unesco_oer_dc_observatory_config(): array {
-    $node = unesco_oer_dc_observatory_get_node();
+function observatory_config(): array {
+    $node = observatory_get_node();
     if (!$node) {
         return [
             'defaultView' => '',
@@ -245,5 +246,5 @@ function unesco_oer_dc_observatory_config(): array {
         ];
     }
 
-    return unesco_oer_dc_observatory_build_config($node);
+    return observatory_build_config($node);
 }

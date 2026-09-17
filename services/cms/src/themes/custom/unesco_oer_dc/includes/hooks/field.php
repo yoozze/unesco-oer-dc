@@ -42,7 +42,7 @@ function unesco_oer_dc_preprocess_field(&$variables) {
         $filtered = [];
         foreach ($variables['items'] as $delta => $item) {
             $paragraph = $field_items[$delta]->entity ?? NULL;
-            if ($paragraph && !unesco_oer_dc_hero_slide_is_enabled($paragraph)) {
+            if ($paragraph && !hero_slide_is_enabled($paragraph)) {
                 continue;
             }
 
