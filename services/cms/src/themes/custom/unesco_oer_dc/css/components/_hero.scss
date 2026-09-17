@@ -262,7 +262,7 @@ $hero-padding: size('section-padding');
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 8 / 12 * 100%;
+    width: 9 / 12 * 100%;
 
     .c-hero__slide--no-aside & {
         width: 100%;
@@ -453,7 +453,7 @@ $hero-padding: size('section-padding');
     display: flex;
     align-items: center;
     justify-content: end;
-    width: 4 / 12 * 100%;
+    width: 3 / 12 * 100%;
 
     @include before('') {
         position: absolute;
