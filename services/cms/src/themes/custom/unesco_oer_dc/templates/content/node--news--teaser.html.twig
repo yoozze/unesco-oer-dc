@@ -71,14 +71,18 @@
     'c-content-item',
     'c-content-item--card',
     'c-content-item--news',
-    content.field_image[0] ? 'c-content-item--with-media' : 'c-content-item--without-media'
+    'c-content-item--with-media'
 ])}}>
     <div class="c-content-item__head">
-        {% if content.field_image[0] %}
-            <div class="c-content-item__media">
+        <div class="c-content-item__media">
+            {% if content.field_image[0] %}
                 {{ content.field_image }}
-            </div>
-        {% endif %}
+            {% else %}
+                <figure>
+                    <img src="/{{ base_path ~ directory }}/images/news-default-teaser.jpg" alt="" width="684" height="416" loading="lazy">
+                </figure>
+            {% endif %}
+        </div>
         <div class="c-content-item__toolbar">
             <div class="c-content-item__toolbar-group">
                 <span class="c-content-item__category c-content-category-badge">
