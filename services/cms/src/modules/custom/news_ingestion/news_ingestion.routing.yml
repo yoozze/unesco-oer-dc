@@ -1,0 +1,6 @@
+news_ingestion.publisher_autocomplete:
+  path: '/news-ingestion/publisher-autocomplete'
+  defaults:
+    _controller: '\Drupal\news_ingestion\Controller\PublisherAutocompleteController::autocomplete'
+  requirements:
+    _permission: 'access content'

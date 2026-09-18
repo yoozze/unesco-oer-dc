@@ -13,6 +13,7 @@ dependencies:
     - taxonomy.vocabulary.regions
     - field.storage.node.field_language
     - field.storage.node.field_news_source
+    - field.storage.node.field_source
     - taxonomy.vocabulary.languages
     - taxonomy.vocabulary.news_sources
   module:
@@ -219,6 +220,18 @@ display:
                   collapsible_disable_automatic_open: false
                   open_by_default: false
                   is_secondary: false
+                  hide_label: false
+                  field_classes: ''
+              field_source_value:
+                plugin_id: default
+                advanced:
+                  sort_options_method: alphabetical_asc
+                  sort_options_natural: true
+                  placeholder_text: 'Filter by publisher'
+                  collapsible: false
+                  collapsible_disable_automatic_open: false
+                  open_by_default: false
+                  is_secondary: true
                   hide_label: false
                   field_classes: ''
               field_country_target_id:
@@ -453,6 +466,49 @@ display:
               contributor: '0'
               moderator: '0'
               administrator: '0'
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        field_source_value:
+          id: field_source_value
+          table: node__field_source
+          field: field_source_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: string
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_source_value_op
+            label: 'Source / publisher'
+            description: ''
+            use_operator: false
+            operator: field_source_value_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_source_value
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              contributor: '0'
+              moderator: '0'
+              administrator: '0'
+            placeholder: 'Filter by publisher'
           is_grouped: false
           group_info:
             label: ''

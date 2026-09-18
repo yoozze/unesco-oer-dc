@@ -19,6 +19,9 @@ display:
             general:
               secondary_label: 'Recherche avancée'
             filter:
+              field_source_value:
+                advanced:
+                  placeholder_text: 'Filtrer par éditeur'
               field_country_target_id:
                 advanced:
                   placeholder_text: 'Sélectionner un pays'
@@ -45,6 +48,10 @@ display:
         official_only:
           expose:
             label: 'Actualités officielles uniquement'
+        field_source_value:
+          expose:
+            label: 'Source / éditeur'
+            placeholder: 'Filtrer par éditeur'
         field_country_target_id:
           expose:
             label: Pays

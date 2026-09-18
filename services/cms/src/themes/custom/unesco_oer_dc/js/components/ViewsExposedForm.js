@@ -251,6 +251,24 @@ class ViewsExposedForm extends Form {
                 this.restoreAdvancedSearchState(form);
             }
         });
+
+        // Publisher autocomplete is excluded from BEF keyup autosubmit so the
+        // suggestion menu can stay open; submit once a suggestion is chosen.
+        $(document).on(
+            'autocompleteselect.unescoPublisherFilter',
+            'form.c-form--views-exposed-form input[name="field_source_value"]',
+            event => {
+                const form = event.target.closest('form');
+                if (!form) {
+                    return;
+                }
+
+                window.setTimeout(() => {
+                    form.querySelector('[data-bef-auto-submit-click]')?.click() ||
+                        form.querySelector('button[type="submit"]')?.click();
+                }, 0);
+            },
+        );
     }
 
     /**

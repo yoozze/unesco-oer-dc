@@ -55,3 +55,29 @@ function news_ingestion_views_data(): array {
 
     return $data;
 }
+
+/**
+ * Implements hook_form_FORM_ID_alter() for views_exposed_form.
+ *
+ * Attaches publisher autocomplete to the news listing Source / publisher filter.
+ */
+function news_ingestion_form_views_exposed_form_alter(array &$form, \Drupal\Core\Form\FormStateInterface $form_state, string $form_id): void {
+    $view = $form_state->get('view');
+    if (!$view instanceof \Drupal\views\ViewExecutable) {
+        return;
+    }
+
+    if ($view->id() !== 'news' || $view->current_display !== 'news_view') {
+        return;
+    }
+
+    if (!isset($form['field_source_value']) || !is_array($form['field_source_value'])) {
+        return;
+    }
+
+    $form['field_source_value']['#autocomplete_route_name'] = 'news_ingestion.publisher_autocomplete';
+    $form['field_source_value']['#attributes']['class'][] = 'form-autocomplete';
+    // Keep the autocomplete menu open while typing: BEF keyup autosubmit
+    // would AJAX-replace the form and close the dropdown before selection.
+    $form['field_source_value']['#attributes']['data-bef-auto-submit-exclude'] = TRUE;
+}
