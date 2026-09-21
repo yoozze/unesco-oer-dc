@@ -70,6 +70,7 @@ MODULES=(
     "paragraphs:^1.15"
     "svg_image:^3.0"
     "views_bulk_operations:^4.2"
+    "views_data_export:^1.5"
     "fancy_file_delete:^2.0"
     "file_replace:^1.3"
     "node_read_time:^1.13"

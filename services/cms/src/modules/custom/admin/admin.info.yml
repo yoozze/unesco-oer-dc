@@ -3,3 +3,5 @@ description: Admin theme improvememts.
 
 type: module
 core_version_requirement: ^9.5 || ^10
+dependencies:
+  - views_data_export:views_data_export
