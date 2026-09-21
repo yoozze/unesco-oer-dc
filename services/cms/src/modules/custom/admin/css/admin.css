@@ -107,3 +107,15 @@ span.select2-dropdown {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 }
+
+/* Content overview: CSV export in bulk-actions bar */
+.views-bulk-actions .content-csv-export {
+    display: inline-flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+.views-bulk-actions .content-csv-export .button {
+    margin-block: 0;
+    margin-right: 0;
+}

@@ -8,13 +8,77 @@
 use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
+use Drupal\Core\Url;
 use Drupal\paragraphs\ParagraphInterface;
+use Drupal\views\ViewExecutable;
 
 /**
  * Implements hook_preprocess_page().
  */
 function admin_preprocess_page(&$variables) {
     $variables['#attached']['library'][] = 'admin/admin';
+}
+
+/**
+ * Implements hook_preprocess_views_view().
+ *
+ * Hide the Views Data Export feed icon on Content; the CSV control is placed
+ * in the bulk-actions bar instead (see admin_form_views_form_content_page_1_alter).
+ * Keep the VDE library attached so batch auto-download JS still runs.
+ */
+function admin_preprocess_views_view(array &$variables): void {
+    $view = $variables['view'] ?? NULL;
+    if (!$view instanceof ViewExecutable || $view->id() !== 'content') {
+        return;
+    }
+
+    $variables['feed_icons'] = [];
+    $variables['#attached']['library'][] = 'views_data_export/views_data_export';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for views_form_content_page_1.
+ *
+ * Adds an outlined CSV export button next to "Apply to selected items". Claro
+ * moves header[node_bulk_form] into the sticky bulk_actions_container.
+ */
+function admin_form_views_form_content_page_1_alter(array &$form, FormStateInterface $form_state): void {
+    if (empty($form['header']['node_bulk_form'])) {
+        return;
+    }
+
+    $query = ['_format' => 'csv'];
+    $view = $form_state->getBuildInfo()['args'][0] ?? NULL;
+    if ($view instanceof ViewExecutable) {
+        $exposed = $view->getExposedInput();
+        if (is_array($exposed) && $exposed !== []) {
+            // Drop pager; export should cover the full filtered result set.
+            unset($exposed['page']);
+            $query += $exposed;
+        }
+    }
+
+    $form['header']['node_bulk_form']['csv_export'] = [
+        '#type' => 'container',
+        '#attributes' => [
+            'class' => [
+                'views-bulk-actions__item',
+                'content-csv-export',
+            ],
+        ],
+        '#weight' => 100,
+        'link' => [
+            '#type' => 'link',
+            '#title' => t('Export CSV'),
+            '#url' => Url::fromRoute('view.content.data_export_1', [], ['query' => $query]),
+            '#attributes' => [
+                'class' => [
+                    'button',
+                    'button--small',
+                ],
+            ],
+        ],
+    ];
 }
 
 /**
