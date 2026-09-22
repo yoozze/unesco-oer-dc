@@ -59,6 +59,22 @@ display:
         langcode:
           expose:
             label: Langue
+        field_region_target_id:
+          expose:
+            label: Région
+        field_country_target_id:
+          expose:
+            label: Pays
+        field_source_value:
+          expose:
+            label: 'Source / éditeur'
+            placeholder: 'Filtrer par éditeur'
+        created:
+          expose:
+            label: Du
+        created_1:
+          expose:
+            label: Au
   page_1:
     display_title: Page
     display_options:
