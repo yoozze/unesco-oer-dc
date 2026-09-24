@@ -15,3 +15,26 @@ hero_slide_conditional_fields:
         - core/drupal
         - core/once
         - core/jquery
+
+content_source_filter:
+    version: 1.0.0
+    js:
+        js/content-source-filter.js: {}
+    css:
+        theme:
+            css/content-source-filter.css: {}
+    dependencies:
+        - core/drupal
+        - core/once
+        - core/drupalSettings
+        - core/drupal.autocomplete
+        - core/jquery
+        - admin/content_exposed_form
+
+content_exposed_form:
+    version: 1.0.0
+    css:
+        theme:
+            css/content-exposed-form.css: {}
+    dependencies:
+        - admin/admin

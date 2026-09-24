@@ -1,0 +1,128 @@
+/**
+ * @file
+ * Responsive grid layout for Content overview exposed filters.
+ *
+ * Desktop rows (12-col):
+ * 1) Title 1/2 · Content type 1/4 · Status 1/4
+ * 2) Language 1/3 · Region 1/3 · Country 1/3
+ * 3) Source 1/2 · From 1/4 · To 1/4  (From/To → 1/2 each when Source hidden)
+ */
+
+form.js-content-exposed-form.views-exposed-form {
+    /* Match original empty Select2 multiple height. */
+    --content-filter-control-height: 46px;
+    --content-filter-column-gap: 1rem;
+
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    column-gap: var(--content-filter-column-gap);
+    align-items: start;
+    justify-items: stretch;
+    width: 100%;
+}
+
+form.js-content-exposed-form.views-exposed-form > .views-exposed-form__item {
+    max-width: none;
+    min-width: 0;
+    width: 100%;
+    margin-inline: 0;
+}
+
+/* Full-width controls */
+form.js-content-exposed-form .form-element,
+form.js-content-exposed-form .claro-autocomplete,
+form.js-content-exposed-form span.select2-container--gin {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0;
+}
+
+form.js-content-exposed-form .claro-autocomplete {
+    display: block;
+}
+
+/* Select2: full width; empty height matches other controls; tags wrap and may grow */
+form.js-content-exposed-form span.select2-container--gin {
+    display: block !important;
+}
+
+/* Actions: beat the general __item rules; stay right-aligned */
+form.js-content-exposed-form.views-exposed-form > .views-exposed-form__item--actions {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    text-align: end;
+}
+
+form.js-content-exposed-form.views-exposed-form > .views-exposed-form__item--actions .button {
+    margin-block: 0;
+    margin-inline: 0;
+}
+
+/* Tablet: two columns */
+@media (min-width: 48rem) {
+    form.js-content-exposed-form.views-exposed-form {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    form.js-content-exposed-form .form-item--title,
+    form.js-content-exposed-form .form-item--field-source-value.js-content-source-filter--visible {
+        grid-column: 1 / -1;
+    }
+}
+
+/* Desktop: 12-column relative widths */
+@media (min-width: 64rem) {
+    form.js-content-exposed-form.views-exposed-form {
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+    }
+
+    form.js-content-exposed-form .form-item--title,
+    form.js-content-exposed-form .form-item--field-source-value {
+        grid-column: auto;
+    }
+
+    /* Row 1 */
+    form.js-content-exposed-form .form-item--title {
+        grid-column: span 6;
+    }
+
+    form.js-content-exposed-form .form-item--type,
+    form.js-content-exposed-form .form-item--status {
+        grid-column: span 3;
+    }
+
+    /* Row 2 */
+    form.js-content-exposed-form .form-item--langcode,
+    form.js-content-exposed-form .form-item--field-region-target-id,
+    form.js-content-exposed-form .form-item--field-country-target-id {
+        grid-column: span 4;
+    }
+
+    /* Row 3 */
+    form.js-content-exposed-form .form-item--field-source-value.js-content-source-filter--visible {
+        grid-column: span 6;
+    }
+
+    form.js-content-exposed-form .form-item--created-from,
+    form.js-content-exposed-form .form-item--created-to {
+        grid-column: span 3;
+    }
+
+    /* Source hidden → From / To each take half the row */
+    form.js-content-exposed-form:not(:has(.js-content-source-filter--visible))
+        .form-item--created-from,
+    form.js-content-exposed-form:not(:has(.js-content-source-filter--visible))
+        .form-item--created-to {
+        grid-column: span 6;
+    }
+
+    form.js-content-exposed-form.views-exposed-form > .views-exposed-form__item--actions {
+        grid-column: 1 / -1;
+    }
+}

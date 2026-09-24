@@ -82,6 +82,134 @@ function admin_form_views_form_content_page_1_alter(array &$form, FormStateInter
 }
 
 /**
+ * Content types that expose field_source (Source / publisher).
+ */
+function admin_content_source_filter_bundles(): array {
+    return ['news', 'resource'];
+}
+
+/**
+ * Implements hook_views_pre_view().
+ *
+ * Ignore Source / publisher when Content type is not News or Resource.
+ */
+function admin_views_pre_view(ViewExecutable $view, string $display_id, array &$args): void {
+    if ($view->id() !== 'content') {
+        return;
+    }
+
+    $exposed = $view->getExposedInput();
+    if (!is_array($exposed) || !array_key_exists('field_source_value', $exposed)) {
+        return;
+    }
+
+    $type = '';
+    if (isset($exposed['type']) && is_string($exposed['type'])) {
+        $type = $exposed['type'];
+    }
+
+    if (in_array($type, admin_content_source_filter_bundles(), TRUE)) {
+        return;
+    }
+
+    unset($exposed['field_source_value']);
+    $view->setExposedInput($exposed);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for views_exposed_form.
+ *
+ * On Content overview: grid layout for filters; Source / publisher only when
+ * News or Resource is selected, with type-scoped publisher autocomplete.
+ */
+function admin_form_views_exposed_form_alter(array &$form, FormStateInterface $form_state, string $form_id): void {
+    $view = $form_state->get('view');
+    if (!$view instanceof ViewExecutable || $view->id() !== 'content') {
+        return;
+    }
+
+    $form['#attributes']['class'][] = 'js-content-exposed-form';
+    $form['#attached']['library'][] = 'admin/content_exposed_form';
+
+    if (!isset($form['field_source_value'], $form['type']) || !is_array($form['field_source_value'])) {
+        return;
+    }
+
+    if (!\Drupal::moduleHandler()->moduleExists('news_ingestion')) {
+        return;
+    }
+
+    $allowed = admin_content_source_filter_bundles();
+    $selected_type = admin_content_exposed_type_value($form_state, $view);
+    $visible = in_array($selected_type, $allowed, TRUE);
+
+    $form['type']['#attributes']['class'][] = 'js-content-type-filter';
+
+    $form['field_source_value']['#autocomplete_route_name'] = 'news_ingestion.publisher_autocomplete';
+    $form['field_source_value']['#attributes']['class'][] = 'form-autocomplete';
+    $form['field_source_value']['#attributes']['class'][] = 'js-content-source-input';
+    $form['field_source_value']['#wrapper_attributes']['class'][] = 'js-content-source-filter';
+    if ($visible) {
+        $form['field_source_value']['#wrapper_attributes']['class'][] = 'js-content-source-filter--visible';
+    }
+
+    $form['field_source_value']['#after_build'][] = 'admin_content_source_filter_after_build';
+
+    $form['#attached']['library'][] = 'admin/content_source_filter';
+    $form['#attached']['drupalSettings']['adminContentSourceFilter'] = [
+        'bundles' => array_values($allowed),
+        'autocompletePath' => Url::fromRoute('news_ingestion.publisher_autocomplete')->toString(),
+    ];
+}
+
+/**
+ * Reads the exposed Content type value from user input or the view.
+ */
+function admin_content_exposed_type_value(FormStateInterface $form_state, ViewExecutable $view): string {
+    $input = $form_state->getUserInput();
+    if (isset($input['type']) && is_string($input['type']) && $input['type'] !== 'All' && $input['type'] !== '') {
+        return $input['type'];
+    }
+
+    $exposed = $view->getExposedInput();
+    if (isset($exposed['type']) && is_string($exposed['type']) && $exposed['type'] !== 'All' && $exposed['type'] !== '') {
+        return $exposed['type'];
+    }
+
+    return '';
+}
+
+/**
+ * After-build: append selected bundle as ?type= on the autocomplete path.
+ */
+function admin_content_source_filter_after_build(array $element, FormStateInterface $form_state): array {
+    $classes = $element['#wrapper_attributes']['class'] ?? [];
+    if (!in_array('js-content-source-filter--visible', $classes, TRUE)) {
+        return $element;
+    }
+
+    $view = $form_state->get('view');
+    if (!$view instanceof ViewExecutable) {
+        return $element;
+    }
+
+    $type = admin_content_exposed_type_value($form_state, $view);
+    if ($type === '' || !in_array($type, admin_content_source_filter_bundles(), TRUE)) {
+        return $element;
+    }
+
+    $path = $element['#attributes']['data-autocomplete-path'] ?? '';
+    if ($path === '') {
+        $path = Url::fromRoute('news_ingestion.publisher_autocomplete')->toString();
+    }
+
+    $separator = str_contains($path, '?') ? '&' : '?';
+    $element['#attributes']['data-autocomplete-path'] = $path . $separator . 'type=' . rawurlencode($type);
+
+    return $element;
+}
+
+/**
  * Implements hook_views_data_export_row_alter().
  *
  * Shorten Action Area labels to numbers only in the Content CSV export

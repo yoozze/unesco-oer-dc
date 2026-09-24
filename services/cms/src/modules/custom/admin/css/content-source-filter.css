@@ -1,0 +1,9 @@
+/**
+ * Hide Source / publisher until News or Resource is selected.
+ *
+ * Specificity must beat content-exposed-form’s `.views-exposed-form__item`
+ * display rules, or the field stays visible.
+ */
+form.js-content-exposed-form .js-content-source-filter:not(.js-content-source-filter--visible) {
+    display: none !important;
+}

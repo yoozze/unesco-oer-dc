@@ -1,5 +1,12 @@
 /* ## Gin theme */
 
+/* Form elements */
+.form-element--type-date,
+.form-element--type-time,
+.form-element--type-datetime {
+    padding: calc(var(--input-padding-vertical) - 2px) var(--input-padding-horizontal) !important;
+}
+
 /* Select */
 /* .form-type--select select option {
     padding: 0.75rem 1rem;
@@ -38,7 +45,9 @@ span.select2-container--gin {
 }
 
 .select2-container--gin .select2-selection--multiple li.select2-selection__choice {
+    padding: 0.25rem;
     margin-top: 0.375rem;
+    margin-right: 0.375rem;
 }
 
 .select2-container--gin .select2-selection--multiple li.select2-selection__choice .select2-selection__choice__remove {
@@ -52,14 +61,20 @@ span.select2-container--gin {
 }
 
 .select2-container--gin span.select2-selection--multiple {
+    min-height: auto;
     padding: 0 0.75rem 0.375rem;
 }
 
 .select2-container--gin .select2-selection--multiple span.select2-search--inline {
     box-sizing: border-box;
+    vertical-align: middle;
     color: var(--gin-color-text);
-    padding: 0.375rem 0;
+    padding: 0.25rem 0 0.125rem;
     margin-top: 0.375rem;
+}
+
+.select2-container .select2-search--inline .select2-search__field {
+    height: 1.25rem !important;
 }
 
 span.select2-container--gin.select2-container--focus {
