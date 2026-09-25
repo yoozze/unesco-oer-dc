@@ -29,12 +29,14 @@ function get_block_name($key) {
     $block_map = [
         'latest_news-latest_news_view' => 'latest-news-view',
         'upcoming_events-upcoming_events_view' => 'upcoming-events-view',
+        'latest_resources-latest_resources_view' => 'latest-resources-view',
         'cef61108-2e3e-4661-bc31-8b08861eaaca' => 'about',
         '96334729-bbe9-4da2-ad63-adc94c0fd743' => 'who-we-are',
         'e03388f9-471e-4f18-be66-939039bab16f' => 'what-we-do',
         'b6ee0fe2-3b9a-42d8-8ab2-661aa778aa0b' => 'dc-areas-of-action',
         '351dd98b-3fde-4ef7-9d3a-a5d5b6b7f875' => 'latest-news',
         '0fa60256-5732-40bc-b932-64541cc70be2' => 'upcoming-events',
+        '35c8cfa4-35bc-4b00-8a02-78be6bf5b2fc' => 'latest-resources',
     ];
     if (array_key_exists($key, $block_map)) {
         return $block_map[$key];

@@ -175,7 +175,7 @@ function unesco_oer_dc_theme_suggestions_views_view_fields_alter(&$suggestions, 
         $suggestions[] = 'views_view_fields__content_item__event_card';
     }
 
-    if (in_array($current_display, ['resources_view'])) {
+    if (in_array($current_display, ['latest_resources_view', 'resources_view'])) {
         $suggestions[] = 'views_view_fields__content_item__resource_card';
     }
 
@@ -238,6 +238,7 @@ function unesco_oer_dc_theme_suggestions_views_view_field_alter(&$suggestions, &
         'news_view',
         'upcoming_events_view',
         'events_view',
+        'latest_resources_view',
         'resources_view',
         'activities_view'
     ])) {

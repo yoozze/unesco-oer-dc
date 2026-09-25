@@ -1,0 +1,62 @@
+// # Latest Resources View
+// =======================
+
+// .c-latest-resources-view {}
+
+// ## Latest Resources View Container
+// ----------------------------------
+
+// .c-latest-resources-view__container {}
+
+// ## Latest Resources View Content
+// --------------------------------
+
+.c-latest-resources-view__content {
+    position: relative;
+
+    & > .contextual {
+        top: negative(3);
+    }
+}
+
+// ## Latest Resources View List
+// -----------------------------
+
+.c-latest-resources-view__list {
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    list-style-type: none;
+}
+
+// ## Latest Resources View Item
+// -----------------------------
+
+$item-gutter: size('gutter') / 2;
+
+.c-latest-resources-view__item {
+    display: flex;
+    flex: 1 1 25%;
+    max-width: 25%;
+    padding-right: $item-gutter;
+    padding-left: $item-gutter;
+
+    @include below('bp-xl') {
+        flex: 0 0 50%;
+        max-width: 50%;
+
+        &:nth-child(n + 3) {
+            margin-top: size(3);
+        }
+    }
+
+    @include below('bp-md') {
+        flex: 0 0 100%;
+        max-width: 100%;
+
+        &:nth-child(n + 2) {
+            margin-top: size(3);
+        }
+    }
+}
