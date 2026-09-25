@@ -321,6 +321,19 @@ $meta-item-inline-separator-spacer: size(0.5);
         }
     }
 
+    .c-content-item__media-placeholder {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        aspect-ratio: 342 / 208;
+        background-color: color('abbey-90');
+
+        img {
+            width: 36%;
+            height: auto;
+        }
+    }
+
     .c-content-item--row & {
         iframe {
             width: 100%;

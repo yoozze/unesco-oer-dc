@@ -78,8 +78,8 @@
             {% if content.field_image[0] %}
                 {{ content.field_image }}
             {% else %}
-                <figure>
-                    <img src="/{{ base_path ~ directory }}/images/news-default-teaser.jpg" alt="" width="684" height="416" loading="lazy">
+                <figure class="c-content-item__media-placeholder">
+                    <img src="/{{ base_path ~ directory }}/images/oer-icons.svg" alt="" loading="lazy">
                 </figure>
             {% endif %}
         </div>
