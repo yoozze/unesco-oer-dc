@@ -33,6 +33,8 @@ updates/
   hero/
     migrate_slides.php
     enable_slides.php
+  homepage/
+    add_latest_resources_section.php
   news_ingestion/
     seed_news_ingestion_prerequisites.php
   update_content/

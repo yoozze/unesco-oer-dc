@@ -55,3 +55,10 @@ function admin_post_update_sync_news_source_icons(&$sandbox = NULL) {
 function admin_post_update_migrate_update_dates(&$sandbox = NULL) {
   return admin_run_update_script('update_content/migrate_update_dates.php');
 }
+
+/**
+ * Add Latest Resources section block + homepage Layout Builder placement.
+ */
+function admin_post_update_add_homepage_latest_resources(&$sandbox = NULL) {
+  return admin_run_update_script('homepage/add_latest_resources_section.php');
+}
