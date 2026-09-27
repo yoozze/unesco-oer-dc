@@ -1,9 +1,42 @@
-label: Contenu
-description: 'Trouver et gérer le contenu.'
 display:
   default:
-    display_title: 'Par défaut'
     display_options:
+      filters:
+        field_region_target_id:
+          expose:
+            label: Région
+        field_country_target_id:
+          expose:
+            label: Pays
+        field_source_value:
+          expose:
+            label: 'Source / éditeur'
+            placeholder: 'Filtrer par éditeur'
+        created:
+          expose:
+            label: Du
+        created_1:
+          expose:
+            label: Au
+        title:
+          expose:
+            label: Titre
+        type:
+          expose:
+            label: 'Type de contenu'
+        status:
+          expose:
+            label: État
+          group_info:
+            label: 'Statut de publication'
+            group_items:
+              1:
+                title: Publié
+              2:
+                title: 'Non publié'
+        langcode:
+          expose:
+            label: Langue
       title: Contenu
       fields:
         title:
@@ -39,42 +72,7 @@ display:
       empty:
         area_text_custom:
           content: 'Aucun contenu disponible.'
-      filters:
-        title:
-          expose:
-            label: Titre
-        type:
-          expose:
-            label: 'Type de contenu'
-        status:
-          expose:
-            label: État
-          group_info:
-            label: 'Statut de publication'
-            group_items:
-              1:
-                title: Publié
-              2:
-                title: 'Non publié'
-        langcode:
-          expose:
-            label: Langue
-        field_region_target_id:
-          expose:
-            label: Région
-        field_country_target_id:
-          expose:
-            label: Pays
-        field_source_value:
-          expose:
-            label: 'Source / éditeur'
-            placeholder: 'Filtrer par éditeur'
-        created:
-          expose:
-            label: Du
-        created_1:
-          expose:
-            label: Au
+    display_title: 'Par défaut'
   page_1:
     display_title: Page
     display_options:
@@ -83,3 +81,5 @@ display:
       tab_options:
         title: Contenu
         description: 'Trouver et gérer le contenu'
+label: Contenu
+description: 'Trouver et gérer le contenu.'
