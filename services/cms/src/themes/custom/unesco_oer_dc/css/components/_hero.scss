@@ -1,7 +1,7 @@
 // # Hero
 // ======
 
-$hero-padding: size('section-padding');
+$hero-padding: size('section-padding') / 2;
 
 .c-hero {
     position: relative;
@@ -137,6 +137,10 @@ $hero-padding: size('section-padding');
 
         .c-hero--hide-dots & {
             display: none;
+        }
+
+        .c-hero--autoplay & {
+            bottom: size(2.5);
         }
 
         li {
