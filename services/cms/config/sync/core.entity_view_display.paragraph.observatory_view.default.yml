@@ -6,6 +6,7 @@ dependencies:
     - field.field.paragraph.observatory_view.field_area_embeds
     - field.field.paragraph.observatory_view.field_aspect_ratio
     - field.field.paragraph.observatory_view.field_description
+    - field.field.paragraph.observatory_view.field_enabled
     - field.field.paragraph.observatory_view.field_view_id
     - field.field.paragraph.observatory_view.field_view_label
     - paragraphs.paragraphs_type.observatory_view
@@ -57,4 +58,5 @@ content:
     third_party_settings: {  }
     weight: 1
     region: content
-hidden: {  }
+hidden:
+  field_enabled: true

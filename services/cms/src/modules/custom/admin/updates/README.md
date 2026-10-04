@@ -39,6 +39,8 @@ updates/
     make_link_translatable.php
   news_ingestion/
     seed_news_ingestion_prerequisites.php
+  observatory/
+    enable_views.php
   update_content/
     migrate_update_dates.php
 ```

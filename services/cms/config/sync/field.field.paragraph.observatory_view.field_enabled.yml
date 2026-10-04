@@ -1,0 +1,23 @@
+uuid: d68f5441-ee03-421e-a7b1-31b616688039
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_enabled
+    - paragraphs.paragraphs_type.observatory_view
+id: paragraph.observatory_view.field_enabled
+field_name: field_enabled
+entity_type: paragraph
+bundle: observatory_view
+label: Enabled
+description: 'When unchecked, this view is hidden from the Observatory View dropdown but kept for later use.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: Enabled
+  off_label: Disabled
+field_type: boolean

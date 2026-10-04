@@ -333,6 +333,10 @@ function admin_form_alter(&$form, FormStateInterface $form_state, $form_id) {
             $form['field_slides']['widget']['#after_build'][] = 'admin_hero_slides_conditional_fields_after_build';
         }
     }
+
+    if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'oer_observatory') {
+        $form['#validate'][] = 'admin_observatory_validate_enabled_views';
+    }
 }
 
 /**
@@ -550,6 +554,56 @@ function admin_hero_block_validate_enabled_slides(array &$form, FormStateInterfa
  *   TRUE if enabled.
  */
 function admin_hero_slide_is_enabled(ParagraphInterface $paragraph) {
+    if (!$paragraph->hasField('field_enabled') || $paragraph->get('field_enabled')->isEmpty()) {
+        return TRUE;
+    }
+
+    return (bool) $paragraph->get('field_enabled')->value;
+}
+
+/**
+ * Ensures at least one observatory view remains enabled.
+ */
+function admin_observatory_validate_enabled_views(array &$form, FormStateInterface $form_state) {
+    /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
+    $form_object = $form_state->getFormObject();
+    /** @var \Drupal\node\NodeInterface $entity */
+    $entity = $form_object->buildEntity($form, $form_state);
+
+    if (!$entity->hasField('field_observatory_views')) {
+        return;
+    }
+
+    $enabled_count = 0;
+    foreach ($entity->get('field_observatory_views') as $item) {
+        $paragraph = $item->entity;
+        if (!$paragraph instanceof ParagraphInterface) {
+            continue;
+        }
+
+        if (admin_observatory_view_is_enabled($paragraph)) {
+            $enabled_count++;
+        }
+    }
+
+    if ($enabled_count < 1) {
+        $form_state->setErrorByName(
+            'field_observatory_views',
+            t('At least one observatory view must be enabled.')
+        );
+    }
+}
+
+/**
+ * Whether an observatory view is enabled (missing/empty = enabled).
+ *
+ * @param \Drupal\paragraphs\ParagraphInterface $paragraph
+ *   Observatory view paragraph.
+ *
+ * @return bool
+ *   TRUE if enabled.
+ */
+function admin_observatory_view_is_enabled(ParagraphInterface $paragraph) {
     if (!$paragraph->hasField('field_enabled') || $paragraph->get('field_enabled')->isEmpty()) {
         return TRUE;
     }

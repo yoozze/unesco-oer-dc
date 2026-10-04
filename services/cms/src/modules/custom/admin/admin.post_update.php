@@ -69,3 +69,10 @@ function admin_post_update_add_homepage_latest_resources(&$sandbox = NULL) {
 function admin_post_update_make_menu_link_url_translatable(&$sandbox = NULL) {
   return admin_run_update_script('menu_link/make_link_translatable.php');
 }
+
+/**
+ * Set field_enabled = 1 on existing observatory_view paragraphs with empty values.
+ */
+function admin_post_update_enable_observatory_views(&$sandbox = NULL) {
+  return admin_run_update_script('observatory/enable_views.php');
+}

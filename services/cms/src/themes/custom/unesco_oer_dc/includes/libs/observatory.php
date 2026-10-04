@@ -8,6 +8,25 @@
 use Drupal\node\NodeInterface;
 
 /**
+ * Whether an observatory view paragraph should appear on the front end.
+ *
+ * Missing / empty field_enabled counts as enabled (backward compatible).
+ *
+ * @param \Drupal\paragraphs\ParagraphInterface $paragraph
+ *   Observatory view paragraph.
+ *
+ * @return bool
+ *   TRUE if the view should be shown.
+ */
+function observatory_view_is_enabled($paragraph): bool {
+    if (!$paragraph->hasField('field_enabled') || $paragraph->get('field_enabled')->isEmpty()) {
+        return TRUE;
+    }
+
+    return (bool) $paragraph->get('field_enabled')->value;
+}
+
+/**
  * Loads the OER Observatory node by URL alias.
  *
  * @return \Drupal\node\NodeInterface|null
@@ -55,6 +74,10 @@ function observatory_build_config(NodeInterface $node): array {
     $view_paragraphs = $node->get('field_observatory_views')->referencedEntities();
 
     foreach ($view_paragraphs as $view_paragraph) {
+        if (!observatory_view_is_enabled($view_paragraph)) {
+            continue;
+        }
+
         $view_id = trim($view_paragraph->get('field_view_id')->value ?? '');
         if ($view_id === '') {
             continue;
