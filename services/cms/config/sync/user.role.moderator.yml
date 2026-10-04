@@ -36,6 +36,7 @@ dependencies:
     - taxonomy.vocabulary.tags
     - workflows.workflow.editorial
   module:
+    - admin
     - block_content
     - comment
     - contact
@@ -198,6 +199,7 @@ permissions:
   - 'edit terms in media_types'
   - 'edit terms in news_sources'
   - 'edit terms in regions'
+  - 'edit resource category field'
   - 'edit terms in resource_category'
   - 'edit terms in resource_status'
   - 'edit terms in resource_types'

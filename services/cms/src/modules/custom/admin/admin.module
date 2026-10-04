@@ -5,10 +5,14 @@
  * Admin theme improvements, hero helpers, and update script runner.
  */
 
+use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Field\FieldDefinitionInterface;
+use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
+use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Url;
 use Drupal\paragraphs\ParagraphInterface;
 use Drupal\views\ViewExecutable;
@@ -27,6 +31,32 @@ function admin_entity_base_field_info_alter(array &$fields, EntityTypeInterface 
     }
 
     $fields['link']->setTranslatable(TRUE);
+}
+
+/**
+ * Implements hook_entity_field_access().
+ *
+ * Restrict editing of Resource Category to users with the dedicated permission
+ * (moderators / administrators). Viewing the field stays public.
+ */
+function admin_entity_field_access($operation, FieldDefinitionInterface $field_definition, AccountInterface $account, ?FieldItemListInterface $items = NULL) {
+    if (
+        $field_definition->getTargetEntityTypeId() !== 'node'
+        || $field_definition->getTargetBundle() !== 'resource'
+        || $field_definition->getName() !== 'field_resource_category'
+    ) {
+        return AccessResult::neutral();
+    }
+
+    if ($operation === 'edit') {
+        // Neutral when permitted (entity edit access still applies); forbid otherwise.
+        // allowedIfHasPermission() alone is not enough — deny is neutral and field
+        // edit then falls through to entity-level allow.
+        return AccessResult::forbiddenIf(!$account->hasPermission('edit resource category field'))
+            ->cachePerPermissions();
+    }
+
+    return AccessResult::neutral();
 }
 
 /**
