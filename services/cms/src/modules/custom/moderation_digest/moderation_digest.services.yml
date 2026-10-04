@@ -1,0 +1,27 @@
+services:
+  moderation_digest.pending_content_query:
+    class: Drupal\moderation_digest\Service\PendingContentQuery
+    arguments:
+      - '@database'
+      - '@entity_type.manager'
+      - '@date.formatter'
+      - '@config.factory'
+
+  moderation_digest.mailer:
+    class: Drupal\moderation_digest\Service\DigestMailer
+    arguments:
+      - '@plugin.manager.mail'
+      - '@config.factory'
+      - '@entity_type.manager'
+      - '@logger.factory'
+      - '@language_manager'
+
+  moderation_digest.scheduler:
+    class: Drupal\moderation_digest\Service\DigestScheduler
+    arguments:
+      - '@config.factory'
+      - '@state'
+      - '@datetime.time'
+      - '@moderation_digest.pending_content_query'
+      - '@moderation_digest.mailer'
+      - '@logger.factory'

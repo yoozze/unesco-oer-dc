@@ -1,0 +1,28 @@
+moderation_digest.settings:
+  type: config_object
+  label: 'Moderation digest settings'
+  mapping:
+    enabled:
+      type: boolean
+      label: 'Enable weekly digest'
+    weekday:
+      type: integer
+      label: 'Day of week (ISO: 1=Monday … 7=Sunday)'
+    hour:
+      type: integer
+      label: 'Hour of day (UTC, 0–23)'
+    max_items:
+      type: integer
+      label: 'Maximum items listed in the email'
+    recipient_uids:
+      type: sequence
+      label: 'Recipient user IDs'
+      sequence:
+        type: integer
+        label: 'User ID'
+    recipient_emails:
+      type: sequence
+      label: 'Additional recipient email addresses'
+      sequence:
+        type: email
+        label: 'Email'

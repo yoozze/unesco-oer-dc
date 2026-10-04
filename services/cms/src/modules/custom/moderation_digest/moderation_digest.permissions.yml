@@ -1,0 +1,4 @@
+administer moderation digest:
+  title: 'Administer moderation digest'
+  description: 'Configure the weekly unpublished-content digest and its recipients.'
+  restrict access: true

@@ -1,0 +1,80 @@
+<?php
+
+/**
+ * @file
+ * Weekly email digest of pending moderated content.
+ */
+
+declare(strict_types=1);
+
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_cron().
+ */
+function moderation_digest_cron(): void {
+    if (!\Drupal::hasService('moderation_digest.scheduler')) {
+        return;
+    }
+
+    \Drupal::service('moderation_digest.scheduler')->runIfDue();
+}
+
+/**
+ * Implements hook_mail().
+ */
+function moderation_digest_mail(string $key, array &$message, array $params): void {
+    if ($key !== 'unpublished_digest') {
+        return;
+    }
+
+    /** @var list<array<string, mixed>> $items */
+    $items = $params['items'] ?? [];
+    $total = (int) ($params['total'] ?? count($items));
+    $listUrl = (string) ($params['moderated_content_url'] ?? Url::fromRoute('view.moderated_content.moderated_content', [], [
+        'absolute' => TRUE,
+    ])->toString());
+
+    $siteName = \Drupal::config('system.site')->get('name') ?: 'UNESCO OER DC';
+    $message['subject'] = t('[@site] Pending content for moderation (@count)', [
+        '@site' => $siteName,
+        '@count' => $total,
+    ]);
+
+    $lines = [];
+    $lines[] = t('The following content is awaiting moderation (@count item(s)):', [
+        '@count' => $total,
+    ]);
+    $lines[] = '';
+
+    foreach ($items as $item) {
+        $lines[] = sprintf(
+            '- %s (%s) — %s — %s — %s',
+            (string) ($item['title'] ?? ''),
+            (string) ($item['type'] ?? ''),
+            (string) ($item['moderation_state_label'] ?? $item['moderation_state'] ?? ''),
+            (string) ($item['changed_formatted'] ?? ''),
+            (string) ($item['url'] ?? ''),
+        );
+        if (!empty($item['author'])) {
+            $lines[] = '  ' . t('Author: @author', ['@author' => $item['author']]);
+        }
+
+        if (!empty($item['langcode'])) {
+            $lines[] = '  ' . t('Language: @lang', ['@lang' => $item['langcode']]);
+        }
+    }
+
+    if ($total > count($items)) {
+        $lines[] = '';
+        $lines[] = t('…and @more more. Open the moderated content list for the full queue:', [
+            '@more' => $total - count($items),
+        ]);
+    } else {
+        $lines[] = '';
+        $lines[] = t('Open the moderated content list:');
+    }
+    $lines[] = $listUrl;
+
+    $message['body'][] = implode("\n", $lines);
+}

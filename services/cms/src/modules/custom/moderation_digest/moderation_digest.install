@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * @file
+ * Install hooks for Moderation Digest.
+ */
+
+declare(strict_types=1);
+
+/**
+ * Implements hook_install().
+ *
+ * Avoid an immediate catch-up send when the module is enabled mid-week.
+ */
+function moderation_digest_install(): void {
+    \Drupal::state()->set(
+        'moderation_digest.last_sent',
+        \Drupal::time()->getRequestTime()
+    );
+}

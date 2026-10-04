@@ -1,0 +1,6 @@
+moderation_digest.settings:
+  title: 'Moderation digest'
+  description: 'Weekly email of pending moderated content to selected recipients.'
+  route_name: moderation_digest.settings
+  parent: system.admin_config_content
+  weight: 50

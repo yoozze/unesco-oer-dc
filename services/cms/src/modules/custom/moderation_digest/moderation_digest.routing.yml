@@ -1,0 +1,7 @@
+moderation_digest.settings:
+  path: '/admin/config/content/moderation-digest'
+  defaults:
+    _form: '\Drupal\moderation_digest\Form\DigestSettingsForm'
+    _title: 'Moderation digest'
+  requirements:
+    _permission: 'administer moderation digest'

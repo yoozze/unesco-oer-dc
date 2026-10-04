@@ -1,0 +1,10 @@
+name: 'Moderation Digest'
+description: 'Weekly email digest of pending moderated content for selected recipients.'
+package: 'UNESCO OER DC'
+type: module
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:node
+  - drupal:user
+  - drupal:content_moderation
+  - drupal:workflows

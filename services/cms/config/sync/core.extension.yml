@@ -60,6 +60,7 @@ module:
   locale: 0
   media: 0
   media_library: 0
+  moderation_digest: 0
   menu_link_content: 0
   menu_ui: 0
   mysql: 0

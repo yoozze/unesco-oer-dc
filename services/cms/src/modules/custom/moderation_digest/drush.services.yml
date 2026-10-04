@@ -1,0 +1,8 @@
+services:
+  moderation_digest.commands:
+    class: Drupal\moderation_digest\Drush\Commands\ModerationDigestCommands
+    arguments:
+      - '@moderation_digest.scheduler'
+      - '@moderation_digest.pending_content_query'
+    tags:
+      - { name: drush.command }
