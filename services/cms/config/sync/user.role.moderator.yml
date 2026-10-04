@@ -26,9 +26,9 @@ dependencies:
     - taxonomy.vocabulary.countries
     - taxonomy.vocabulary.event_types
     - taxonomy.vocabulary.languages
-    - taxonomy.vocabulary.news_sources
     - taxonomy.vocabulary.licence_conditions
     - taxonomy.vocabulary.media_types
+    - taxonomy.vocabulary.news_sources
     - taxonomy.vocabulary.regions
     - taxonomy.vocabulary.resource_category
     - taxonomy.vocabulary.resource_status
@@ -190,6 +190,7 @@ permissions:
   - 'edit own resource content'
   - 'edit own update content'
   - 'edit own video media'
+  - 'edit resource category field'
   - 'edit terms in areas_of_action'
   - 'edit terms in audiences'
   - 'edit terms in countries'
@@ -199,7 +200,6 @@ permissions:
   - 'edit terms in media_types'
   - 'edit terms in news_sources'
   - 'edit terms in regions'
-  - 'edit resource category field'
   - 'edit terms in resource_category'
   - 'edit terms in resource_status'
   - 'edit terms in resource_types'
