@@ -6,11 +6,28 @@
  */
 
 use Drupal\Core\Entity\EntityFormInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Url;
 use Drupal\paragraphs\ParagraphInterface;
 use Drupal\views\ViewExecutable;
+
+/**
+ * Implements hook_entity_base_field_info_alter().
+ *
+ * Allow Custom menu link URLs to differ per language (core leaves Link
+ * non-translatable, so it never appears on the Content language form).
+ *
+ * @see https://www.drupal.org/project/drupal/issues/2466553
+ */
+function admin_entity_base_field_info_alter(array &$fields, EntityTypeInterface $entity_type): void {
+    if ($entity_type->id() !== 'menu_link_content' || !isset($fields['link'])) {
+        return;
+    }
+
+    $fields['link']->setTranslatable(TRUE);
+}
 
 /**
  * Implements hook_preprocess_page().

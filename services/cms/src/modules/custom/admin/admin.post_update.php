@@ -62,3 +62,10 @@ function admin_post_update_migrate_update_dates(&$sandbox = NULL) {
 function admin_post_update_add_homepage_latest_resources(&$sandbox = NULL) {
   return admin_run_update_script('homepage/add_latest_resources_section.php');
 }
+
+/**
+ * Make Custom menu link URLs (Link field) translatable per language.
+ */
+function admin_post_update_make_menu_link_url_translatable(&$sandbox = NULL) {
+  return admin_run_update_script('menu_link/make_link_translatable.php');
+}

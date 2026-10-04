@@ -35,6 +35,8 @@ updates/
     enable_slides.php
   homepage/
     add_latest_resources_section.php
+  menu_link/
+    make_link_translatable.php
   news_ingestion/
     seed_news_ingestion_prerequisites.php
   update_content/
