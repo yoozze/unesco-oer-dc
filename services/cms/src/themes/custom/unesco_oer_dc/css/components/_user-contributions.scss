@@ -1,0 +1,148 @@
+// # User Contributions
+// ====================
+
+.c-user-contributions {
+    width: 100%;
+    margin-top: size(4);
+    margin-bottom: size(4);
+}
+
+// ## Title
+// --------
+
+.c-user-contributions__title {
+    @include font('title-large');
+
+    margin-top: 0;
+    margin-bottom: size(2);
+}
+
+// ## List
+// -------
+
+.c-user-contributions__list {
+    @include elevation(1);
+
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    background-color: color('background');
+    border-radius: size('radius' 3);
+    overflow: hidden;
+
+    @include below('bp-sm') {
+        grid-template-columns: 1fr;
+    }
+}
+
+// ## Item
+// -------
+
+.c-user-contributions__item {
+    display: grid;
+    grid-template-columns: subgrid;
+    grid-column: span 2;
+    gap: size(2);
+    align-items: start;
+    padding: size(2) size(3);
+    border-bottom: 1px solid color('border-light');
+
+    @include below('bp-sm') {
+        grid-template-columns: 1fr;
+        grid-column: span 1;
+        gap: size(1);
+        padding: size(1.5) size(2);
+    }
+
+    &:last-child {
+        border-bottom: 0;
+    }
+}
+
+// ## Type
+// -------
+
+.c-user-contributions__type {
+    margin-top: size(0.25);
+    width: fit-content;
+}
+
+// ## Body
+// -------
+
+.c-user-contributions__body {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    gap: size(0.5);
+}
+
+// ## Name / title
+// ---------------
+
+.c-user-contributions__name {
+    @include font('title-medium');
+
+    margin: 0;
+
+    a {
+        color: color('blue-10');
+        text-decoration: none;
+
+        @include transition('color');
+
+        &:focus,
+        &:hover {
+            color: color('blue');
+        }
+    }
+}
+
+// ## Meta
+// -------
+
+.c-user-contributions__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: size(1) size(2);
+    align-items: center;
+    color: color('font-muted');
+}
+
+.c-user-contributions__date {
+    @include font('body-medium');
+}
+
+.c-user-contributions__state {
+    @include font('label-large');
+
+    display: inline-flex;
+    padding: size(0.25) size(1);
+    color: color('font');
+    background-color: color('background-alt');
+    border-radius: size('radius' 2);
+}
+
+// ## Empty
+// --------
+
+.c-user-contributions__empty {
+    @include elevation(1);
+
+    margin: 0;
+    padding: size(2) size(3);
+    color: color('font-muted');
+    background-color: color('background');
+    border-radius: size('radius' 3);
+}
+
+// ## Pager
+// --------
+
+.c-user-contributions__view {
+    .c-pager {
+        margin-top: size(3);
+    }
+}

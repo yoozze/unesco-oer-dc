@@ -1,0 +1,14 @@
+{#
+/**
+ * @file
+ * Theme override for unformatted rows in the user contributions view.
+ */
+#}
+{% if title %}
+    <h3>{{ title }}</h3>
+{% endif %}
+{% for row in rows %}
+    <li{{ row.attributes.addClass(['c-user-contributions__item']) }}>
+        {{- row.content -}}
+    </li>
+{% endfor %}

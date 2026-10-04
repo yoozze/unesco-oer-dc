@@ -1,0 +1,40 @@
+{#
+/**
+ * @file
+ * Theme override for the user contributions view.
+ */
+#}
+{%
+  set classes = [
+    'c-user-contributions__view',
+    dom_id ? 'js-view-dom-id-' ~ dom_id,
+  ]
+%}
+<div{{ attributes.addClass(classes) }}>
+    {% if header %}
+        <header>
+            {{ header }}
+        </header>
+    {% endif %}
+
+    {{ exposed }}
+    {{ attachment_before }}
+
+    {% if rows -%}
+        <ul class="c-user-contributions__list">
+            {{ rows }}
+        </ul>
+    {% elseif empty -%}
+        <div class="c-user-contributions__empty">{{ empty }}</div>
+    {% endif %}
+    {{ pager }}
+
+    {{ attachment_after }}
+    {{ more }}
+
+    {% if footer %}
+        <footer>
+            {{ footer }}
+        </footer>
+    {% endif %}
+</div>

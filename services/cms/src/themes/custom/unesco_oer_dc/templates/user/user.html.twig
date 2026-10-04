@@ -102,6 +102,12 @@
                     </div>
                 </div>
             </div>
+            {% if contributions %}
+                <section class="c-user-contributions" aria-labelledby="user-contributions-title">
+                    <h2 id="user-contributions-title" class="c-user-contributions__title">{{ 'Contributions'|t }}</h2>
+                    {{ contributions }}
+                </section>
+            {% endif %}
         </div>
     </div>
     {# {{ dump() }} #}

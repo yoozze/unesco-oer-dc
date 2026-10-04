@@ -5,6 +5,7 @@
  */
 
 use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\views\Views;
 
 function unesco_oer_dc_theme_suggestions_user_alter(&$suggestions, &$variables) {
     $view_mode = $variables['elements']['#view_mode'];
@@ -55,4 +56,14 @@ function unesco_oer_dc_preprocess_user(&$variables) {
 
     // Check if this is current user
     $variables['is_current_user'] = $user->id() === \Drupal::currentUser()->id();
+
+    $variables['contributions'] = [];
+    $view_mode = $variables['elements']['#view_mode'] ?? '';
+    if ($view_mode !== 'compact') {
+        $display = !empty($variables['is_current_user']) ? 'own' : 'published';
+        $view = Views::getView('user_contributions');
+        if ($view && $view->access($display)) {
+            $variables['contributions'] = $view->buildRenderable($display, [$user->id()]);
+        }
+    }
 }

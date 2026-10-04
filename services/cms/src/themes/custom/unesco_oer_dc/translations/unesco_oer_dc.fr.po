@@ -12,3 +12,12 @@ msgstr "L'Observatoire REL agrège et affiche des actualités et contenus liés 
 
 msgid "View original source"
 msgstr "Voir la source originale"
+
+msgid "Contributions"
+msgstr "Contributions"
+
+msgid "No contributions yet."
+msgstr "Aucune contribution pour le moment."
+
+msgid "You have not submitted any contributions yet."
+msgstr "Vous n'avez encore soumis aucune contribution."

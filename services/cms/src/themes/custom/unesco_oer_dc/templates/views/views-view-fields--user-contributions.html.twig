@@ -1,0 +1,20 @@
+{#
+/**
+ * @file
+ * Theme override for fields in the user contributions view.
+ */
+#}
+<span class="c-user-contributions__type c-content-category-badge">
+    {{ fields.type.content }}
+</span>
+<div class="c-user-contributions__body">
+    <h3 class="c-user-contributions__name">
+        {{ fields.title.content }}
+    </h3>
+    <div class="c-user-contributions__meta">
+        <span class="c-user-contributions__date">{{ fields.created.content }}</span>
+        {% if fields.moderation_state is defined and row._entity is defined and not row._entity.isPublished() %}
+            <span class="c-user-contributions__state">{{ fields.moderation_state.content }}</span>
+        {% endif %}
+    </div>
+</div>

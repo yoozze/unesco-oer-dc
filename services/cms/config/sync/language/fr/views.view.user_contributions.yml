@@ -1,0 +1,12 @@
+display:
+  default:
+    display_options:
+      title: Contributions
+      empty:
+        area_text_custom:
+          content: 'Aucune contribution pour le moment.'
+  own:
+    display_options:
+      empty:
+        area_text_custom:
+          content: "Vous n'avez encore soumis aucune contribution."
