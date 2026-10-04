@@ -1,6 +1,8 @@
+_core:
+  default_config_hash: nPGwsHOX-3rau-K6pNDjv8Gxc_SviGh2CvFM_lUngqE
 enabled: true
 weekday: 1
 hour: 8
 max_items: 50
-recipient_uids: []
-recipient_emails: []
+recipient_uids: {  }
+recipient_emails: {  }

@@ -60,9 +60,9 @@ module:
   locale: 0
   media: 0
   media_library: 0
-  moderation_digest: 0
   menu_link_content: 0
   menu_ui: 0
+  moderation_digest: 0
   mysql: 0
   news_ingestion: 0
   node: 0
