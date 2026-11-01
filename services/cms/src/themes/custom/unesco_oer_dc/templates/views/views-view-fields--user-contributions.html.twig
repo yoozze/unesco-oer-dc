@@ -8,13 +8,21 @@
     {{ fields.type.content }}
 </span>
 <div class="c-user-contributions__body">
-    <h3 class="c-user-contributions__name">
-        {{ fields.title.content }}
-    </h3>
-    <div class="c-user-contributions__meta">
-        <span class="c-user-contributions__date">{{ fields.created.content }}</span>
-        {% if fields.moderation_state is defined and row._entity is defined and not row._entity.isPublished() %}
-            <span class="c-user-contributions__state">{{ fields.moderation_state.content }}</span>
-        {% endif %}
+    <div class="c-user-contributions__main">
+        <h3 class="c-user-contributions__name">
+            {{ fields.title.content }}
+        </h3>
+        <div class="c-user-contributions__meta">
+            <span class="c-user-contributions__date">{{ fields.created.content }}</span>
+            {% if contribution_state_label %}
+                <span class="c-user-contributions__state">{{ contribution_state_label }}</span>
+            {% endif %}
+        </div>
     </div>
+    {% if contribution_edit_url %}
+        <a class="c-button c-button--text c-user-contributions__edit" href="{{ contribution_edit_url }}">
+            {{ svg_icon('edit', 'c-button__leading-icon') }}
+            <span class="c-button__label">{{ 'Edit'|t }}</span>
+        </a>
+    {% endif %}
 </div>

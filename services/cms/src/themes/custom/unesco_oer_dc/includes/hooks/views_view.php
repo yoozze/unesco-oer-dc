@@ -4,6 +4,7 @@
  * Implements theme hooks for views_view.
  */
 
+use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
 use Drupal\taxonomy\Entity\Term;
 
@@ -191,6 +192,33 @@ function unesco_oer_dc_theme_suggestions_views_view_fields_alter(&$suggestions, 
 function unesco_oer_dc_preprocess_views_view_fields(&$variables) {
     $view_id = $variables['view']->id();
     $current_display = $variables['view']->current_display;
+
+    if ($view_id === 'user_contributions') {
+        $node = $variables['row']->_entity ?? NULL;
+        $variables['contribution_edit_url'] = NULL;
+        $variables['contribution_state_label'] = NULL;
+        if ($node instanceof NodeInterface) {
+            // Use the pending Draft when a published default has a newer revision.
+            $editable_state = function_exists('custom_access_control_editable_moderation_state')
+                ? custom_access_control_editable_moderation_state($node)
+                : (string) ($node->get('moderation_state')->value ?? '');
+
+            if ($editable_state && $editable_state !== 'published') {
+                $state_labels = [
+                    'draft' => t('Draft'),
+                    'review' => t('Review'),
+                    'archived' => t('Archived'),
+                ];
+                $variables['contribution_state_label'] = $state_labels[$editable_state] ?? ucfirst($editable_state);
+            }
+
+            if ($editable_state === 'draft' && $node->access('update')) {
+                $variables['contribution_edit_url'] = Url::fromRoute('entity.node.edit_form', [
+                    'node' => $node->id(),
+                ])->toString();
+            }
+        }
+    }
 
     if (in_array($current_display, ['latest_news_view', 'news_view'], TRUE)) {
         $node = $variables['row']->_entity ?? NULL;

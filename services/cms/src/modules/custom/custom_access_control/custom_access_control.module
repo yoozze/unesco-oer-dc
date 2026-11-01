@@ -4,7 +4,91 @@ use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Cache\RefinableCacheableDependencyInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\node\NodeInterface;
 use Drupal\user\UserInterface;
+
+/**
+ * Contribution content types submitted via the public forms.
+ */
+function custom_access_control_contribution_types(): array {
+    return ['event', 'news', 'resource'];
+}
+
+/**
+ * Roles that may manage published contributions and moderation freely.
+ */
+function custom_access_control_privileged_roles(): array {
+    return ['administrator', 'contributor', 'moderator'];
+}
+
+/**
+ * Whether the account has a privileged editorial role.
+ */
+function custom_access_control_is_privileged(AccountInterface $account): bool {
+    return (bool) array_intersect($account->getRoles(), custom_access_control_privileged_roles());
+}
+
+/**
+ * Effective moderation state for community edit checks.
+ *
+ * When a published default revision has a pending Draft, authors should edit
+ * that latest Draft — not be blocked by the live published revision.
+ */
+function custom_access_control_editable_moderation_state(NodeInterface $entity): string {
+    if (!$entity->hasField('moderation_state')) {
+        return $entity->isPublished() ? 'published' : 'draft';
+    }
+
+    $moderation_info = \Drupal::service('content_moderation.moderation_information');
+    if (
+        $moderation_info->isModeratedEntity($entity)
+        && $entity->isDefaultRevision()
+        && $moderation_info->hasPendingRevision($entity)
+    ) {
+        $storage = \Drupal::entityTypeManager()->getStorage($entity->getEntityTypeId());
+        $latest_vid = $storage->getLatestRevisionId($entity->id());
+        if ($latest_vid && (int) $latest_vid !== (int) $entity->getRevisionId()) {
+            $latest = $storage->loadRevision($latest_vid);
+            if ($latest instanceof NodeInterface && $latest->hasField('moderation_state')) {
+                return (string) $latest->get('moderation_state')->value;
+            }
+        }
+    }
+
+    return (string) $entity->get('moderation_state')->value;
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_access() for node entities.
+ *
+ * Community submitters may edit Draft contributions only (including a pending
+ * Draft after a published version). Review and published-only items stay locked.
+ */
+function custom_access_control_node_access(EntityInterface $entity, $operation, AccountInterface $account) {
+    if ($operation !== 'update' || !$entity instanceof NodeInterface) {
+        return AccessResult::neutral();
+    }
+
+    if (!in_array($entity->bundle(), custom_access_control_contribution_types(), TRUE)) {
+        return AccessResult::neutral();
+    }
+
+    if (custom_access_control_is_privileged($account)) {
+        return AccessResult::neutral()->cachePerPermissions();
+    }
+
+    $moderation_state = custom_access_control_editable_moderation_state($entity);
+
+    if ($moderation_state !== 'draft') {
+        return AccessResult::forbidden('Community submitters can only edit contributions in Draft.')
+            ->cachePerPermissions()
+            ->addCacheableDependency($entity);
+    }
+
+    return AccessResult::neutral()
+        ->cachePerPermissions()
+        ->addCacheableDependency($entity);
+}
 
 /**
  * Implements hook_ENTITY_TYPE_access() for user entities.

@@ -74,9 +74,17 @@
 
 .c-user-contributions__body {
     display: flex;
-    flex-direction: column;
+    align-items: flex-start;
+    gap: size(2);
     min-width: 0;
+}
+
+.c-user-contributions__main {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
     gap: size(0.5);
+    min-width: 0;
 }
 
 // ## Name / title
@@ -123,6 +131,11 @@
     color: color('font');
     background-color: color('background-alt');
     border-radius: size('radius' 2);
+}
+
+.c-user-contributions__edit {
+    flex-shrink: 0;
+    margin-left: auto;
 }
 
 // ## Empty

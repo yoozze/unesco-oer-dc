@@ -20,7 +20,7 @@
         <div class="c-form__icon">
             {{ svg_icon('contextual-token-add') }}
         </div>
-        <h1 class="c-form__title">{{ 'Submit news'|t }}</h1>
+        <h1 class="c-form__title">{{ form_title|default('Submit news'|t) }}</h1>
     </div>
     <div class="c-form__body">
         {# {{ children }} #}

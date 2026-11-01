@@ -21,3 +21,15 @@ msgstr "Aucune contribution pour le moment."
 
 msgid "You have not submitted any contributions yet."
 msgstr "Vous n'avez encore soumis aucune contribution."
+
+msgid "Edit"
+msgstr "Modifier"
+
+msgid "Edit news"
+msgstr "Modifier l'actualité"
+
+msgid "Edit event"
+msgstr "Modifier l'événement"
+
+msgid "Edit resource"
+msgstr "Modifier la ressource"

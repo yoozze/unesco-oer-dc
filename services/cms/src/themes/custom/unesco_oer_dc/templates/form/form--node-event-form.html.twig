@@ -20,7 +20,7 @@
         <div class="c-form__icon">
             {{ svg_icon('calendar-add-on') }}
         </div>
-        <h1 class="c-form__title">{{ 'Submit event'|t }}</h1>
+        <h1 class="c-form__title">{{ form_title|default('Submit event'|t) }}</h1>
     </div>
     <div class="c-form__body">
         {# {{ children }} #}

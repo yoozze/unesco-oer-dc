@@ -76,10 +76,27 @@ function unesco_oer_dc_theme_suggestions_form_alter(&$suggestions, &$variables) 
     if (!empty($element['#id']) && str_starts_with($element['#id'], 'views-exposed-form-media-library')) {
         $suggestions[] = 'form__views_exposed_form_media_library';
     }
+
+    // Reuse the simplified submit form templates for contribution edits.
+    $form_id = $element['#form_id'] ?? '';
+    if (preg_match('/^node_(news|event|resource)_edit_form$/', $form_id, $matches)) {
+        $suggestions[] = 'form__node_' . $matches[1] . '_form';
+    }
 }
 
 function unesco_oer_dc_preprocess_form(&$variables) {
-    // $variables['test'] = 'test';
+    $form_id = $variables['element']['#form_id'] ?? '';
+    $titles = [
+        'node_news_form' => t('Submit news'),
+        'node_news_edit_form' => t('Edit news'),
+        'node_event_form' => t('Submit event'),
+        'node_event_edit_form' => t('Edit event'),
+        'node_resource_form' => t('Submit resource'),
+        'node_resource_edit_form' => t('Edit resource'),
+    ];
+    if (isset($titles[$form_id])) {
+        $variables['form_title'] = $titles[$form_id];
+    }
 }
 
 /**
