@@ -215,71 +215,108 @@ $main-bg-color: color('abbey');
 $secondary-bg-color: color('light');
 
 .c-navigation--secondary {
-    & > ul {
+    display: flex;
+    align-items: center;
+
+    .c-navigation__dropdown {
+        display: flex;
+        align-items: center;
         height: 100%;
-        padding-left: 0;
-        margin-top: 0;
-        margin-bottom: 0;
+    }
 
-        li {
-            height: 100%;
-            position: relative;
-            // padding-right: 1px;
+    .c-dropdown__toggle {
+        color: color('font-light');
+        border-radius: 0;
 
-            // @include after('') {
-            //     position: absolute;
-            //     top: 50%;
-            //     right: 0;
-            //     height: size(14px);
-            //     width: 1px;
-            //     background-color: rgba($secondary-bg-color, size('opacity' 4));
-            //     transform: translateY(-50%);
-            // }
-
-            &:last-child {
-                padding-right: 0;
-
-                @include after(none);
+        &:not(:disabled):not(.is-disabled):hover {
+            @include before(null) {
+                background-color: rgba($secondary-bg-color, size('opacity' 1));
             }
+        }
 
-            a {
-                @include transition('color' 'background-color');
+        &:not(:disabled):not(.is-disabled):focus {
+            @include before(null) {
+                background-color: rgba($secondary-bg-color, size('opacity' 2));
+            }
+        }
 
-                display: flex;
-                align-items: center;
-                position: relative;
-                height: 100%;
-                padding: size(1.25) size(2);
-                color: color('font-light');
-                text-decoration: none;
+        &:not(:disabled):not(.is-disabled).is-active,
+        &:not(:disabled):not(.is-disabled):active {
+            @include before(null) {
+                background-color: rgba($secondary-bg-color, size('opacity' 3));
+            }
+        }
 
-                &:hover {
-                    background-color: rgba($secondary-bg-color, size('opacity' 1));
-                }
+        @include before(null) {
+            border-radius: 0;
+        }
+    }
 
-                &:focus {
-                    background-color: rgba($secondary-bg-color, size('opacity' 2));
-                }
+    @include above('bp-sm') {
+        .c-dropdown__toggle {
+            display: none;
 
-                &:active {
-                    background-color: rgba($secondary-bg-color, size('opacity' 3));
-                }
+            & + .c-dropdown__menu {
+                position: static;
+                display: block;
+                padding: 0;
+                background-color: transparent;
+                border-radius: 0;
+                box-shadow: none;
 
-                &.is-active {
-                    background-color: rgba($secondary-bg-color, size('opacity' 3));
+                & > ul {
+                    display: flex;
+                    height: 100%;
+                    padding-left: 0;
+                    margin-top: 0;
+                    margin-bottom: 0;
 
-                    @include before('') {
-                        position: absolute;
-                        right: 0;
-                        top: 0;
-                        left: 0;
-                        height: size(3px);
-                        background-color: color('orange');
+                    li {
+                        height: 100%;
+                        position: relative;
+
+                        &:last-child {
+                            padding-right: 0;
+                        }
+
+                        a {
+                            @include transition('color' 'background-color');
+                            @include font('body-medium');
+
+                            display: flex;
+                            align-items: center;
+                            position: relative;
+                            height: 100%;
+                            padding: size(1.25) size(2);
+                            color: color('font-light');
+                            text-decoration: none;
+
+                            &:hover {
+                                background-color: rgba($secondary-bg-color, size('opacity' 1));
+                            }
+
+                            &:focus {
+                                background-color: rgba($secondary-bg-color, size('opacity' 2));
+                            }
+
+                            &:active {
+                                background-color: rgba($secondary-bg-color, size('opacity' 3));
+                            }
+
+                            &.is-active {
+                                background-color: rgba($secondary-bg-color, size('opacity' 3));
+
+                                @include before('') {
+                                    position: absolute;
+                                    right: 0;
+                                    top: 0;
+                                    left: 0;
+                                    height: size(3px);
+                                    background-color: color('orange');
+                                }
+                            }
+                        }
                     }
-                }
-
-                &:last-child {
-                    margin-right: 0;
                 }
             }
         }
