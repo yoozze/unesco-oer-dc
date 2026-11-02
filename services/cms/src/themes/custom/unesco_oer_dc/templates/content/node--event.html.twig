@@ -164,15 +164,7 @@
                             </div>
                         {% endif %}
                         <div class="c-article__meta-item">
-                            {% if content.field_venue_link[0] %}
-                                {% set url = content.field_venue_link[0]['#url'] %}
-                                <a href="{{ url.external ? url.uri : url }}" target="{{ url.external ? '_blank' : '_self' }}">
-                                    {{ content.field_location }}
-                                    {{ url.external ? svg_icon('open-in-new') : '' }}
-                                </a>
-                            {% else %}
-                                {{ content.field_location }}
-                            {% endif %}
+                            {{ content.field_location }}
                         </div>
                         {% if content.field_video[0] %}
                             <div class="c-article__meta-item">

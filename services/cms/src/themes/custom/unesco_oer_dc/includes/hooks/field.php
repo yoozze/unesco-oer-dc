@@ -32,6 +32,23 @@ function unesco_oer_dc_preprocess_field(&$variables) {
         $variables['is_first_slide'] = FALSE;
     }
 
+    // Event location: expose venue link for value-only linking in the field template.
+    if (
+        ($variables['element']['#entity_type'] ?? '') === 'node'
+        && ($variables['element']['#field_name'] ?? '') === 'field_location'
+    ) {
+        $node = $variables['element']['#object'] ?? NULL;
+        if (
+            $node
+            && $node->hasField('field_venue_link')
+            && !$node->get('field_venue_link')->isEmpty()
+        ) {
+            $url = $node->get('field_venue_link')->first()->getUrl();
+            $variables['venue_url'] = $url->toString();
+            $variables['venue_external'] = $url->isExternal();
+        }
+    }
+
     // Omit disabled hero slides from the front-end slider markup.
     if (
         ($variables['element']['#field_name'] ?? '') === 'field_slides'
