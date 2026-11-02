@@ -320,6 +320,10 @@ $meta-icon-size: size(2.75);
         text-decoration: none;
         word-break: break-word;
 
+        svg {
+            flex-shrink: 0;
+        }
+
         // & > span {
         //     // @include truncate-text();
         //     // word-break: break-word;
