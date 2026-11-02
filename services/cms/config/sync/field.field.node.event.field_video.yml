@@ -1,0 +1,31 @@
+uuid: c903c7b3-44f2-4a6d-a403-25f4932a262e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_video
+    - media.type.remote_video
+    - media.type.video
+    - node.type.event
+id: node.event.field_video
+field_name: field_video
+entity_type: node
+bundle: event
+label: Video
+description: 'Optional event recording. Add a remote video (YouTube or Vimeo) or upload a local video file. When set, the video is shown as the main media instead of the image.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      remote_video: remote_video
+      video: video
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: remote_video
+field_type: entity_reference

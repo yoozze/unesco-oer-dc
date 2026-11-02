@@ -318,11 +318,12 @@ $meta-icon-size: size(2.75);
         display: flex;
         align-items: center;
         text-decoration: none;
+        word-break: break-word;
 
-        & > span {
-            // @include truncate-text();
-            word-break: break-word;
-        }
+        // & > span {
+        //     // @include truncate-text();
+        //     // word-break: break-word;
+        // }
     }
 
     & + .c-article__meta-item {
@@ -443,7 +444,8 @@ $meta-icon-size: size(2.75);
         }
     }
 
-    iframe {
+    iframe,
+    video {
         // @include elevation(1);
 
         display: block;
@@ -451,7 +453,7 @@ $meta-icon-size: size(2.75);
         height: auto;
         border: 1px solid color('border-light');
         border-radius: size('radius' 4);
-        aspect-ratio: 16 / 9;
+        aspect-ratio: auto 16 / 9;
     }
 
     @include below('bp-lg') {

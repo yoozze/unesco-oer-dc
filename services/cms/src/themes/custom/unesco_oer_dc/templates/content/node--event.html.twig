@@ -70,7 +70,7 @@
 
 <article{{attributes.addClass([
     'c-article',
-    content.field_image[0] ? 'c-article--with-media' : 'c-article--without-media',
+    content.field_image[0] or video_media ? 'c-article--with-media' : 'c-article--without-media',
 ]).setAttribute('data-options', {
     'articleNavTitle': 'On this page'|t,
 }|json_encode)}}>
@@ -134,7 +134,11 @@
         <div class="o-container">
             <div{{content_attributes.addClass('c-article__content')}}>
                 <div class="c-article__main">
-                    {% if content.field_image[0] %}
+                    {% if video_media %}
+                        <div class="c-article__media">
+                            {{ video_media }}
+                        </div>
+                    {% elseif content.field_image[0] %}
                         <div class="c-article__media">
                             {{ content.field_image }}
                         </div>
@@ -142,11 +146,6 @@
                     <div class="c-article__description">
                         {{ content.field_description }}
                     </div>
-                    {% if content.field_url[0] %}
-                        <div class="c-article__buttons">
-                            {{ content.field_url }}
-                        </div>
-                    {% endif %}
                     {% if content.field_links[0] %}
                         <hr class="c-article__divider" />
                         <div class="c-article__related">
@@ -175,6 +174,11 @@
                                 {{ content.field_location }}
                             {% endif %}
                         </div>
+                        {% if content.field_video[0] %}
+                            <div class="c-article__meta-item">
+                                {{ content.field_video }}
+                            </div>
+                        {% endif %}
                     </dl>
                 </aside>
             </div>

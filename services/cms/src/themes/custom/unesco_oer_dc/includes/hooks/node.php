@@ -36,12 +36,20 @@ function unesco_oer_dc_preprocess_node(&$variables) {
     $node = $variables['node'];
     $node_type = $node->getType();
 
-    if ($node_type === 'resource') {
+    if ($node_type === 'resource' && $node->hasField('field_url') && !$node->get('field_url')->isEmpty()) {
         $url = $node->get('field_url')->uri;
+        $embed = get_video_embed($url, 560 * 2, 315 * 2);
+        if ($embed) {
+            $variables['video_embed'] = $embed;
+        }
+    }
 
-        // If url is linking youtube video, prepare embed html
-        if (!empty($url) && strpos($url, 'https://www.youtube.com') !== false) {
-            $variables['video_embed'] = get_youtube_embed($url, 560 * 2, 315 * 2);
+    if ($node_type === 'event' && $node->hasField('field_video') && !$node->get('field_video')->isEmpty()) {
+        $media = $node->get('field_video')->entity;
+        if ($media) {
+            $variables['video_media'] = \Drupal::entityTypeManager()
+                ->getViewBuilder('media')
+                ->view($media, 'default');
         }
     }
 

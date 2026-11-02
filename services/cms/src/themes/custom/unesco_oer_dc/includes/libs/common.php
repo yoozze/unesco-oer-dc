@@ -107,6 +107,53 @@ function get_join_link() {
 }
 
 /**
+ * Whether a URL points to YouTube.
+ *
+ * @param string $url
+ *
+ * @return bool
+ */
+function is_youtube_url($url) {
+    return (bool) preg_match('#(?:https?://)?(?:www\.)?(?:youtube\.com|youtu\.be)/#i', $url);
+}
+
+/**
+ * Whether a URL points to a direct video file.
+ *
+ * @param string $url
+ *
+ * @return bool
+ */
+function is_video_file_url($url) {
+    return (bool) preg_match('/\.(mp4|webm|ogg|ogv)(\?|#|$)/i', $url);
+}
+
+/**
+ * Build embed HTML for a YouTube or direct video file URL.
+ *
+ * @param string $url
+ * @param int $width
+ * @param int $height
+ *
+ * @return string|null
+ */
+function get_video_embed($url, $width = 560, $height = 315) {
+    if (empty($url)) {
+        return NULL;
+    }
+
+    if (is_youtube_url($url)) {
+        return get_youtube_embed($url, $width, $height);
+    }
+
+    if (is_video_file_url($url)) {
+        return get_video_file_embed($url, $width, $height);
+    }
+
+    return NULL;
+}
+
+/**
  * Get YouTube embed code.
  *
  * @param string $url
@@ -114,15 +161,41 @@ function get_join_link() {
  * @param int $height
  */
 function get_youtube_embed($url, $width = 560, $height = 315) {
-    $url = str_replace('watch?v=', 'embed/', $url);
-    $url = str_replace('live/', 'embed/', $url);
+    if (preg_match('#youtu\.be/([a-zA-Z0-9_-]+)#', $url, $matches)) {
+        $url = 'https://www.youtube.com/embed/' . $matches[1];
+    } else {
+        $url = str_replace('watch?v=', 'embed/', $url);
+        $url = str_replace('live/', 'embed/', $url);
+    }
+
+    $url = htmlspecialchars($url, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
     $embed = '<iframe';
-    $embed .= ' width="' . $width . '"';
-    $embed .= ' height="' . $height . '"';
+    $embed .= ' width="' . (int) $width . '"';
+    $embed .= ' height="' . (int) $height . '"';
     $embed .= ' src="' . $url . '"';
     $embed .= ' frameborder="0"';
     $embed .= ' allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"';
     $embed .= ' allowfullscreen';
     $embed .= '></iframe>';
+    return $embed;
+}
+
+/**
+ * Get HTML5 video embed code for a direct video file URL.
+ *
+ * @param string $url
+ * @param int $width
+ * @param int $height
+ */
+function get_video_file_embed($url, $width = 560, $height = 315) {
+    $url = htmlspecialchars($url, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+    $embed = '<video';
+    $embed .= ' width="' . (int) $width . '"';
+    $embed .= ' height="' . (int) $height . '"';
+    $embed .= ' controls';
+    $embed .= ' playsinline';
+    $embed .= '>';
+    $embed .= '<source src="' . $url . '">';
+    $embed .= '</video>';
     return $embed;
 }

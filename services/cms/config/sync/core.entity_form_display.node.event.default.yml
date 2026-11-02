@@ -17,6 +17,7 @@ dependencies:
     - field.field.node.event.field_start_date
     - field.field.node.event.field_tags
     - field.field.node.event.field_venue_link
+    - field.field.node.event.field_video
     - node.type.event
     - workflows.workflow.editorial
   module:
@@ -34,21 +35,11 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 16
+    weight: 17
     region: content
     settings: {  }
     third_party_settings: {  }
   field_area_of_action:
-    type: select2_entity_reference
-    weight: 8
-    region: content
-    settings:
-      width: 100%
-      autocomplete: false
-      match_operator: CONTAINS
-      match_limit: 10
-    third_party_settings: {  }
-  field_audience:
     type: select2_entity_reference
     weight: 9
     region: content
@@ -58,9 +49,19 @@ content:
       match_operator: CONTAINS
       match_limit: 10
     third_party_settings: {  }
-  field_country:
+  field_audience:
     type: select2_entity_reference
     weight: 10
+    region: content
+    settings:
+      width: 100%
+      autocomplete: false
+      match_operator: CONTAINS
+      match_limit: 10
+    third_party_settings: {  }
+  field_country:
+    type: select2_entity_reference
+    weight: 11
     region: content
     settings:
       width: 100%
@@ -86,7 +87,7 @@ content:
     third_party_settings: {  }
   field_event_type:
     type: options_select
-    weight: 7
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -99,7 +100,7 @@ content:
     third_party_settings: {  }
   field_links:
     type: link_default
-    weight: 13
+    weight: 14
     region: content
     settings:
       placeholder_url: ''
@@ -115,7 +116,7 @@ content:
     third_party_settings: {  }
   field_region:
     type: select2_entity_reference
-    weight: 11
+    weight: 12
     region: content
     settings:
       width: 100%
@@ -125,7 +126,7 @@ content:
     third_party_settings: {  }
   field_registration_link:
     type: link_default
-    weight: 12
+    weight: 13
     region: content
     settings:
       placeholder_url: ''
@@ -144,6 +145,13 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: ''
+    third_party_settings: {  }
+  field_video:
+    type: media_library_widget
+    weight: 7
+    region: content
+    settings:
+      media_types: {  }
     third_party_settings: {  }
   langcode:
     type: language_select

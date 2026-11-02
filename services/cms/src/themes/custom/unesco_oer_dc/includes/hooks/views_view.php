@@ -240,9 +240,9 @@ function unesco_oer_dc_preprocess_views_view_fields(&$variables) {
     if ($view_id === 'dubai_declaration') {
         $url = $variables['row']->_entity->get('field_url')->uri;
         $variables['url'] = $url;
-        // If url is linking youtube video, prepare embed html
-        if (!empty($url) && strpos($url, 'https://www.youtube.com') !== false) {
-            $variables['video_embed'] = get_youtube_embed($url, 560 * 2, 315 * 2);
+        $embed = get_video_embed($url, 560 * 2, 315 * 2);
+        if ($embed) {
+            $variables['video_embed'] = $embed;
         }
 
         $field_image = $variables['row']->_entity->get('field_image');

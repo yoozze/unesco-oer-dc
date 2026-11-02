@@ -18,6 +18,7 @@ dependencies:
     - field.field.node.event.field_start_date
     - field.field.node.event.field_tags
     - field.field.node.event.field_venue_link
+    - field.field.node.event.field_video
     - node.type.event
   module:
     - datetime
@@ -91,6 +92,8 @@ hidden:
   field_registration_link: true
   field_tags: true
   field_venue_link: true
+  field_video: true
   langcode: true
   links: true
   node_read_time: true
+
