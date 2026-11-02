@@ -24,6 +24,6 @@ settings:
   handler_settings: {  }
   file_directory: 'video/[date:custom:Y]/[date:custom:m]'
   file_extensions: mp4
-  max_filesize: ''
+  max_filesize: '1 GB'
   description_field: false
 field_type: file
