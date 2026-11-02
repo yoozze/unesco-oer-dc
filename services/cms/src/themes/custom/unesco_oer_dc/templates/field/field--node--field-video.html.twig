@@ -8,7 +8,31 @@
 #}
 <div>
     <dt>{{ svg_icon('videocam') }} <span>{{ label }}</span></dt>
-    {% for item in items %}
-        <dd><span>{{ item.content }}</span></dd>
+    {% for key, item in items %}
+        {% set media = element['#items'][key].entity %}
+        {% set video_url = null %}
+        {% set external = false %}
+
+        {% if media %}
+            {% if media.bundle() == 'video' and media.field_media_video_file.entity %}
+                {% set video_url = file_url(media.field_media_video_file.entity.uri.value) %}
+            {% elseif media.bundle() == 'remote_video' and media.field_media_oembed_video.value %}
+                {% set video_url = media.field_media_oembed_video.value %}
+                {% set external = true %}
+            {% endif %}
+        {% endif %}
+
+        <dd>
+            <span>
+                {% if video_url %}
+                    <a href="{{ video_url }}" target="{{ external ? '_blank' : '_self' }}"{{ external ? ' rel="noopener noreferrer"' : '' }}>
+                        <span>{{ media.label() }}</span>
+                        {{ external ? svg_icon('open-in-new') : '' }}
+                    </a>
+                {% else %}
+                    {{ item.content }}
+                {% endif %}
+            </span>
+        </dd>
     {% endfor %}
 </div>
