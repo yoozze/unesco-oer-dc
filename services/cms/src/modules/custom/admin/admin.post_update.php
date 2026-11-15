@@ -76,3 +76,10 @@ function admin_post_update_make_menu_link_url_translatable(&$sandbox = NULL) {
 function admin_post_update_enable_observatory_views(&$sandbox = NULL) {
   return admin_run_update_script('observatory/enable_views.php');
 }
+
+/**
+ * Point Join banner CTA at the KoboToolbox membership form.
+ */
+function admin_post_update_update_join_banner_link(&$sandbox = NULL) {
+  return admin_run_update_script('join_banner/update_join_link.php');
+}

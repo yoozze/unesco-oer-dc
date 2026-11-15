@@ -98,15 +98,6 @@ function get_media_image($id, $image_style = '') {
 }
 
 /**
- * UNESCO membership survey link for the current language.
- */
-function get_join_link() {
-    $language_id = \Drupal::languageManager()->getCurrentLanguage()->getId();
-    $link = 'https://surveys.unesco.org/163625?lang=' . $language_id;
-    return $link;
-}
-
-/**
  * Whether a URL points to YouTube.
  *
  * @param string $url
