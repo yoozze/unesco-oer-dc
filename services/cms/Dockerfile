@@ -43,10 +43,12 @@ RUN touch /.dockerenv
 
 RUN bash drupal.sh --config-composer
 
+# Pin Robo 5.1: 5.2+ calls Application::addCommand() (Symfony 7.4+); Drupal 10 pins Console 6.4.
 RUN composer require \
     oomphinc/composer-installers-extender \
     npm-asset/select2 \
-    drush/drush:^13.7
+    drush/drush:^13.7 \
+    consolidation/robo:5.1.*
 
 RUN bash drupal.sh --get-modules
 
