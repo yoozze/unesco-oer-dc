@@ -247,11 +247,14 @@ function unesco_oer_dc_preprocess_views_view_fields(&$variables) {
 
         $field_image = $variables['row']->_entity->get('field_image');
         if (!empty($field_image) && !empty($field_image->target_id)) {
-            $variables['image'] = get_media_image(
+            $image = get_media_image(
                 $field_image->target_id,
                 // 'list_item'
                 'wide'
             );
+            if ($image) {
+                $variables['image'] = $image;
+            }
         }
     }
 }
@@ -278,9 +281,16 @@ function unesco_oer_dc_theme_suggestions_views_view_field_alter(&$suggestions, &
 
 function unesco_oer_dc_preprocess_views_view_field(&$variables) {
     if (in_array($variables['field']->field, ['field_image', 'field_logo']) && !empty($variables['output'])) {
-        $variables['image'] = get_media_image(
+        $image = get_media_image(
             $variables['output']->__toString(),
             'grid_item'
         );
+        if ($image) {
+            $variables['image'] = $image;
+        } else {
+            // Keep Views rows from rendering a broken image field.
+            $variables['output'] = '';
+            unset($variables['image']);
+        }
     }
 }

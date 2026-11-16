@@ -295,6 +295,8 @@ $meta-item-inline-separator-spacer: size(0.5);
 .c-content-item__media {
     figure {
         margin: 0;
+        // Reserve grid_item ratio so broken/missing derivatives don't collapse the card.
+        aspect-ratio: 342 / 208;
         background-color: color('background-alt');
 
         .c-content-item--card & {
@@ -311,9 +313,9 @@ $meta-item-inline-separator-spacer: size(0.5);
             @include transition('transform');
 
             display: block;
-            // max-width: 100%;
             width: 100%;
-            height: auto;
+            height: 100%;
+            object-fit: cover;
         }
 
         & > figcaption {
@@ -325,12 +327,12 @@ $meta-item-inline-separator-spacer: size(0.5);
         display: flex;
         align-items: center;
         justify-content: center;
-        aspect-ratio: 342 / 208;
         background-color: color('abbey-90');
 
         img {
             width: 36%;
             height: auto;
+            object-fit: contain;
         }
     }
 

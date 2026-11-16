@@ -36,7 +36,11 @@
  * @see template_preprocess_field()
  */
 #}
-{% set item = items|first %}
-<figure>
-    <img src="{{ item.image.thumb.url }}" alt="{{ item.image.alt }}" width="{{ item.image.thumb.width }}" height="{{ item.image.thumb.height }}" loading="lazy"/>
-</figure>
+{% if items|length > 0 %}
+    {% set item = items|first %}
+    {% if item.image.thumb.url is defined and item.image.thumb.url %}
+        <figure>
+            <img src="{{ item.image.thumb.url }}" alt="{{ item.image.alt }}" width="{{ item.image.thumb.width }}" height="{{ item.image.thumb.height }}" loading="lazy"/>
+        </figure>
+    {% endif %}
+{% endif %}

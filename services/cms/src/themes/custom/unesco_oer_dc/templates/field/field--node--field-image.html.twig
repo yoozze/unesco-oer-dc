@@ -44,7 +44,7 @@
         'prevArrow': '<button class="c-icon-button c-icon-button--standard c-slider__arrow c-slider__arrow--prev"><svg class="c-icon c-icon-button__icon" xmlns:xlink="http://www.w3.org/1999/xlink"><use xlink:href="#arrow-forward"></use></svg></button>',
     }|json_encode }}">
         {% for item in items %}
-            {% if item.image %}
+            {% if item.image.thumb.url is defined and item.image.thumb.url %}
                 <figure class="c-slider__item">
                     <a href="{{ item.image.url }}" target="_blank">
                         <img src="{{ item.image.thumb.url }}" alt="{{ item.image.alt }}" width="{{ item.image.thumb.width }}" height="{{ item.image.thumb.height }}" loading="lazy"/>
@@ -56,14 +56,16 @@
             {% endif %}
         {% endfor %}
     </div>
-{% else %}
+{% elseif items|length > 0 %}
     {% set item = items|first %}
-    <figure>
-        <a href="{{ item.image.url }}" target="_blank">
-            <img src="{{ item.image.thumb.url }}" alt="{{ item.image.alt }}" width="{{ item.image.thumb.width }}" height="{{ item.image.thumb.height }}" loading="lazy"/>
-        </a>
-        {% if item.image.caption %}
-            <figcaption>{{ item.image.caption }}</figcaption>
-        {% endif %}
-    </figure>
+    {% if item.image.thumb.url is defined and item.image.thumb.url %}
+        <figure>
+            <a href="{{ item.image.url }}" target="_blank">
+                <img src="{{ item.image.thumb.url }}" alt="{{ item.image.alt }}" width="{{ item.image.thumb.width }}" height="{{ item.image.thumb.height }}" loading="lazy"/>
+            </a>
+            {% if item.image.caption %}
+                <figcaption>{{ item.image.caption }}</figcaption>
+            {% endif %}
+        </figure>
+    {% endif %}
 {% endif %}

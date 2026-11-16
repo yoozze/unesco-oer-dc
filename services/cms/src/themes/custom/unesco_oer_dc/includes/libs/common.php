@@ -65,32 +65,98 @@ function clean_suggetion($suggestion) {
 
 /**
  * Load media image metadata, optionally with an image style derivative.
+ *
+ * Returns NULL when the media/file is missing or not a usable raster image,
+ * so callers can fall back to placeholders instead of broken markup.
+ *
+ * @return array{
+ *   caption: mixed,
+ *   alt: mixed,
+ *   title: mixed,
+ *   width: int,
+ *   height: int,
+ *   url: string,
+ *   thumb?: array{url: string, width: int, height: int}
+ * }|null
  */
 function get_media_image($id, $image_style = '') {
+    if (empty($id)) {
+        return NULL;
+    }
+
     $media = Media::load($id);
-    $file = File::load($media->get('field_media_image')->target_id);
+    if (!$media || !$media->hasField('field_media_image') || $media->get('field_media_image')->isEmpty()) {
+        return NULL;
+    }
+
+    $image_item = $media->get('field_media_image')->first();
+    $file = File::load($image_item->target_id);
+    if (!$file) {
+        return NULL;
+    }
+
+    $original_uri = $file->getFileUri();
+    $image_factory = \Drupal::service('image.factory');
+    $original_image = $image_factory->get($original_uri);
+    if (!$original_image->isValid()) {
+        return NULL;
+    }
+
+    $width = (int) ($image_item->width ?: $original_image->getWidth());
+    $height = (int) ($image_item->height ?: $original_image->getHeight());
+    if ($width < 1 || $height < 1) {
+        return NULL;
+    }
+
     $media_info = [
-        'caption' => $media->field_media_caption->value,
-        'alt' => $media->field_media_image->alt,
-        'title' => $media->field_media_image->title,
-        'width' => intval($media->field_media_image->width),
-        'height' => intval($media->field_media_image->height),
+        'caption' => $media->hasField('field_media_caption') ? $media->field_media_caption->value : NULL,
+        'alt' => $image_item->alt,
+        'title' => $image_item->title,
+        'width' => $width,
+        'height' => $height,
         'url' => $file->createFileUrl(),
     ];
 
-    if ($image_style !== '') {
-        $style = \Drupal::entityTypeManager()->getStorage('image_style')->load($image_style);
-        $original_image = $file->getFileUri();
-        $styled_image = $style->buildUri($original_image);
-        if (!file_exists($styled_image)) {
-            $style->createDerivative($original_image, $styled_image);
-        }
+    if ($image_style === '') {
+        return $media_info;
+    }
 
-        $image_factory = \Drupal::service('image.factory')->get($styled_image);
+    $style = \Drupal::entityTypeManager()->getStorage('image_style')->load($image_style);
+    if (!$style) {
         $media_info['thumb'] = [
-            'url' => \Drupal::service('file_url_generator')->generateString($styled_image),
-            'width' => $image_factory->getToolkit()->getWidth(),
-            'height' => $image_factory->getToolkit()->getHeight(),
+            'url' => $media_info['url'],
+            'width' => $width,
+            'height' => $height,
+        ];
+        return $media_info;
+    }
+
+    $styled_uri = $style->buildUri($original_uri);
+    if (!file_exists($styled_uri)) {
+        try {
+            $style->createDerivative($original_uri, $styled_uri);
+        } catch (\Throwable $e) {
+            \Drupal::logger('unesco_oer_dc')->warning('Image style @style failed for @uri: @message', [
+                '@style' => $image_style,
+                '@uri' => $original_uri,
+                '@message' => $e->getMessage(),
+            ]);
+        }
+    }
+
+    $styled_image = $image_factory->get($styled_uri);
+    if ($styled_image->isValid() && $styled_image->getWidth() && $styled_image->getHeight()) {
+        $media_info['thumb'] = [
+            'url' => \Drupal::service('file_url_generator')->generateString($styled_uri),
+            'width' => (int) $styled_image->getWidth(),
+            'height' => (int) $styled_image->getHeight(),
+        ];
+    } else {
+        // Derivative missing/unreadable — keep layout stable with the original.
+        $media_info['thumb'] = [
+            'url' => $media_info['url'],
+            'width' => $width,
+            'height' => $height,
         ];
     }
 

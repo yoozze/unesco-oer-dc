@@ -67,6 +67,20 @@ function unesco_oer_dc_preprocess_node(&$variables) {
         }
     }
 
+    // Hide unusable field_image so teasers/full views can use placeholders.
+    if (
+        !empty($variables['content']['field_image'])
+        && $node->hasField('field_image')
+        && !$node->get('field_image')->isEmpty()
+    ) {
+        $media = $node->get('field_image')->entity;
+        $media_id = $media ? $media->id() : NULL;
+        $style = ($variables['view_mode'] ?? '') === 'full' ? 'jumbo' : 'grid_item';
+        if (!$media_id || !get_media_image($media_id, $style)) {
+            unset($variables['content']['field_image']);
+        }
+    }
+
     if (in_array($node_type, ['event', 'resource', 'news'])) {
         $author = $node->getOwner();
         if ($author) {

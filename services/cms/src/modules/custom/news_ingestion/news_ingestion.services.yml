@@ -24,6 +24,7 @@ services:
       - '@file_system'
       - '@file.repository'
       - '@logger.factory'
+      - '@image.factory'
 
   news_ingestion.source_prerequisites:
     class: Drupal\news_ingestion\Service\SourcePrerequisiteService
