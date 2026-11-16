@@ -90,6 +90,22 @@
                 </span>
             </div>
             <div class="c-content-item__toolbar-group">
+                {% if not node.field_video.isEmpty %}
+                    {% set video_media = node.field_video.entity %}
+                    {% set video_url = null %}
+                    {% if video_media.bundle() == 'video' and video_media.field_media_video_file.entity %}
+                        {% set video_url = file_url(video_media.field_media_video_file.entity.uri.value) %}
+                    {% elseif video_media.bundle() == 'remote_video' and video_media.field_media_oembed_video.value %}
+                        {% set video_url = video_media.field_media_oembed_video.value %}
+                    {% endif %}
+                    {% if video_url %}
+                        <span class="c-content-item__tool-button">
+                            <a class="c-icon-button c-icon-button--standard" href="{{ video_url }}" target="_blank" rel="noopener noreferrer" title="{{ 'Open video'|t }}" aria-label="{{ 'Open video'|t }}">
+                                {{ svg_icon('videocam', 'c-icon-button__icon') }}
+                            </a>
+                        </span>
+                    {% endif %}
+                {% endif %}
                 <span class="c-content-item__tool-button">
                     {{ content.addtoany }}
                 </span>
