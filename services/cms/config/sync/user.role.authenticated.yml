@@ -33,6 +33,7 @@ label: 'Authenticated user'
 weight: -9
 is_admin: false
 permissions:
+  - 'access comments'
   - 'access content'
   - 'access shortcuts'
   - 'access site-wide contact form'
@@ -49,6 +50,7 @@ permissions:
   - 'delete own image media'
   - 'delete own remote_video media'
   - 'display eu cookie compliance popup'
+  - 'edit own comments'
   - 'edit own document media'
   - 'edit own event content'
   - 'edit own image media'

@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.event.field_area_of_action
     - field.field.node.event.field_audience
+    - field.field.node.event.field_comments
     - field.field.node.event.field_country
     - field.field.node.event.field_description
     - field.field.node.event.field_end_date
@@ -21,6 +22,7 @@ dependencies:
     - node.type.event
     - workflows.workflow.editorial
   module:
+    - comment
     - content_moderation
     - datetime
     - link
@@ -58,6 +60,12 @@ content:
       autocomplete: false
       match_operator: CONTAINS
       match_limit: 10
+    third_party_settings: {  }
+  field_comments:
+    type: comment_default
+    weight: 16
+    region: content
+    settings: {  }
     third_party_settings: {  }
   field_country:
     type: select2_entity_reference

@@ -6,7 +6,6 @@ dependencies:
     - filter.format.basic_html
     - rest.resource.public_api
   module:
-    - comment
     - contact
     - eu_cookie_compliance
     - filter
@@ -24,7 +23,6 @@ permissions:
   - 'access content'
   - 'access site-wide contact form'
   - 'display eu cookie compliance popup'
-  - 'post comments'
   - 'restful get public_api'
   - 'search content'
   - 'use advanced search'
