@@ -1,55 +1,296 @@
-// # Comment
-// ---------
+// # Comments
+// ==========
 
 $comment-padding: size(3);
 $comment-icon-size: size(20px);
+$comment-avatar-size: size(40px);
+$comment-avatar-size-reply: size(32px);
+$comment-radius: size('radius' 3);
+$comment-border: color('border-light');
+
+// ## Comments section
+// -------------------
+
+.c-comments {
+    margin-top: size(6);
+}
+
+.c-comments__title,
+.c-comments__form-title {
+    @include font('headline-small');
+
+    margin-top: 0;
+    margin-bottom: size(3);
+}
+
+.c-comments__list {
+    display: flex;
+    flex-direction: column;
+    gap: size(3);
+}
+
+.c-comments__form {
+    margin-top: size(5);
+    padding-top: size(4);
+    border-top: 1px solid $comment-border;
+}
+
+// ## Comment
+// ----------
 
 .c-comment {
-    margin-top: size(4);
+    margin-top: 0;
 }
 
 // ## Comment Content
 // ------------------
 
 .c-comment__content {
-    @include elevation(1);
-
-    border-radius: size('radius' 3);
+    background-color: color('light');
+    border: 1px solid $comment-border;
+    border-radius: $comment-radius;
 }
 
 // ## Comment Header
 // -----------------
 
 .c-comment__header {
-    padding: size(4) $comment-padding;
+    display: flex;
+    gap: size(2);
+    align-items: flex-start;
+    padding: $comment-padding;
+    padding-bottom: size(2);
+}
+
+// ## Comment Avatar
+// -----------------
+
+.c-comment__avatar {
+    flex-shrink: 0;
+}
+
+.c-comment__avatar-image {
+    display: block;
+    width: $comment-avatar-size;
+    height: $comment-avatar-size;
+    object-fit: cover;
+    border-radius: 50%;
     background-color: color('background-alt');
-    border-radius: size('radius' 3) size('radius' 3) 0 0;
+
+    &--logo {
+        object-fit: contain;
+        padding: size(0.25);
+        box-sizing: border-box;
+    }
+}
+
+// ## Comment Heading
+// ------------------
+
+.c-comment__heading {
+    flex: 1;
+    min-width: 0;
+}
+
+.c-comment__title-row {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: size(1.5);
+    align-items: center;
+
+    // History JS inserts an empty <a id="new"> before the mark for deep-linking.
+    // Keep it out of the flex flow so it does not push the badge away.
+    > a#new {
+        position: absolute;
+        width: 0;
+        height: 0;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+    }
 }
 
 // ## Comment Title
 // ----------------
 
 .c-comment__title {
-    margin-top: 0;
+    @include font('title-medium');
+
+    margin: 0;
+    font-weight: 600;
+}
+
+// ## New badge
+// ------------
+
+.c-comment__new {
+    @include font('label-medium');
+
+    display: none;
+    align-items: center;
+    padding: size(0.25) size(1.25);
+    color: color('orange-20');
+    background-color: color('orange-95');
+    border: 1px solid color('orange-90');
+    border-radius: size('radius' 4);
+    text-transform: uppercase;
+    font-weight: 600;
+
+    &:not(.hidden) {
+        display: inline-flex;
+    }
+
+    &.hidden {
+        display: none;
+    }
 }
 
 // ## Comment Meta
 // ---------------
 
 .c-comment__meta {
+    @include font('body-medium');
+
     display: flex;
     flex-wrap: wrap;
-    margin-top: size(2);
-    margin-bottom: 0;
+    gap: size(1.5);
+    align-items: center;
+    margin-top: size(0.5);
     color: color('font-muted');
 }
 
-// ## Comment Meta Item
+// ## Comment Author
+// -----------------
+
+.c-comment__author {
+    color: color('font');
+    font-weight: 600;
+
+    a {
+        @include transition('color');
+
+        color: color('blue-10');
+        text-decoration: none;
+
+        &:hover,
+        &:focus {
+            color: color('blue');
+        }
+    }
+}
+
+// ## Comment separator
 // --------------------
 
-$meta-item-inline-separator-spacer: size(0.5);
-$meta-item-separator-spacer: size(2);
-$meta-item-separator-size: size(0.75);
+.c-comment__sep {
+    flex-shrink: 0;
+    width: size(0.75);
+    height: size(0.75);
+    background-color: color('bullet');
+    border-radius: 100%;
+}
+
+// ## Comment Date-time
+// --------------------
+
+.c-comment__date-time {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: size(1.5);
+    align-items: center;
+}
+
+// ## Comment Body
+// ---------------
+
+.c-comment__body {
+    padding: 0 $comment-padding $comment-padding;
+
+    & > * {
+        &:first-child {
+            margin-top: 0;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+// ## Comment Footer
+// -----------------
+
+.c-comment__footer {
+    padding: 0 $comment-padding $comment-padding;
+}
+
+// ## Comment Links
+// ----------------
+
+.c-comment__links {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 negative(0.5);
+    padding: 0;
+    list-style: none;
+}
+
+.c-comment__link-item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 0 size(0.5);
+}
+
+// ## Threaded replies
+// -------------------
+// Drupal wraps child comments in `.indented` as a sibling of the parent
+// article. Each reply stays its own card, stepped in with a thread rail.
+
+.indented {
+    display: flex;
+    flex-direction: column;
+    gap: size(3);
+    margin: 0;
+    margin-left: size(3);
+    padding: 0;
+    padding-left: size(3);
+    border-left: 2px solid color('blue-90');
+
+    > .c-comment {
+        margin-top: 0;
+
+        .c-comment__content {
+            background-color: color('blue-99');
+        }
+
+        .c-comment__avatar-image {
+            width: $comment-avatar-size-reply;
+            height: $comment-avatar-size-reply;
+        }
+    }
+
+    > .indented {
+        border-left-color: color('blue-80');
+
+        > .c-comment {
+            .c-comment__content {
+                background-color: color('navy-blue-99');
+            }
+        }
+    }
+
+    @include below('bp-sm') {
+        margin-left: size(2);
+        padding-left: size(2);
+    }
+}
+
+// ## Legacy / feedback comment bits
+// ---------------------------------
+
+// ## Comment Meta Item
+// --------------------
 
 .c-comment__meta-item {
     display: flex;
@@ -82,80 +323,7 @@ $meta-item-separator-size: size(0.75);
             margin-left: 0;
         }
     }
-
-    & > div + div {
-        @include before(attr(data-separator)) {
-            margin-right: $meta-item-inline-separator-spacer;
-            margin-left: $meta-item-inline-separator-spacer;
-        }
-    }
-
-    & + .c-comment__meta-item {
-        @include before('') {
-            width: $meta-item-separator-size;
-            height: $meta-item-separator-size;
-            margin-top: size(1.125);
-            margin-right: $meta-item-separator-spacer;
-            margin-left: $meta-item-separator-spacer;
-            background-color: color('bullet');
-            border-radius: 100%;
-        }
-    }
 }
-
-// ## Comment Author
-// -----------------
-
-.c-comment__author {
-    display: flex;
-    align-items: center;
-    margin-bottom: size(2);
-
-    @include before('') {
-        width: size(6px);
-        height: size(6px);
-        margin: 0 size(2);
-        border-radius: 100%;
-        background-color: color('font-muted');
-    }
-}
-
-// ## Date-time
-// ------------
-
-.c-comment__date-time {
-    display: flex;
-    flex-wrap: wrap;
-    color: color('font-muted');
-
-    & > span {
-        display: flex;
-        // align-items: center;
-
-        & > svg {
-            width: $comment-icon-size;
-            height: $comment-icon-size;
-            margin-top: size(0.25);
-            margin-right: size(1);
-            flex-shrink: 0;
-        }
-
-        & + span {
-            @include before('') {
-                width: $meta-item-separator-size;
-                height: $meta-item-separator-size;
-                margin-top: size(1.125);
-                margin-right: $meta-item-separator-spacer;
-                margin-left: $meta-item-separator-spacer;
-                background-color: color('bullet');
-                border-radius: 100%;
-            }
-        }
-    }
-}
-
-// ## Comment Info
-// ---------------
 
 $comment-info-cell-y-padding: size(0.25);
 
@@ -240,24 +408,6 @@ $comment-info-cell-y-padding: size(0.25);
         }
     }
 }
-
-// ## Comment Body
-// ---------------
-
-.c-comment__body {
-    padding: $comment-padding;
-
-    & > * {
-        &:first-child {
-            margin-top: 0;
-        }
-
-        &:last-child {
-            margin-bottom: 0;
-        }
-    }
-}
-
 // ## Comment Label
 // ----------------
 
@@ -268,36 +418,3 @@ $comment-info-cell-y-padding: size(0.25);
     margin: 0;
     border-top: 1px solid color('border');
 }
-
-// ## Comment Footer
-// -----------------
-
-.c-comment__footer {
-    padding: $comment-padding;
-    padding-top: 0;
-    // background-color: color('background-alt');
-    // border-radius: 0 0 size('radius' 3) size('radius' 3);
-    // border-top: 1px solid color('border');
-}
-
-// ## Comment Links
-// ----------------
-
-.c-comment__links {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 0 negative(0.5);
-    padding: 0;
-    list-style: none;
-}
-
-// ## Comment Link Item
-// --------------------
-
-.c-comment__link-item {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    padding: 0 size(0.5);
-}
-

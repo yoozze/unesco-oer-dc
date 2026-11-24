@@ -41,9 +41,9 @@
     {%- endif -%}
     <ul{{ attributes.addClass('c-comment__links') }}>
         {% set items = [
-            { key: 'comment-reply', icon: 'prompt-suggestion' },
-            { key: 'comment-edit', icon: 'edit' },
-            { key: 'comment-delete', icon: 'delete' },
+            { key: 'comment-reply', icon: 'prompt-suggestion', variant: 'c-button--text' },
+            { key: 'comment-edit', icon: 'edit', variant: 'c-button--text' },
+            { key: 'comment-delete', icon: 'delete', variant: 'c-button--text_danger' },
         ] %}
 
         {%- for i in items -%}
@@ -51,7 +51,7 @@
                 {% set item = links[i.key] %}
                 <li{{ item.attributes.addClass('c-comment__link-item')}}>
                     {% set url = item.link['#url'] %}
-                    <a class="c-button c-button--text" href="{{ url }}">
+                    <a class="c-button {{ i.variant }}" href="{{ url }}">
                         {{ svg_icon(i.icon, 'c-button__leading-icon') }}
                         <span class="c-button__label">{{ item.link['#title'] }}</span>
                     </a>
