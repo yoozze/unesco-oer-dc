@@ -66,9 +66,17 @@ $sidebar-width: size(366px);
         padding-right: 0;
     }
 
-    .c-article--node-add & {
+    // Standalone form pages: shrink-wrap the card so justify_center can center it.
+    .c-article--node-add &,
+    .c-article--node-add-event &,
+    .c-article--node-add-news &,
+    .c-article--node-edit &,
+    .c-article--comment-delete &,
+    .c-article--comment-edit & {
         flex-direction: column;
-        width: 100%;
+        width: fit-content;
+        max-width: 100%;
+        margin-inline: auto;
     }
 }
 

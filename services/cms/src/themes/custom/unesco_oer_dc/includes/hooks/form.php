@@ -1,6 +1,35 @@
 <?php
 
 function unesco_oer_dc_form_alter(&$form, &$form_state, $form_id) {
+    if ($form_id === 'comment_comment_delete_form') {
+        if (isset($form['actions']['submit'])) {
+            $form['actions']['submit']['#button_variant'] = 'filled_danger';
+            $form['actions']['submit']['#leading_icon'] = 'delete';
+        }
+
+        $form_object = $form_state->getFormObject();
+        if ($form_object && method_exists($form_object, 'getEntity')) {
+            $comment = $form_object->getEntity();
+            if ($comment) {
+                $subject = trim((string) $comment->getSubject());
+                if ($subject !== '') {
+                    $form['#comment_subject'] = $subject;
+                }
+
+                $body = '';
+                if ($comment->hasField('comment_body') && !$comment->get('comment_body')->isEmpty()) {
+                    $body = trim(preg_replace('/\s+/u', ' ', strip_tags((string) $comment->get('comment_body')->value)) ?? '');
+                }
+
+                if ($body !== '') {
+                    $form['#comment_excerpt'] = mb_strlen($body) > 160
+                        ? mb_substr($body, 0, 157) . '…'
+                        : $body;
+                }
+            }
+        }
+    }
+
     if ($form_id === 'comment_resource_feedback_form') {
         // $form['actions']['submit']['#trailing_icon'] = 'arrow-right-alt';
         $form['actions']['submit']['#value'] = t('Submit');

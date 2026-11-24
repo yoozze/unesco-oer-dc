@@ -377,6 +377,47 @@ $page-width: size('page-width');
     width: size('grid-size-12');
 }
 
+.c-form--comment-delete {
+    .c-form__subtitle {
+        @include font('title-medium');
+
+        margin: size(1) 0 0;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .c-form__excerpt {
+        @include font('body-medium');
+
+        margin: size(1) 0 0;
+        color: color('font-muted');
+        text-align: center;
+    }
+
+    .c-form__warning {
+        @include font('body-medium');
+
+        padding: size(2);
+        margin-top: size(3);
+        color: color('red-20');
+        text-align: left;
+        background-color: rgba(color('red'), size('opacity' 2));
+        border: 1px solid rgba(color('red'), size('opacity' 3));
+        border-radius: size('radius' 3);
+
+        p {
+            margin: 0;
+        }
+    }
+
+    .c-form__actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: size(1);
+        justify-content: center;
+    }
+}
+
 .c-form--comment,
 .c-form--comment-form {
     width: 100%;

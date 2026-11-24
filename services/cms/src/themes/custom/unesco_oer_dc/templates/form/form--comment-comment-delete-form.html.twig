@@ -1,0 +1,44 @@
+{#
+/**
+ * @file
+ * Theme override for the comment delete confirmation form.
+ *
+ * @see template_preprocess_form()
+ */
+#}
+{% set classes = [
+    'c-form',
+    'c-form--standalone',
+    'c-form--md',
+    'c-form--comment-delete',
+    'c-form--' ~ attributes.id|clean_class,
+] %}
+<form{{ attributes.addClass(classes) }}>
+    <div class="c-form__header">
+        <div class="c-form__icon">
+            {{ svg_icon('delete') }}
+        </div>
+        <h1 class="c-form__title">{{ 'Delete comment'|t }}</h1>
+        {% if element['#comment_subject'] %}
+            <p class="c-form__subtitle">{{ element['#comment_subject'] }}</p>
+        {% endif %}
+        {% if element['#comment_excerpt'] %}
+            <p class="c-form__excerpt">{{ element['#comment_excerpt'] }}</p>
+        {% endif %}
+        <div class="c-form__warning">
+            {{ element.description }}
+        </div>
+    </div>
+    <div class="c-form__body">
+        {{ element.confirm }}
+        {{ element.form_build_id }}
+        {{ element.form_token }}
+        {{ element.form_id }}
+        <div{{ create_attribute(element.actions['#attributes']|default({})).addClass('c-form__actions') }}>
+            {{ element.actions.submit }}
+            <a class="c-form__button c-button c-button--outlined" href="{{ element.actions.cancel['#url'] }}">
+                <span class="c-button__label">{{ element.actions.cancel['#title'] }}</span>
+            </a>
+        </div>
+    </div>
+</form>

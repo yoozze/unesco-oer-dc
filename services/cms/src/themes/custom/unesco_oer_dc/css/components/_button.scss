@@ -119,10 +119,15 @@ $filled-bg-color-layer: color('blue-10');
     }
 }
 
+$filled-danger-color: color('light');
+$filled-danger-color-disabled: color('disabled');
 $filled-danger-bg-color: color('red-50');
 $filled-danger-bg-color-layer: color('red-10');
 
 .c-button--filled_danger {
+    @include transition('box-shadow');
+
+    color: $filled-danger-color;
     background-color: $filled-danger-bg-color;
 
     &:not(:disabled):not(.is-disabled):hover {
@@ -142,6 +147,20 @@ $filled-danger-bg-color-layer: color('red-10');
     &:not(:disabled):not(.is-disabled):active {
         @include before(null) {
             background-color: rgba($filled-danger-bg-color-layer, size('opacity' 3));
+        }
+    }
+
+    &.is-disabled,
+    &:disabled {
+        color: $filled-danger-color-disabled;
+        background-color: color('light');
+
+        @include before(null) {
+            background-color: rgba($filled-danger-color-disabled, size('opacity' 1));
+        }
+
+        & > * {
+            opacity: size('opacity' 4);
         }
     }
 }
