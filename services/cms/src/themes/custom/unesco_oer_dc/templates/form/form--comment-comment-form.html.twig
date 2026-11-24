@@ -15,6 +15,13 @@
     'c-form--comment',
     'c-form--' ~ attributes.id|clean_class,
 ]) }}>
+    {% if element.comment_preview %}
+        <div class="c-form__preview">
+            <h2 class="c-form__preview-title">{{ 'Preview'|t }}</h2>
+            {{ element.comment_preview }}
+        </div>
+    {% endif %}
+
     {{ element.form_build_id }}
     {{ element.form_token }}
     {{ element.form_id }}

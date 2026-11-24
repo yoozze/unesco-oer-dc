@@ -430,6 +430,18 @@ $page-width: size('page-width');
     }
 }
 
+.c-form__preview {
+    margin-bottom: size(4);
+    padding-bottom: size(3);
+    border-bottom: 1px solid color('border-light');
+}
+
+.c-form__preview-title {
+    @include font('title-large');
+
+    margin: 0 0 size(2);
+}
+
 .c-form--comment,
 .c-form--comment-form {
     max-width: 100%;
