@@ -377,7 +377,12 @@ $page-width: size('page-width');
     width: size('grid-size-12');
 }
 
+.c-form--comment,
 .c-form--comment-form {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+
     // .c-form__radios,
     .c-form__checkboxes {
         display: flex;
@@ -385,6 +390,24 @@ $page-width: size('page-width');
         .c-form__field {
             margin-right: size(4);
         }
+    }
+
+    // Keep CKEditor / text format widgets from growing with content width.
+    .text-format-wrapper,
+    .form-textarea-wrapper,
+    .ck-editor,
+    .ck.ck-editor {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    .ck.ck-editor__main,
+    .ck-editor__editable {
+        max-width: 100%;
+        min-width: 0;
+        overflow-wrap: break-word;
+        word-break: break-word;
     }
 
     .c-article + & {

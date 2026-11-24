@@ -8,6 +8,26 @@ $comment-avatar-size-reply: size(32px);
 $comment-radius: size('radius' 3);
 $comment-border: color('border-light');
 
+// ## Comment edit / reply page
+// ----------------------------
+
+.c-article--comment {
+    .c-article__body {
+        padding-top: size(4);
+        padding-bottom: size(6);
+    }
+}
+
+.c-article__content--comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: size(3);
+    width: 100%;
+    max-width: size('grid-size-8');
+    min-width: 0;
+    margin-inline: auto;
+}
+
 // ## Comments section
 // -------------------
 

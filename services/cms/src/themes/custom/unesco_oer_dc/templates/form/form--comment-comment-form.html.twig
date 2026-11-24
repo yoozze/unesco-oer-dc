@@ -10,18 +10,20 @@
  * @see template_preprocess_form()
  */
 #}
-<form{{attributes.addClass('c-form c-form--'~attributes.id|clean_class)}}>
-	{{element.form_build_id}}
-    {{element.form_token}}
-    {{element.form_id}}
+<form{{ attributes.addClass([
+    'c-form',
+    'c-form--comment',
+    'c-form--' ~ attributes.id|clean_class,
+]) }}>
+    {{ element.form_build_id }}
+    {{ element.form_token }}
+    {{ element.form_id }}
 
-	{{element.langcode}}
-	{{element.subject}}
-	{{element.comment_body}}
+    {{ element.langcode }}
+    {{ element.subject }}
+    {{ element.comment_body }}
 
-	{{element.footer}}
-    {{element.actions}}
-
-	{# {{ children }} #}
-	{# {{ dump() }} #}
+    {{ element.footer }}
+    {{ element.actions }}
 </form>
+

@@ -1,10 +1,25 @@
 // # CKEditor
 // ==========
 
-.ck-editor {
+.ck-editor,
+.ck.ck-editor {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+
     & + label {
         // display: none;
         @include input-label;
         @include input-label-minimized;
     }
+}
+
+.ck.ck-editor__main,
+.ck-editor__editable,
+.ck-content {
+    max-width: 100%;
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
