@@ -19,6 +19,8 @@
             {{ svg_icon('delete') }}
         </div>
         <h1 class="c-form__title">{{ 'Delete comment'|t }}</h1>
+    </div>
+    <div class="c-form__body">
         {% if element['#comment_subject'] %}
             <p class="c-form__subtitle">{{ element['#comment_subject'] }}</p>
         {% endif %}
@@ -28,8 +30,6 @@
         <div class="c-form__warning">
             {{ element.description }}
         </div>
-    </div>
-    <div class="c-form__body">
         {{ element.confirm }}
         {{ element.form_build_id }}
         {{ element.form_token }}

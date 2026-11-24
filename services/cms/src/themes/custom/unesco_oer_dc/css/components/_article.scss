@@ -70,12 +70,20 @@ $sidebar-width: size(366px);
     .c-article--node-add &,
     .c-article--node-add-event &,
     .c-article--node-add-news &,
-    .c-article--node-edit &,
-    .c-article--comment-delete &,
-    .c-article--comment-edit & {
+    .c-article--node-edit & {
         flex-direction: column;
         width: fit-content;
         max-width: 100%;
+        margin-inline: auto;
+    }
+
+    // Comment edit/delete include local tasks above the card; keep the same
+    // max width as submit forms (grid-size-8 / c-form--lg).
+    .c-article--comment-delete &,
+    .c-article--comment-edit & {
+        flex-direction: column;
+        width: 100%;
+        max-width: size('grid-size-8');
         margin-inline: auto;
     }
 }

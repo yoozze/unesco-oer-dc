@@ -324,9 +324,21 @@ $page-width: size('page-width');
         text-align: right;
     }
 
-    .c-form__actions {
+    .c-form__actions,
+    .form-actions,
+    .c-form__container--form-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: size(1);
+        margin: 0;
+
+        & > * {
+            margin: 0;
+        }
+
         @include below('bp-sm') {
             flex-direction: column;
+            align-items: stretch;
         }
     }
 
@@ -381,24 +393,24 @@ $page-width: size('page-width');
     .c-form__subtitle {
         @include font('title-medium');
 
-        margin: size(1) 0 0;
+        margin: 0 0 size(1);
         font-weight: 600;
-        text-align: center;
+        text-align: left;
     }
 
     .c-form__excerpt {
         @include font('body-medium');
 
-        margin: size(1) 0 0;
+        margin: 0 0 size(2);
         color: color('font-muted');
-        text-align: center;
+        text-align: left;
     }
 
     .c-form__warning {
         @include font('body-medium');
 
         padding: size(2);
-        margin-top: size(3);
+        margin-bottom: size(3);
         color: color('red-20');
         text-align: left;
         background-color: rgba(color('red'), size('opacity' 2));
@@ -414,13 +426,12 @@ $page-width: size('page-width');
         display: flex;
         flex-wrap: wrap;
         gap: size(1);
-        justify-content: center;
+        justify-content: flex-start;
     }
 }
 
 .c-form--comment,
 .c-form--comment-form {
-    width: 100%;
     max-width: 100%;
     min-width: 0;
 
@@ -458,6 +469,17 @@ $page-width: size('page-width');
         margin-left: auto;
         margin-right: auto;
     }
+}
+
+// Inline comment form on content pages should fill the comments column.
+.c-comments__form .c-form--comment,
+.c-comments__form .c-form--comment-form {
+    width: 100%;
+}
+
+// On the edit page the column is already grid-size-8; fill it like submit forms.
+.c-form--comment-edit {
+    width: 100%;
 }
 
 .c-form--observatory {

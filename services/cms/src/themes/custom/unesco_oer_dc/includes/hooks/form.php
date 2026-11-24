@@ -111,6 +111,14 @@ function unesco_oer_dc_theme_suggestions_form_alter(&$suggestions, &$variables) 
     if (preg_match('/^node_(news|event|resource)_edit_form$/', $form_id, $matches)) {
         $suggestions[] = 'form__node_' . $matches[1] . '_form';
     }
+
+    // Comment create/edit share form_id; use a dedicated edit card on the edit route.
+    if (
+        $form_id === 'comment_comment_form'
+        && \Drupal::routeMatch()->getRouteName() === 'entity.comment.edit_form'
+    ) {
+        $suggestions[] = 'form__comment_comment_edit_form';
+    }
 }
 
 function unesco_oer_dc_preprocess_form(&$variables) {
@@ -125,6 +133,13 @@ function unesco_oer_dc_preprocess_form(&$variables) {
     ];
     if (isset($titles[$form_id])) {
         $variables['form_title'] = $titles[$form_id];
+    }
+
+    if (
+        $form_id === 'comment_comment_form'
+        && \Drupal::routeMatch()->getRouteName() === 'entity.comment.edit_form'
+    ) {
+        $variables['form_title'] = t('Edit comment');
     }
 }
 

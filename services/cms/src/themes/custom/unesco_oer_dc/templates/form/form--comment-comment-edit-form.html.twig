@@ -1,0 +1,42 @@
+{#
+/**
+ * @file
+ * Theme override for the comment edit form.
+ *
+ * @see template_preprocess_form()
+ */
+#}
+{% set classes = [
+    'c-form',
+    'c-form--standalone',
+    'c-form--lg',
+    'c-form--comment',
+    'c-form--comment-edit',
+    'c-form--' ~ attributes.id|clean_class,
+] %}
+<form{{ attributes.addClass(classes) }}>
+    <div class="c-form__header">
+        <div class="c-form__icon">
+            {{ svg_icon('edit') }}
+        </div>
+        <h1 class="c-form__title">{{ form_title|default('Edit comment'|t) }}</h1>
+    </div>
+    <div class="c-form__body">
+        {{ element.form_build_id }}
+        {{ element.form_token }}
+        {{ element.form_id }}
+
+        {{ element.langcode }}
+        {{ element.subject }}
+        {{ element.comment_body }}
+
+        {{ element.footer }}
+        <div{{ create_attribute(element.actions['#attributes']|default({})).addClass('c-form__actions') }}>
+            {% for key, child in element.actions %}
+                {% if key|first != '#' %}
+                    {{ child }}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</form>
